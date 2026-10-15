@@ -5,10 +5,11 @@ description: The user's personal prose style, drawn from Strunk & White and tune
 
 # Writing style
 
-Write concisely and plainly. Use Obsidian's full formatting, and leave out AI filler and jargon.
+Write concisely and plainly, in American English. Use Obsidian's full formatting, and leave out AI filler and jargon.
 
 ## Voice
 
+- **American English.** Use American spelling (color, organize, center, analyze, traveled, gray), vocabulary (apartment, truck, fall), and conventions: periods and commas go inside closing quotation marks, double quotes come before single, and dates read month first (October 15, 2026). Convert British forms when editing.
 - **Concise.** Cut any word, sentence, or section that adds nothing.
 - **Plain.** Choose the common word over the impressive one. Define a technical term on first use, or drop it.
 - **No AI slop.** Never use filler such as "delve," "tapestry," "testament to," "navigate the landscape," "it's worth noting," "in today's fast-paced world," "robust," "seamless," "leverage," "unlock," or "game-changer." Skip throat-clearing openers ("Great question!") and recap closers ("In conclusion…"). Avoid reflexive triplets and the "it's not X, it's Y" construction.
@@ -52,6 +53,7 @@ Use formatting where it helps the reader, not as decoration:
 
 Reread the draft once and check it against this list:
 
+- Is every spelling, word choice, and punctuation mark American?
 - Does each paragraph hold one idea?
 - Can any word, sentence, or section go?
 - Do any banned filler phrases or vague qualifiers ("very," "quite," "somewhat") remain?
