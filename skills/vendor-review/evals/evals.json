@@ -1,0 +1,19 @@
+{
+  "skill_name": "vendor-review",
+  "evals": [
+    {
+      "id": 1,
+      "name": "lumen-ai-notetaker",
+      "prompt": "Sales wants to roll out Lumen Notes for customer calls in January. We're on their Business plan, not Enterprise. Customers are mostly EU and US. Their DPA, AI terms, and a trust center excerpt are attached. Can we sign?",
+      "files": ["evals/files/lumen-dpa.md", "evals/files/lumen-ai-terms.md", "evals/files/lumen-trust-center.md"],
+      "expected_output": "Deep review. Roles per operation: processor for meeting processing, but controller for Aggregated Data (DPA 1.2) and for model improvement on Business plan unless opted out (AI terms 3), both Conflicts or red flags. Unilateral DPA changes (preamble) and AI Policy changes flagged. Checklist ratings with clause refs: instructions Partial; Art. 32 measures Partial (URL only); subprocessors Partial (no objection right); DSR assistance Partial (at customer expense); breach notice Partial (no deadline); audits Partial/Conflicts (SOC 2 only, no other audits); deletion Partial (backups open-ended); transfers Partial (DPF for EU only; no UK Extension or Swiss, no SCC fallback; India support access is a transfer); California service provider terms Missing (only 'no sale'), so third-party risk. AI module: sentiment and engagement score per participant flagged as profiling and possible Art. 5(1)(f) issue only if biometric (voice/video) emotion inference in workplace, classified by function, with documentation requested; follow-up emails on host's behalf is an agent action (B006/D003); retention 12 months recordings plus 30-day abuse logs; model changes without notice; no output indemnity. AIUC-1: certificate covers Lumen Agent, not Lumen Notes, against July 15, 2026 release; doesn't cover the product in use. SOC 2 scope is core platform; confirm it covers Notes. Three risk ratings, current High. Recommendation Do not approve as proposed or Approve with conditions (Provisional). Separate vendor request list, DRAFT: not sent. Recommends DPIA screening and RoPA update. Reply about 150 words."
+    },
+    {
+      "id": 2,
+      "name": "subprocessor-notice",
+      "prompt": "Our helpdesk vendor (Deskly) emailed on October 10: they're adding Quillwave AI, based in Singapore, as a subprocessor for 'AI-assisted ticket routing and summarization.' We have 30 days to object under our DPA. We reviewed Deskly in March 2026 (no review file handy). Tickets include EU customer data and sometimes health info from our telehealth customers. What should we do?",
+      "files": [],
+      "expected_output": "Reassessment mode, not a full new review. The objection deadline (November 9, 2026) is the first action, with a date for deciding whether to object, ahead of it. Treats the change as adding an AI feature and a new restricted transfer (Singapore has no EU adequacy decision): asks which data Quillwave receives, the transfer mechanism (SCCs Module 3 processor-to-processor), TIA, whether Quillwave trains on data or retains it, and whether the routing affects people. Flags special category health data. Notes the earlier review isn't on file and asks for it. Proposes roles, Provisional. Recommends DPIA rescreen for any activity using Deskly with health data and a RoPA update. Draft request list to Deskly, DRAFT: not sent. No calendar event for the deadline. Reply about 150 words."
+    }
+  ]
+}

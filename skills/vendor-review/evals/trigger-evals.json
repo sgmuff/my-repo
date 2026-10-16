@@ -1,0 +1,17 @@
+[
+  {"query": "Sales wants Lumen Notes for customer calls. Here's their DPA and AI terms. Can we sign?", "should_trigger": true},
+  {"query": "Our helpdesk vendor just emailed that they're adding Quillwave AI in Singapore as a subprocessor. 30 days to object, notice came Oct 10.", "should_trigger": true},
+  {"query": "Is the Zoom AI Companion we turned on last month OK from a privacy standpoint?", "should_trigger": true},
+  {"query": "redline this DPA against Art 28 and tell me what's missing", "should_trigger": true},
+  {"query": "Annual reassessment for our payroll provider is due; their SOC 2 is attached", "should_trigger": true},
+  {"query": "Does this edtech vendor's contract meet FERPA and NY Ed Law 2-d?", "should_trigger": true},
+  {"query": "Procurement sent me a security questionnaire back from a CRM vendor. Anything privacy-wise I should push on?", "should_trigger": true},
+  {"query": "Check whether OpenAI's enterprise terms let them train on our data and whether they're AIUC-1 certified", "should_trigger": true},
+  {"query": "Do we need a DPIA for the new churn model?", "should_trigger": false},
+  {"query": "Add Lumen to the RoPA as a recipient for sales calls.", "should_trigger": false},
+  {"query": "Our vendor had a breach that exposed our customers' emails. Do we have to notify?", "should_trigger": false},
+  {"query": "Write our own DPA template that we give to customers.", "should_trigger": false},
+  {"query": "Inventory every AI tool employees use and tier them by risk.", "should_trigger": false},
+  {"query": "Our customer sent us their vendor questionnaire to fill in about our product.", "should_trigger": false},
+  {"query": "We're buying an AI note-taker that records student tutoring sessions. What do we need to do?", "should_trigger": false}
+]

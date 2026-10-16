@@ -1,0 +1,11 @@
+[
+  {"query": "We're buying an AI note-taker that records student tutoring sessions. What do we need to do?", "should_trigger": true},
+  {"query": "Legal says we need to look at the new analytics thing before it ships. Where do I start?", "should_trigger": true},
+  {"query": "We're launching in Germany next quarter with a new payments partner and a chatbot. What's our privacy to-do list?", "should_trigger": true},
+  {"query": "We acquired a small edtech company. What privacy work do we need to do on their systems?", "should_trigger": true},
+  {"query": "Marketing wants to start using an AI tool to score leads from LinkedIn data. Is that OK?", "should_trigger": true},
+  {"query": "Review this DPA against Article 28.", "should_trigger": false},
+  {"query": "Do we need a DPIA for the churn model?", "should_trigger": false},
+  {"query": "Add the webinar signup flow to the RoPA.", "should_trigger": false},
+  {"query": "What's GDPR Article 28(3)(h)?", "should_trigger": false}
+]

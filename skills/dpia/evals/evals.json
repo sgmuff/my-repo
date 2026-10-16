@@ -1,0 +1,26 @@
+{
+  "skill_name": "dpia",
+  "evals": [
+    {
+      "id": 1,
+      "name": "support-copilot",
+      "prompt": "Need a DPIA for a new feature. PRD summary: \"Support Copilot\" for our helpdesk. When a customer contacts support (email or in-app chat), we send the ticket thread, including attachments, to an LLM API to (1) summarize it for the agent, (2) draft a suggested reply that the agent edits before sending, (3) set priority, and (4) attach a churn-risk score (low/med/high) to the contact's profile so CSMs can step in. Tickets the model is 95%+ confident are resolved get auto-closed after 72 hours with no reply. About 40k tickets a year from roughly 25k people, mostly EU, UK, and US (incl. CA and CO), also some Swiss. LLM vendor is US-based and DPF-certified; we haven't confirmed its retention or training settings yet. Tickets kept 3 years. We're the controller for support data. Launch planned for January 15, 2027.",
+      "expected_output": "A full DPIA. Screening: DPIA warranted, Provisional, with EDPB criteria as indicators backed by fact IDs. Roles per operation, Provisional; asks whether the company builds Copilot or enables a vendor feature before proposing an AI Act role. Profiling (churn score) and Art. 22 (auto-close, tested against refund, complaint, and security consequences) analyzed separately. Not emotion recognition; not Annex III on current facts; each Art. 50 paragraph analyzed. CA and CO: 'applies' and 'triggers' answered separately, Open or Provisional. Vendor retention and training TBC and a launch blocker, with the DPA and configuration requested as evidence. Three ratings per risk: current residual High (nothing verified), target Medium; 'Residual risk: not yet confirmed.' Prior consultation not ruled out on the target. Launch gate stated. Actions with dependencies, acceptance criteria, and evidence, all blockers due before 2027-01-15. Review as an action, no calendar. Reply about 150 words.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "student-session-replay",
+      "prompt": "Product wants to add FullStory session replay to the student dashboard in our K-12 reading app starting January 2027. Students are 8 to 17, all in US districts (mostly California, Texas, and New York). Districts sign our standard contract, where we're a school official under FERPA. FullStory would capture clicks, page views, and typed text in the reading-response box, masked by default except for that box because Product says they need it to debug. Retention 30 days at FullStory. Product also wants to use the replays to tune our reading-level recommendation model. Do we need a DPIA, and if so can you draft it?",
+      "expected_output": "Territorial scope checked before concluding the GDPR doesn't apply (Open or Provisional until establishments are confirmed). School privacy (FERPA, COPPA, CA SOPIPA and Ed. Code 49073.1, NY Ed Law 2-d, TX) analyzed apart from consumer privacy. School official conditions treated as facts, not satisfied by contract alone. Model tuning treated as a separate purpose needing separate approval, with COPPA school authorization limited to the school's purpose and users under 13 asked about. Unmasked reading-response box current residual High; target Medium only with masking verified by test (drafts, deleted text, URLs). 'Residual risk: not yet confirmed.' Launch gate: no production replay on student sessions. Prior consultation framed correctly for a possibly non-GDPR activity. Reviews as actions, no calendar. Reply about 150 words.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "name": "proctoring-assistance-pack",
+      "prompt": "Several EU universities use our online exam proctoring add-on and keep asking for DPIA input. The add-on uses the student's webcam and screen during exams. Our model flags 'suspicious behavior' (looking away, a second face, phone detected) and a university proctor reviews every flag before any action. Video is stored for 30 days in AWS Frankfurt. We built the flagging model ourselves on a licensed dataset. Universities are the controllers. Put together what they need from us.",
+      "expected_output": "A processor assistance pack (type dpia-assistance-pack) following references/assistance-pack.md: an evidence package that says what the company supplies and what each university decides. Necessity, lawful basis, residual risk, and Art. 36 left to the controller; doesn't say consultation is 'not triggered.' Risk split into vendor residual and deployment residual, with current versus target. AI Act provider role Provisional; Annex III point 3(d) as a working conclusion based on documented function; December 2, 2027 with a verify flag; Art. 5(1)(f) assessed now, separating event detection from emotion or intent inference, with technical documentation requested; relabeling isn't a mitigation. Biometric distinctions (face presence versus identification versus templates). Full provider obligations planned. Model training on the licensed dataset named as a separate controller workstream. Release gate for the customer-facing version. 'DRAFT: not sent' as the first body line after the metadata block. Reply about 150 words.",
+      "files": []
+    }
+  ]
+}

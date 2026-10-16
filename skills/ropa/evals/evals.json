@@ -1,0 +1,20 @@
+{
+  "skill_name": "ropa",
+  "evals": [
+    {
+      "id": 1,
+      "name": "gradebook-sync-from-docs",
+      "prompt": "Here's the data dictionary and architecture notes for Gradebook Sync. Can you turn it into a RoPA entry?",
+      "files": ["evals/files/gradebook-sync-data-dictionary.md"],
+      "expected_output": "One entry for the activity (syncing rosters and grades for the reading app), not per table. Data elements taken from the dictionary with Document as source; purposes and lawful bases not inferred from column names, asked about or marked Provisional/TBC. Flags education records and FERPA (school official, Provisional), students under 13 (date of birth) for COPPA, and iep_flag and ell_status as sensitive (disability information is special category if GDPR applies; education record). Proposes record type: processor for districts' data, and possibly controller for the recommendation model's lexile estimates (asks). Recipients: AWS, error monitoring vendor (captures payloads), districts' LMSs; vendor reviews recommended. Retention: backups 35 days (Document); sync_logs indefinite flagged as a minimization gap; other retention TBC. Territorial scope asked, not assumed. Recommends DPIA screening and AI intake for the recommendation model. Saved under registers/ropa with metadata; index rebuilt with the script. Reply about 150 words.",
+      "expected_files": []
+    },
+    {
+      "id": 2,
+      "name": "hr-onboarding-interview",
+      "prompt": "Add HR onboarding to the RoPA. We collect new hire name, home address, SSN or PPSN, bank details, emergency contacts, I-9 documents, and background check results. Workday holds it; Checkr runs background checks. Staff are in the US and Ireland. HR owns it.",
+      "files": [],
+      "expected_output": "Controller entry (Provisional) for HR onboarding. Purposes split (hiring and payroll setup, legal right-to-work checks, background screening, emergency contact). Lawful bases proposed per purpose: contract, legal obligation (I-9 for US; Irish equivalents), legitimate interests or legal basis for background checks needing Art. 10 analysis for Irish staff (criminal records data; member state law authorization). Emergency contacts are third-party data subjects. Transfers Ireland to US via Workday and Checkr, mechanism TBC or verified against vendor reviews. Retention TBC (not invented). Vendor reviews recommended for Workday and Checkr if none on file. US state law: employee data largely exempt except California (CCPA covers employees), noted Provisional. Asks Round 1 gaps. Saved with metadata; index rebuilt. Reply about 150 words."
+    }
+  ]
+}

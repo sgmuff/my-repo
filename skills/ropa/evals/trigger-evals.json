@@ -1,0 +1,15 @@
+[
+  {"query": "Add HR onboarding to the RoPA. Workday, background checks through Checkr, staff in the US and Ireland.", "should_trigger": true},
+  {"query": "Here's the data dictionary for Gradebook Sync. Can you turn it into a RoPA entry?", "should_trigger": true},
+  {"query": "We switched payroll providers from Gusto to Rippling. Update the record.", "should_trigger": true},
+  {"query": "Build out our RoPA from this list of 30 systems.", "should_trigger": true},
+  {"query": "The Irish DPC asked for our Article 30 records. What do we send?", "should_trigger": true},
+  {"query": "what personal data does our marketing team actually hold and why? need it written down", "should_trigger": true},
+  {"query": "We're a processor for our customers' data. Do we need processor records, and can you draft them?", "should_trigger": true},
+  {"query": "Do we need a DPIA for Gradebook Sync?", "should_trigger": false},
+  {"query": "Review Checkr's DPA.", "should_trigger": false},
+  {"query": "List all the AI tools teams are using.", "should_trigger": false},
+  {"query": "Update our privacy notice to cover the new data we collect in onboarding.", "should_trigger": false},
+  {"query": "An employee asked for a copy of all their HR data.", "should_trigger": false},
+  {"query": "Map our controls to NIST Privacy Framework ID.IM.", "should_trigger": false}
+]

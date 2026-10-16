@@ -1,0 +1,20 @@
+[
+  {"query": "We're adding FullStory session replay to the student dashboard for spring semester. Do we need a DPIA? Most users are 13-17 at our partner districts.", "should_trigger": true},
+  {"query": "Can you write up the privacy assessment for the churn-prediction model CS wants to run on product usage data? Launch is February.", "should_trigger": true},
+  {"query": "Legal says Colorado needs a data protection assessment because we're turning on targeted ads for the free tier. Draft it.", "should_trigger": true},
+  {"query": "rescreen DPIA-2026-004. Support Copilot is moving from OpenAI to a self-hosted Llama and we're adding Japan as a region", "should_trigger": true},
+  {"query": "Is keystroke monitoring for the SOC team high-risk processing under Art 35? HR wants it live next month.", "should_trigger": true},
+  {"query": "need a PIA for the new referral program: users upload their contacts and we email invites", "should_trigger": true},
+  {"query": "We're going to sell de-identified usage aggregates to a research partner. Do we need a CPPA risk assessment?", "should_trigger": true},
+  {"query": "Our EU university customers keep asking for DPIA input on the proctoring add-on. Put together what they need from us.", "should_trigger": true},
+  {"query": "Product wants to fingerprint devices to stop account sharing. Run the screening.", "should_trigger": true},
+  {"query": "Review Acme Analytics' DPA and tell me what's missing against Article 28.", "should_trigger": false},
+  {"query": "Add the new webinar registration flow to our RoPA.", "should_trigger": false},
+  {"query": "Run an AI impact assessment on the essay-grading model: fairness, human oversight, the works.", "should_trigger": false},
+  {"query": "A California user asked us to delete their data. What's our deadline and what do we send back?", "should_trigger": false},
+  {"query": "A laptop with unencrypted student exports was stolen last night. Do we have to notify anyone?", "should_trigger": false},
+  {"query": "Update our privacy notice to cover the new in-app chat feature.", "should_trigger": false},
+  {"query": "Map our privacy program to the NIST Privacy Framework and show the gaps.", "should_trigger": false},
+  {"query": "Which US state privacy laws take effect in 2027, and what changes for us?", "should_trigger": false},
+  {"query": "We need a FRIA for the credit-scoring model a bank customer is deploying.", "should_trigger": false}
+]
