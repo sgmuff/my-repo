@@ -18,6 +18,9 @@ The skills prepare decisions. They never make them. Accountability for a legal d
 | Publishing an assessment (Confluence or elsewhere) | Privacy lead | Business owner | |
 | RoPA entry: facts | Business owner | System owner | Confirms the description is accurate |
 | RoPA entry: record type, lawful bases, transfer mechanisms, and approval | Privacy lead | | |
+| AI system tier and EU AI Act classification | Privacy lead | Business owner; counsel for any possible prohibited practice (Tier 0) | Tier 0 and Tier 1 go to the privacy lead at once |
+| Refusing, partly refusing, extending, or charging for a data subject request | Privacy lead | Legal counsel for litigation holds and disputes | Every message to a requester is a draft until approved |
+| FRIA notification to a market surveillance authority; FRIA input pack to customers | Privacy lead | Legal counsel | External communications |
 | Vendor onboarding or renewal | Approver for the vendor review's current residual rating (rows above) | Legal or Procurement for contract and commercial findings | A request list to the vendor is an external communication |
 | Changing a reference file in `_shared/references/` | Privacy lead | | `regulatory-change` proposes edits; it never applies them unasked. |
 

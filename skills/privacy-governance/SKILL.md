@@ -26,9 +26,9 @@ Check which skills are installed by looking for each folder's `SKILL.md` next to
 | `dpia` | DPIA and state assessment screening and drafting for a processing activity; processor assistance packs | 0 (built) |
 | `vendor-review` | Vendor, subprocessor, and AI provider reviews; DPA gap analysis; AI vendor module with AIUC-1 benchmark | 1 (built) |
 | `ropa` | RoPA entries and the register index | 1 (built) |
-| `dsr-response` | Data subject requests: law, deadline, verification, response draft | 2 (planned) |
-| `ai-intake` | AI system and agent inventory, including agents in purchased tools; risk tiering | 2 (planned) |
-| `ai-impact-assessment` | AI impact assessments and FRIAs | 2 (planned) |
+| `dsr-response` | Data subject requests: law, deadline, verification, response draft | 2 (built) |
+| `ai-intake` | AI system and agent inventory, including agents in purchased tools; risk tiering | 2 (built) |
+| `ai-impact-assessment` | AI impact assessments, FRIAs, and FRIA input packs | 2 (built) |
 | `incident-assessment` | Breach notification analysis and draft notices | 3 (planned) |
 | `controls-and-evidence` | Control crosswalk, evidence, AIUC-1 readiness, testing calendar | 4 (planned) |
 | `program-assessment` | NIST Privacy Framework (and AI RMF, ISO/IEC 42001) maturity assessment and roadmap | 4 (planned) |
@@ -36,7 +36,7 @@ Check which skills are installed by looking for each folder's `SKILL.md` next to
 | `regulatory-change` | New law or guidance mapped to program changes and reference updates | 5 (planned) |
 | `leadership-report` | Board and leadership risk summary | 5 (planned) |
 
-**Time-critical requests don't wait for triage.** A suspected breach, a data subject request with a running deadline, a regulator inquiry, or a subprocessor notice with an objection window comes first, before anything else in the plan. Until `incident-assessment` and `dsr-response` exist, say so plainly, name the deadline that may be running (for example, 72 hours under GDPR Art. 33, or one month under Art. 12(3)), and tell the user to bring in the privacy lead and counsel now.
+**Time-critical requests don't wait for triage.** A suspected breach, a data subject request with a running deadline, a regulator inquiry, or a subprocessor notice with an objection window comes first, before anything else in the plan. A data subject request goes straight to `dsr-response`. Until `incident-assessment` exists, say so plainly for a suspected breach, name the deadline that may be running (for example, 72 hours under GDPR Art. 33), and tell the user to bring in the privacy lead and counsel now.
 
 ## Workflow
 

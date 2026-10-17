@@ -193,6 +193,15 @@ A draft never authorizes processing. Every assessment states its launch decision
 
 Once a person approves, the sign-off section records the authorization. The skill doesn't change the launch decision text on its own.
 
+**Two kinds of blocker.** Label each launch-blocking action as one of:
+
+- **Legal:** a requirement that already applies on the launch date
+- **Readiness:** an internal control the risk analysis depends on, or preparation for an obligation that applies later (for example, Annex III duties from December 2, 2027)
+
+Don't present a future obligation as one already in force. Readiness blockers can still block launch, because the risk analysis depends on them, but the document says which kind each one is.
+
+**Launch gates are measurable.** Express the conditions for launch as gates with an owner, a threshold or test, and the evidence that closes each one. Completed paperwork isn't a gate. A certificate or report (SOC 2, ISO/IEC 27001 or 42001, AIUC-1) is evidence about the controls it covers, not proof that a system is fair, explainable, or lawful.
+
 ## 8. Where deliverables go
 
 Deliverables are Markdown files in the repository, under the output root from the company profile (default `compliance/`). Keep this layout so other skills, and later Confluence publishing or Azure Blob Storage, can find things by path:

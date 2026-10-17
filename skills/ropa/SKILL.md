@@ -23,7 +23,7 @@ A RoPA is mostly facts, but it carries a few legal positions, such as roles, law
 | [`../_shared/references/nist-privacy-framework.md`](../_shared/references/nist-privacy-framework.md) | Step 5, to tag the entry (ID.IM-P1 to P8) |
 | [`assets/ropa-entry-template.md`](assets/ropa-entry-template.md) | Step 5 |
 | [`assets/ropa-index-template.md`](assets/ropa-index-template.md) | Step 6, if no index exists |
-| [`scripts/build_index.py`](scripts/build_index.py) | Step 6, to rebuild the index from the entries |
+| [`../_shared/scripts/build_register_index.py`](../_shared/scripts/build_register_index.py) | Step 6, to rebuild the index from the entries |
 
 ## Workflow
 
@@ -83,7 +83,7 @@ Fill in `assets/ropa-entry-template.md`. Save it to `<output root>/registers/rop
 
 ### 6. Rebuild the index
 
-Run `python3 scripts/build_index.py <output root>/registers/ropa` from this skill's folder. It reads every entry's metadata and rewrites `index.md`. Don't edit the index by hand; edit the entries and rebuild. If Python isn't available, update the index table by hand from `assets/ropa-index-template.md`, and say so.
+Run `python3 ../_shared/scripts/build_register_index.py <output root>/registers/ropa ropa` from this skill's folder. It reads every entry's metadata and rewrites `index.md`. Don't edit the index by hand; edit the entries and rebuild. If Python isn't available, update the index table by hand from `assets/ropa-index-template.md`, and say so.
 
 ### 7. Route approval and hand back
 

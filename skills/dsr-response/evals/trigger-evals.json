@@ -1,0 +1,50 @@
+[
+  {
+    "query": "Got this email Tuesday from a user in Berlin: 'Under Article 15 I want all the data you have on me and then delete my account.' What do we do?",
+    "should_trigger": true
+  },
+  {
+    "query": "A California customer used our webform to say Do Not Sell My Info. Anything we need to do?",
+    "should_trigger": true
+  },
+  {
+    "query": "An authorized agent company sent deletion requests for 40 people. Do we have to honor these?",
+    "should_trigger": true
+  },
+  {
+    "query": "A parent wants to see everything our reading app has on their 9-year-old.",
+    "should_trigger": true
+  },
+  {
+    "query": "Former employee in Ireland asked for all emails mentioning her.",
+    "should_trigger": true
+  },
+  {
+    "query": "We denied a Virginia deletion request last month and they're appealing. What's our deadline?",
+    "should_trigger": true
+  },
+  {
+    "query": "Customer of a customer emailed us asking us to delete their data from our platform.",
+    "should_trigger": true
+  },
+  {
+    "query": "Write a DSAR procedure for the support team.",
+    "should_trigger": false
+  },
+  {
+    "query": "We accidentally emailed one customer's export to another customer.",
+    "should_trigger": false
+  },
+  {
+    "query": "Update the privacy notice to explain how to make a request.",
+    "should_trigger": false
+  },
+  {
+    "query": "Add our DSR tool to the RoPA.",
+    "should_trigger": false
+  },
+  {
+    "query": "Review our DSR vendor's DPA.",
+    "should_trigger": false
+  }
+]

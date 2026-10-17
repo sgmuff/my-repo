@@ -13,10 +13,14 @@ skills/
     connectors.md           Jira, ServiceNow, document sources, email (no calendars)
     references/             one versioned file per framework (see references/README.md)
     templates/              risk register, action plan, approval record
+    scripts/                register index builder (RoPA, AI inventory)
   privacy-governance/       triage for requests that span workflows (Wave 1)
   dpia/                     data protection impact assessments (Wave 0)
   vendor-review/            vendor, subprocessor, and AI provider reviews (Wave 1)
   ropa/                     record of processing activities and its index (Wave 1)
+  dsr-response/             data subject and consumer requests (Wave 2)
+  ai-intake/                AI system and agent inventory and tiering (Wave 2)
+  ai-impact-assessment/     AI impact assessments and FRIAs (Wave 2)
   writing-style/            the house prose style
   install.sh                links the skills into ~/.claude/skills
 ```
@@ -41,7 +45,7 @@ Fill in `_shared/company-profile.md`. The skills ask for any missing value they 
 |---|---|---|
 | 0 | Shared foundation; `dpia` refactored onto it | Built |
 | 1 | `privacy-governance` (router), `vendor-review`, `ropa` | Built |
-| 2 | `dsr-response`, `ai-intake`, `ai-impact-assessment` | Planned |
+| 2 | `dsr-response`, `ai-intake`, `ai-impact-assessment` | Built |
 | 3 | `incident-assessment` | Planned; needs counsel review of the breach law reference before live use |
 | 4 | `controls-and-evidence`, `program-assessment` | Planned |
 | 5 | `notice-and-policy`, `regulatory-change`, `leadership-report` | Planned |

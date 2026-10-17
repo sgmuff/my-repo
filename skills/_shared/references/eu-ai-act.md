@@ -69,7 +69,7 @@ Exclusions include military and national security uses, scientific research and 
 | Distributor | Makes a system available in the supply chain, other than provider or importer (Art. 3(7)) | Art. 24 |
 | Product manufacturer | Places a high-risk AI system on the market with its product under its own name | Treated as the provider (Art. 25(3)) |
 
-**Becoming a provider (Art. 25(1)).** A distributor, importer, deployer, or other third party becomes the provider of a high-risk system if it (a) puts its name or trademark on it, (b) makes a substantial modification so it stays high-risk, or (c) changes the intended purpose of a non-high-risk system, including a GPAI system, so that it becomes high-risk.
+**Becoming a provider (Art. 25(1)).** A distributor, importer, deployer, or other third party becomes the provider of a high-risk system if it (a) puts its name or trademark on it (without prejudice to contractual arrangements that allocate the obligations otherwise, which counsel should read), (b) makes a substantial modification so it stays high-risk, or (c) changes the intended purpose of a non-high-risk system, including a GPAI system, so that it becomes high-risk.
 
 **Roles are fact-dependent, so treat them as Provisional until the facts are in** (`conventions.md`, §7). Building on a third-party model doesn't by itself make the company a provider. Ask:
 
@@ -105,7 +105,9 @@ Stop and escalate at once. No mitigation makes these acceptable, and a human rev
 
 Commission guidelines on prohibited practices (February 2025) give examples. Text-based sentiment analysis is not emotion recognition under (f), because emotion recognition relies on biometric data.
 
-For (f), separate **detecting an observable event** (a second face in frame, a phone, gaze leaving the screen) from **inferring an emotion or intention** (anxiety, dishonesty, intent to cheat) from biometric data. The first isn't emotion recognition; the second is, and it is banned in education and the workplace except for medical or safety reasons. Physical states such as pain or fatigue are treated differently under the guidelines. Decide on documented functionality, and record the evidence.
+For (f), the function decides, not the input type. Voice input alone doesn't make a system emotion recognition: analyzing speech rate or interruptions to measure conversational behavior is different from inferring an emotional state. Emotion recognition under the Act relies on biometric data, so a system inferring emotions from text only falls outside Art. 5(1)(f), but it may still raise profiling, data protection, and employment issues. The Commission's guidelines discuss call-center examples. Ask the provider for the construct being measured, every input, the method, and sample outputs.
+
+Separate **detecting an observable event** (a second face in frame, a phone, gaze leaving the screen) from **inferring an emotion or intention** (anxiety, dishonesty, intent to cheat) from biometric data. The first isn't emotion recognition; the second is, and it is banned in education and the workplace except for medical or safety reasons. Physical states such as pain or fatigue are treated differently under the guidelines. Decide on documented functionality, and record the evidence.
 
 ### High-risk (Art. 6)
 

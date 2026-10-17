@@ -14,9 +14,9 @@ Paste this section into any deliverable with follow-up work. Delete these instru
 
 ## Action plan
 
-| ID | Action | Addresses | Depends on | Acceptance criterion | Owner | Due | Launch blocker? | Evidence link | Verified by | Ticket | Status |
+| ID | Action | Addresses | Depends on | Acceptance criterion | Owner | Due | Launch blocker? (Legal or Readiness) | Evidence link | Verified by | Ticket | Status |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| A1 | | R1, F2 | — | | *(proposed)* | YYYY-MM-DD *(proposed)* | Yes | | | | Open |
+| A1 | | R1, F2 | — | | *(proposed)* | YYYY-MM-DD *(proposed)* | Yes, Legal | | | | Open |
 
 Status values: Open, In progress, Done (only with evidence and a verifier), Won't do (with the reason and the approver who accepted the remaining risk).
 

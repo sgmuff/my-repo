@@ -1,0 +1,30 @@
+[
+  {
+    "query": "Run the AI impact assessment on TalentRank before we launch it in January. Validation summary attached.",
+    "should_trigger": true
+  },
+  {
+    "query": "Our university customers want FRIA input for the proctoring tool.",
+    "should_trigger": true
+  },
+  {
+    "query": "Is our essay grader fair across English learners? We have test results.",
+    "should_trigger": true
+  },
+  {
+    "query": "Do a pre-launch AI review of the refund agent.",
+    "should_trigger": true
+  },
+  {
+    "query": "Can we use Copilot for code?",
+    "should_trigger": false
+  },
+  {
+    "query": "Does the churn model need a DPIA?",
+    "should_trigger": false
+  },
+  {
+    "query": "Review Hirewise's contract.",
+    "should_trigger": false
+  }
+]

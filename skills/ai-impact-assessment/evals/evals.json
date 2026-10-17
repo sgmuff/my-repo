@@ -1,0 +1,14 @@
+{
+  "skill_name": "ai-impact-assessment",
+  "evals": [
+    {
+      "id": 1,
+      "name": "talentrank-hiring",
+      "prompt": "Run the AI impact assessment on TalentRank before we launch it for engineering and sales hiring in January. The product summary and validation excerpt are attached. There's no inventory entry yet.",
+      "files": [
+        "evals/files/talentrank-summary.md"
+      ],
+      "expected_output": "Runs intake facts first or notes the missing inventory entry. Annex III point 4(a) high-risk (recruitment, filtering applications), Tier 1. Roles: deployer, and possibly provider because it's offered under the company's own brand ('Smart Match') (Art. 25(1)(a)), Provisional. Fairness: selection ratio 0.84 on name-inferred gender is a screening heuristic only; race, age, disability, Ireland untested; proxy inference limits stated; Unverified concerns not confirmed violations. Human oversight: automatic move to low priority under 40 with recruiters rarely reviewing is nominal oversight and a possible Art. 22 solely-automated decision with significant effects; remedies and meaningful review required. Data provenance: training on other customers' r\u00e9sum\u00e9s; lawful basis and anonymization claims unverified. Reliability: AUC on holdout not context-specific; no production monitoring. NYC LL144 bias audit Nov 2024 flagged for currency (annual) and scope; Colorado SB 26-189, Illinois HB 3773, CCPA ADMT (Jan 1 2027) flagged. Three ratings, current High. Launch decision not authorized. FRIA: likely not owed by a private employer (case by case), Provisional. Separate DPIA screening recommended. Reply about 150 words."
+    }
+  ]
+}

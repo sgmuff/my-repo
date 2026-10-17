@@ -108,6 +108,31 @@ Start here, keep the risks that apply, and make each one specific to the activit
 
 ---
 
+## 2a. AI risk catalog
+
+Used by `ai-intake` and `ai-impact-assessment`. It combines AIUC-1's illustrative risk taxonomy (standard.aiuc-1.com/evals-taxonomy/risks, retrieved 2026-10-16) with the NIST AI 600-1 Generative AI Profile risks (`nist-ai-rmf.md`, §3). AI risks also fall on **groups and society**, not only on individuals, so name who is affected.
+
+| Category (AIUC-1 domain) | Typical risks | AIUC-1 | NIST AI RMF and 600-1 |
+|---|---|---|---|
+| Personal data leakage (Data & Privacy) | Identifiers, sensitive records, or credentials exposed in outputs, logs, or tool calls; cross-customer exposure | A003–A006, A008, A009 | MS 2.10; 600-1 data privacy |
+| Business data and IP (Data & Privacy) | Confidential or proprietary data leaked; system prompt extraction; outputs infringing copyright or trademarks | A004, A007 | MP 4.1; 600-1 intellectual property |
+| Unauthorized actions (Security) | Agent transacts, communicates, changes systems, or moves data across systems without authority; prompt injection steering actions | B006, D003 | MS 2.7; 600-1 information security |
+| Insecure outputs and actions (Security) | Malicious links, vulnerable code, installing insecure packages, destructive commands | B009, B010, C006 | MS 2.7 |
+| Hallucination (Reliability) | Outdated, false, or contradictory facts; fabricated citations; misleading confidence; inconsistent deliverables | D001, D004 | MS 2.5; 600-1 confabulation |
+| Incorrect tool calls (Reliability) | Wrong, unprompted, or incomplete actions | D003, D004 | MS 2.5, MS 2.6 |
+| Harmful content (Safety) | Dangerous instructions, unsafe medical guidance, self-harm content, hostile or harassing outputs, hate speech, sexual content | C003, C010 | MS 2.6; 600-1 dangerous content, obscene content |
+| Out-of-scope and high-risk advice (Safety) | Medical, legal, financial, crisis, or therapy advice outside the system's purpose | C004, C005 | MP 2.2 |
+| Biased output and unfair treatment (Safety) | Disparate error rates or outcomes across groups; stereotyping; homogenized outputs | C003, C010 | MS 2.11; 600-1 harmful bias |
+| Vulnerable users (Safety) | Children, students, patients, or people in crisis exposed to unsuitable outputs or manipulation | C001, C005 | MP 1.1 |
+| Over-reliance and weak oversight (Accountability) | Automation bias; reviewers rubber-stamping; no way to contest outcomes | C007, C009 | GV 3.2, MP 3.5; 600-1 human-AI configuration |
+| Undisclosed AI (Accountability) | People not told they are dealing with AI, or that content is synthetic | E016 | MS 2.8; AI Act Art. 50 |
+| Untraceable failures (Accountability) | No logs, owners, or failure plans, so harms can't be investigated or remedied | E001–E004, E015 | GV 4.3, MG 4.3 |
+| Misuse (Society) | Use for cyberattacks or catastrophic misuse; information integrity harms at scale | F001, F002 | MS 2.7; 600-1 CBRN, information integrity |
+
+Severity for AI risks also considers **reach** (how many people, decisions, or actions per day), **reversibility** (can a wrong action or decision be undone), and **autonomy** (does a person act on the output, or does the system act itself).
+
+---
+
 ## 3. Mitigation library
 
 A mitigation is real only if it is specific, has an owner and a due date, and someone can verify it. "Implement appropriate security" is not a mitigation. Give each one an acceptance criterion, such as "the reading-response field is masked in production, including drafts and deleted text, shown by a capture test," so "done" means verified.

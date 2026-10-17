@@ -162,6 +162,7 @@ In practice:
 
 - Ask whether any users are under 13, whether the service is directed to children, and whether the company has actual knowledge of ages.
 - Use for the school's educational purpose may rest on school authorization. Use for the company's own purposes, such as model training, product development, or advertising, generally needs verifiable parental consent, or must stop.
+- The operator stays responsible for COPPA compliance even when a school consents on parents' behalf. A vendor can't treat school authorization as moving its COPPA duties to the district.
 - COPPA 2.0 (teens up to 16) passed the Senate on March 5, 2026, and wasn't law as of October 16, 2026. *Volatile.*
 
 ---

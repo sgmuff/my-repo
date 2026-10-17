@@ -1,0 +1,38 @@
+[
+  {
+    "query": "Sales turned on the AI call coach in our CRM last month. It scores reps on talk ratio and 'confidence.' Do we need to do anything?",
+    "should_trigger": true
+  },
+  {
+    "query": "Can we use ChatGPT Enterprise for drafting customer support replies?",
+    "should_trigger": true
+  },
+  {
+    "query": "We want to build an agent that can issue refunds up to $200 on its own.",
+    "should_trigger": true
+  },
+  {
+    "query": "Build our AI inventory. Here's the list of tools from the expense report.",
+    "should_trigger": true
+  },
+  {
+    "query": "Is our essay feedback tool high-risk under the EU AI Act?",
+    "should_trigger": true
+  },
+  {
+    "query": "Run a full bias and human oversight assessment on TalentRank before launch.",
+    "should_trigger": false
+  },
+  {
+    "query": "Review OpenAI's enterprise terms.",
+    "should_trigger": false
+  },
+  {
+    "query": "Write our AI acceptable use policy.",
+    "should_trigger": false
+  },
+  {
+    "query": "Does the churn model need a DPIA?",
+    "should_trigger": false
+  }
+]

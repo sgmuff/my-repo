@@ -63,7 +63,9 @@ Never decide that the GDPR doesn't apply from where the data subjects live. Art.
 - **Targeting (Art. 3(2)(a)):** a controller or processor not established in the EU is covered when it offers goods or services to data subjects in the EU.
 - **Monitoring (Art. 3(2)(b)):** the same, when it monitors their behavior in the EU.
 
-EDPB Guidelines 3/2018 on territorial scope explain each route. UK GDPR Art. 3 and FADP Art. 3 (effects in Switzerland) follow similar logic.
+EDPB Guidelines 3/2018 on territorial scope explain each route.
+
+**Scope and the lead supervisory authority are separate questions.** Art. 3 decides whether the GDPR applies. The lead authority under the one-stop shop (Art. 56) depends on the controller's main establishment and on whether the processing is cross-border (Art. 4(16), (23)). Having an EU office doesn't settle either one alone. UK GDPR Art. 3 and FADP Art. 3 (effects in Switzerland) follow similar logic.
 
 Before recording "GDPR not applicable," confirm: the company's establishments and what each does; whether any of them is involved in the processing; and whether any data subjects are in the EU, UK, or Switzerland. Until confirmed, the conclusion is Provisional (`conventions.md`, §7), and the open fact goes in the fact register. If the GDPR doesn't apply, say which other regimes still do. Its absence doesn't mean there are no obligations.
 
