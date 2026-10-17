@@ -14,9 +14,10 @@ Framework details live here, so they can be updated as laws and standards change
 | `iso-42001.md` | ISO/IEC 42001 checklist (public paraphrase) | ISO/IEC 42001:2023 | 2026-10-16 | 2027-10-16 | Annual |
 | `risk-method.md` | Shared scoring method, catalog, and mitigations | Suite method | 2026-10-16 | 2027-10-16 | Annual |
 | `dsr-matrix.md` | Data subject request rights, deadlines, verification, exceptions | As of 2026-10-16 | 2026-10-16 | 2027-01-16 | Quarterly |
+| `us-breach-notification.md` | US state, territory, and federal breach notification laws | As of 2026-10-16; **draft, needs counsel review** | 2026-10-16 | 2027-01-16 | Quarterly |
 | `dpa-checklist.md` | DPA and vendor contract checklist, with AI terms | Built from the files above, as of 2026-10-16 | 2026-10-16 | 2027-01-16 | Quarterly |
 
-Planned for later waves: `us-breach-notification.md` (Wave 3, `incident-assessment`), and a control library with evidence index (Wave 4, `controls-and-evidence`).
+Planned for later waves: a control library with evidence index (Wave 4, `controls-and-evidence`).
 
 ## Updating a file
 

@@ -1,0 +1,19 @@
+{
+  "skill_name": "incident-assessment",
+  "evals": [
+    {
+      "id": 1,
+      "name": "misdirected-csv",
+      "prompt": "At 10:15 this morning (Eastern), one of our support agents emailed a CSV export of 1,200 customers to the wrong customer. It has names, emails, phone numbers, and the last 4 digits of their cards. About 400 are in the EU (mostly Germany and France), the rest in the US, mainly California, New York, Texas, and Massachusetts. The recipient is another business customer of ours and hasn't replied yet. We're the controller. What do we need to do?",
+      "files": [],
+      "expected_output": "Clock first: aware 2026-10-16 10:15 ET; GDPR 72 hours to 2026-10-19 10:15 ET at the top. Immediate steps: counsel, ask the recipient to delete and confirm in writing, insurance check, preserve, no speculation. GDPR: personal data breach (confidentiality); authority notice likely required unless the recipient's confirmed deletion makes risk unlikely, assessed with EDPB factors (trusted business recipient lowers risk; names, emails, phone, last-4 are low sensitivity); individual notice likely not required (no high risk) \u2014 Provisional, Decision needed. Lead authority depends on main establishment. US states: name plus email/phone/last-4 of card is generally NOT covered personal information under most state definitions (no full account number with access code; no SSN), so state notice likely not triggered \u2014 Provisional with verify per state (CA, NY, TX, MA), noting the reference needs counsel review. Matrix built; drafts only for the lead authority (DRAFT: not sent) and a recipient deletion request. Art. 33(5) documentation regardless. Saved under incidents/2026/, register rebuilt. Reply about 150 words led by the deadline."
+    },
+    {
+      "id": 2,
+      "name": "ransomware-student-data",
+      "prompt": "We got hit by ransomware overnight. Security confirmed at 7:40 am Pacific today that the attackers exfiltrated our student database before encrypting it: names, student IDs, dates of birth, grades, and IEP flags for about 60,000 students. We host it for school districts in New York and California under contracts where we're a school official. The attackers posted a sample on a leak site. What do we do?",
+      "files": [],
+      "expected_output": "Clock first from 2026-10-16 07:40 PT. Role: school official (Provisional), so the primary duty is notifying each district under its agreement; NY Ed Law 2-d 7 calendar days (2026-10-23) to each NY educational agency, contract deadlines often shorter (48-72 hours) for CA districts, top of the matrix. Districts own notices to parents and students; the company supports them. State breach laws: whether student ID, DOB, grades, IEP flags are covered PI varies (CA definition includes medical info; IEP may be health-related); owner/licensee is the district, so the company as maintainer notifies the owner \u2014 Provisional, verify. FERPA: no statutory breach notice, but disclosure issue for institutions. Sector flags: possible law enforcement/FBI report, insurer notice now, ransom decision for counsel. Data published raises severity; children. GDPR likely not applicable (US only) but territorial scope check noted. Drafts: district notices (DRAFT: not sent), no individual notices from the company. Counsel-review blocker on the state reference stated. Saved under incidents/2026/. Reply about 150 words led by time."
+    }
+  ]
+}

@@ -6,6 +6,7 @@ Paste this section into any deliverable with follow-up work. Delete these instru
 - Every action needs an owner and a due date. If the user didn't give them, propose a role (for example, "Eng lead, Support Platform") and a date tied to launch or review, and mark both *proposed*.
 - Every verify flag becomes an action, with the source to check.
 - **Sequence the dates.** An action is never due before the action it depends on. Every launch blocker and every legality-affecting verification is due before launch.
+- **A statutory deadline is an outer limit, not a target.** Set an internal milestone ahead of it: a decision review, then filing or sending with time to spare. Don't schedule the decision for the moment the deadline expires.
 - **"Done" means verified.** An action closes when its evidence shows the safeguard operating as intended, not when a policy is drafted or a setting is proposed.
 - Review dates and deadlines are actions here. Don't put them on a calendar (`connectors.md`).
 - Fill in "Ticket" once the action is in Jira or ServiceNow. Leave it blank otherwise.

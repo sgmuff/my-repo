@@ -1,0 +1,42 @@
+[
+  {
+    "query": "A support agent emailed a CSV of 1,200 customers to the wrong customer an hour ago. Names, emails, last 4 of card. Mix of EU and US. What now?",
+    "should_trigger": true
+  },
+  {
+    "query": "We got hit by ransomware last night. The attackers say they took the student database. We host it for districts in New York and California.",
+    "should_trigger": true
+  },
+  {
+    "query": "Our helpdesk vendor says they had unauthorized access to tickets in September and just told us.",
+    "should_trigger": true
+  },
+  {
+    "query": "An employee's laptop was stolen from their car. It had an unencrypted export of payroll data.",
+    "should_trigger": true
+  },
+  {
+    "query": "Our support chatbot showed one customer's order history to another customer.",
+    "should_trigger": true
+  },
+  {
+    "query": "Do we have to notify anyone? Someone accessed an S3 bucket but we don't think they downloaded anything.",
+    "should_trigger": true
+  },
+  {
+    "query": "A customer asked us to delete their data.",
+    "should_trigger": false
+  },
+  {
+    "query": "Write our incident response plan.",
+    "should_trigger": false
+  },
+  {
+    "query": "Review the breach notification clause in Acme's DPA.",
+    "should_trigger": false
+  },
+  {
+    "query": "Which states have 30-day breach notification deadlines now?",
+    "should_trigger": false
+  }
+]

@@ -29,14 +29,14 @@ Check which skills are installed by looking for each folder's `SKILL.md` next to
 | `dsr-response` | Data subject requests: law, deadline, verification, response draft | 2 (built) |
 | `ai-intake` | AI system and agent inventory, including agents in purchased tools; risk tiering | 2 (built) |
 | `ai-impact-assessment` | AI impact assessments, FRIAs, and FRIA input packs | 2 (built) |
-| `incident-assessment` | Breach notification analysis and draft notices | 3 (planned) |
+| `incident-assessment` | Breach notification analysis, clocks, and draft notices | 3 (built; counsel review of the breach reference pending) |
 | `controls-and-evidence` | Control crosswalk, evidence, AIUC-1 readiness, testing calendar | 4 (planned) |
 | `program-assessment` | NIST Privacy Framework (and AI RMF, ISO/IEC 42001) maturity assessment and roadmap | 4 (planned) |
 | `notice-and-policy` | Privacy notice review against practice; AI acceptable use policy | 5 (planned) |
 | `regulatory-change` | New law or guidance mapped to program changes and reference updates | 5 (planned) |
 | `leadership-report` | Board and leadership risk summary | 5 (planned) |
 
-**Time-critical requests don't wait for triage.** A suspected breach, a data subject request with a running deadline, a regulator inquiry, or a subprocessor notice with an objection window comes first, before anything else in the plan. A data subject request goes straight to `dsr-response`. Until `incident-assessment` exists, say so plainly for a suspected breach, name the deadline that may be running (for example, 72 hours under GDPR Art. 33), and tell the user to bring in the privacy lead and counsel now.
+**Time-critical requests don't wait for triage.** A suspected breach, a data subject request with a running deadline, a regulator inquiry, or a subprocessor notice with an objection window comes first, before anything else in the plan. A data subject request goes straight to `dsr-response`, and a suspected breach straight to `incident-assessment`, which starts the clocks before anything else.
 
 ## Workflow
 

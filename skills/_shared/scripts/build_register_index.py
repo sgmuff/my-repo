@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Rebuild a register index from entry metadata.
 
-Usage: python3 build_register_index.py <register-folder> <ropa|ai-system>
+Usage: python3 build_register_index.py <register-folder> <ropa|ai-system|incident>
 
 Reads the YAML metadata block at the top of every *.md file in the folder
 (except index.md) whose `type` matches, and rewrites index.md. Uses only the
@@ -23,6 +23,14 @@ REGISTERS = {
             ("children_or_students", "Children or students"), ("restricted_transfers", "Restricted transfers"),
             ("sale_or_sharing", "Sale or sharing"), ("ai_used", "AI"), ("assessment", "Assessment"),
             ("required_fields_tbc", "TBC fields"), ("next_review", "Next review"),
+        ],
+    },
+    "incident": {
+        "heading": "Incident register",
+        "columns": [
+            ("id", "ID"), ("title", "Incident"), ("status", "Status"), ("aware_at", "Aware at"),
+            ("earliest_deadline", "Earliest deadline"), ("personal_data_breach", "Personal data breach"),
+            ("company_role", "Role"), ("individuals_affected", "Affected"), ("notified", "Notified"),
         ],
     },
     "ai-system": {
@@ -69,7 +77,7 @@ def main(folder, kind):
     COLUMNS = REGISTERS[kind]["columns"]
     rows, skipped = [], []
     for name in sorted(os.listdir(folder)):
-        if not name.endswith(".md") or name == "index.md":
+        if not name.endswith(".md") or name == "index.md" or name.endswith(("-notices.md", "-drafts.md")):
             continue
         path = os.path.join(folder, name)
         meta = read_metadata(path)
