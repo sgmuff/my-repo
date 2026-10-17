@@ -36,7 +36,7 @@
 - A relative definition of personal data, tied to the means reasonably likely to be used by the specific controller
 - Breach notification to the supervisory authority only for breaches likely to result in a **high** risk, within **96 hours**, through a single EU entry point
 - EU-wide lists of processing that does and doesn't require a DPIA, plus a common DPIA template, prepared by the EDPB, replacing national lists
-- A narrower record-of-processing exemption threshold (raised from 250 to 750 employees in the proposal)
+- A broader record-of-processing exemption (the threshold rises from 250 to 750 employees in the proposal)
 - A new legitimate-interests route for processing personal data to develop and operate AI, and a limited exception for residual special category data in AI training
 - Cookie and terminal-equipment rules moved partly into the GDPR
 

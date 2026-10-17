@@ -32,9 +32,9 @@ Check which skills are installed by looking for each folder's `SKILL.md` next to
 | `incident-assessment` | Breach notification analysis, clocks, and draft notices | 3 (built; counsel review of the breach reference pending) |
 | `controls-and-evidence` | Control library, crosswalk, evidence, AIUC-1 readiness, testing schedule | 4 (built) |
 | `program-assessment` | NIST Privacy Framework (and AI RMF, ISO/IEC 42001) maturity assessment and roadmap | 4 (built) |
-| `notice-and-policy` | Privacy notice review against practice; AI acceptable use policy | 5 (planned) |
-| `regulatory-change` | New law or guidance mapped to program changes and reference updates | 5 (planned) |
-| `leadership-report` | Board and leadership risk summary | 5 (planned) |
+| `notice-and-policy` | Privacy notice review against practice; AI acceptable use policy | 5 (built) |
+| `regulatory-change` | New law or guidance mapped to program changes and reference updates | 5 (built) |
+| `leadership-report` | Board and leadership risk summary | 5 (built) |
 
 **Time-critical requests don't wait for triage.** A suspected breach, a data subject request with a running deadline, a regulator inquiry, or a subprocessor notice with an objection window comes first, before anything else in the plan. A data subject request goes straight to `dsr-response`, and a suspected breach straight to `incident-assessment`, which starts the clocks before anything else.
 

@@ -1,0 +1,22 @@
+{
+  "skill_name": "notice-and-policy",
+  "evals": [
+    {
+      "id": 1,
+      "name": "notice-vs-practice",
+      "prompt": "Can you review our privacy notice (attached) against what we actually do? I pulled an extract from our registers too. We're updating it this month.",
+      "files": [
+        "evals/files/privacy-notice.md",
+        "evals/files/practice-records.md"
+      ],
+      "expected_output": "Compares in both directions. Done but not said: call recording and transcription (ROPA-0004, ScribeAI), AI support copilot and Homework Helper chatbot including fine-tuning on child conversations, Meta/TikTok pixels and AdNet retargeting (likely 'sharing' under CCPA, needs opt-out link and possibly sale; flagged for counsel, Provisional), MathSolve recipient, EU schools so GDPR Arts. 13/14 elements missing (controller, lawful bases, transfers, DPO/representative, complaint right). Said but not done: 'users 13 and older' contradicts ages 9+ (COPPA verifiable parental consent issue), 'do not sell' possibly inaccurate, 12-month retention contradicts 3 and 7 years, rights only by email (web form exists). Out of date: last updated March 2025, CCPA 12-month update, 45-day rights statement. Practice questions where unknown, not invented wording. Separates notice fixes from practice issues (e.g., fine-tuning on children's data, call-recording consent) routed to dpia/ai-impact-assessment. Draft changes, not published. Saved as NR- in policies/. Reply about 150 words."
+    },
+    {
+      "id": 2,
+      "name": "employee-ai-aup",
+      "prompt": "We need an employee AI use policy. Facts: approved tools are ChatGPT Enterprise and GitHub Copilot Business. Free consumer AI tools are banned for work. Student data and customer data must never go into any AI tool except the approved ones, and student data not even there. We have about 400 staff in the US and 30 in Ireland. Draft it.",
+      "files": [],
+      "expected_output": "Uses the employee policy template, not the product one. Built from stated facts; unknowns (owner, approver, how new tools get approved, monitoring, training, effective date) left TBC rather than invented. Covers approved tools list, prohibited uses, data rules (student data banned from all tools, customer data only in approved tools), human review of outputs, disclosure, IP and confidentiality, reporting incidents, new-tool request route via ai-intake and vendor-review. Maps to ISO 42001 A.2.2/A.9.x, AI Act Art. 4 AI literacy (applies given Ireland staff, since Feb 2, 2025) and Art. 26 for deployer duties, NIST AI RMF GV 1.2. Notes Irish staff monitoring needs GDPR basis/works-council style consultation check. Draft status, routed for approval per approvals.md. Saved as POL- in policies/. Reply about 150 words."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+[
+  {
+    "query": "Outside counsel says the Digital Omnibus passed. What does it mean for us?",
+    "should_trigger": true
+  },
+  {
+    "query": "AIUC-1 released a new version. Update our references.",
+    "should_trigger": true
+  },
+  {
+    "query": "Run the quarterly regulatory sweep.",
+    "should_trigger": true
+  },
+  {
+    "query": "Does the new Oklahoma privacy law apply to us?",
+    "should_trigger": true
+  },
+  {
+    "query": "Does the Oklahoma breach law require notice for this incident?",
+    "should_trigger": false
+  },
+  {
+    "query": "Assess our program against the NIST Privacy Framework.",
+    "should_trigger": false
+  },
+  {
+    "query": "Do we need a DPIA for the new analytics vendor?",
+    "should_trigger": false
+  }
+]

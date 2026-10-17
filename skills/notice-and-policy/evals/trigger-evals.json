@@ -1,0 +1,30 @@
+[
+  {
+    "query": "Review our privacy notice against what we actually do.",
+    "should_trigger": true
+  },
+  {
+    "query": "Does our notice cover the new call recording?",
+    "should_trigger": true
+  },
+  {
+    "query": "Write an AI acceptable use policy for employees.",
+    "should_trigger": true
+  },
+  {
+    "query": "We need an acceptable use policy for customers of our AI agent, for AIUC-1.",
+    "should_trigger": true
+  },
+  {
+    "query": "A parent wants a copy of their child's data.",
+    "should_trigger": false
+  },
+  {
+    "query": "Add the call recording activity to our RoPA.",
+    "should_trigger": false
+  },
+  {
+    "query": "Draft the breach notice letter to affected customers.",
+    "should_trigger": false
+  }
+]

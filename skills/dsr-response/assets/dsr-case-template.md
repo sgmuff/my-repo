@@ -4,6 +4,10 @@ type: dsr
 status: Draft          # Draft | Awaiting verification | In progress | Forwarded | Responded | Closed
 received: YYYY-MM-DD   # date the request reached the company
 earliest_deadline: YYYY-MM-DD
+extended_deadline:     # set only if an extension notice went out before earliest_deadline
+internal_target:       # optional company target, earlier than the statutory deadline
+responded: YYYY-MM-DD  # date the response went out; set when sent, for leadership metrics
+closed: YYYY-MM-DD     # date the case closed
 request_types: [access, deletion]
 requester_type: <data subject | parent or guardian | authorized agent>
 company_role: <controller | processor (forwarded) | school official (forwarded)> (provisional)

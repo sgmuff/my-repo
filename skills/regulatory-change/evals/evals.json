@@ -1,0 +1,21 @@
+{
+  "skill_name": "regulatory-change",
+  "evals": [
+    {
+      "id": 1,
+      "name": "omnibus-alert",
+      "prompt": "Our outside counsel sent this alert (attached). It says the Digital Omnibus has been adopted and we need to move to a 96-hour breach deadline. Please update our reference files and the incident process accordingly.",
+      "files": [
+        "evals/files/omnibus-alert.md"
+      ],
+      "expected_output": "Catches the contradiction: the alert's own 'What happens next' shows only a Parliament position going to trilogue, so stage is proposed/pending, not adopted. Checks the primary source (Legislative Observatory 2025/0360(COD), EUR-Lex) or, if unable, says so and marks Provisional. Does not change the 72-hour rule (GDPR Art. 33) or the incident process; explicitly advises against acting on the 96-hour deadline now. Proposes only a Volatile note in gdpr.md and watch actions. Runs or describes find_citations.py for Art. 33/72 hours/DPIA lists to map what would change on adoption. Writes a change memo (RC-) to compliance/regulatory-change/ with proposed text, not applied; routes to privacy lead. Reply about 150 words."
+    },
+    {
+      "id": 2,
+      "name": "quarterly-sweep",
+      "prompt": "It's mid-October. Run our quarterly regulatory sweep: what's changed that affects our privacy and AI reference files, and did anything come out of the AIUC-1 release this week?",
+      "files": [],
+      "expected_output": "Reads _shared/references/README.md for review dates and volatile points. For AIUC-1, downloads llms.txt and runs aiuc_release_diff.py, reporting results honestly (reference already reflects Oct 15, 2026 release, so likely no requirement-level changes) and checks changelog. Checks volatile points against primary sources (Digital Omnibus status, UK DUAA commencement, NIST PF 1.1 draft, EU AI Act implementing acts, state laws effective Jan 1, 2027 such as CCPA ADMT and Colorado SB 26-189, Annex III dates). Distinguishes verified from unverified. Writes one sweep memo listing changes found with stage and applicability (Provisional), plus files confirmed unchanged with dates checked. Proposes edits without applying them; last-verified dates updated only after approval. No calendar events. Reply about 150 words."
+    }
+  ]
+}

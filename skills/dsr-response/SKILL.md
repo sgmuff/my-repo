@@ -97,4 +97,6 @@ Reply in about 150 words: the case path, the request types, the laws (with statu
 
 ## Keeping the record
 
+When the response goes out, set `responded` to that date and status to Responded; when the case closes, set `closed`. If an extension notice went out in time, set `extended_deadline`. If the company uses an internal target, set `internal_target`. Leadership reports time DSRs from `received` to `responded`, so a missing date leaves the case untimed.
+
 Keep the case file for at least 24 months after closing (CCPA Regs. § 7101), and keep only what's needed to show compliance. Delete identity documents collected only for verification once the request closes. When the request reveals a gap, such as a system missing from the RoPA, a processor that can't delete, or a notice that doesn't describe a use, record it as a follow-on for the relevant skill.

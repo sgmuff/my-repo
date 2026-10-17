@@ -26,7 +26,10 @@ The skills prepare decisions. They never make them. Accountability for a legal d
 | Audit evidence packs, customer questionnaire answers, readiness reports shared outside | Privacy lead | Legal counsel for regulators and contractual representations | External communications; never overstate coverage |
 | Program assessment and roadmap | Privacy lead approves the assessment; leadership approves resourcing | Business owners for their roadmap items | |
 | Vendor onboarding or renewal | Approver for the vendor review's current residual rating (rows above) | Legal or Procurement for contract and commercial findings | A request list to the vendor is an external communication |
-| Changing a reference file in `_shared/references/` | Privacy lead | | `regulatory-change` proposes edits; it never applies them unasked. |
+| Changing a reference file in `_shared/references/` | Privacy lead | Legal counsel for close applicability calls | `regulatory-change` proposes edits; it never applies them unasked. |
+| Publishing or changing a privacy notice, notice at collection, or AI disclosure | Privacy lead and legal counsel | System owner confirms the practice described | External communication; the notice follows the practice |
+| Adopting or changing an internal policy, including AI acceptable use policies | Policy approver named in the policy (default: privacy lead) | HR for employee policies; Security for tool rules; Product for product policies | Product policies shown to end users are external communications |
+| Leadership and board reports | Privacy lead | Legal counsel for statements on legal exposure and incidents | Internal; never states compliance or certification |
 
 If a business area has no named contact, the skill records "TBC" and adds it to the open questions. It does not block on it.
 

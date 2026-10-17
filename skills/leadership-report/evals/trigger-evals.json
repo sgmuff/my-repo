@@ -1,0 +1,30 @@
+[
+  {
+    "query": "Write the Q3 privacy update for the board.",
+    "should_trigger": true
+  },
+  {
+    "query": "Give me a KRI dashboard for the audit committee.",
+    "should_trigger": true
+  },
+  {
+    "query": "Summarize where the privacy and AI program stands for the exec team.",
+    "should_trigger": true
+  },
+  {
+    "query": "How many DSRs did we miss the deadline on this quarter? It's for the CFO.",
+    "should_trigger": true
+  },
+  {
+    "query": "Score our program maturity against NIST PF.",
+    "should_trigger": false
+  },
+  {
+    "query": "Build the AIUC-1 audit evidence pack.",
+    "should_trigger": false
+  },
+  {
+    "query": "What does the new AI Act amendment mean for us?",
+    "should_trigger": false
+  }
+]

@@ -24,6 +24,9 @@ skills/
   incident-assessment/      breach notification clocks, analysis, and drafts (Wave 3)
   controls-and-evidence/    control library, evidence, AIUC-1 readiness, schedule (Wave 4)
   program-assessment/       NIST PF profiles, Tier, gaps, and roadmap (Wave 4)
+  notice-and-policy/        privacy notice reviews and AI acceptable use policies (Wave 5)
+  regulatory-change/        law and standard changes, impact maps, reference updates (Wave 5)
+  leadership-report/        board and leadership reports with traceable metrics (Wave 5)
   writing-style/            the house prose style
   install.sh                links the skills into ~/.claude/skills
 ```
@@ -51,8 +54,8 @@ Fill in `_shared/company-profile.md`. The skills ask for any missing value they 
 | 2 | `dsr-response`, `ai-intake`, `ai-impact-assessment` | Built |
 | 3 | `incident-assessment` | Built; needs counsel review of `us-breach-notification.md` before live use |
 | 4 | `controls-and-evidence`, `program-assessment` | Built |
-| 5 | `notice-and-policy`, `regulatory-change`, `leadership-report` | Planned |
+| 5 | `notice-and-policy`, `regulatory-change`, `leadership-report` | Built |
 
 ## Keeping references current
 
-Each reference file records its version and last-verified date, and `_shared/references/README.md` lists when each is due for review. AIUC-1 changes every quarter (January 15, April 15, July 15, October 15). Until the `regulatory-change` skill exists, update reference files by hand using the steps in that README.
+Each reference file records its version and last-verified date, and `_shared/references/README.md` lists when each is due for review. AIUC-1 changes every quarter (January 15, April 15, July 15, October 15). The `regulatory-change` skill processes each release and sweep, and proposes edits for the privacy lead to approve. To edit by hand, follow the steps in that README.

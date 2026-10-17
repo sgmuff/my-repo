@@ -22,6 +22,8 @@ The company's own control library and evidence index live under the output root 
 
 ## Updating a file
 
+The `regulatory-change` skill runs these steps: it proposes the edits in a change memo, and applies them only after the privacy lead approves. To update by hand:
+
 1. Check the primary sources listed in the file's header.
 2. Edit the content. Mark anything still changing as *Volatile* in the text and in the header.
 3. Update the header's version, sources, and last-verified date, and this index.
