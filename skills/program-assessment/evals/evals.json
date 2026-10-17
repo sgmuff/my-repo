@@ -1,0 +1,14 @@
+{
+  "skill_name": "program-assessment",
+  "evals": [
+    {
+      "id": 1,
+      "name": "nist-pf-from-notes",
+      "prompt": "Do a NIST Privacy Framework assessment of our privacy program from my notes (attached). Where are we, and what should we do first? We also have Tennessee customers, so I want to know where we stand on the 'reasonably conforms' defense.",
+      "files": [
+        "evals/files/program-notes.md"
+      ],
+      "expected_output": "Uses make_checklist.py for all 100 subcategories. Target Profile driven by GDPR, UK GDPR, CA/TX/NY/TN laws, with exclusions reasoned. Current ratings mostly Partly or Not achieved, marked Provisional (interview notes only): ID.IM-P Partly (RoPA 12 of ~30, stale); ID.RA-P Partly (2 DPIAs, intake gaps); ID.DE-P Partly (vendors under $50k and AI tools bypass review); CT.PO-P3 and CT.DM-P Partly (DSRs by email, 38-day average, 3 over 45 days); CM.AW-P1 Partly (notice omits 2026 AI features); GV.AT-P Not achieved for privacy training; GV.RM-P2 Not achieved (no risk appetite); CT.DM-P5 Not achieved (no retention schedule); PR functions Largely (SOC 2) with scope caveat. Tier around 1-2, held back by integrated program and workforce. Ranked gaps put legal exposure first (DSR deadlines, notice accuracy, RoPA, vendor/AI tool review). Quarterly roadmap with Legal/Readiness labels. Tennessee: doesn't claim conformity; flags it for counsel and links it to closing the gaps. Reply about 150 words."
+    }
+  ]
+}

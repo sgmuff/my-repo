@@ -30,8 +30,8 @@ Check which skills are installed by looking for each folder's `SKILL.md` next to
 | `ai-intake` | AI system and agent inventory, including agents in purchased tools; risk tiering | 2 (built) |
 | `ai-impact-assessment` | AI impact assessments, FRIAs, and FRIA input packs | 2 (built) |
 | `incident-assessment` | Breach notification analysis, clocks, and draft notices | 3 (built; counsel review of the breach reference pending) |
-| `controls-and-evidence` | Control crosswalk, evidence, AIUC-1 readiness, testing calendar | 4 (planned) |
-| `program-assessment` | NIST Privacy Framework (and AI RMF, ISO/IEC 42001) maturity assessment and roadmap | 4 (planned) |
+| `controls-and-evidence` | Control library, crosswalk, evidence, AIUC-1 readiness, testing schedule | 4 (built) |
+| `program-assessment` | NIST Privacy Framework (and AI RMF, ISO/IEC 42001) maturity assessment and roadmap | 4 (built) |
 | `notice-and-policy` | Privacy notice review against practice; AI acceptable use policy | 5 (planned) |
 | `regulatory-change` | New law or guidance mapped to program changes and reference updates | 5 (planned) |
 | `leadership-report` | Board and leadership risk summary | 5 (planned) |

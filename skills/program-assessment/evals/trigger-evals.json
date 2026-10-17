@@ -1,0 +1,30 @@
+[
+  {
+    "query": "Do a NIST Privacy Framework assessment of our program from these notes. Where are we and what should we do first?",
+    "should_trigger": true
+  },
+  {
+    "query": "Does our program reasonably conform to the NIST PF for Tennessee's defense?",
+    "should_trigger": true
+  },
+  {
+    "query": "We want an ISO 42001 gap assessment before deciding whether to certify.",
+    "should_trigger": true
+  },
+  {
+    "query": "Annual privacy program review is due. Compare to last year's.",
+    "should_trigger": true
+  },
+  {
+    "query": "Map our MFA control to the frameworks.",
+    "should_trigger": false
+  },
+  {
+    "query": "Write the board's quarterly privacy update.",
+    "should_trigger": false
+  },
+  {
+    "query": "Do we need a DPIA for the churn model?",
+    "should_trigger": false
+  }
+]

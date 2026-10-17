@@ -1,0 +1,14 @@
+{
+  "skill_name": "controls-and-evidence",
+  "evals": [
+    {
+      "id": 1,
+      "name": "ava-aiuc-readiness",
+      "prompt": "Sales wants AIUC-1 certification for our support agent Ava by Q2 2027. The agent description and our current controls (from SOC 2 and team notes) are attached. Where are we, and what do we need to do?",
+      "files": [
+        "evals/files/ava-agent-and-controls.md"
+      ],
+      "expected_output": "Readiness mode for the company's own agent. Capability tags: Universal, External-facing, Text-generation, Automation (refunds, order lookup). SoA generated with make_checklist.py; Code-generation-only requirements (A008, B010) excluded by capability with justification; image/voice-only items excluded similarly. SOC 2 controls mapped to CCOs (MFA CCO-15, access review, change management CCO-17, logging CCO-18 \u2192 E015, encryption CCO-16 \u2192 B008), with SOC 2 evidence valid for its period only. Gaps: third-party testing A009, B001, C010, D004, E018 Not covered; AI failure plans E001-E003 Not covered (IR plan general); vendor and model due diligence E006 Partly (onboarding 2025 only); AI disclosure E016 Partly or Not (greeting doesn't say it's AI); guardrails C003-C005 Partly (system prompt untested); B006 and D003 Partly (refund cap enforced in code, but no broader action limits tested); hallucination D001 Not covered. Quarterly testing scheduled as controls with next_test dates. States readiness only, not certification. Control entries, index, readiness report, and schedule.md built. Reply about 150 words."
+    }
+  ]
+}

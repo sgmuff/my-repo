@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Rebuild a register index from entry metadata.
 
-Usage: python3 build_register_index.py <register-folder> <ropa|ai-system|incident>
+Usage: python3 build_register_index.py <register-folder> <ropa|ai-system|incident|control>
 
 Reads the YAML metadata block at the top of every *.md file in the folder
 (except index.md) whose `type` matches, and rewrites index.md. Uses only the
@@ -23,6 +23,14 @@ REGISTERS = {
             ("children_or_students", "Children or students"), ("restricted_transfers", "Restricted transfers"),
             ("sale_or_sharing", "Sale or sharing"), ("ai_used", "AI"), ("assessment", "Assessment"),
             ("required_fields_tbc", "TBC fields"), ("next_review", "Next review"),
+        ],
+    },
+    "control": {
+        "heading": "Control library: index",
+        "columns": [
+            ("id", "ID"), ("title", "Control"), ("objectives", "Objectives (CCO)"), ("owner", "Owner"),
+            ("status", "Status"), ("design", "Design"), ("operating", "Operating"),
+            ("last_tested", "Last tested"), ("next_test", "Next test"), ("frameworks", "Frameworks"),
         ],
     },
     "incident": {

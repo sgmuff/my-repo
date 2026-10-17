@@ -1,0 +1,38 @@
+[
+  {
+    "query": "Sales wants AIUC-1 certification for Ava by Q2. Here's the agent description and our SOC 2 controls. Where are we?",
+    "should_trigger": true
+  },
+  {
+    "query": "Which frameworks does our Okta MFA control satisfy?",
+    "should_trigger": true
+  },
+  {
+    "query": "An enterprise customer's questionnaire asks for evidence of access reviews and encryption. What do we send?",
+    "should_trigger": true
+  },
+  {
+    "query": "Build our control library from the SOC 2 report and our policies.",
+    "should_trigger": true
+  },
+  {
+    "query": "What tests and reviews are due this quarter?",
+    "should_trigger": true
+  },
+  {
+    "query": "How mature is our privacy program against NIST PF?",
+    "should_trigger": false
+  },
+  {
+    "query": "Review the model provider's DPA.",
+    "should_trigger": false
+  },
+  {
+    "query": "Is Ava high-risk under the EU AI Act?",
+    "should_trigger": false
+  },
+  {
+    "query": "Write our AI acceptable use policy.",
+    "should_trigger": false
+  }
+]

@@ -54,6 +54,8 @@ Pick the mode from the facts when it is obvious: a vendor review is a benchmark,
 - **Evidence categories:** legal policies, operational practices, technical implementation, and third-party evaluations. The evidence templates are at standard.aiuc-1.com/evidence.
 - **Certification:** led by an AIUC-accredited auditor, typically four to eight weeks. Phases: scoping and kickoff (1–2 weeks), evidence collection (3–5 weeks), technical evaluations (3–5 weeks), and the audit report (1–3 weeks).
 - **Maintaining certification:** certification lasts one year. Agents are red-teamed every quarter during that year, and a re-certification audit starts about two months before expiry.
+- **Two different providers.** The **accredited auditor** reviews evidence and controls and supports the certification audit. The **technical evaluations** (the third-party testing requirements) are run by AIUC, per the current certification and re-certification guidance ("AIUC re-runs technical evaluations"). Plan and budget them separately, and confirm the arrangement with AIUC. *Verify* against the current guidance, since the arrangement could change between releases.
+- **Developer and deployer responsibilities.** AIUC's scoping guidance distinguishes developers from deployers. Where an agent relies on a third-party model, record for each requirement whether the company, the model provider, or both are responsible.
 - **Scope is usually a product, not a company.** A certificate covers specific agents. In a vendor review, check that the product being bought is in scope, which release was audited, and the report date.
 
 AIUC-1 says itself that a certificate can't guarantee security, safety, or reliability, any more than a SOC 2 report can. Treat it as strong evidence, not proof.
