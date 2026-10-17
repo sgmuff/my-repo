@@ -28,18 +28,37 @@ skills/
   regulatory-change/        law and standard changes, impact maps, reference updates (Wave 5)
   leadership-report/        board and leadership reports with traceable metrics (Wave 5)
   writing-style/            the house prose style
-  install.sh                links the skills into ~/.claude/skills
+  install.sh                links the skills into ~/.claude/skills (Claude Code)
+  package_desktop.py        builds the Claude Desktop zips in ../dist/claude-desktop/
 ```
 
 Each skill keeps its own workflow-specific references, templates, examples, and `evals/` (test scenarios). Framework details live only in `_shared/references/`, so updating a law or standard means editing one file.
 
 ## Install
 
+### Claude Code
+
 ```bash
 ./skills/install.sh
 ```
 
 The script symlinks each skill folder and `_shared` into `~/.claude/skills`. It skips any folder that already exists there as a real folder, such as an older copy of `writing-style`, and tells you. Move that folder aside and rerun the script to link the repo version.
+
+### Claude Desktop and claude.ai
+
+The packaged skills are in `dist/claude-desktop/`, one zip per skill. Claude Desktop installs each skill on its own, so each zip carries its own copy of `_shared` (as `shared/`), with the paths rewritten and a note in `shared/conventions.md` on how the suite runs there: deliverables go to the session's outputs folder for download, and earlier records are uploaded when a skill needs them.
+
+1. Turn on code execution: Settings, then Capabilities.
+2. Upload each zip under Settings, then Capabilities, then Skills. Install `writing-style` and `privacy-governance` (the router) along with the skills you use.
+3. Fill in `shared/company-profile.md` before zipping, or give the company facts in the first conversation. Desktop doesn't keep edits to an installed skill, so save confirmed facts back to the repo and rebuild.
+
+The repo is the source. After changing a skill, rebuild and re-upload the zips that changed:
+
+```bash
+python3 skills/package_desktop.py
+```
+
+The build validates each SKILL.md and checks that every link resolves inside the zip, and stops with a list of problems if not. Evals stay out of the zips.
 
 ## First run
 
