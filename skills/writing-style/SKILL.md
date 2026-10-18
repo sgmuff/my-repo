@@ -1,11 +1,11 @@
 ---
 name: writing-style
-description: The user's personal prose style, drawn from Strunk & White and tuned for Obsidian. Apply it whenever writing or editing prose for the user, such as notes, Obsidian pages, summaries, articles, emails, documentation, or README text, and whenever they ask to tighten, clean up, proofread, or rewrite something. It does not apply to code or code comments.
+description: The user's personal prose style, drawn from Strunk & White. Apply it whenever writing or editing prose for the user, such as notes, summaries, articles, emails, documentation, or README text, and whenever they ask to tighten, clean up, proofread, or rewrite something. It does not apply to code or code comments.
 ---
 
 # Writing style
 
-Write concisely and plainly, in American English. Use Obsidian's full formatting, and leave out AI filler and jargon.
+Write concisely and plainly, in American English, and leave out AI filler and jargon.
 
 ## Voice
 
@@ -14,17 +14,28 @@ Write concisely and plainly, in American English. Use Obsidian's full formatting
 - **Plain.** Choose the common word over the impressive one. Define a technical term on first use, or drop it.
 - **No AI slop.** Never use filler such as "delve," "tapestry," "testament to," "navigate the landscape," "it's worth noting," "in today's fast-paced world," "robust," "seamless," "leverage," "unlock," or "game-changer." Skip throat-clearing openers ("Great question!") and recap closers ("In conclusion…"). Avoid reflexive triplets and the "it's not X, it's Y" construction.
 
-## Obsidian formatting
+## Formatting
 
-Use formatting where it helps the reader, not as decoration:
+Use Markdown where it helps the reader, not as decoration:
 
-- `#` headings for structure, with one H1 per note at most.
-- `[[Wikilinks]]` for related notes, and `[[Note#Heading]]` or `[[Note|alias]]` when they fit.
-- Callouts (`> [!note]`, `> [!tip]`, `> [!warning]`, `> [!quote]`, `> [!summary]`) for asides, cautions, and key takeaways. Add `-` to make one collapsible.
-- `==highlights==` for the one phrase a skimmer must not miss.
+- `#` headings for structure, with one H1 per document at most.
 - Tables for comparisons, task lists (`- [ ]`) for actions, and fenced code blocks for code.
-- YAML frontmatter (`tags`, `aliases`, dates) when writing a whole note, and inline `#tags` sparingly.
-- `$LaTeX$` for math, and Mermaid blocks for diagrams.
+- Bold for the one phrase a skimmer must not miss.
+- Mermaid blocks for diagrams, where the destination renders them.
+- YAML frontmatter only when the destination uses it.
+
+## Length
+
+AI drafts run long. They repeat points, wrap content in previews and recaps, and add structure the content doesn't need. Every extra sentence costs the reader time and buries the point, so write the shortest version that fully answers.
+
+- **Lead with the answer.** Put the conclusion, decision, or verdict first, and supporting detail after it.
+- **Say each thing once.** Don't restate a point in an introduction, a summary, and a conclusion. Add a summary only to a document longer than a page, and keep it from repeating the body word for word.
+- **No previews or recaps.** Cut "This section covers…," "As mentioned above…," and "To summarize…."
+- **No signposts or hedges.** Cut "Note that," "Importantly," "It's important to," "generally," "in many cases," and "may potentially." Keep a qualifier only when it carries a real limit.
+- **Don't explain what the reader knows** or restate a source you can cite.
+- **One example is enough,** unless the examples show different things.
+- **Structure only where it helps.** Use headings only when there are three or more sections. Keep lists to one level of nesting. Bold a phrase only if a skimmer must not miss it. Use a table only to compare items along the same attributes.
+- **Edits shouldn't grow the text.** When you add something in a revision, look for something to cut. If a revision comes out longer, check it for repetition before handing it back.
 
 ## Principles of composition
 
