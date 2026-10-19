@@ -5,16 +5,80 @@
       "id": 1,
       "name": "gradebook-sync-from-docs",
       "prompt": "Here's the data dictionary and architecture notes for Gradebook Sync. Can you turn it into a RoPA entry?",
-      "files": ["evals/files/gradebook-sync-data-dictionary.md"],
-      "expected_output": "One entry for the activity (syncing rosters and grades for the reading app), not per table. Data elements taken from the dictionary with Document as source; purposes and lawful bases not inferred from column names, asked about or marked Provisional/TBC. Flags education records and FERPA (school official, Provisional), students under 13 (date of birth) for COPPA, and iep_flag and ell_status as sensitive (disability information is special category if GDPR applies; education record). Proposes record type: processor for districts' data, and possibly controller for the recommendation model's lexile estimates (asks). Recipients: AWS, error monitoring vendor (captures payloads), districts' LMSs; vendor reviews recommended. Retention: backups 35 days (Document); sync_logs indefinite flagged as a minimization gap; other retention TBC. Territorial scope asked, not assumed. Recommends DPIA screening and AI intake for the recommendation model. Saved under registers/ropa with metadata; index rebuilt with the script. Reply about 150 words.",
-      "expected_files": []
+      "files": [
+        "evals/files/gradebook-sync-data-dictionary.md"
+      ],
+      "expected_output": "A processor entry (Provisional) for the sync, led by the Art. 30(2) fields, with the districts' purposes marked controller-to-confirm and the model's purpose left open as possibly the company's own (Art. 28(10)). Data elements only from the dictionary. iep_flag flagged special category (Provisional, with a reason); ell_status not special category by itself. Children and education-record flags. Recipients: AWS, the error monitoring vendor, and the districts' LMSs. Backups 35 days; indefinite sync logs and payload capture turned into actions; other retention TBC. Transfers screened or TBC, not decided by where students live. Follow-ons: dpia, vendor reviews, ai-intake. Reply about 150 words plus at most five Round 1 questions.",
+      "expected_files": [],
+      "expectations": [
+        "`gov validate` reports 0 errors after the run",
+        "`gov render --check` reports everything up to date",
+        "Every .md file under compliance/registers/ropa/ has a matching .yaml record (no hand-written Markdown)",
+        "The entry's ID was allocated by gov (compliance/.gov/counters.yaml covers it)",
+        "record_type is processor or both, Provisional, and every district-decided purpose has lawful basis controller-to-confirm",
+        "The model's scoring purpose is open as possibly the company's own purpose, through decided_by TBC or company, a question, or a linked controller entry",
+        "Every data element listed appears in the data dictionary; none are added",
+        "iep_flag is flagged special category with Provisional status and a reason",
+        "ell_status is not flagged special category on its own",
+        "AWS, the error monitoring vendor, and the districts or their LMSs are recipients",
+        "Backups show 35 days, and other retention without a source is TBC",
+        "Indefinite sync logs or full-payload capture appear as an action with an owner, not only as a question",
+        "Transfers are TBC or screened by flow (regime, exporter, importer, access); none is decided from where students live",
+        "Follow-ons recommend dpia and ai-intake",
+        "The reply, excluding its numbered question list, is 200 words or fewer",
+        "The reply's numbered question list has five questions or fewer",
+        "The reply doesn't present `gov validate` as legal approval"
+      ]
     },
     {
       "id": 2,
       "name": "hr-onboarding-interview",
       "prompt": "Add HR onboarding to the RoPA. We collect new hire name, home address, SSN or PPSN, bank details, emergency contacts, I-9 documents, and background check results. Workday holds it; Checkr runs background checks. Staff are in the US and Ireland. HR owns it.",
       "files": [],
-      "expected_output": "Controller entry (Provisional) for HR onboarding. Purposes split (hiring and payroll setup, legal right-to-work checks, background screening, emergency contact). Lawful bases proposed per purpose: contract, legal obligation (I-9 for US; Irish equivalents), legitimate interests or legal basis for background checks needing Art. 10 analysis for Irish staff (criminal records data; member state law authorization). Emergency contacts are third-party data subjects. Transfers Ireland to US via Workday and Checkr, mechanism TBC or verified against vendor reviews. Retention TBC (not invented). Vendor reviews recommended for Workday and Checkr if none on file. US state law: employee data largely exempt except California (CCPA covers employees), noted Provisional. Asks Round 1 gaps. Saved with metadata; index rebuilt. Reply about 150 words."
+      "expected_output": "Controller entry or entries (Provisional) for HR onboarding; one entry or linked US and Irish entries are both acceptable. Purposes split. Lawful bases Provisional, with reasons. Background checks flagged criminal, with Art. 10 for Irish staff raised. Emergency contacts as third-party subjects. Ireland-to-US flows via Workday and Checkr screened with the mechanism TBC. No data elements beyond what the user listed. Retention TBC, with any legal requirement kept apart from practice. Vendor reviews for Workday and Checkr. Reply about 150 words plus at most five Round 1 questions.",
+      "expectations": [
+        "`gov validate` reports 0 errors after the run",
+        "`gov render --check` reports everything up to date",
+        "Every .md file under compliance/registers/ropa/ has a matching .yaml record (no hand-written Markdown)",
+        "The entry's ID was allocated by gov (compliance/.gov/counters.yaml covers it)",
+        "Every entry's record_type is controller, Provisional",
+        "Purposes are split, with separate rows for at least payroll or hiring, right-to-work checks, and background screening",
+        "Background check data is flagged criminal, and an open question or verify flag raises Art. 10 for Irish staff",
+        "Emergency contacts are recorded as third-party data subjects",
+        "Ireland-to-US flows through Workday or Checkr are listed with the mechanism TBC or sourced, never assumed",
+        "No data element is recorded beyond those the user listed; anything more specific, such as IBAN, appears only as a question",
+        "Every retention period is TBC or sourced, and any legal requirement sits apart from current practice",
+        "Follow-ons recommend vendor reviews for Workday and Checkr",
+        "US background checks through Checkr raise FCRA disclosure, authorization, or adverse-action steps in a question, verify flag, or action",
+        "The reply, excluding its numbered question list, is 200 words or fewer",
+        "The reply's numbered question list has five questions or fewer",
+        "The reply doesn't present `gov validate` as legal approval"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "webinar-signup-messy",
+      "prompt": "can u add the webinar signup thing to the ropa?? marketing runs it. hubspot form grabs name, work email, company, job title, and a 'how did you hear about us' box. registrants get pushed to zoom and get the recording after. not sure how long we keep any of it tbh. oh and sales gets the list for follow up",
+      "expected_output": "One controller entry (Provisional) for webinar registration and follow-up, kept short. Delivery and sales follow-up as separate purposes. HubSpot and Zoom as processors, sales as internal. Retention TBC. No basis Confirmed. Sales follow-up raises direct-marketing rules. The free-text box noted as possibly capturing unexpected data. No Zoom chat, poll, or attendance data recorded as collected unless asked. Vendor reviews for HubSpot and Zoom. Reply about 150 words plus at most five Round 1 questions.",
+      "files": [],
+      "expectations": [
+        "`gov validate` reports 0 errors after the run",
+        "`gov render --check` reports everything up to date",
+        "Every .md file under compliance/registers/ropa/ has a matching .yaml record (no hand-written Markdown)",
+        "The entry's ID was allocated by gov (compliance/.gov/counters.yaml covers it)",
+        "Webinar delivery and sales follow-up are separate purposes",
+        "HubSpot and Zoom are processors, and sales is internal",
+        "Retention is TBC, not invented",
+        "No lawful basis is Confirmed",
+        "Sales follow-up raises direct-marketing or e-marketing consent rules in a question, verify flag, or action",
+        "The free-text 'how did you hear about us' field is noted as possibly capturing unexpected data",
+        "No Zoom chat, Q&A, poll, or attendance data is recorded as collected; any such data appears only as a question",
+        "Follow-ons recommend vendor reviews for HubSpot and Zoom",
+        "Retention has separate rows for at least HubSpot, Zoom, and the recordings",
+        "The reply, excluding its numbered question list, is 200 words or fewer",
+        "The reply's numbered question list has five questions or fewer",
+        "The reply doesn't present `gov validate` as legal approval"
+      ]
     }
   ]
 }

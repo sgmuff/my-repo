@@ -1,0 +1,72 @@
+{
+  "skill_name": "privacy-governance",
+  "evals": [
+    {
+      "id": 1,
+      "name": "ai-note-taker-students",
+      "prompt": "We're buying an AI note-taker that records student tutoring sessions. What do we need to do? It isn't live yet, the vendor is US-based, and we'd be the deployer. I don't know what lawful basis we'd use.",
+      "expected_output": "Restates the request as activities. Runs gov route with processing_started no, vendor_involved yes, ai_involved yes, children_or_students yes, new_processing yes, restricted_transfer yes or TBC, ai_act_role deployer, lawful_basis TBC. Presents gov's table unchanged: vendor-review, ai-intake, tia (not yet built), dpia, lia conditional, ai-impact-assessment conditional, ai-act-conformity conditional, ropa, notice-and-policy. States the launch gate. Offers to start step 1.",
+      "files": [],
+      "expectations": [
+        "The plan table matches `gov route` output for the facts the reply states",
+        "Recording consent under wiretap laws appears in the decision register or the issues for counsel",
+        "Biometrics or voiceprints, and children under 13 or COPPA, are each asked as a question, listed as a required check, or raised as an issue for counsel; a conditional line printed by gov doesn't count",
+        "School or district context (FERPA, state student privacy laws) is asked about or raised",
+        "Our role (controller or processor) appears as an open decision or question",
+        "lawful_basis is left TBC; the reply doesn't choose one or ask the user to pick one",
+        "The plan makes no legal determination, such as 'a DPIA is required' or 'consent is needed'",
+        "The reply asks for the PRD or a description, plus three questions or fewer",
+        "The reply says nothing in the plan authorizes processing, and offers to start the steps marked Now"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "analytics-nothing-known",
+      "prompt": "legal says we need to look at the new analytics thing before it ships. where do i even start",
+      "expected_output": "Asks for the PRD, ticket, or a short description first, then at most three of gov's next questions. Runs gov route with the facts TBC and shows the conditional plan and checks, including tracking consent. Doesn't invent facts about the tool.",
+      "files": [],
+      "expectations": [
+        "The reply asks for the PRD, ticket, or a description of the feature",
+        "Beyond that request, the reply asks three questions or fewer",
+        "Every question beyond the PRD request maps to a fact key in gov/rules/routing.yaml",
+        "No fact about the tool is invented; unknown facts stay TBC",
+        "Any plan shown matches `gov route` output for the facts the reply states",
+        "Tracking technology or session replay is asked about, set as a fact, or raised as an issue for counsel; a conditional line printed by gov doesn't count"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "lead-scoring-li",
+      "prompt": "Marketing wants to start using an AI tool to score leads from LinkedIn data so sales can prioritize. They'd rely on legitimate interests. Nothing's running yet. The vendor hosts in the EU. No special category or kids' data. Is that OK?",
+      "expected_output": "Runs gov route with vendor_involved yes, ai_involved yes, ai_decisions_about_people yes, profiling yes, new_processing yes, special_category no, children_or_students no, restricted_transfer no, lawful_basis legitimate-interests, processing_started no. Presents the plan: vendor-review, ai-intake, dpia, lia (not yet built), ai-impact-assessment, ai-act-conformity conditional on high-risk, ropa, notice-and-policy. Answers 'is that OK' by pointing to the plan and the decisions, not with a legal conclusion.",
+      "files": [],
+      "expectations": [
+        "The plan table matches `gov route` output for the facts the reply states",
+        "lia appears as a step, marked as having no skill yet",
+        "The Art. 14 notice for data not collected from the prospects appears in the decision register",
+        "The right to object to direct marketing (Art. 21) appears in the decision register or the issues for counsel",
+        "LinkedIn data sourcing, such as scraping or the platform's terms, appears as an issue for counsel or a question",
+        "How the LinkedIn data is obtained (scraped, exported, or supplied by the vendor) is asked, or raised for counsel",
+        "The reply doesn't say the processing is lawful or unlawful",
+        "The reply says nothing in the plan authorizes processing"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "session-replay-sdk",
+      "prompt": "We're adding an analytics SDK to our website. It records session replays, including form interactions. Some visitors are in the EU and California. The vendor may use the data to improve its own services. No AI is involved. Launch is in two weeks.",
+      "expected_output": "Runs gov route with tracking_tech yes, session_replay yes, vendor_involved yes, vendor_own_use yes, new_processing yes, ai_involved no, cross_border_access TBC. Presents the plan unchanged: DPIA screening, vendor review, conditional transfer screening, RoPA, notice review; no AI intake. The decision register includes tracking consent, session replay, and vendor own use. Issues for counsel cover California sale or sharing. The launch date is noted against the open decisions. No restricted transfer is assumed from a US vendor.",
+      "files": [],
+      "expectations": [
+        "The plan table matches `gov route` output for the facts the reply states",
+        "The plan has no AI intake or other AI step",
+        "Tracking consent and session replay masking are both required decisions in the register",
+        "The vendor's use for its own purposes is a required decision in the register",
+        "California sale or sharing (CCPA) appears as an issue for counsel or a question",
+        "The reply doesn't treat a US vendor alone as a restricted transfer; cross_border_access stays TBC or is asked",
+        "The two-week launch date is noted against the open decisions, without implying approval",
+        "The reply asks three questions or fewer beyond any PRD request"
+      ]
+    }
+  ]
+}

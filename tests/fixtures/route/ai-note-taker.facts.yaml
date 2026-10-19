@@ -1,0 +1,9 @@
+# Scenario 1: "We're buying an AI note-taker that records student tutoring sessions."
+processing_started: no
+vendor_involved: yes
+ai_involved: yes
+new_processing: yes
+children_or_students: yes
+audio_video_recording: yes
+cross_border_access: yes
+ai_act_role: deployer

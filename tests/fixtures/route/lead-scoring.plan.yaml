@@ -1,0 +1,370 @@
+plan:
+- n: 1
+  step: dpia-screening
+  label: DPIA screening
+  skill: dpia
+  available: true
+  time_critical: false
+  status: required
+  applies_if: null
+  start: now
+  finalize_after: []
+  gate: policy
+  because:
+  - new_processing = yes
+  indicators:
+  - profiling
+  - ai_profiles_people
+  - indirect_collection
+  basis: screen all new processing; a full DPIA follows only if screening finds likely high risk (GDPR Art. 35)
+  open_facts: []
+  decision:
+    owner: Privacy lead
+    text: Whether a full DPIA or state assessment is required; risk acceptance by rating
+- n: 2
+  step: vendor-review
+  label: Vendor review
+  skill: vendor-review
+  available: true
+  time_critical: false
+  status: required
+  applies_if: null
+  start: now
+  finalize_after: []
+  gate: law
+  because:
+  - vendor_involved = yes
+  indicators: []
+  basis: processor terms (GDPR Art. 28; state service provider terms)
+  open_facts: []
+  decision:
+    owner: Approver for the residual rating
+    text: Onboard, onboard with conditions, or not
+- n: 3
+  step: ai-intake
+  label: AI intake
+  skill: ai-intake
+  available: true
+  time_critical: false
+  status: required
+  applies_if: null
+  start: now
+  finalize_after: []
+  gate: policy
+  because:
+  - ai_involved = yes
+  indicators: []
+  basis: every AI system is inventoried and tiered
+  open_facts: []
+  decision:
+    owner: Privacy lead
+    text: Internal AI tier, EU AI Act role, and EU AI Act classification, decided separately
+- n: 4
+  step: transfer-screening
+  label: Transfer screening
+  skill: tia
+  available: false
+  time_critical: false
+  status: conditional
+  applies_if: cross_border_access = yes
+  start: after 2
+  finalize_after: []
+  gate: law
+  because: []
+  indicators: []
+  basis: restricted transfers need a mechanism, and SCCs need a transfer assessment (GDPR Ch. V; SCCs Clause 14)
+  open_facts:
+  - cross_border_access
+  decision:
+    owner: Privacy lead
+    text: Which flows are restricted, the mechanism for each, and supplementary measures
+- n: 5
+  step: lia
+  label: Legitimate interests assessment
+  skill: lia
+  available: false
+  time_critical: false
+  status: required
+  applies_if: null
+  start: now
+  finalize_after: []
+  gate: law
+  because:
+  - lawful_basis = legitimate-interests
+  indicators: []
+  basis: legitimate interests needs a documented three-part test (GDPR Art. 6(1)(f), 5(2))
+  open_facts: []
+  decision:
+    owner: Privacy lead
+    text: The LIA for each purpose; it feeds the lawful-basis decision
+- n: 6
+  step: ai-impact-assessment
+  label: AI impact assessment
+  skill: ai-impact-assessment
+  available: true
+  time_critical: false
+  status: required
+  applies_if: null
+  start: after 3
+  finalize_after: []
+  gate: policy
+  because:
+  - ai_profiles_people = yes
+  indicators: []
+  basis: AI that profiles people or informs decisions about them gets an impact assessment
+  open_facts: []
+  decision:
+    owner: Privacy lead
+    text: Residual AI risk; whether any customer owes a FRIA (AI Act Art. 27)
+- n: 7
+  step: ai-act-deployer
+  label: AI Act deployer readiness
+  skill: ai-act-deployer
+  available: false
+  time_critical: false
+  status: conditional
+  applies_if: ai_high_risk = yes
+  start: after 3
+  finalize_after: []
+  gate: law
+  because:
+  - ai_act_role = deployer
+  indicators: []
+  basis: high-risk deployer duties (AI Act Art. 26), from December 2, 2027 per eu-ai-act.md (verified 2026-10-16)
+  open_facts:
+  - ai_high_risk
+  decision:
+    owner: Privacy lead and business owner
+    text: Deployer readiness, and evidence of the provider's compliance
+- n: 8
+  step: ropa
+  label: RoPA entry
+  skill: ropa
+  available: true
+  time_critical: false
+  status: required
+  applies_if: null
+  start: now
+  finalize_after:
+  - 1
+  - 2
+  - 5
+  gate: law
+  because:
+  - new_processing = yes
+  indicators: []
+  basis: records of processing (GDPR Art. 30)
+  open_facts: []
+  decision:
+    owner: Business owner, then privacy lead
+    text: Business owner confirms the facts; privacy lead approves the entry
+- n: 9
+  step: notice-review
+  label: Notice review
+  skill: notice-and-policy
+  available: true
+  time_critical: false
+  status: required
+  applies_if: null
+  start: now
+  finalize_after:
+  - 8
+  gate: law
+  because:
+  - new_processing = yes
+  - indirect_collection = yes
+  indicators: []
+  basis: transparency (GDPR Art. 13-14; state notice at collection)
+  open_facts: []
+  decision:
+    owner: Privacy lead and counsel
+    text: Any notice change, and its timing
+decisions:
+- about: step 1
+  decision: Whether a full DPIA or state assessment is required; risk acceptance by rating
+  owner: Privacy lead
+  gate: policy
+  status: required
+  applies_if: null
+  blocks_launch: true
+  note: null
+- about: step 2
+  decision: Onboard, onboard with conditions, or not
+  owner: Approver for the residual rating
+  gate: law
+  status: required
+  applies_if: null
+  blocks_launch: true
+  note: null
+- about: step 3
+  decision: Internal AI tier, EU AI Act role, and EU AI Act classification, decided separately
+  owner: Privacy lead
+  gate: policy
+  status: required
+  applies_if: null
+  blocks_launch: true
+  note: null
+- about: step 4
+  decision: Which flows are restricted, the mechanism for each, and supplementary measures
+  owner: Privacy lead
+  gate: law
+  status: conditional
+  applies_if: cross_border_access = yes
+  blocks_launch: true
+  note: 'No skill yet: the owner runs this step by hand, and launch waits until the result is recorded'
+- about: step 5
+  decision: The LIA for each purpose; it feeds the lawful-basis decision
+  owner: Privacy lead
+  gate: law
+  status: required
+  applies_if: null
+  blocks_launch: true
+  note: 'No skill yet: the owner runs this step by hand, and launch waits until the result is recorded'
+- about: step 6
+  decision: Residual AI risk; whether any customer owes a FRIA (AI Act Art. 27)
+  owner: Privacy lead
+  gate: policy
+  status: required
+  applies_if: null
+  blocks_launch: true
+  note: null
+- about: step 7
+  decision: Deployer readiness, and evidence of the provider's compliance
+  owner: Privacy lead and business owner
+  gate: law
+  status: conditional
+  applies_if: ai_high_risk = yes
+  blocks_launch: true
+  note: 'No skill yet: the owner runs this step by hand, and launch waits until the result is recorded'
+- about: step 8
+  decision: Business owner confirms the facts; privacy lead approves the entry
+  owner: Business owner, then privacy lead
+  gate: law
+  status: required
+  applies_if: null
+  blocks_launch: true
+  note: null
+- about: step 9
+  decision: Any notice change, and its timing
+  owner: Privacy lead and counsel
+  gate: law
+  status: required
+  applies_if: null
+  blocks_launch: true
+  note: null
+- about: lawful-basis
+  decision: A lawful basis for each purpose we decide, documented before processing starts (GDPR Art. 6). The DPIA informs it but doesn't choose it.
+  owner: Privacy lead
+  gate: law
+  status: required
+  applies_if: null
+  blocks_launch: true
+  note: null
+- about: indirect-notice
+  decision: 'Notice to people whose data we didn''t collect from them: content, timing, and any exception (GDPR Art. 14)'
+  owner: Privacy lead and counsel
+  gate: law
+  status: required
+  applies_if: null
+  blocks_launch: true
+  note: null
+- about: direct-marketing
+  decision: Handling the absolute right to object to direct marketing (GDPR Art. 21(2)-(3)), and e-marketing consent rules (ePrivacy, PECR, CAN-SPAM)
+  owner: Counsel
+  gate: law
+  status: required
+  applies_if: null
+  blocks_launch: true
+  note: null
+- about: tracking-consent
+  decision: Consent for cookies and device storage (ePrivacy Directive Art. 5(3); PECR reg. 6) and state tracking rules
+  owner: Counsel
+  gate: law
+  status: conditional
+  applies_if: tracking_tech = yes
+  blocks_launch: true
+  note: null
+- about: recording-consent
+  decision: Recording consent under state wiretap laws, including all-party consent states
+  owner: Counsel
+  gate: law
+  status: conditional
+  applies_if: audio_video_recording = yes
+  blocks_launch: true
+  note: null
+- about: biometrics
+  decision: Biometric identifiers under GDPR Art. 9 and state biometric laws, such as Illinois BIPA
+  owner: Counsel
+  gate: law
+  status: conditional
+  applies_if: biometrics = yes
+  blocks_launch: true
+  note: null
+- about: vendor-own-use
+  decision: 'Vendor use for its own purposes: forbid it in the contract, or treat the vendor as a controller for that use (GDPR Art. 28(3)(a), 28(10))'
+  owner: Privacy lead
+  gate: law
+  status: conditional
+  applies_if: vendor_own_use = yes
+  blocks_launch: true
+  note: null
+- about: scraped-source
+  decision: 'Whether the source is lawful to use: platform terms, anti-scraping and computer-misuse law, and the source''s own basis'
+  owner: Counsel
+  gate: risk
+  status: conditional
+  applies_if: scraped_data = yes
+  blocks_launch: true
+  note: null
+- about: session-replay
+  decision: 'Session replay: consent before recording, and masking of form fields and other sensitive input'
+  owner: Counsel
+  gate: risk
+  status: conditional
+  applies_if: tracking_tech = yes and session_replay = yes
+  blocks_launch: true
+  note: null
+- about: us-sale-sharing
+  decision: Whether disclosures to the vendor are a sale or sharing under state privacy laws, and the opt-out and Global Privacy Control duties that follow
+  owner: Privacy lead and counsel
+  gate: law
+  status: conditional
+  applies_if: vendor_own_use = yes or tracking_tech = yes
+  blocks_launch: true
+  note: null
+- about: ai-act-baseline
+  decision: 'AI Act duties that apply whatever the tier: prohibited practices (Art. 5, such as emotion recognition in schools and workplaces) and transparency (Art. 50)'
+  owner: Privacy lead
+  gate: law
+  status: required
+  applies_if: null
+  blocks_launch: true
+  note: null
+next_questions:
+- fact: tracking_tech
+  question: Does it use cookies, SDKs, pixels, or device identifiers?
+- fact: vendor_own_use
+  question: Can the vendor use our data for its own purposes, such as training models or enriching its database?
+- fact: cross_border_access
+  question: Will anyone outside the EEA, UK, or Switzerland store or access the data, including vendor support and subprocessors?
+question_candidates:
+- fact: tracking_tech
+  question: Does it use cookies, SDKs, pixels, or device identifiers?
+- fact: vendor_own_use
+  question: Can the vendor use our data for its own purposes, such as training models or enriching its database?
+- fact: cross_border_access
+  question: Will anyone outside the EEA, UK, or Switzerland store or access the data, including vendor support and subprocessors?
+- fact: scraped_data
+  question: Is any of it scraped or exported from a website or platform, such as LinkedIn?
+- fact: audio_video_recording
+  question: Does it record audio or video of people?
+- fact: biometrics
+  question: Does it identify people by voice, face, or other biometrics?
+assumed:
+  suspected_breach: false
+  dsr_received: false
+  regulator_inquiry: false
+not_built:
+- ai-act-deployer
+- lia
+- tia

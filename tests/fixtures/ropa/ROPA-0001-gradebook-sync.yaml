@@ -1,0 +1,262 @@
+id: ROPA-0001
+type: ropa
+schema_version: 2
+format_version: 2
+title: Gradebook Sync
+status: Draft
+version: "0.1"
+record_type: {value: processor, status: Provisional, reason: Districts authorize the sync and decide its purpose; model use still open (Q1)}
+business_area: Product
+business_owner: TBC
+system_owner: Integrations team
+prepared_by: Claude (privacy-governance suite)
+date_prepared: "2026-10-18"
+last_reviewed: null
+next_review: "2027-10-18"
+summary: Nightly sync of rosters and grades from district LMSs into the reading app, with reading-level scores written back. Covers K-12 students and teachers, processed on the districts' behalf.
+
+company:
+  name: TBC
+  contact: TBC
+  dpo: TBC
+  representative: TBC
+  joint_controllers: not-applicable
+  source: {kind: tbc}
+
+processor_record:
+  applicable: true
+  controllers: School districts that authorize the LMS integration
+  processing: Roster and grade sync, storage, and reading-level scoring for the district's instruction
+  source: {kind: document, ref: Gradebook Sync data dictionary}
+
+purposes:
+  - id: P1
+    purpose: Sync rosters and grades from district LMSs to provide the reading app
+    decided_by: customer
+    lawful_basis: {value: controller-to-confirm, status: Provisional, reason: Each district decides the purpose and its basis}
+    art9_condition: {value: controller-to-confirm, status: Provisional, reason: iep_flag may reveal disability (Q2)}
+    source: {kind: document, ref: Gradebook Sync data dictionary}
+  - id: P2
+    purpose: Estimate reading levels with the recommendation model and return them to the LMS
+    decided_by: TBC
+    lawful_basis: {value: TBC, status: Provisional, reason: Depends on whether the model serves only district instruction (Q1)}
+    art9_condition: {value: none, status: Provisional, reason: No special category data documented as model input}
+    source: {kind: document, ref: Gradebook Sync data dictionary}
+
+data_subjects:
+  - category: Students
+    vulnerable: {value: true, status: Provisional, reason: "K-12 students, likely including children"}
+    source: {kind: document, ref: Gradebook Sync data dictionary}
+  - category: Teachers
+    vulnerable: {value: false, status: Provisional, reason: Staff in their professional role}
+    source: {kind: inferred, ref: teacher_id in enrollments}
+
+data_categories:
+  - category: Student identity
+    elements: [student_id, district_student_number, first_name, last_name, date_of_birth, grade_level]
+    flags:
+      - {flag: children, status: Provisional, reason: K-12 grade levels and dates of birth}
+      - {flag: education-record, status: Provisional, reason: Maintained by districts and identifies students}
+    ccpa_category: Identifiers; education information
+    purposes: [P1, P2]
+    source: {kind: document, ref: Gradebook Sync data dictionary}
+  - category: Support needs
+    elements: [iep_flag, ell_status]
+    flags:
+      - {flag: special-category, status: Provisional, reason: "iep_flag may reveal disability; ell_status alone is not Art. 9 data"}
+      - {flag: education-record, status: Provisional, reason: Both come from the district roster export}
+    ccpa_category: Education information
+    purposes: [P1]
+    source: {kind: document, ref: Gradebook Sync data dictionary}
+  - category: Grades and scores
+    elements: [assignment_id, score, submitted_at, lexile_estimate]
+    flags:
+      - {flag: education-record, status: Provisional, reason: Grades pulled from the LMS}
+    ccpa_category: Education information; inferences
+    purposes: [P1, P2]
+    source: {kind: document, ref: Gradebook Sync data dictionary}
+  - category: Sync logs
+    elements: [district_id, payload_json, created_at]
+    flags: TBC
+    ccpa_category: TBC
+    purposes: [P1]
+    source: {kind: document, ref: Gradebook Sync data dictionary}
+
+recipients:
+  - name: AWS
+    kind: sub-processor
+    data: All tables and backups
+    purposes: [P1, P2]
+    location: United States
+    vendor_review: recommended
+    vendor: aws
+    source: {kind: document, ref: Gradebook Sync data dictionary}
+  - name: Error monitoring vendor
+    kind: sub-processor
+    data: Request payloads captured on exceptions
+    purposes: [P1]
+    location: TBC
+    vendor_review: recommended
+    source: {kind: document, ref: Gradebook Sync data dictionary}
+  - name: Districts, through their LMSs
+    kind: controller
+    data: Reading-level scores
+    purposes: [P2]
+    location: TBC
+    vendor_review: not-applicable
+    source: {kind: document, ref: Gradebook Sync data dictionary}
+
+transfers: TBC
+
+retention:
+  - store: Postgres backups on AWS
+    data_category: All tables
+    current_practice: 35 days
+    legal_requirement: none
+    proposed_policy: TBC
+    trigger: Backup date
+    deletion: Automatic expiry
+    source: {kind: document, ref: Gradebook Sync data dictionary}
+  - store: sync_logs table on AWS
+    data_category: Sync logs
+    current_practice: Indefinite
+    legal_requirement: none
+    proposed_policy: TBC
+    trigger: none
+    deletion: TBC
+    source: {kind: document, ref: Gradebook Sync data dictionary}
+  - store: Postgres production tables on AWS
+    data_category: Student identity, grades, and scores
+    current_practice: TBC
+    legal_requirement: TBC
+    proposed_policy: TBC
+    trigger: TBC
+    deletion: TBC
+    source: {kind: tbc}
+  - store: Error monitoring vendor
+    data_category: Request payloads captured on exceptions
+    current_practice: TBC
+    legal_requirement: none
+    proposed_policy: TBC
+    trigger: TBC
+    deletion: TBC
+    source: {kind: tbc}
+
+security:
+  baseline: TBC
+  activity_measures: District admins authorize the integration through OAuth in their LMS
+  source: {kind: document, ref: Gradebook Sync data dictionary}
+
+systems:
+  data_sources: From districts, through their LMSs
+  systems: [Postgres on AWS us-east-1, Canvas, Schoology, error monitoring service]
+  flow: Nightly pull of rosters and grades from the LMS; scores pushed back after the model runs.
+  derived_data: lexile_estimate, written back to district LMSs; downstream use TBC
+  third_party_subjects: none
+
+us_flags:
+  sale_or_sharing: {value: false, status: Provisional, reason: No sale or advertising use documented}
+  targeted_advertising: {value: false, status: Provisional, reason: No advertising use documented}
+  sensitive_data: {value: TBC, status: Provisional, reason: Depends on what iep_flag signifies (Q2)}
+  profiling: {value: TBC, status: Provisional, reason: Depends on how districts use the score (Q3)}
+  education_records: {value: true, status: Provisional, reason: Rosters and grades come from districts}
+  ferpa_exception: {value: "School official, 34 CFR § 99.31(a)(1)", status: Provisional, reason: Depends on district contracts (V1)}
+
+ai_used: true
+
+related:
+  assessment: recommended
+  vendor_reviews: []
+  ai_intake: recommended
+  notice: TBC
+  linked_entries: []
+
+follow_ons:
+  - skill: dpia
+    reason: Children's data, a possible disability flag, and a scoring model
+  - skill: vendor-review
+    reason: Error monitoring vendor captures student payloads
+  - skill: ai-intake
+    reason: The recommendation model scores students
+  - skill: tia
+    reason: AWS stores the data in the United States
+
+actions:
+  - id: A1
+    action: Stop logging full payloads, or redact student fields from payload_json
+    owner: Integrations team
+    due: TBC
+    closure_evidence: Log sample showing redacted payloads
+    launch_blocking: true
+    block_reason: risk
+    scope: payload logging
+    status: open
+  - id: A3
+    action: Sign DPAs with AWS and the error monitoring vendor, after vendor review
+    owner: Privacy lead
+    due: TBC
+    closure_evidence: Signed DPAs on file
+    launch_blocking: true
+    block_reason: law
+    status: open
+  - id: A2
+    action: Set a retention limit for sync logs and delete older logs
+    owner: Integrations team
+    due: TBC
+    closure_evidence: Configured retention policy
+    launch_blocking: false
+    status: open
+
+open_questions:
+  - id: Q1
+    question: Does the lexile model serve only the district's instruction, or also our own product development?
+    field: purposes/P2
+    blocks: approval
+    owner: Product
+    needed_by: TBC
+  - id: Q2
+    question: Why does the sync import iep_flag and ell_status, and can it exclude them?
+    field: data_categories
+    blocks: approval
+    owner: Product
+    needed_by: TBC
+  - id: Q3
+    question: Do districts use the reading-level score for grading, placement, or intervention decisions?
+    field: us_flags/profiling
+    blocks: approval
+    owner: Product
+    needed_by: TBC
+
+verify:
+  - id: V1
+    claim: The school official exception covers the sync
+    why: Decides whether FERPA allows the disclosure
+    check: District contracts and ferpa.md section 3
+    owner: Privacy lead
+    needed_by: TBC
+
+finding_responses: []
+
+nist_pf: [ID.IM-P1, ID.IM-P3, ID.IM-P4]
+
+references:
+  - {file: gdpr.md, version: "EU GDPR as of 2026-10-16", verified: "2026-10-16"}
+  - {file: ferpa.md, version: "FERPA and COPPA as of 2026-10-16", verified: "2026-10-16"}
+
+version_history:
+  - version: "0.1"
+    date: "2026-10-18"
+    author: Claude (privacy-governance suite)
+    change: First draft from the data dictionary
+
+signoff:
+  - decision: Facts confirmed
+    approver_role: Business owner
+    name: null
+    date: null
+    outcome: null
+  - decision: Legal positions confirmed; entry approved
+    approver_role: Privacy lead
+    name: null
+    date: null
+    outcome: null

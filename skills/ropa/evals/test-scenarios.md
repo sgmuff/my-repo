@@ -33,7 +33,7 @@ The trigger lists are also in `trigger-evals.json`. The full-run cases, with fix
 - Leaves required fields it can't confirm as TBC, especially retention, and doesn't invent them.
 - Flags follow-ons in "Related assessments": DPIA screening, vendor reviews, AI intake, notice coverage.
 - Fills US state and FERPA flags where relevant.
-- Saves the entry under `registers/ropa/` with the metadata the index needs, and rebuilds the index with the script.
+- Creates the entry with `gov new`, fills in the YAML record, and runs `gov validate` and `gov render`. Never writes the Markdown by hand.
 - Routes facts to the business owner and legal positions to the privacy lead.
 - Records the next review as an action, not a calendar event.
 - Replies in about 150 words.

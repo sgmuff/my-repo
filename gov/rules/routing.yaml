@@ -1,0 +1,228 @@
+# Triage routing table, read by `gov route`. Changes need the privacy lead's approval.
+#
+# facts: the deciding facts. A fact left out of facts.yaml takes its default, and the plan lists
+#   it as assumed; without a default it is TBC. ask: false keeps a fact out of the next questions.
+#   parent: a fact asked only once its parent is yes; until then its weight goes to the parent.
+#   priority: extra weight when ranking next questions, for facts that change the analysis most.
+# steps: in priority order. when: every listed fact must match; when_any: at least one must.
+#   A list value matches any item. A TBC fact makes the step conditional.
+#   start_after: steps whose output this step needs before it can start (real data dependencies only).
+#   finalize_after: steps whose results this step must reflect before approval; it can start now.
+#   gate: why the step blocks launch: law (required where the law applies), policy (our own rule),
+#     or risk (a risk someone must clear). basis: the reason in one line. Never a conclusion.
+#   indicators: facts the plan reports as risk indicators when true; they don't trigger the step.
+# checks: legal decisions with no workflow of their own. Each goes in the decision register.
+#   when_open: the check applies while that fact is TBC.
+version: 2
+
+facts:
+  processing_started: {type: boolean, question: "Is any of it running yet, including a pilot, a default-on feature, or an SDK behind a flag?"}
+  suspected_breach: {type: boolean, default: false, question: "Is there a suspected breach or exposure?"}
+  dsr_received: {type: boolean, default: false, question: "Is a data subject request waiting for an answer?"}
+  regulator_inquiry: {type: boolean, default: false, question: "Has a regulator or authority made contact?"}
+  new_processing: {type: boolean, question: "Is this new processing, or a change to purposes, data, or recipients?"}
+  company_role: {priority: 2, type: enum, values: [controller, processor, both], question: "Do we decide why and how the data is used, or do we act on a customer's instructions?"}
+  vendor_involved: {type: boolean, question: "Is a vendor, subprocessor, or AI provider involved?"}
+  vendor_own_use: {parent: vendor_involved, type: boolean, question: "Can the vendor use our data for its own purposes, such as training models or enriching its database?"}
+  cross_border_access: {type: boolean, question: "Will anyone outside the EEA, UK, or Switzerland store or access the data, including vendor support and subprocessors?"}
+  special_category: {type: boolean, question: "Could it involve health, disability, biometric, or other special category or US-sensitive data?"}
+  children_or_students: {type: boolean, question: "Does it involve children's or students' data?"}
+  school_context: {parent: children_or_students, priority: 2, type: boolean, question: "Do schools, districts, or universities provide the data or use the service?"}
+  children_under_13: {parent: children_or_students, priority: 2, type: boolean, question: "Are any of the children under 13?"}
+  profiling: {type: boolean, question: "Does it score, rank, or monitor people systematically?"}
+  indirect_collection: {type: boolean, question: "Do we get the data from somewhere other than the people themselves, such as LinkedIn, a list, or a customer?"}
+  scraped_data: {parent: indirect_collection, type: boolean, question: "Is any of it scraped or exported from a website or platform, such as LinkedIn?"}
+  direct_marketing: {type: boolean, question: "Will we use it to market to people?"}
+  tracking_tech: {type: boolean, question: "Does it use cookies, SDKs, pixels, or device identifiers?"}
+  session_replay: {parent: tracking_tech, type: boolean, question: "Does it record sessions, such as clicks, scrolling, or form input?"}
+  audio_video_recording: {type: boolean, question: "Does it record audio or video of people?"}
+  biometrics: {type: boolean, question: "Does it identify people by voice, face, or other biometrics?"}
+  ai_involved: {type: boolean, question: "Does it use AI, including an AI feature in a purchased tool?"}
+  ai_profiles_people: {parent: ai_involved, type: boolean, question: "Does the AI score people or infer things about them, such as engagement or sentiment?"}
+  ai_influences_decisions: {parent: ai_involved, priority: 2, type: boolean, question: "Could the AI's output affect decisions about people, such as grades, hiring, or credit?"}
+  ai_act_role: {parent: ai_involved, type: enum, values: [provider, deployer, none], question: "Do we build or sell the AI system under our name (provider), or use someone else's (deployer)?"}
+  ai_high_risk: {type: boolean, ask: false, question: "Has ai-intake classified the system high-risk under the EU AI Act?"}
+  lawful_basis: {type: enum, ask: false, default: not-proposed, values: [not-proposed, consent, contract, legal-obligation, vital-interests, public-task, legitimate-interests], question: "Has anyone already proposed a lawful basis?"}
+
+steps:
+  - id: containment
+    gate: risk
+    label: Containment
+    skill: null
+    time_critical: true
+    when: {processing_started: true}
+    basis: "Processing is running before review"
+    decision: {owner: Privacy lead, text: "Pause, limit, or continue what is already running"}
+  - id: incident-assessment
+    gate: law
+    label: Incident assessment
+    skill: incident-assessment
+    time_critical: true
+    when: {suspected_breach: true}
+    basis: "notification clocks may be running (GDPR Art. 33-34; state breach laws)"
+    decision: {owner: Privacy lead and counsel, text: "Whether to notify, and whom"}
+  - id: dsr-response
+    gate: law
+    label: Data subject request
+    skill: dsr-response
+    time_critical: true
+    when: {dsr_received: true}
+    basis: "response deadlines are running"
+    decision: {owner: Privacy lead, text: "Any refusal, extension, or fee"}
+  - id: regulator-response
+    gate: law
+    label: Regulator response
+    skill: null
+    time_critical: true
+    when: {regulator_inquiry: true}
+    basis: "An authority is waiting for an answer"
+    decision: {owner: Privacy lead and counsel, text: "The response to the authority"}
+  - id: dpia-screening
+    gate: policy
+    label: DPIA screening
+    skill: dpia
+    when: {new_processing: true}
+    basis: "screen all new processing; a full DPIA follows only if screening finds likely high risk (GDPR Art. 35)"
+    indicators: [special_category, children_or_students, children_under_13, profiling, ai_profiles_people, ai_influences_decisions, biometrics, audio_video_recording, indirect_collection]
+    decision: {owner: Privacy lead, text: "Whether a full DPIA or state assessment is required; risk acceptance by rating"}
+  - id: vendor-review
+    gate: law
+    label: Vendor review
+    skill: vendor-review
+    when: {vendor_involved: true}
+    basis: "processor terms (GDPR Art. 28; state service provider terms)"
+    decision: {owner: Approver for the residual rating, text: "Onboard, onboard with conditions, or not"}
+  - id: ai-intake
+    gate: policy
+    label: AI intake
+    skill: ai-intake
+    when: {ai_involved: true}
+    basis: "every AI system is inventoried and tiered"
+    decision: {owner: Privacy lead, text: "Internal AI tier, EU AI Act role, and EU AI Act classification, decided separately"}
+  - id: transfer-screening
+    gate: law
+    label: Transfer screening
+    skill: tia
+    when: {cross_border_access: true}
+    start_after: [vendor-review]
+    basis: "restricted transfers need a mechanism, and SCCs need a transfer assessment (GDPR Ch. V; SCCs Clause 14)"
+    decision: {owner: Privacy lead, text: "Which flows are restricted, the mechanism for each, and supplementary measures"}
+  - id: lia
+    gate: law
+    label: Legitimate interests assessment
+    skill: lia
+    when: {lawful_basis: legitimate-interests}
+    basis: "legitimate interests needs a documented three-part test (GDPR Art. 6(1)(f), 5(2))"
+    decision: {owner: Privacy lead, text: "The LIA for each purpose; it feeds the lawful-basis decision"}
+  - id: ai-impact-assessment
+    gate: policy
+    label: AI impact assessment
+    skill: ai-impact-assessment
+    when_any: {ai_profiles_people: true, ai_influences_decisions: true}
+    start_after: [ai-intake]
+    basis: "AI that profiles people or informs decisions about them gets an impact assessment"
+    decision: {owner: Privacy lead, text: "Residual AI risk; whether any customer owes a FRIA (AI Act Art. 27)"}
+  - id: ai-act-provider
+    gate: law
+    label: AI Act provider readiness
+    skill: ai-act-provider
+    when: {ai_act_role: provider, ai_high_risk: true}
+    start_after: [ai-intake]
+    basis: "high-risk provider duties (AI Act Art. 9-17, 43, 72), from December 2, 2027 per eu-ai-act.md (verified 2026-10-16)"
+    decision: {owner: Privacy lead and product owner, text: "Conformity readiness; the declaration of conformity is signed by the provider's signatory"}
+  - id: ai-act-deployer
+    gate: law
+    label: AI Act deployer readiness
+    skill: ai-act-deployer
+    when: {ai_act_role: deployer, ai_high_risk: true}
+    start_after: [ai-intake]
+    basis: "high-risk deployer duties (AI Act Art. 26), from December 2, 2027 per eu-ai-act.md (verified 2026-10-16)"
+    decision: {owner: Privacy lead and business owner, text: "Deployer readiness, and evidence of the provider's compliance"}
+  - id: ropa
+    gate: law
+    label: RoPA entry
+    skill: ropa
+    when: {new_processing: true}
+    finalize_after: [dpia-screening, vendor-review, transfer-screening, lia]
+    basis: "records of processing (GDPR Art. 30)"
+    decision: {owner: "Business owner, then privacy lead", text: "Business owner confirms the facts; privacy lead approves the entry"}
+  - id: notice-review
+    gate: law
+    label: Notice review
+    skill: notice-and-policy
+    when_any: {new_processing: true, indirect_collection: true}
+    finalize_after: [ropa]
+    basis: "transparency (GDPR Art. 13-14; state notice at collection)"
+    decision: {owner: Privacy lead and counsel, text: "Any notice change, and its timing"}
+
+checks:
+  - id: our-role
+    gate: law
+    when_open: company_role
+    owner: Privacy lead
+    decision: "Our role for each purpose: controller, processor, or both (GDPR Art. 4(7)-(8), 28(10))"
+  - id: lawful-basis
+    gate: law
+    when: {new_processing: true, company_role: [controller, both]}
+    owner: Privacy lead
+    decision: "A lawful basis for each purpose we decide, documented before processing starts (GDPR Art. 6). The DPIA informs it but doesn't choose it."
+  - id: indirect-notice
+    gate: law
+    when: {indirect_collection: true}
+    owner: Privacy lead and counsel
+    decision: "Notice to people whose data we didn't collect from them: content, timing, and any exception (GDPR Art. 14)"
+  - id: direct-marketing
+    gate: law
+    when: {direct_marketing: true}
+    owner: Counsel
+    decision: "Handling the absolute right to object to direct marketing (GDPR Art. 21(2)-(3)), and e-marketing consent rules (ePrivacy, PECR, CAN-SPAM)"
+  - id: tracking-consent
+    gate: law
+    when: {tracking_tech: true}
+    owner: Counsel
+    decision: "Consent for cookies and device storage (ePrivacy Directive Art. 5(3); PECR reg. 6) and state tracking rules"
+  - id: recording-consent
+    gate: law
+    when: {audio_video_recording: true}
+    owner: Counsel
+    decision: "Recording consent under state wiretap laws, including all-party consent states"
+  - id: biometrics
+    gate: law
+    when: {biometrics: true}
+    owner: Counsel
+    decision: "Biometric identifiers under GDPR Art. 9 and state biometric laws, such as Illinois BIPA"
+  - id: coppa
+    gate: law
+    when: {children_or_students: true, children_under_13: true}
+    owner: Counsel
+    decision: "COPPA: verifiable parental consent, or school authorization limited to the school's purposes"
+  - id: student-privacy
+    gate: law
+    when: {children_or_students: true, school_context: true}
+    owner: Privacy lead and counsel
+    decision: "FERPA school-official conditions and state student privacy laws, such as SOPIPA and NY Educ. Law § 2-d"
+  - id: vendor-own-use
+    gate: law
+    when: {vendor_involved: true, vendor_own_use: true}
+    owner: Privacy lead
+    decision: "Vendor use for its own purposes: forbid it in the contract, or treat the vendor as a controller for that use (GDPR Art. 28(3)(a), 28(10))"
+  - id: scraped-source
+    gate: risk
+    when: {indirect_collection: true, scraped_data: true}
+    owner: Counsel
+    decision: "Whether the source is lawful to use: platform terms, anti-scraping and computer-misuse law, and the source's own basis"
+  - id: session-replay
+    gate: risk
+    when: {tracking_tech: true, session_replay: true}
+    owner: Counsel
+    decision: "Session replay: consent before recording, and masking of form fields and other sensitive input"
+  - id: us-sale-sharing
+    gate: law
+    when_any: {vendor_own_use: true, tracking_tech: true}
+    owner: Privacy lead and counsel
+    decision: "Whether disclosures to the vendor are a sale or sharing under state privacy laws, and the opt-out and Global Privacy Control duties that follow"
+  - id: ai-act-baseline
+    gate: law
+    when: {ai_involved: true}
+    owner: Privacy lead
+    decision: "AI Act duties that apply whatever the tier: prohibited practices (Art. 5, such as emotion recognition in schools and workplaces) and transparency (Art. 50)"

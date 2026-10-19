@@ -1,0 +1,21 @@
+# Document ID prefixes (conventions.md section 9).
+# yearly: IDs carry the year, as in DPIA-2026-004, and number from 1 each year.
+# digits: zero padding of the sequence number.
+# type and folder: set only for record types that gov manages as YAML.
+version: 1
+prefixes:
+  ROPA: {digits: 4, yearly: false, type: ropa, folder: registers/ropa}
+  DPIA: {digits: 3, yearly: true}
+  SCR: {digits: 3, yearly: true}
+  VR: {digits: 3, yearly: true}
+  AIS: {digits: 4, yearly: false}
+  AIIA: {digits: 3, yearly: true}
+  DSR: {digits: 3, yearly: true}
+  INC: {digits: 3, yearly: true}
+  CTL: {digits: 4, yearly: false}
+  EV: {digits: 4, yearly: false}
+  RDY: {digits: 3, yearly: true}
+  PA: {digits: 3, yearly: true}
+  NR: {digits: 3, yearly: true}
+  POL: {digits: 4, yearly: false}
+  RC: {digits: 3, yearly: true}

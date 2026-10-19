@@ -1,0 +1,10 @@
+# Reviewer scenario: an analytics SDK with session replay; vendor may reuse the data; no AI.
+processing_started: no
+new_processing: yes
+company_role: controller
+vendor_involved: yes
+vendor_own_use: yes
+tracking_tech: yes
+session_replay: yes
+ai_involved: no
+cross_border_access: TBC

@@ -1,0 +1,8 @@
+# Scenario 3: launching in Germany with a new payments partner and a chatbot.
+processing_started: no
+vendor_involved: yes
+ai_involved: yes
+new_processing: yes
+company_role: controller
+cross_border_access: TBC
+ai_act_role: deployer

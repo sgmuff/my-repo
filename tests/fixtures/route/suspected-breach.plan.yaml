@@ -1,0 +1,180 @@
+plan:
+- n: 1
+  step: containment
+  label: Containment
+  skill: null
+  available: true
+  time_critical: true
+  status: required
+  applies_if: null
+  start: now
+  finalize_after: []
+  gate: risk
+  because:
+  - processing_started = yes
+  indicators: []
+  basis: Processing is running before review
+  open_facts: []
+  decision:
+    owner: Privacy lead
+    text: Pause, limit, or continue what is already running
+- n: 2
+  step: incident-assessment
+  label: Incident assessment
+  skill: incident-assessment
+  available: true
+  time_critical: true
+  status: required
+  applies_if: null
+  start: now
+  finalize_after: []
+  gate: law
+  because:
+  - suspected_breach = yes
+  indicators: []
+  basis: notification clocks may be running (GDPR Art. 33-34; state breach laws)
+  open_facts: []
+  decision:
+    owner: Privacy lead and counsel
+    text: Whether to notify, and whom
+- n: 3
+  step: vendor-review
+  label: Vendor review
+  skill: vendor-review
+  available: true
+  time_critical: false
+  status: required
+  applies_if: null
+  start: now
+  finalize_after: []
+  gate: law
+  because:
+  - vendor_involved = yes
+  indicators: []
+  basis: processor terms (GDPR Art. 28; state service provider terms)
+  open_facts: []
+  decision:
+    owner: Approver for the residual rating
+    text: Onboard, onboard with conditions, or not
+decisions:
+- about: step 1
+  decision: Pause, limit, or continue what is already running
+  owner: Privacy lead
+  gate: risk
+  status: required
+  applies_if: null
+  blocks_launch: true
+  note: null
+- about: step 2
+  decision: Whether to notify, and whom
+  owner: Privacy lead and counsel
+  gate: law
+  status: required
+  applies_if: null
+  blocks_launch: true
+  note: null
+- about: step 3
+  decision: Onboard, onboard with conditions, or not
+  owner: Approver for the residual rating
+  gate: law
+  status: required
+  applies_if: null
+  blocks_launch: true
+  note: null
+- about: direct-marketing
+  decision: Handling the absolute right to object to direct marketing (GDPR Art. 21(2)-(3)), and e-marketing consent rules (ePrivacy, PECR, CAN-SPAM)
+  owner: Counsel
+  gate: law
+  status: conditional
+  applies_if: direct_marketing = yes
+  blocks_launch: true
+  note: null
+- about: tracking-consent
+  decision: Consent for cookies and device storage (ePrivacy Directive Art. 5(3); PECR reg. 6) and state tracking rules
+  owner: Counsel
+  gate: law
+  status: conditional
+  applies_if: tracking_tech = yes
+  blocks_launch: true
+  note: null
+- about: recording-consent
+  decision: Recording consent under state wiretap laws, including all-party consent states
+  owner: Counsel
+  gate: law
+  status: conditional
+  applies_if: audio_video_recording = yes
+  blocks_launch: true
+  note: null
+- about: biometrics
+  decision: Biometric identifiers under GDPR Art. 9 and state biometric laws, such as Illinois BIPA
+  owner: Counsel
+  gate: law
+  status: conditional
+  applies_if: biometrics = yes
+  blocks_launch: true
+  note: null
+- about: coppa
+  decision: 'COPPA: verifiable parental consent, or school authorization limited to the school''s purposes'
+  owner: Counsel
+  gate: law
+  status: conditional
+  applies_if: children_or_students = yes and children_under_13 = yes
+  blocks_launch: true
+  note: null
+- about: student-privacy
+  decision: FERPA school-official conditions and state student privacy laws, such as SOPIPA and NY Educ. Law § 2-d
+  owner: Privacy lead and counsel
+  gate: law
+  status: conditional
+  applies_if: children_or_students = yes and school_context = yes
+  blocks_launch: true
+  note: null
+- about: vendor-own-use
+  decision: 'Vendor use for its own purposes: forbid it in the contract, or treat the vendor as a controller for that use (GDPR Art. 28(3)(a), 28(10))'
+  owner: Privacy lead
+  gate: law
+  status: conditional
+  applies_if: vendor_own_use = yes
+  blocks_launch: true
+  note: null
+- about: session-replay
+  decision: 'Session replay: consent before recording, and masking of form fields and other sensitive input'
+  owner: Counsel
+  gate: risk
+  status: conditional
+  applies_if: tracking_tech = yes and session_replay = yes
+  blocks_launch: true
+  note: null
+- about: us-sale-sharing
+  decision: Whether disclosures to the vendor are a sale or sharing under state privacy laws, and the opt-out and Global Privacy Control duties that follow
+  owner: Privacy lead and counsel
+  gate: law
+  status: conditional
+  applies_if: vendor_own_use = yes or tracking_tech = yes
+  blocks_launch: true
+  note: null
+next_questions:
+- fact: children_or_students
+  question: Does it involve children's or students' data?
+- fact: tracking_tech
+  question: Does it use cookies, SDKs, pixels, or device identifiers?
+- fact: vendor_own_use
+  question: Can the vendor use our data for its own purposes, such as training models or enriching its database?
+question_candidates:
+- fact: children_or_students
+  question: Does it involve children's or students' data?
+- fact: tracking_tech
+  question: Does it use cookies, SDKs, pixels, or device identifiers?
+- fact: vendor_own_use
+  question: Can the vendor use our data for its own purposes, such as training models or enriching its database?
+- fact: direct_marketing
+  question: Will we use it to market to people?
+- fact: audio_video_recording
+  question: Does it record audio or video of people?
+- fact: biometrics
+  question: Does it identify people by voice, face, or other biometrics?
+assumed:
+  dsr_received: false
+  regulator_inquiry: false
+  lawful_basis: not-proposed
+not_built: []

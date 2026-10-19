@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gov"
+version = "0.1.0"
+description = "Deterministic records, routing, validation, and rendering for the privacy and AI governance suite"
+requires-python = ">=3.9"
+dependencies = [
+  "PyYAML>=6.0",
+  "jsonschema>=4.18",
+  "Jinja2>=3.1",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=7"]
+
+[project.scripts]
+gov = "gov.cli:main"
+
+[tool.setuptools]
+packages = ["gov"]
+
+[tool.setuptools.package-data]
+gov = ["schemas/*.yaml", "rules/*.yaml", "templates/*.j2", "skeletons/*.j2"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,6 @@
+{
+  "name": "privacy-governance-suite",
+  "version": "0.1.0",
+  "description": "Privacy and AI governance skills: triage, RoPA, DPIAs, vendor reviews, AI intake and impact assessments, incidents, data subject requests, controls, notices, regulatory change, and leadership reports. Requires the gov command (skills/install.sh).",
+  "author": {"name": "SteveM"}
+}

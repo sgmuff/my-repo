@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Rebuild a register index from entry metadata.
 
-Usage: python3 build_register_index.py <register-folder> <ropa|ai-system|incident|control>
+Usage: python3 build_register_index.py <register-folder> <ai-system|incident|control>
+
+The RoPA register moved to `gov render`, which builds its index from YAML records.
 
 Reads the YAML metadata block at the top of every *.md file in the folder
 (except index.md) whose `type` matches, and rewrites index.md. Uses only the
@@ -14,17 +16,6 @@ import re
 import sys
 
 REGISTERS = {
-    "ropa": {
-        "heading": "Record of processing activities: index",
-        "columns": [
-            ("id", "ID"), ("title", "Activity"), ("record_type", "Record type"),
-            ("requesting_business_area", "Business area"), ("status", "Status"),
-            ("lawful_basis_status", "Lawful basis"), ("special_category", "Special category"),
-            ("children_or_students", "Children or students"), ("restricted_transfers", "Restricted transfers"),
-            ("sale_or_sharing", "Sale or sharing"), ("ai_used", "AI"), ("assessment", "Assessment"),
-            ("required_fields_tbc", "TBC fields"), ("next_review", "Next review"),
-        ],
-    },
     "control": {
         "heading": "Control library: index",
         "columns": [

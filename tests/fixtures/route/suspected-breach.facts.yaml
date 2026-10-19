@@ -1,0 +1,9 @@
+# A misdirected export of customer records, while a vendor change is under way.
+suspected_breach: yes
+processing_started: yes
+company_role: controller
+vendor_involved: yes
+ai_involved: no
+new_processing: no
+indirect_collection: no
+cross_border_access: no

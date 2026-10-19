@@ -1,0 +1,395 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+title: RoPA entry
+description: One processing activity in the record of processing activities (GDPR Art. 30; FADP Art. 12).
+type: object
+additionalProperties: false
+required: [id, type, schema_version, format_version, title, status, version, record_type,
+  business_area, business_owner, system_owner, prepared_by, date_prepared, last_reviewed, next_review, summary,
+  company, processor_record, purposes, data_subjects, data_categories, recipients, transfers, retention, security,
+  systems, us_flags, ai_used, related, follow_ons, actions, open_questions, verify, finding_responses, nist_pf,
+  references, version_history, signoff]
+properties:
+  id: {type: string, pattern: "^ROPA-\\d{4}$"}
+  type: {const: ropa}
+  schema_version: {const: 2}
+  format_version: {const: 2}
+  title: {$ref: "#/$defs/text", x-max-words: 8, description: Activity name, short}
+  status: {$ref: "#/$defs/doc_status"}
+  version: {type: string, pattern: "^\\d+\\.\\d+$", description: "Quoted, such as \"0.1\""}
+  record_type:
+    description: "Art. 30(1) controller record, Art. 30(2) processor record, or both. A purpose the company decides for itself makes it a controller for that purpose (Art. 28(10)): record it as both, or link a separate controller entry."
+    $ref: "#/$defs/call"
+    properties:
+      value: {enum: [controller, processor, both, TBC]}
+  business_area: {$ref: "#/$defs/short"}
+  business_owner: {$ref: "#/$defs/short", description: Name and role, or TBC}
+  system_owner: {$ref: "#/$defs/short"}
+  prepared_by: {$ref: "#/$defs/short"}
+  date_prepared: {$ref: "#/$defs/date"}
+  last_reviewed: {$ref: "#/$defs/date_or_null", description: "Date of a substantive review by a person; null for a fresh draft"}
+  next_review: {$ref: "#/$defs/date"}
+  summary: {$ref: "#/$defs/text", x-max-words: 60, description: "What the activity is, whose data, for what. No open items; the document lists those."}
+
+  company:
+    description: "The company's identity in this record: Art. 30(1)(a) as controller, Art. 30(2)(a) as processor. From the company profile."
+    type: object
+    additionalProperties: false
+    required: [name, contact, dpo, representative, joint_controllers, source]
+    properties:
+      name: {$ref: "#/$defs/short", description: Legal entity, or TBC}
+      contact: {$ref: "#/$defs/short"}
+      dpo: {$ref: "#/$defs/short", description: Name and contact, "none", or TBC}
+      representative: {$ref: "#/$defs/short", description: EU or UK representative, "none", or TBC}
+      joint_controllers: {$ref: "#/$defs/short", description: Names with the Art. 26 arrangement, "none", "not-applicable", or TBC}
+      source: {$ref: "#/$defs/source"}
+
+  processor_record:
+    description: "Art. 30(2). Required when record_type is processor or both; otherwise {applicable: false}."
+    oneOf:
+      - type: object
+        additionalProperties: false
+        required: [applicable]
+        properties:
+          applicable: {const: false}
+      - type: object
+        additionalProperties: false
+        required: [applicable, controllers, processing, source]
+        properties:
+          applicable: {const: true}
+          controllers: {$ref: "#/$defs/text", x-max-words: 20, description: "Art. 30(2)(a). Controllers by category, such as \"school districts under the standard DPA\", or TBC"}
+          processing: {$ref: "#/$defs/text", x-max-words: 25, description: "Art. 30(2)(b). Categories of processing carried out for each controller, or TBC"}
+          source: {$ref: "#/$defs/source"}
+
+  purposes:
+    description: "Art. 30(1)(b). One row per specific purpose. In a processor record these are the controllers' purposes, described to support their records."
+    type: array
+    minItems: 1
+    items:
+      type: object
+      additionalProperties: false
+      required: [id, purpose, decided_by, lawful_basis, art9_condition, source]
+      properties:
+        id: {type: string, pattern: "^P\\d+$"}
+        purpose: {$ref: "#/$defs/text", x-max-words: 25, description: "Specific, such as \"Sync rosters and grades from the district's LMS\""}
+        decided_by: {enum: [company, customer, joint, TBC], description: "Who determines this purpose and its essential means"}
+        lawful_basis:
+          description: "GDPR Art. 6. controller-to-confirm when a customer decides the purpose; never chosen on the controller's behalf. Never inferred from a schema."
+          $ref: "#/$defs/call"
+          properties:
+            value: {enum: [consent, contract, legal-obligation, vital-interests, public-task, legitimate-interests, controller-to-confirm, not-applicable, TBC]}
+        art9_condition:
+          description: "Art. 9(2) condition where special category data serves this purpose; none if none does; TBC"
+          $ref: "#/$defs/call"
+          properties:
+            value: {$ref: "#/$defs/short"}
+        source: {$ref: "#/$defs/source"}
+
+  data_subjects:
+    description: Art. 30(1)(c).
+    type: array
+    minItems: 1
+    items:
+      type: object
+      additionalProperties: false
+      required: [category, vulnerable, source]
+      properties:
+        category: {$ref: "#/$defs/short", description: "Such as students, teachers, or new hires"}
+        vulnerable:
+          description: "Children, students, patients, or another group with less power to object; employees count only where the power imbalance matters for this processing"
+          $ref: "#/$defs/call"
+          properties:
+            value: {$ref: "#/$defs/tristate"}
+        source: {$ref: "#/$defs/source"}
+
+  data_categories:
+    description: "Art. 30(1)(c). Only elements a source states. Possible extra elements go in open_questions, not here."
+    type: array
+    minItems: 1
+    items:
+      type: object
+      additionalProperties: false
+      required: [category, elements, flags, ccpa_category, purposes, source]
+      properties:
+        category: {$ref: "#/$defs/short"}
+        elements:
+          anyOf:
+            - {type: array, minItems: 1, items: {$ref: "#/$defs/short"}}
+            - {const: TBC}
+        flags:
+          description: "Special handling flags, each with its status and reason; [] for none; or TBC"
+          anyOf:
+            - type: array
+              items:
+                type: object
+                additionalProperties: false
+                required: [flag, status, reason]
+                properties:
+                  flag: {enum: [special-category, criminal, biometric, us-sensitive, education-record, children, government-id, financial]}
+                  status: {$ref: "#/$defs/position_status"}
+                  reason: {$ref: "#/$defs/text", x-max-words: 20}
+            - {const: TBC}
+        ccpa_category: {$ref: "#/$defs/short", description: "Cal. Civ. Code § 1798.140(v) category, not-applicable, or TBC"}
+        purposes: {type: array, items: {type: string, pattern: "^P\\d+$"}}
+        source: {$ref: "#/$defs/source"}
+
+  recipients:
+    description: "Art. 30(1)(d). A list, \"none\", or TBC."
+    anyOf:
+      - type: array
+        minItems: 1
+        items:
+          type: object
+          additionalProperties: false
+          required: [name, kind, data, purposes, location, vendor_review, source]
+          properties:
+            name: {$ref: "#/$defs/short"}
+            kind: {enum: [internal, processor, sub-processor, controller, authority, TBC]}
+            data: {$ref: "#/$defs/text", x-max-words: 20, description: What the recipient receives}
+            purposes: {type: array, items: {type: string, pattern: "^P\\d+$"}}
+            location: {$ref: "#/$defs/short", description: "Countries where it stores or accesses the data, or TBC"}
+            vendor_review: {$ref: "#/$defs/short", description: "Vendor review ID, recommended, not-applicable, or TBC"}
+            vendor: {type: string, pattern: "^[a-z0-9]+(-[a-z0-9]+)*$", description: "Optional. The vendor's folder name under compliance/vendors/"}
+            source: {$ref: "#/$defs/source"}
+      - {enum: [none, TBC]}
+
+  transfers:
+    description: "Art. 30(1)(e) and 30(2)(c). Screen each flow by regime, exporter, importer, and whether data is stored abroad or only accessed from there; where data subjects live doesn't settle it. A list, \"none\", or TBC."
+    anyOf:
+      - type: array
+        minItems: 1
+        items:
+          type: object
+          additionalProperties: false
+          required: [recipient, regime, exporter, importer_country, access, mechanism, verified, status, source]
+          properties:
+            recipient: {$ref: "#/$defs/short"}
+            regime: {enum: [eu-gdpr, uk-gdpr, ch-fadp, TBC]}
+            exporter: {$ref: "#/$defs/short", description: The entity sending or making the data available, or TBC}
+            importer_country: {$ref: "#/$defs/short"}
+            access: {enum: [stored, remote-access, both, TBC]}
+            mechanism: {enum: [adequacy, eu-us-dpf, uk-extension, swiss-us-dpf, sccs, uk-idta, uk-addendum, bcrs, art49-derogation, TBC]}
+            verified: {$ref: "#/$defs/short", description: "Where and when the mechanism was checked for this recipient, or TBC"}
+            status: {$ref: "#/$defs/position_status"}
+            source: {$ref: "#/$defs/source"}
+      - {enum: [none, TBC]}
+
+  retention:
+    description: "Art. 30(1)(f). One row per data store and category, including each vendor's copy and backups. Keep current practice, legal requirements, and proposed policy apart. Never guess a period."
+    type: array
+    minItems: 1
+    items:
+      type: object
+      additionalProperties: false
+      required: [store, data_category, current_practice, legal_requirement, proposed_policy, trigger, deletion, source]
+      properties:
+        store: {$ref: "#/$defs/short", description: "Where this copy lives, such as HubSpot, Zoom recordings, or Postgres backups"}
+        data_category: {$ref: "#/$defs/short"}
+        current_practice: {$ref: "#/$defs/short", description: "What happens today, such as 35 days or indefinite, or TBC"}
+        legal_requirement: {$ref: "#/$defs/short", description: "A statutory minimum or maximum with its citation, none, or TBC"}
+        proposed_policy: {$ref: "#/$defs/short", description: "An approved or proposed period, or TBC"}
+        trigger: {$ref: "#/$defs/short", description: "What starts the clock, or TBC"}
+        deletion: {$ref: "#/$defs/text", x-max-words: 20, description: "How deletion happens, including backups and vendors, or TBC"}
+        source: {$ref: "#/$defs/source"}
+
+  security:
+    description: Art. 30(1)(g) and 30(2)(d).
+    type: object
+    additionalProperties: false
+    required: [baseline, activity_measures, source]
+    properties:
+      baseline: {$ref: "#/$defs/text", x-max-words: 20, description: "Cite the company profile's security baseline, or TBC"}
+      activity_measures: {$ref: "#/$defs/text", x-max-words: 30, description: "Measures specific to this activity, none, or TBC"}
+      source: {$ref: "#/$defs/source"}
+
+  systems:
+    type: object
+    additionalProperties: false
+    required: [data_sources, systems, flow, derived_data, third_party_subjects]
+    properties:
+      data_sources: {$ref: "#/$defs/text", x-max-words: 20, description: "Direct, observed, from customers, or from third parties"}
+      systems:
+        anyOf:
+          - {type: array, minItems: 1, items: {$ref: "#/$defs/short"}}
+          - {const: TBC}
+      flow: {$ref: "#/$defs/text", x-max-words: 40}
+      derived_data: {$ref: "#/$defs/text", x-max-words: 30, description: "Scores or inferences produced and where they go, none, or TBC"}
+      third_party_subjects: {$ref: "#/$defs/text", x-max-words: 20, description: "People other than the main subjects, none, or TBC"}
+
+  us_flags:
+    description: "Each a call: value true, false, or TBC, with its status and reason. Leave TBC while open questions could change it."
+    type: object
+    additionalProperties: false
+    required: [sale_or_sharing, targeted_advertising, sensitive_data, profiling, education_records, ferpa_exception]
+    properties:
+      sale_or_sharing: {$ref: "#/$defs/call_tristate"}
+      targeted_advertising: {$ref: "#/$defs/call_tristate"}
+      sensitive_data: {$ref: "#/$defs/call_tristate"}
+      profiling: {$ref: "#/$defs/call_tristate"}
+      education_records: {$ref: "#/$defs/call_tristate"}
+      ferpa_exception:
+        $ref: "#/$defs/call"
+        properties:
+          value: {$ref: "#/$defs/short", description: "34 CFR § 99.31 exception relied on, not-applicable, or TBC"}
+
+  ai_used: {$ref: "#/$defs/tristate"}
+
+  related:
+    type: object
+    additionalProperties: false
+    required: [assessment, vendor_reviews, ai_intake, notice, linked_entries]
+    properties:
+      assessment: {$ref: "#/$defs/short", description: "DPIA or screening ID, recommended, none, or TBC"}
+      vendor_reviews: {type: array, items: {$ref: "#/$defs/short"}, description: Vendor review IDs on file}
+      ai_intake: {$ref: "#/$defs/short", description: "AI system ID, recommended, not-applicable, or TBC"}
+      notice: {enum: [covered, gap, TBC], description: Whether the privacy notice covers this activity}
+      linked_entries: {type: array, items: {type: string, pattern: "^ROPA-\\d{4}$"}, description: "Related RoPA entries, such as the controller entry for a purpose the company decides itself"}
+
+  follow_ons:
+    description: Recommended next steps. The RoPA recommends; it doesn't conclude.
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [skill, reason]
+      properties:
+        skill: {enum: [dpia, vendor-review, ai-intake, notice-and-policy, tia]}
+        reason: {$ref: "#/$defs/text", x-max-words: 20}
+
+  actions:
+    description: "Risks that need doing, not just documenting, such as cutting a field or setting a retention limit. Move to the action register when it exists."
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [id, action, owner, due, closure_evidence, launch_blocking, status]
+      properties:
+        id: {type: string, pattern: "^A\\d+$"}
+        action: {$ref: "#/$defs/text", x-max-words: 20}
+        owner: {$ref: "#/$defs/short"}
+        due: {$ref: "#/$defs/date_or_tbc"}
+        closure_evidence: {$ref: "#/$defs/text", x-max-words: 15, description: What proves it's done}
+        launch_blocking: {type: boolean}
+        block_reason: {enum: [law, policy, risk], description: "Why it blocks launch: the law requires it, our policy requires it, or a risk must be cleared"}
+        scope: {$ref: "#/$defs/short", description: "Optional. The flow or feature it blocks, such as \"error payloads to the monitoring vendor\"; omit when it blocks the whole activity"}
+        status: {enum: [open, done]}
+      if: {properties: {launch_blocking: {const: true}}}
+      then: {required: [block_reason]}
+
+  open_questions:
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [id, question, field, blocks, owner, needed_by]
+      properties:
+        id: {type: string, pattern: "^Q\\d+$"}
+        question: {$ref: "#/$defs/text", x-max-words: 30}
+        field: {$ref: "#/$defs/short", description: The record field the answer fills}
+        blocks: {enum: [launch, approval, record, none], description: "launch: processing can't start without it; approval: the privacy lead can't approve; record: an Art. 30 field stays TBC; none: useful only"}
+        owner: {$ref: "#/$defs/short"}
+        needed_by: {$ref: "#/$defs/date_or_tbc"}
+
+  verify:
+    description: Verify flags. Points that depend on law or facts that may have changed.
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [id, claim, why, check, owner, needed_by]
+      properties:
+        id: {type: string, pattern: "^V\\d+$"}
+        claim: {$ref: "#/$defs/text", x-max-words: 25}
+        why: {$ref: "#/$defs/text", x-max-words: 20}
+        check: {$ref: "#/$defs/text", x-max-words: 15, description: The authoritative source to check}
+        owner: {$ref: "#/$defs/short"}
+        needed_by: {$ref: "#/$defs/date_or_tbc"}
+
+  finding_responses:
+    description: "A person's answer to a `gov validate` finding that doesn't call for a change. The pointer must match the finding's."
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [pointer, response, by]
+      properties:
+        pointer: {$ref: "#/$defs/short", description: "The finding's pointer, such as transfers or purposes/1"}
+        response: {$ref: "#/$defs/text", x-max-words: 25}
+        by: {$ref: "#/$defs/short", description: Who decided, with role}
+
+  nist_pf:
+    type: array
+    uniqueItems: true
+    items: {type: string, pattern: "^ID\\.IM-P[1-8]$"}
+
+  references:
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [file, version, verified]
+      properties:
+        file: {type: string, pattern: "^[a-z0-9-]+\\.md$"}
+        version: {$ref: "#/$defs/short"}
+        verified: {$ref: "#/$defs/date"}
+
+  version_history:
+    type: array
+    minItems: 1
+    items:
+      type: object
+      additionalProperties: false
+      required: [version, date, author, change]
+      properties:
+        version: {type: string, pattern: "^\\d+\\.\\d+$"}
+        date: {$ref: "#/$defs/date"}
+        author: {$ref: "#/$defs/short"}
+        change: {$ref: "#/$defs/text", x-max-words: 15}
+
+  signoff:
+    type: array
+    minItems: 1
+    items:
+      type: object
+      additionalProperties: false
+      required: [decision, approver_role, name, date, outcome]
+      properties:
+        decision: {$ref: "#/$defs/text", x-max-words: 10}
+        approver_role: {$ref: "#/$defs/short"}
+        name: {anyOf: [{$ref: "#/$defs/short"}, {type: "null"}]}
+        date: {$ref: "#/$defs/date_or_null"}
+        outcome: {enum: [approved, approved-with-conditions, rejected, null]}
+
+$defs:
+  text: {type: string, minLength: 1}
+  short: {type: string, minLength: 1, x-max-words: 12}
+  date: {type: string, pattern: "^\\d{4}-\\d{2}-\\d{2}$"}
+  date_or_null: {anyOf: [{$ref: "#/$defs/date"}, {type: "null"}]}
+  date_or_tbc: {anyOf: [{$ref: "#/$defs/date"}, {const: TBC}]}
+  tristate:
+    description: "true, false, or TBC"
+    anyOf: [{type: boolean}, {const: TBC}]
+  doc_status: {enum: [Draft, In review, Approved, Approved with conditions, Rejected, Superseded]}
+  position_status: {enum: [Provisional, Confirmed]}
+  call:
+    description: "A legal or factual position: its value, Provisional or Confirmed (only an approver confirms), and a one-line reason."
+    type: object
+    additionalProperties: false
+    required: [value, status, reason]
+    properties:
+      value: true
+      status: {$ref: "#/$defs/position_status"}
+      reason: {$ref: "#/$defs/text", x-max-words: 20}
+  call_tristate:
+    $ref: "#/$defs/call"
+    properties:
+      value: {$ref: "#/$defs/tristate"}
+  source:
+    description: "Where the value came from: document (name and version), stated (name, role, date), inferred (from what), or tbc"
+    type: object
+    additionalProperties: false
+    required: [kind]
+    properties:
+      kind: {enum: [document, stated, inferred, tbc]}
+      ref: {type: string, minLength: 1, x-max-words: 15}
+    if: {properties: {kind: {enum: [document, stated, inferred]}}}
+    then: {required: [ref]}

@@ -1,0 +1,146 @@
+# RoPA entry. Fill in what the sources show, give every item its source, and run
+# `gov validate` then `gov render`. Never guess: leave a fact TBC and add an open question.
+#
+# A "call" is a position: {value, status: Provisional|Confirmed, reason}. Only an approver
+# confirms. The reason is one line (20 words at most) saying what the call rests on.
+# A source is {kind: document|stated|inferred|tbc, ref: "name and version; person, role, date; or inferred from what"}.
+id: {{ id }}
+type: ropa
+schema_version: 2
+format_version: 2
+title: {{ title | tojson }}  # activity name, 8 words at most
+status: Draft  # Draft | In review | Approved | Approved with conditions | Rejected | Superseded
+version: "0.1"  # quoted
+# controller (Art. 30(1)) | processor (Art. 30(2)) | both | TBC. A purpose the company decides
+# for itself makes it a controller for that purpose (Art. 28(10)).
+record_type: {value: TBC, status: Provisional, reason: Not yet established who decides the purposes}
+business_area: TBC
+business_owner: TBC  # name and role
+system_owner: TBC
+prepared_by: {{ prepared_by | tojson }}
+date_prepared: "{{ date }}"
+last_reviewed: null  # set only when a person substantively reviews the entry
+next_review: "{{ next_review }}"
+summary: TBC  # what the activity is, whose data, for what; 60 words at most
+
+company:  # the company's identity in this record, from the company profile
+  name: TBC  # legal entity
+  contact: TBC
+  dpo: TBC  # name and contact, none, or TBC
+  representative: TBC  # EU or UK representative, none, or TBC
+  joint_controllers: TBC  # names with the Art. 26 arrangement, none-identified, not-applicable, or TBC
+  source: {kind: tbc}
+
+# Art. 30(2). For processor or both: {applicable: true, controllers, processing, source}.
+processor_record: {applicable: false}
+
+purposes:  # one row per specific purpose; in a processor record, the controllers' purposes
+  - id: P1
+    purpose: TBC  # specific, 25 words at most; never inferred from column names
+    decided_by: TBC  # company | customer | joint | TBC
+    # consent | contract | legal-obligation | vital-interests | public-task | legitimate-interests
+    # | controller-to-confirm (a customer decides the purpose) | not-applicable | TBC
+    lawful_basis: {value: TBC, status: Provisional, reason: Purpose not yet confirmed}
+    art9_condition: {value: TBC, status: Provisional, reason: Not yet known whether special category data serves this purpose}
+    source: {kind: tbc}
+
+data_subjects:
+  - category: TBC
+    vulnerable: {value: TBC, status: Provisional, reason: Data subjects not yet identified}  # value true | false | TBC
+    source: {kind: tbc}
+
+data_categories:  # only elements a source states; possible extra elements go in open_questions
+  - category: TBC
+    elements: TBC  # a list of data elements, or TBC
+    # [] for none, TBC, or a list of {flag, status, reason}; flag is special-category | criminal |
+    # biometric | us-sensitive | education-record | children | government-id | financial
+    flags: TBC
+    ccpa_category: TBC  # Cal. Civ. Code § 1798.140(v) category, not-applicable, or TBC
+    purposes: []  # purpose IDs, such as [P1]
+    source: {kind: tbc}
+
+# A list of {name, kind: internal|processor|sub-processor|controller|authority|TBC, data, purposes: [P1],
+# location: countries where it stores or accesses data, vendor_review: VR-YYYY-NNN|recommended|not-applicable|TBC,
+# vendor: <folder name under compliance/vendors/> (optional), source}; none; or TBC
+recipients: TBC
+
+# A list of {recipient, regime: eu-gdpr|uk-gdpr|ch-fadp|TBC, exporter, importer_country,
+# access: stored|remote-access|both|TBC, mechanism: adequacy|eu-us-dpf|uk-extension|swiss-us-dpf|sccs|
+# uk-idta|uk-addendum|bcrs|art49-derogation|TBC, verified, status: Provisional|Confirmed, source}; none; or TBC.
+# Where data subjects live doesn't settle whether a transfer happens; screen each flow.
+transfers: TBC
+
+retention:  # one row per data store and category, including vendor copies and backups; never guess a period
+  - store: TBC  # where this copy lives, such as HubSpot or Postgres backups
+    data_category: TBC
+    current_practice: TBC  # what happens today, such as 35 days or indefinite
+    legal_requirement: TBC  # statutory minimum or maximum with citation, none, or TBC
+    proposed_policy: TBC
+    trigger: TBC  # what starts the clock
+    deletion: TBC  # how deletion happens, including backups and vendors; 20 words at most
+    source: {kind: tbc}
+
+security:
+  baseline: TBC  # cite the company profile's baseline
+  activity_measures: TBC  # measures specific to this activity, none, or TBC
+  source: {kind: tbc}
+
+systems:
+  data_sources: TBC  # direct, observed, from customers, or from third parties
+  systems: TBC  # a list of systems, or TBC
+  flow: TBC  # 40 words at most
+  derived_data: TBC  # scores or inferences produced and where they go, none, or TBC
+  third_party_subjects: TBC  # people other than the main subjects, none, or TBC
+
+us_flags:  # each a call with value true | false | TBC; keep TBC while an open question could change it
+  sale_or_sharing: {value: TBC, status: Provisional, reason: Recipients and uses not yet confirmed}
+  targeted_advertising: {value: TBC, status: Provisional, reason: Uses not yet confirmed}
+  sensitive_data: {value: TBC, status: Provisional, reason: Data categories not yet confirmed}
+  profiling: {value: TBC, status: Provisional, reason: Uses not yet confirmed}
+  education_records: {value: TBC, status: Provisional, reason: Data categories not yet confirmed}
+  ferpa_exception: {value: TBC, status: Provisional, reason: Not yet known whether FERPA applies}  # 34 CFR § 99.31 exception, not-applicable, or TBC
+
+ai_used: TBC  # true | false | TBC
+
+related:
+  assessment: TBC  # DPIA or screening ID, recommended, none, or TBC
+  vendor_reviews: []  # vendor review IDs on file
+  ai_intake: TBC  # AI system ID, recommended, not-applicable, or TBC
+  notice: TBC  # covered | gap | TBC
+  linked_entries: []  # related RoPA IDs, such as the controller entry for the company's own purposes
+
+follow_ons: []  # list of {skill: dpia|vendor-review|ai-intake|notice-and-policy|tia, reason}; recommend, don't conclude
+
+# Risks that need doing, not just documenting. List of {id: A1, action, owner, due: YYYY-MM-DD|TBC,
+# closure_evidence, launch_blocking: true|false, block_reason: law|policy|risk (when blocking),
+# scope: "the flow it blocks" (optional), status: open|done}
+actions: []
+
+# List of {id: Q1, question, field, blocks: launch|approval|record|none, owner, needed_by: YYYY-MM-DD|TBC}
+open_questions: []
+
+verify: []  # list of {id: V1, claim, why, check (the authoritative source), owner, needed_by}
+
+finding_responses: []  # list of {pointer, response, by}: a person's answer to a gov validate finding
+
+nist_pf: [ID.IM-P1]  # ID.IM-P1 to ID.IM-P8
+
+references: []  # list of {file: gdpr.md, version: "EU GDPR as of YYYY-MM-DD", verified: "YYYY-MM-DD"}
+
+version_history:
+  - version: "0.1"
+    date: "{{ date }}"
+    author: {{ prepared_by | tojson }}
+    change: First draft
+
+signoff:  # filled in only from a recorded approval
+  - decision: Facts confirmed
+    approver_role: Business owner
+    name: null
+    date: null
+    outcome: null
+  - decision: Legal positions confirmed; entry approved
+    approver_role: Privacy lead
+    name: null
+    date: null
+    outcome: null

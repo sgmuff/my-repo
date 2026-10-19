@@ -1,0 +1,113 @@
+"""The `gov` command."""
+from __future__ import annotations
+
+import argparse
+import sys
+from pathlib import Path
+
+from gov import __version__, ids, yamlio
+from gov.paths import RootNotFound, find_root
+from gov.render import render_tree
+from gov.route import RoutingError, questions_markdown, route, to_markdown
+from gov.skeleton import SkeletonError, new_record
+from gov.validate import validate_tree
+
+
+def main(argv=None) -> int:
+    parser = argparse.ArgumentParser(prog="gov", description="Records, routing, validation, and rendering for the governance suite.")
+    parser.add_argument("--root", help="repository root (default: GOV_ROOT, or the nearest parent holding the suite)")
+    parser.add_argument("--version", action="version", version=f"gov {__version__}")
+    sub = parser.add_subparsers(dest="command", required=True)
+
+    p = sub.add_parser("next-id", help="reserve the next ID for a prefix")
+    p.add_argument("prefix")
+    p.add_argument("--year", help="YYYY, for prefixes that carry a year")
+
+    p = sub.add_parser("new", help="create a record skeleton with a fresh ID")
+    p.add_argument("type")
+    p.add_argument("--slug", required=True)
+    p.add_argument("--title", required=True)
+    p.add_argument("--date", required=True, help="date prepared, YYYY-MM-DD")
+    p.add_argument("--prepared-by", default="Claude (privacy-governance suite)")
+
+    sub.add_parser("validate", help="check every record")
+
+    p = sub.add_parser("render", help="write Markdown and indexes from the records")
+    p.add_argument("--check", action="store_true", help="write nothing; fail if any output is stale")
+
+    sub.add_parser("index", help="rebuild register indexes (same as render)")
+
+    p = sub.add_parser("route", help="print the triage plan for a facts file")
+    p.add_argument("facts", help="YAML file of deciding facts, or - for stdin")
+    p.add_argument("--format", choices=["yaml", "markdown", "questions"], default="yaml",
+                   help="markdown: the plan and decision register; questions: open facts ranked for asking")
+
+    args = parser.parse_args(argv)
+    try:
+        root = Path(args.root).resolve() if args.root else find_root()
+        return COMMANDS[args.command](root, args)
+    except (RootNotFound, ids.IdError, SkeletonError, RoutingError) as exc:
+        print(f"gov: {exc}", file=sys.stderr)
+        return 2
+
+
+def _next_id(root, args) -> int:
+    print(ids.next_id(root, args.prefix, args.year))
+    return 0
+
+
+def _new(root, args) -> int:
+    path = new_record(root, args.type, args.slug, args.title, args.date, args.prepared_by)
+    print(path.relative_to(root))
+    return 0
+
+
+def _validate(root, args) -> int:
+    problems = validate_tree(root)
+    for problem in problems:
+        print(problem)
+    count = {level: sum(1 for p in problems if p.level == level) for level in ("error", "finding", "warning")}
+    print(f"{count['error']} errors, {count['finding']} findings, {count['warning']} warnings")
+    if count["finding"]:
+        print("Findings are legal consistency questions: resolve each in the record, or record why it doesn't apply.")
+    errors = count["error"]
+    return 1 if errors else 0
+
+
+def _render(root, args) -> int:
+    result = render_tree(root, check=getattr(args, "check", False))
+    if result.problems:
+        for problem in result.problems:
+            print(problem)
+        print("Not rendered: fix the errors above first.")
+        return 1
+    if result.stale:
+        for path in result.stale:
+            print(f"{path}: stale; run `gov render`")
+        return 1
+    for path in result.written:
+        print(f"wrote {path}")
+    if not result.written:
+        print("Everything is up to date.")
+    return 0
+
+
+def _route(root, args) -> int:
+    text = sys.stdin.read() if args.facts == "-" else Path(args.facts).read_text(encoding="utf-8")
+    facts = yamlio.loads(text) or {}
+    if not isinstance(facts, dict):
+        raise RoutingError("the facts file must be a mapping of fact: value")
+    result = route(root, facts)
+    if args.format == "markdown":
+        print(to_markdown(result), end="")
+    elif args.format == "questions":
+        print(questions_markdown(result), end="")
+    else:
+        print(yamlio.dumps(result), end="")
+    return 0
+
+
+COMMANDS = {"next-id": _next_id, "new": _new, "validate": _validate, "render": _render, "index": _render, "route": _route}
+
+if __name__ == "__main__":
+    raise SystemExit(main())
