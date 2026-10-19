@@ -16,6 +16,11 @@ Framework details live here, so they can be updated as laws and standards change
 | `dsr-matrix.md` | Data subject request rights, deadlines, verification, exceptions | As of 2026-10-16 | 2026-10-16 | 2027-01-16 | Quarterly |
 | `us-breach-notification.md` | US state, territory, and federal breach notification laws | As of 2026-10-16; **draft, needs counsel review** | 2026-10-16 | 2027-01-16 | Quarterly |
 | `crosswalk.md` | 32 common control objectives mapped across all frameworks | Built 2026-10-16 | 2026-10-16 | 2027-01-29 (after the Jan 15 AIUC-1 release) | Quarterly |
+| `hipaa.md` | HIPAA Privacy, Security, and Breach Notification Rules for covered entities and business associates | Rules through the 2013 Omnibus Rule; 2025 Security Rule proposal noted | 2026-10-18, secondary sources only; **needs counsel review** | Before live use | Six months |
+| `glba.md` | GLBA Safeguards Rule, including higher education and service providers | 16 CFR Part 314 as amended 2021 and 2023 | 2026-10-18, secondary sources only; **needs counsel review** | Before live use | Six months |
+| `nis2.md` | NIS2 risk-management and reporting duties | Directive 2022/2555; Implementing Regulation 2024/2690 | 2026-10-18, secondary sources only; **needs counsel review** | Before live use | Quarterly |
+| `quebec-law-25.md` | Quebec private-sector privacy act as amended by Law 25 | All phases in force | 2026-10-18, secondary sources only; **needs counsel review** | Before live use | Six months |
+| `eu-ai-act-gpai.md` | AI Act duties for general-purpose AI model providers | Chapter V as amended by Reg. (EU) 2026/1744 | 2026-10-18, secondary sources only; **needs counsel review** | Before live use | Quarterly |
 | `dpa-checklist.md` | DPA and vendor contract checklist, with AI terms | Built from the files above, as of 2026-10-16 | 2026-10-16 | 2027-01-16 | Quarterly |
 
 The company's own control library and evidence index live under the output root (`registers/controls/`), not here. They're company records, mapped through `crosswalk.md`.

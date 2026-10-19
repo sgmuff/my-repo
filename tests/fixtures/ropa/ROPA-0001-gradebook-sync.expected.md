@@ -128,11 +128,9 @@ TBC.
 | Security risk assessment | GDPR Art. 32 | Law | Planned | Covered by the controls-and-evidence review of the integration | `controls-and-evidence` |
 | Prohibited practice screening | AI Act Art. 5 | Law | Planned | Part of the recommended ai-intake | `ai-intake` |
 
-**May be owed, depending on open facts:** CPPA risk assessment (cppa_business); Transfer impact assessment (eu_people, cross_border_access, transfer_mechanism); UK transfer risk assessment (uk_people, cross_border_access, transfer_mechanism); Swiss transfer assessment (ch_people, cross_border_access, transfer_mechanism); COPPA security program risk assessment (children_under_13); Student data security and privacy plan (ny_school_contract); Provider role check (ai_act_role, ai_modified); Non-high-risk documentation (ai_act_role, ai_not_high_risk_claim); AI impact assessment (ai_profiles_people, ai_influences_decisions); Bias audit preparation (the audit itself needs an independent auditor) (nyc_hiring_tool).
+**May be owed, depending on open facts:** CPPA risk assessment (cppa_business); Transfer impact assessment (eu_people, cross_border_access, transfer_mechanism); UK transfer risk assessment (uk_people, cross_border_access, transfer_mechanism); Swiss transfer assessment (ch_people, cross_border_access, transfer_mechanism); COPPA security program risk assessment (children_under_13); Student data security and privacy plan (ny_school_contract); Provider role check (ai_act_role, ai_modified); Non-high-risk documentation (ai_act_role, ai_not_high_risk_claim); AI impact assessment (ai_profiles_people, ai_influences_decisions); Bias audit preparation (the audit itself needs an independent auditor) (nyc_hiring_tool); HIPAA security risk analysis (phi); GLBA Safeguards Rule written risk assessment (glba_customer_info); NIS2 cybersecurity risk management (nis2_service); Quebec privacy impact assessment (quebec_people); General-purpose AI model duties (gpai_model).
 
 **Applies later:** CCPA cybersecurity audit preparation (from 2028-04-01); Risk management system, data governance, conformity readiness, and post-market monitoring (from 2027-12-02); Deployer duties check (from 2027-12-02); Fundamental rights impact assessment (from 2027-12-02).
-
-**Waiting for reference files:** HIPAA security risk analysis (`hipaa.md`); GLBA Safeguards Rule written risk assessment (`glba.md`); NIS2 cybersecurity risk management (`nis2.md`); Quebec privacy impact assessment (`quebec-law-25.md`); General-purpose AI model duties (`eu-ai-act-gpai.md`).
 
 ## 13. Actions
 

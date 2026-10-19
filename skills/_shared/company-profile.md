@@ -47,7 +47,7 @@ Delete any that don't apply.
 - NIST Privacy Framework (organizing framework for the privacy program)
 - NIST AI RMF and ISO/IEC 42001 (AI governance mappings)
 
-Conditional regimes, which switch on catalog entries once their reference files exist (confirmed 2026-10-18):
+Conditional regimes (confirmed 2026-10-18). Their reference files exist, checked on 2026-10-18 against secondary sources only, so the catalog entries apply; have counsel review each file before relying on it:
 
 - EU AI Act general-purpose AI model duties (Art. 53, 55): the company trains or markets general-purpose models
 - GLBA Safeguards Rule (16 CFR Part 314): the company serves financial institutions, including colleges in federal student aid

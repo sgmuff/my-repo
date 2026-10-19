@@ -113,4 +113,4 @@ def test_required_assessments_render(ropa_root):
     render_tree(ropa_root)
     text = (ropa_root / FOLDER / "ROPA-0001-gradebook-sync.md").read_text()
     assert "| Security risk assessment | GDPR Art. 32 | Law | Planned |" in text
-    assert "**Waiting for reference files:** HIPAA security risk analysis (`hipaa.md`)" in text
+    assert "HIPAA security risk analysis (phi)" in text

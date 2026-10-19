@@ -43,8 +43,15 @@ def test_future_duties_wait_for_their_date():
     assert statuses(facts, "2027-12-02")["ai-deployer-duties"] == "owed"
 
 
-def test_conditional_regimes_wait_for_reference_files():
-    assert statuses({"phi": True})["hipaa-risk-analysis"] == "no-reference"
+def test_entries_wait_for_their_reference_files(root):
+    (root / "skills" / "_shared" / "references" / "hipaa.md").unlink()
+    result = {r["assessment"]: r["status"] for r in req.evaluate({"phi": True}, "2026-10-18", root)}
+    assert result["hipaa-risk-analysis"] == "no-reference"
+
+
+def test_conditional_regimes_apply_once_their_references_exist():
+    assert statuses({"phi": True})["hipaa-risk-analysis"] == "owed"
+    assert statuses({"gpai_model": True})["gpai-duties"] == "owed"
 
 
 def test_dates_come_from_the_caller():
