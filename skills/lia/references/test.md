@@ -20,7 +20,7 @@ An LIA never supplies an Art. 9 condition. Special category data needs an Art. 9
 All three must be met. Record each as a call.
 
 1. **Purpose.** Is the interest lawful, clearly stated, and real and present, not speculative? A commercial interest can be legitimate (*KNLTB*). Recital 47 says direct marketing *may* be one; it isn't automatic.
-2. **Necessity.** Is the processing reasonably necessary for that interest, and is there a less intrusive way to reach it? Record the alternatives considered, and ask for evidence that each falls short, such as the uplift an AI score gives over simple rules. A business's preference or convenience isn't necessity, and a less intrusive way that reaches the same result defeats it.
+2. **Necessity.** Is the processing reasonably necessary for that interest, and is there a less intrusive way to reach it? Record the alternatives considered, and ask for evidence that each falls short, such as the uplift an AI score gives over simple rules. A business's preference or convenience isn't necessity. A less intrusive way defeats it only if it meets the same objective about as well; weigh effectiveness, data used, intrusiveness, and feasibility.
 3. **Balancing.** Do the person's interests, rights, and freedoms override? Weigh:
    - their reasonable expectations, given the relationship and the context of collection (Recital 47)
    - the nature of the data and of the processing, including profiling and combining sources

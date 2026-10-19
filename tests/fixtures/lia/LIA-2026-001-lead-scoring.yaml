@@ -60,7 +60,7 @@ objection:
 special_category: {value: false, status: Provisional, reason: Professional profile fields only}
 
 actions:
-  - {id: A1, action: Write the Art. 14 notice for scored prospects, owner: Privacy lead, due: TBC, closure_evidence: Approved notice text, launch_blocking: true, block_reason: law, status: open}
+  - {id: A1, action: Write the Art. 14 notice for scored prospects, owner: Privacy lead, due: TBC, closure_evidence: Approved notice text, launch_blocking: true, block_reason: law, scope: GDPR Art. 14, status: open}
 
 open_questions:
   - {id: Q1, question: "Is the LinkedIn data scraped, exported from Sales Navigator, or supplied by the vendor?", field: balancing/expectations, blocks: approval, owner: Marketing, needed_by: TBC}

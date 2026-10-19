@@ -51,7 +51,7 @@ $defs:
         closure_evidence: {$ref: "#/$defs/text", x-max-words: 15}
         launch_blocking: {type: boolean}
         block_reason: {enum: [law, policy, risk]}
-        scope: {$ref: "#/$defs/short"}
+        scope: {$ref: "#/$defs/short", description: "For a law block, the provision that requires the action, such as GDPR Art. 14"}
         status: {enum: [open, done]}
       if: {properties: {launch_blocking: {const: true}}}
       then: {required: [block_reason]}

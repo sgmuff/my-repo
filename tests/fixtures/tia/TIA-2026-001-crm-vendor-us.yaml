@@ -54,7 +54,7 @@ reassessment:
   triggers: A change in US law, a DPF certification by the vendor, new sub-processors, or a government access request
 
 actions:
-  - {id: A1, action: Sign SCCs Module 2 with the vendor, owner: Privacy lead, due: TBC, closure_evidence: Signed SCCs on file, launch_blocking: true, block_reason: law, status: open}
+  - {id: A1, action: Sign SCCs Module 2 with the vendor, owner: Privacy lead, due: TBC, closure_evidence: Signed SCCs on file, launch_blocking: true, block_reason: law, scope: GDPR Art. 46(2)(c), status: open}
 
 open_questions:
   - {id: Q1, question: "Has the vendor received government access requests, and does it publish a transparency report?", field: destination_law/practice, blocks: approval, owner: Privacy lead, needed_by: TBC}

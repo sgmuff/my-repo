@@ -15,14 +15,14 @@ A TIA is needed when a restricted transfer relies on an Art. 46 tool: SCCs, BCRs
 
 Three criteria make a flow a restricted transfer (EDPB Guidelines 05/2021): the exporter is subject to the GDPR for this processing, it discloses or makes the data available to the importer, and the importer is in a third country. Record each one.
 
-**A dormant fallback isn't the tool in use.** SCCs kept in a DPA as a backup to the DPF don't call for a TIA now; one is needed when they become the operative tool. Assess each onward transfer by its own recipient, destination, and tool; an onward transfer that isn't covered doesn't undo the DPF route for the first transfer. Hosting in the UK or EEA doesn't remove a transfer when staff abroad can access the data; it reduces what they see.
+**A dormant fallback isn't the tool in use.** SCCs kept in a DPA as a backup to the DPF don't call for a TIA now; one is needed when they become the operative tool, and they must be executed and fit the parties' roles before anyone relies on them. Assess each onward transfer by its own recipient, destination, and tool; an onward transfer that isn't covered doesn't undo the DPF route for the first transfer. Hosting in the UK or EEA doesn't remove a transfer when staff abroad can access the data; it reduces what they see.
 
 ## 2. The six steps (EDPB Recommendations 01/2020)
 
 1. **Know the transfer.** Data, people, purpose, format, whether it's stored or accessed remotely, and onward transfers to sub-processors.
 2. **Identify the tool.** The SCC module (1 C2C, 2 C2P, 3 P2P, 4 P2C), BCRs, or the UK or Swiss equivalent.
 3. **Assess the destination's law and practice** for this importer and this data: can public authorities access it beyond what is necessary and proportionate, and do people have effective redress? Use the importer's own evidence, such as transparency reports and its record of access requests, alongside public sources.
-4. **Choose supplementary measures** where step 3 finds a problem: technical (encryption with keys held by the exporter, pseudonymization), contractual (transparency, challenge, and notification commitments), or organizational (access policies, minimization). Only technical measures can stop access the law compels; contractual and organizational ones support them.
+4. **Choose supplementary measures** where step 3 finds a problem: technical (encryption with keys held by the exporter, pseudonymization), contractual (transparency, challenge, and notification commitments), or organizational (access policies, minimization). Only technical measures can stop access the law compels; contractual and organizational ones support them. Encryption in transit and at rest still guards against interception, but not against an importer who must read plaintext.
 5. **Take the procedural steps** the tool needs, such as signing the module and completing its annexes.
 6. **Reassess** on a trigger: a change in the destination's law, new sub-processors, an access request, or a change in the importer's certification. Pending litigation, such as the DPF appeal, is a reassessment trigger, not a reason to open a TIA or block launch.
 

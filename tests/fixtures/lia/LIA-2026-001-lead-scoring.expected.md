@@ -89,7 +89,7 @@ No. Provisional: Professional profile fields only An LIA never supplies an Art. 
 
 | # | Action | Owner | Due | Closure evidence | Blocks launch | Status |
 |---|---|---|---|---|---|---|
-| A1 | Write the Art. 14 notice for scored prospects | Privacy lead | TBC | Approved notice text | Yes (law) | Open |
+| A1 | Write the Art. 14 notice for scored prospects | Privacy lead | TBC | Approved notice text | Yes (law: GDPR Art. 14) | Open |
 
 ## 10. Sign-off
 

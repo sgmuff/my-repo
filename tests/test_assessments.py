@@ -127,3 +127,14 @@ def test_failed_tests_show_as_failed_not_open(assess_root):
         d["balancing"]["outcome"] = {"value": "rights-prevail", "status": "Provisional", "reason": "Intrusive"}
     edit(assess_root, LIA, fail)
     assert "**Tests:** Purpose Yes · Necessity No · Balancing Rights prevail\n" in rendered(assess_root, LIA)
+
+
+def test_law_block_needs_a_provision(assess_root):
+    def uncited(d):
+        d["actions"][0].pop("scope")
+    edit(assess_root, LIA, uncited)
+    assert any("block_reason law needs scope" in m for m in found(assess_root, "error"))
+    edit(assess_root, LIA, lambda d: d["actions"][0].update(scope="internal policy"))
+    assert any("block_reason law needs scope" in m for m in found(assess_root, "error"))
+    edit(assess_root, LIA, lambda d: d["actions"][0].update(scope="GDPR Art. 14(3)"))
+    assert not any("block_reason law" in m for m in found(assess_root, "error"))

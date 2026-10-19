@@ -202,6 +202,7 @@ actions:
     closure_evidence: Signed DPAs on file
     launch_blocking: true
     block_reason: law
+    scope: GDPR Art. 28(3)
     status: open
   - id: A2
     action: Set a retention limit for sync logs and delete older logs

@@ -102,6 +102,7 @@ def validate_record(root: Path, rec: Record) -> list:
     problems.extend(_local_ids(where, rec.data))
     problems.extend(_structure(where, rec.data))
     problems.extend(_gates(where, rec.data))
+    problems.extend(_law_citations(where, rec.data))
     problems.extend(_required(root, where, rec.data))
     for n, r in enumerate(rec.data.get("finding_responses", [])):
         if "claude" in r["by"].lower():
@@ -203,6 +204,18 @@ def _structure(where: str, data: dict) -> list:
     if rtype == "controller" and applicable:
         return [Problem(where, "error", "processor_record: a controller record can't carry an Art. 30(2) record; change the record type to both")]
     return []
+
+
+PROVISION = re.compile(r"\b(Art\.|Arts\.|Article|s\.|ss\.|Section|§|Clause|Reg\.|Regulation|Rule|CFR|U\.S\.C\.)\s*\d", re.I)
+
+
+def _law_citations(where: str, data: dict) -> list:
+    """A launch block that rests on law must name the provision that requires it."""
+    return [
+        Problem(where, "error", f"{a['id']}: block_reason law needs scope naming the provision that requires this action, such as \"GDPR Art. 14\"; if none does, use risk or policy")
+        for a in data.get("actions", [])
+        if a["launch_blocking"] and a.get("block_reason") == "law" and not PROVISION.search(a.get("scope", ""))
+    ]
 
 
 def _gates(where: str, data: dict) -> list:

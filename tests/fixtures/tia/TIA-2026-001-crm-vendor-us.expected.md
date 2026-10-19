@@ -78,7 +78,7 @@ A change in US law, a DPF certification by the vendor, new sub-processors, or a 
 
 | # | Action | Owner | Due | Closure evidence | Blocks launch | Status |
 |---|---|---|---|---|---|---|
-| A1 | Sign SCCs Module 2 with the vendor | Privacy lead | TBC | Signed SCCs on file | Yes (law) | Open |
+| A1 | Sign SCCs Module 2 with the vendor | Privacy lead | TBC | Signed SCCs on file | Yes (law: GDPR Art. 46(2)(c)) | Open |
 
 ## 9. Sign-off
 

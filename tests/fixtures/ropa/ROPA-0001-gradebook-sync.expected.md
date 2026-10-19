@@ -137,7 +137,7 @@ TBC.
 | # | Action | Owner | Due | Closure evidence | Blocks launch | Status |
 |---|---|---|---|---|---|---|
 | A1 | Stop logging full payloads, or redact student fields from payload_json | Integrations team | TBC | Log sample showing redacted payloads | Yes (risk; payload logging only) | Open |
-| A3 | Sign DPAs with AWS and the error monitoring vendor, after vendor review | Privacy lead | TBC | Signed DPAs on file | Yes (law) | Open |
+| A3 | Sign DPAs with AWS and the error monitoring vendor, after vendor review | Privacy lead | TBC | Signed DPAs on file | Yes (law: GDPR Art. 28(3)) | Open |
 | A2 | Set a retention limit for sync logs and delete older logs | Integrations team | TBC | Configured retention policy | No | Open |
 
 ## 14. Sign-off
