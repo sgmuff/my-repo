@@ -5,7 +5,7 @@
 | Covers | The Act respecting the protection of personal information in the private sector (CQLR c P-39.1), as amended by Law 25 (2021, c. 25) |
 | Version covered | All three phases in force (September 22 of 2022, 2023, and 2024) |
 | Sources | LégisQuébec (CQLR c P-39.1); Commission d'accès à l'information (CAI) guidance on privacy impact assessments |
-| Last verified | 2026-10-18, against secondary sources (law-firm, regulator-guide, and tracker summaries); primary texts not yet read line by line. **Needs counsel review before live use.** |
+| Last verified | 2026-10-18, against secondary sources (law-firm, regulator-guide, and tracker summaries); primary texts not yet read line by line. Reviewed and approved by counsel on 2026-10-19. |
 | Review interval | Every six months |
 | Volatile points | §3 (CAI guidance on assessment content); interaction with federal PIPEDA and any successor federal law |
 

@@ -300,7 +300,7 @@ Done when the RoPA evals produce valid YAML, two triage runs print the same plan
 - [x] Catalog in `assessments.yaml` and `gov required`, with RoPA findings for owed assessments
 - [x] LIA and TIA schemas, skeletons, templates, and findings
 - [x] `lia` and `tia` skills; `vendor-review` and `dpia` point to them
-- [x] Reference files for the five conditional regimes, verified against secondary sources; counsel review pending
+- [x] Reference files for the five conditional regimes, verified against secondary sources and approved by counsel on 2026-10-19
 - [x] Evals against no skill, iterations 1 and 2 reviewed
 - [x] Fixes from the iteration 2 review: each LIA test's result in the status line, validation findings rendered in every record, narrower `law` blocks, and the UK data protection test in force since February 5, 2026
 - [x] Iteration 3 evals reviewed: `lia` 96% and `tia` 98% against 55% and 61% without the skill
@@ -341,7 +341,7 @@ Each phase closes with skill evals, trigger evals, and a description optimizer r
 - **The plan uses portable Markdown,** per `conventions.md`.
 - **Colorado has no entry,** and `regulatory-change` watches the attorney general's ADMT rules.
 - **Local Law 144 is partly covered,** since the law requires an independent auditor.
-- **Some citations need verifying:** the Swiss transfer entry rests on general knowledge, and the five conditional reference files on secondary sources pending counsel review.
+- **Counsel approved the legal content on 2026-10-19:** the `law` block rules, the UK, DPF, US, and India points in `steps.md`, the LIA test, `methods.yaml`, and the five conditional reference files. `us-breach-notification.md` is still unreviewed.
 
 ## Risks
 

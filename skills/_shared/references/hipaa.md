@@ -5,7 +5,7 @@
 | Covers | HIPAA Privacy, Security, and Breach Notification Rules (45 CFR Parts 160 and 164), as they apply to a covered entity or business associate |
 | Version covered | The rules as amended through the 2013 Omnibus Rule; the January 2025 Security Rule proposal is noted, not applied |
 | Sources | ecfr.gov (45 CFR Parts 160, 164); HHS OCR guidance on risk analysis and on HIPAA and FERPA |
-| Last verified | 2026-10-18, against secondary sources (law-firm, regulator-guide, and tracker summaries); primary texts not yet read line by line. **Needs counsel review before live use.** |
+| Last verified | 2026-10-18, against secondary sources (law-firm, regulator-guide, and tracker summaries); primary texts not yet read line by line. Reviewed and approved by counsel on 2026-10-19. |
 | Review interval | Every six months, or when HHS finalizes Security Rule changes |
 | Volatile points | §1 (Security Rule proposal status); §2 (business associate status depends on the contract and the service) |
 

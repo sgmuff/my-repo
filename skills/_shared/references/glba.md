@@ -5,7 +5,7 @@
 | Covers | The FTC Safeguards Rule (16 CFR Part 314) under the Gramm-Leach-Bliley Act, and its application to higher education institutions and their service providers |
 | Version covered | The rule as amended in 2021 (most provisions effective June 9, 2023) and 2023 (breach notification to the FTC, effective May 13, 2024) |
 | Sources | ecfr.gov (16 CFR Part 314); FTC business guidance on the Safeguards Rule; Department of Education Federal Student Aid electronic announcements on GLBA |
-| Last verified | 2026-10-18, against secondary sources (law-firm, regulator-guide, and tracker summaries); primary texts not yet read line by line. **Needs counsel review before live use.** |
+| Last verified | 2026-10-18, against secondary sources (law-firm, regulator-guide, and tracker summaries); primary texts not yet read line by line. Reviewed and approved by counsel on 2026-10-19. |
 | Review interval | Every six months |
 | Volatile points | §4 (Department of Education audit and enforcement practice for institutions) |
 

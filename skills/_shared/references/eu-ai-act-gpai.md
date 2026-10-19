@@ -5,7 +5,7 @@
 | Covers | AI Act Chapter V (Arts. 51–56): duties of providers of general-purpose AI (GPAI) models, with and without systemic risk |
 | Version covered | Regulation (EU) 2024/1689 as amended by Regulation (EU) 2026/1744; see `eu-ai-act.md` for the rest of the Act |
 | Sources | EUR-Lex (Regulation 2024/1689, Annexes XI–XIII); the General-Purpose AI Code of Practice (July 10, 2025); Commission guidelines on GPAI model obligations (July 2025); the AI Office training content summary template |
-| Last verified | 2026-10-18, against secondary sources (law-firm, regulator-guide, and tracker summaries); primary texts not yet read line by line. **Needs counsel review before live use.** |
+| Last verified | 2026-10-18, against secondary sources (law-firm, regulator-guide, and tracker summaries); primary texts not yet read line by line. Reviewed and approved by counsel on 2026-10-19. |
 | Review interval | Quarterly |
 | Volatile points | §2 (when fine-tuning makes a company a GPAI provider); §4 (Code of Practice signatories and updates); any Omnibus changes to Chapter V |
 
