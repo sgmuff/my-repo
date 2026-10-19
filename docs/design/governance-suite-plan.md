@@ -299,7 +299,7 @@ Done when the RoPA evals produce valid YAML, two triage runs print the same plan
 
 Each phase closes with skill evals, trigger evals, and a description optimizer run.
 
-1. **Catalog, `lia`, and `tia`.** Point `vendor-review` and `dpia` at them.
+1. **Catalog, `lia`, and `tia`.** Point `vendor-review` and `dpia` at them. Add reference files for the five conditional regimes, so their entries can be switched on.
 2. **`ai-act-provider` and `ai-act-deployer`,** and the Art. 25 check. Finish well before December 2, 2027.
 3. **Security entries** in `controls-and-evidence`. The first CCPA audit is due April 1, 2028 at the earliest.
 4. **Existing assessments in the new format,** starting with the DPIA, plus `gov screen`.
@@ -310,6 +310,8 @@ Each phase closes with skill evals, trigger evals, and a description optimizer r
 ## Decisions and assumptions
 
 **Decided (2026-10-17):** Claude Code and CI only; PyYAML, jsonschema, and Jinja2 allowed; records in this repository; the first slice above.
+
+**Decided (2026-10-18):** `lia` keeps its scope, covering LIAs and Art. 6(4) compatibility assessments. All five conditional entries apply: GPAI duties, the GLBA Safeguards Rule, HIPAA, NIS2, and Quebec Law 25. Each needs a reference file before its catalog entry is switched on.
 
 **Assumed, open to change before the first slice:**
 
@@ -340,6 +342,6 @@ Each phase closes with skill evals, trigger evals, and a description optimizer r
 1. ~~Retire or freeze the Desktop zips?~~ Retired: the zips are deleted.
 2. Commit generated Markdown, or build it only for Confluence?
 3. Should catalog changes need the privacy lead's approval? (Assumed yes.)
-4. Which conditional entries apply, especially GPAI and federal student aid?
-5. Keep compatibility assessments in `lia`, or broaden it to `lawful-basis`?
+4. ~~Which conditional entries apply?~~ All five (2026-10-18).
+5. ~~Keep compatibility assessments in `lia`?~~ Yes (2026-10-18).
 6. Keep counsel's advice in a separate privileged memo that the assessment cites?

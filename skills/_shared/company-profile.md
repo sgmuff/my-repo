@@ -47,6 +47,14 @@ Delete any that don't apply.
 - NIST Privacy Framework (organizing framework for the privacy program)
 - NIST AI RMF and ISO/IEC 42001 (AI governance mappings)
 
+Conditional regimes, which switch on catalog entries once their reference files exist (confirmed 2026-10-18):
+
+- EU AI Act general-purpose AI model duties (Art. 53, 55): the company trains or markets general-purpose models
+- GLBA Safeguards Rule (16 CFR Part 314): the company serves financial institutions, including colleges in federal student aid
+- HIPAA Security Rule (45 CFR Part 164): the company is a covered entity or business associate
+- NIS2 Directive, as transposed: the company is an essential or important entity
+- Quebec Law 25: the company processes personal information of people in Quebec
+
 ## Defaults
 
 - Output root folder for deliverables: `compliance/` (relative to the repository root). The folder layout is in `conventions.md`, section 8.

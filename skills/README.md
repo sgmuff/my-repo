@@ -28,9 +28,10 @@ skills/
   regulatory-change/        law and standard changes, impact maps, reference updates (Wave 5)
   leadership-report/        board and leadership reports with traceable metrics (Wave 5)
   writing-style/            the house prose style
-  install.sh                links the skills into ~/.claude/skills (Claude Code)
-  package_desktop.py        builds the Claude Desktop zips in ../dist/claude-desktop/
+  install.sh                installs gov and links the skills into ~/.claude/skills
 ```
+
+The `gov` command, at the repository root in `gov/`, owns IDs, validation, rendering, and triage routing. Records it manages, so far the RoPA, live as YAML under `compliance/`. See `docs/design/governance-suite-plan.md`.
 
 Each skill keeps its own workflow-specific references, templates, examples, and `evals/` (test scenarios). Framework details live only in `_shared/references/`, so updating a law or standard means editing one file.
 
@@ -38,27 +39,16 @@ Each skill keeps its own workflow-specific references, templates, examples, and 
 
 ### Claude Code
 
-```bash
-./skills/install.sh
-```
+Install one way, not both:
 
-The script symlinks each skill folder and `_shared` into `~/.claude/skills`. It skips any folder that already exists there as a real folder, such as an older copy of `writing-style`, and tells you. Move that folder aside and rerun the script to link the repo version.
+- **Script:** `./skills/install.sh` installs `gov` (with `uv` if present, otherwise `pip --user`) and symlinks each skill and `_shared` into `~/.claude/skills`. It skips any folder already there as a real folder, and tells you; move that folder aside and rerun.
+- **Plugin:** the repository is a Claude Code plugin (`.claude-plugin/plugin.json`). Install `gov` separately with `pip install -e .` from the repository root.
 
-### Claude Desktop and claude.ai
+The skills need `gov` on your PATH. Each skill checks for it first and stops if it's missing.
 
-The packaged skills are in `dist/claude-desktop/`, one zip per skill. Claude Desktop installs each skill on its own, so each zip carries its own copy of `_shared` (as `shared/`), with the paths rewritten and a note in `shared/conventions.md` on how the suite runs there: deliverables go to the session's outputs folder for download, and earlier records are uploaded when a skill needs them.
+Skills uploaded to claude.ai earlier are out of date and don't use `gov`. Remove them, or Claude Code sees two copies of each skill.
 
-1. Turn on code execution: Settings, then Capabilities.
-2. Upload each zip under Settings, then Capabilities, then Skills. Install `writing-style` and `privacy-governance` (the router) along with the skills you use.
-3. Fill in `shared/company-profile.md` before zipping, or give the company facts in the first conversation. Desktop doesn't keep edits to an installed skill, so save confirmed facts back to the repo and rebuild.
-
-The repo is the source. After changing a skill, rebuild and re-upload the zips that changed:
-
-```bash
-python3 skills/package_desktop.py
-```
-
-The build validates each SKILL.md and checks that every link resolves inside the zip, and stops with a list of problems if not. Evals stay out of the zips.
+Claude Desktop isn't supported: it keeps no edits between sessions, so it can't hold the registers or ID counters.
 
 ## First run
 
