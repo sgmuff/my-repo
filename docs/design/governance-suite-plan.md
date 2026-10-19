@@ -302,10 +302,10 @@ Done when the RoPA evals produce valid YAML, two triage runs print the same plan
 - [x] `lia` and `tia` skills; `vendor-review` and `dpia` point to them
 - [x] Reference files for the five conditional regimes, verified against secondary sources; counsel review pending
 - [x] Evals against no skill, iterations 1 and 2 reviewed
-- [x] Fixes from the iteration 2 review: each LIA test's result in the status line, validation findings rendered in every record, narrower `law` blocks, and the UK data protection test in force since February 5, 2026 (not yet committed)
+- [x] Fixes from the iteration 2 review: each LIA test's result in the status line, validation findings rendered in every record, narrower `law` blocks, and the UK data protection test in force since February 5, 2026
 - [ ] Iteration 3 evals, with the new assertions
 - [ ] Description optimizer runs for `lia` and `tia`
-- [ ] `phase-1` merged to main
+- [x] `phase-1` merged to main
 
 ### Later phases
 
