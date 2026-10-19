@@ -19,7 +19,9 @@
         "No step 3 law is marked as definitely applying without a cited source",
         "Each supplementary measure has a Provisional effectiveness call",
         "The decision is open, proceed-with-measures, or suspend; never Confirmed",
-        "The importer's sub-processors or onward transfers are captured or asked"
+        "The importer's sub-processors or onward transfers are captured or asked",
+        "The reply's first line gives an actionable answer, such as \"No, not as proposed\" or \"Not yet: two facts decide it\"",
+        "No launch-blocking action is marked law unless it names the provision that requires it"
       ]
     },
     {
@@ -33,7 +35,9 @@
         "The reply says to check the DPF list for the entity and scope, or records a verify flag for it",
         "The reply mentions keeping SCCs as a fallback, or the DPF's pending litigation",
         "No TIA record concludes the transfer needs supplementary measures",
-        "The reply is 200 words or fewer, excluding any numbered question list"
+        "The reply is 200 words or fewer, excluding any numbered question list",
+        "The reply's first line gives an actionable answer, such as \"No, not as proposed\" or \"Not yet: two facts decide it\"",
+        "No launch-blocking action is marked law unless it names the provision that requires it"
       ]
     },
     {
@@ -53,7 +57,9 @@
         "Whether the IDTA is signed is TBC or asked, not assumed",
         "Step 3 cites India's law with a source or a verify flag",
         "The ICO approach or the Data (Use and Access) Act test is mentioned, with a verify flag where it depends on commencement",
-        "The decision isn't Confirmed"
+        "The decision isn't Confirmed",
+        "The reply's first line gives an actionable answer, such as \"No, not as proposed\" or \"Not yet: two facts decide it\"",
+        "No launch-blocking action is marked law unless it names the provision that requires it"
       ]
     }
   ]

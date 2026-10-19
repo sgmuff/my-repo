@@ -191,15 +191,27 @@ def required_rows(root, data: dict) -> list:
     return rows
 
 
+def finding_rows(rec) -> list:
+    """Every current finding with its response, then responses whose finding no longer arises."""
+    from gov.findings import FINDINGS
+    responses = {r["pointer"]: r for r in rec.data.get("finding_responses", [])}
+    rows, seen = [], set()
+    for pointer, message in FINDINGS[rec.type](rec.data):
+        r = responses.get(pointer)
+        seen.add(pointer)
+        rows.append({"pointer": pointer, "finding": message, "response": r["response"] if r else "Open", "by": r["by"] if r else None})
+    for pointer, r in responses.items():
+        if pointer not in seen:
+            rows.append({"pointer": pointer, "finding": "No longer raised", "response": r["response"], "by": r["by"]})
+    return rows
+
+
 def render_record(rec, root=None) -> str:
     template = _env().get_template(f"{rec.type}.md.j2")
-    vendors = derive.vendor_slugs(rec.data) if rec.type == "ropa" else []
-    if rec.type != "ropa":
-        text = template.render(r=rec.data, d=derive.DERIVE[rec.type](rec.data), source_file=rec.path.name)
-        return _tidy(text)
-    required = required_rows(root, rec.data) if rec.type == "ropa" else []
-    text = template.render(r=rec.data, d=derive.DERIVE[rec.type](rec.data), source_file=rec.path.name,
-                           vendors=vendors, required=required)
+    extra = {"findings": finding_rows(rec)}
+    if rec.type == "ropa":
+        extra.update(vendors=derive.vendor_slugs(rec.data), required=required_rows(root, rec.data))
+    text = template.render(r=rec.data, d=derive.DERIVE[rec.type](rec.data), source_file=rec.path.name, **extra)
     return _tidy(text)
 
 

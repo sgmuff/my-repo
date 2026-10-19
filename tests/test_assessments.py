@@ -107,3 +107,23 @@ def test_ropa_can_cite_an_lia_on_file(assess_root):
 def test_only_a_person_answers_a_finding(assess_root):
     edit(assess_root, TIA, lambda d: d["finding_responses"].append({"pointer": "activity", "response": "No RoPA yet", "by": "Claude (privacy-governance suite)"}))
     assert any("only a person answers a finding" in m for m in found(assess_root, "error"))
+
+
+def rendered(root, rel):
+    render_tree(root)
+    return (root / rel).with_suffix(".md").read_text()
+
+
+def test_findings_render_open_and_answered(assess_root):
+    assert "| objection/notice | the notice doesn't name the interest" in rendered(assess_root, LIA)
+    edit(assess_root, LIA, lambda d: d["finding_responses"].append(
+        {"pointer": "objection/notice", "response": "Notice update scheduled in A3", "by": "Pat Lee, privacy lead"}))
+    assert "| Notice update scheduled in A3 | Pat Lee, privacy lead |" in rendered(assess_root, LIA)
+
+
+def test_failed_tests_show_as_failed_not_open(assess_root):
+    def fail(d):
+        d["necessity_test"]["necessary"] = {"value": False, "status": "Provisional", "reason": "Less intrusive options exist"}
+        d["balancing"]["outcome"] = {"value": "rights-prevail", "status": "Provisional", "reason": "Intrusive"}
+    edit(assess_root, LIA, fail)
+    assert "**Tests:** Purpose Yes · Necessity No · Balancing Rights prevail\n" in rendered(assess_root, LIA)

@@ -22,7 +22,9 @@ This assessment proposes a decision. It authorizes no processing; only the priva
 
 Marketing scores B2B prospects from LinkedIn profile data so Sales can prioritize outreach. The company relies on its interest in finding likely buyers.
 
-**Open items:** 2 tests open · 0 questions block launch · 2 block approval
+**Tests:** Purpose Yes · Necessity TBC · Balancing Open
+
+**Open items:** 0 questions block launch · 2 block approval
 **Launch:** blocked by A1.
 
 ## 1. Purpose test (Art. 6(1)(f))
@@ -110,9 +112,11 @@ No. Provisional: Professional profile fields only An LIA never supplies an Art. 
 |---|---|---|---|---|---|
 | V1 | LinkedIn's terms restrict copying member data into third-party tools | Affects whether the source is lawful to use | Current LinkedIn User Agreement | Counsel | TBC |
 
-### Responses to validation findings
+### Validation findings
 
-None.
+| About | Finding | Response | By |
+|---|---|---|---|
+| objection/notice | the notice doesn't name the interest (Art. 13(1)(d), 14(2)(b)); recommend a notice update | Open | — |
 
 ### References
 

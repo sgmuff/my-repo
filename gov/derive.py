@@ -116,12 +116,23 @@ def _blockers(data: dict) -> list:
     ]
 
 
+LIA_TESTS = (
+    ("Purpose", "purpose_test", "legitimate"),
+    ("Necessity", "necessity_test", "necessary"),
+    ("Balancing", "balancing", "outcome"),
+    ("Annex 1 conditions", "recognized_interest", "conditions_met"),
+    ("Compatibility", "compatibility", "outcome"),
+)
+
+
 def lia(data: dict) -> dict:
     tests = [data[k] for k in ("purpose_test", "necessity_test") if data[k].get("applicable")]
+    results = [(name, data[key][call]["value"]) for name, key, call in LIA_TESTS if data[key].get("applicable")]
     open_calls = [t for t in tests for key in ("legitimate", "necessary") if key in t and t[key]["value"] == TBC]
     balancing = data["balancing"]
     return {
         "decision": data["decision"]["value"],
+        "test_results": results,
         "open_tests": len(open_calls) + (1 if balancing.get("applicable") and balancing["outcome"]["value"] == "open" else 0),
         "launch_blockers": _blockers(data),
         "blocking_questions": sum(1 for q in data["open_questions"] if q["blocks"] in ("launch", "approval")),

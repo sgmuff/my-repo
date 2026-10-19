@@ -24,13 +24,13 @@ None.
 None.
 {% endif %}
 
-### Responses to validation findings
+### Validation findings
 
-{% if r.finding_responses %}
-| About | Response | By |
-|---|---|---|
-{% for f in r.finding_responses %}
-| {{ f.pointer | cell }} | {{ f.response | cell }} | {{ f.by | cell }} |
+{% if findings %}
+| About | Finding | Response | By |
+|---|---|---|---|
+{% for f in findings %}
+| {{ f.pointer | cell }} | {{ f.finding | cell }} | {{ f.response | cell }} | {{ f.by | cell }} |
 {% endfor %}
 {% else %}
 None.

@@ -29,7 +29,7 @@ All three must be met. Record each as a call.
    - what the outcome changes for the person: ordering a sales queue is not the same as deciding access to an opportunity
    - the safeguards, which can tip the balance
 
-   Give each impact a basis, such as scale or what the score changes, so the ratings aren't false precision.
+   Give each impact a basis, such as scale or what the score changes, so the ratings aren't false precision. For a score, ask whether a low score only orders a queue or drops people from it; leave severity TBC until that's known.
 
 ## 3. Objection and transparency
 
@@ -46,7 +46,7 @@ UK GDPR Art. 6(1)(ea) and Annex 1 list purposes that need no balancing test, suc
 Service messages a person needs to use what they signed up for are part of the original purpose. Marketing is a new one; keep the two apart.
 
 
-A new purpose for data collected for another needs either consent, a legal basis in law, or a compatibility assessment of five factors: (a) the link between the purposes, (b) the context of collection and the relationship, (c) the nature of the data, especially Art. 9 and 10 data, (d) the possible consequences, and (e) safeguards such as encryption or pseudonymization. A compatible purpose still rests on the original lawful basis, and only if the original processing was lawful. An incompatible purpose needs a new basis, such as consent; an LIA doesn't make it compatible.
+A new purpose for data collected for another needs either consent, a legal basis in law, or a compatibility assessment of five factors: (a) the link between the purposes, (b) the context of collection and the relationship, (c) the nature of the data, especially Art. 9 and 10 data, (d) the possible consequences, and (e) safeguards such as encryption or pseudonymization. Pseudonymized data is still personal data. A compatible purpose still rests on the original lawful basis, and only if the original processing was lawful. An incompatible purpose needs a new basis, such as consent; an LIA doesn't make it compatible.
 
 ## Verify points
 

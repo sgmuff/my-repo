@@ -163,7 +163,7 @@ TBC.
 |---|---|---|---|---|---|
 | V1 | The school official exception covers the sync | Decides whether FERPA allows the disclosure | District contracts and ferpa.md section 3 | Privacy lead | TBC |
 
-### Responses to validation findings
+### Validation findings
 
 None.
 

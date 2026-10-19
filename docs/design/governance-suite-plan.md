@@ -288,12 +288,24 @@ The human reviewer judges the rest, such as whether a rating is sound.
 - [x] `conventions.md` sections 8 and 9 updated
 - [x] `plugin.json`, `install.sh` installing `gov`, and CI
 - [x] Evals with assertions for both skills
-- [ ] Old against new compared in the eval viewer
+- [x] Old against new compared in the eval viewer, over three reviewed rounds
 - [x] Iteration 2 from review feedback: RoPA schema v2 (record-type-aware, calls with status and reason, actions, blocking questions, legal consistency findings) and router v2 (step states, decision register, legal checks, next questions)
 - [x] Iteration 3: router facts and checks for school context, vendor own use, scraped sources, and session replay; one ranked question list; computed launch status, retention by store, and contract findings in the RoPA
 - [x] RoPA removed from `build_register_index.py`, which still serves the AI inventory, incident, and control registers until phase 5
 
 Done when the RoPA evals produce valid YAML, two triage runs print the same plan, the new skills match or beat the old on every eval, and CI passes.
+
+### Phase 1: catalog, `lia`, and `tia`
+
+- [x] Catalog in `assessments.yaml` and `gov required`, with RoPA findings for owed assessments
+- [x] LIA and TIA schemas, skeletons, templates, and findings
+- [x] `lia` and `tia` skills; `vendor-review` and `dpia` point to them
+- [x] Reference files for the five conditional regimes, verified against secondary sources; counsel review pending
+- [x] Evals against no skill, iterations 1 and 2 reviewed
+- [x] Fixes from the iteration 2 review: each LIA test's result in the status line, validation findings rendered in every record, narrower `law` blocks, and the UK data protection test in force since February 5, 2026 (not yet committed)
+- [ ] Iteration 3 evals, with the new assertions
+- [ ] Description optimizer runs for `lia` and `tia`
+- [ ] `phase-1` merged to main
 
 ### Later phases
 
@@ -323,7 +335,7 @@ Each phase closes with skill evals, trigger evals, and a description optimizer r
 - **The plan uses portable Markdown,** per `conventions.md`.
 - **Colorado has no entry,** and `regulatory-change` watches the attorney general's ADMT rules.
 - **Local Law 144 is partly covered,** since the law requires an independent auditor.
-- **Some citations need verifying:** the UK and Swiss transfer entries and every conditional entry rest on general knowledge, not the reference files.
+- **Some citations need verifying:** the Swiss transfer entry rests on general knowledge, and the five conditional reference files on secondary sources pending counsel review.
 
 ## Risks
 

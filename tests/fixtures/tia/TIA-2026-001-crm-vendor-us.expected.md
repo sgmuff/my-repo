@@ -100,7 +100,7 @@ A change in US law, a DPF certification by the vendor, new sub-processors, or a 
 |---|---|---|---|---|---|
 | V1 | The vendor isn't DPF-certified | Certification would make this TIA unnecessary | dataprivacyframework.gov list | Privacy lead | TBC |
 
-### Responses to validation findings
+### Validation findings
 
 None.
 

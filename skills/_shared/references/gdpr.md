@@ -47,7 +47,7 @@ When a conclusion would change if the Omnibus passed, add a verify flag that say
 - **Royal Assent, June 19, 2025:** subject access requests need only a "reasonable and proportionate" search (UK GDPR Art. 15(1A)), treated as applying from January 1, 2024.
 - **Commencement No. 1, August 20, 2025 (SI 2025/904):** governance changes and the first data protection provisions.
 - **Commencement No. 3 (SI 2025/996):** legal professional privilege and national security exemptions; joint processing provisions from November 17, 2025.
-- **Commencement No. 6 (SI 2026/82):** further provisions from February 5, 2026, and the duty for controllers to handle data protection complaints (DUAA s. 103) from June 19, 2026.
+- **Commencement No. 6 (SI 2026/82):** further provisions from February 5, 2026, including the international transfer regime and its "not materially lower" data protection test, and the duty for controllers to handle data protection complaints (DUAA s. 103) from June 19, 2026.
 
 The main Part 5 amendments include recognized legitimate interests (UK GDPR Art. 6(1)(ea) and Annex 1), new automated decision-making rules (Arts. 22A–22D), "stop the clock" for clarifying requests, a revised international transfer test, and the renaming of the ICO as the Information Commission. Before citing one of these as in force, confirm its commencement on legislation.gov.uk and record the date checked.
 

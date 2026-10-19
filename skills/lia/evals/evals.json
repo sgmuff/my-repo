@@ -20,7 +20,10 @@
         "The balancing outcome isn't interest-prevails while expectations or the data source are unknown",
         "objection.direct_marketing is true, and the objection text says processing stops on objection",
         "How the LinkedIn data is obtained is asked, or is an open question",
-        "The reply flags e-marketing consent rules (ePrivacy or PECR) as separate from legitimate interests"
+        "The reply flags e-marketing consent rules (ePrivacy or PECR) as separate from legitimate interests",
+        "The reply's first line gives an actionable answer, such as \"No, not as proposed\" or \"Not yet: two facts decide it\"",
+        "Every balancing impact has a basis",
+        "No launch-blocking action is marked law unless it names the provision that requires it"
       ]
     },
     {
@@ -41,7 +44,9 @@
         "The children's or school context is weighed in the consequences or context factor",
         "The reply flags e-marketing consent rules as separate from compatibility",
         "The churn model is sent to DPIA screening or flagged as profiling",
-        "No decision is Confirmed"
+        "No decision is Confirmed",
+        "The reply's first line gives an actionable answer, such as \"No, not as proposed\" or \"Not yet: two facts decide it\"",
+        "No launch-blocking action is marked law unless it names the provision that requires it"
       ]
     },
     {
@@ -61,7 +66,10 @@
         "The balancing weighs the employee power imbalance or vulnerability",
         "The decision isn't holds",
         "DPIA screening is recommended for systematic monitoring of employees",
-        "National employment law, works councils, or Art. 88 is flagged"
+        "National employment law, works councils, or Art. 88 is flagged",
+        "The reply's first line gives an actionable answer, such as \"No, not as proposed\" or \"Not yet: two facts decide it\"",
+        "Every balancing impact has a basis",
+        "No launch-blocking action is marked law unless it names the provision that requires it"
       ]
     }
   ]
