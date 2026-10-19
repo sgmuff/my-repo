@@ -66,6 +66,23 @@
         "The reply says the transfer is already running and gives the interim choice",
         "The reply gives no deadline that the request, a contract, or the law doesn't set"
       ]
+    },
+    {
+      "id": 4,
+      "name": "dpf-plus-sccs-india-support",
+      "prompt": "Our US cloud provider is DPF-certified, but its DPA says it uses the EU-US DPF and the 2021 SCCs. A support team in India can access customer records. Do we need a TIA, and what should we document?",
+      "expected_output": "Screens the EU-US transfer to the certified provider out of a TIA under the DPF, provided the certification covers the entity and data. Treats the SCCs as dormant unless relied on. Treats India support access as the provider's onward transfer under the DPF Onward Transfer Principle, or, if the company relies on SCCs for it, as a transfer needing its own assessment; asks which entity in India and which tool covers it. Records the screen or offers to.",
+      "files": [],
+      "expectations": [
+        "The reply, excluding its numbered question list, is 200 words or fewer",
+        "The reply's numbered question list has five questions or fewer",
+        "The reply's first line gives an actionable answer, such as \"No, not as proposed\" or \"Not yet: two facts decide it\"",
+        "The reply says no TIA is needed for the transfer to the certified US provider, conditional on the certification covering the entity and data",
+        "The reply says SCCs in the DPA call for a TIA only if they are the tool relied on",
+        "The reply doesn't say India access automatically requires a TIA; it ties the answer to who makes the onward transfer and which tool covers it",
+        "The reply asks which entity in India has access and under what mechanism",
+        "The reply says what to document, such as the screen in the RoPA transfer row"
+      ]
     }
   ]
 }

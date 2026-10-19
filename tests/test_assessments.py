@@ -138,3 +138,26 @@ def test_law_block_needs_a_provision(assess_root):
     assert any("block_reason law needs scope" in m for m in found(assess_root, "error"))
     edit(assess_root, LIA, lambda d: d["actions"][0].update(scope="GDPR Art. 14(3)"))
     assert not any("block_reason law" in m for m in found(assess_root, "error"))
+
+
+def test_missing_notice_action_is_a_finding(assess_root):
+    edit(assess_root, LIA, lambda d: d["actions"][0].update(block_reason="policy", scope="notice"))
+    assert any("add a launch-blocking law action for it" in m for m in found(assess_root, "finding"))
+
+
+def test_special_category_needs_an_art9_action(assess_root):
+    edit(assess_root, LIA, lambda d: d.update(special_category={"value": True, "status": "Provisional", "reason": "Health data"}))
+    assert any("no action addresses the Art. 9 condition" in m for m in found(assess_root, "finding"))
+
+
+def test_unsigned_tool_needs_a_law_action(assess_root):
+    edit(assess_root, TIA, lambda d: d["actions"][0].update(scope="GDPR Art. 28(3)"))
+    assert any("isn't confirmed signed" in m for m in found(assess_root, "finding"))
+
+
+def test_every_kind_has_a_method():
+    from gov.paths import PACKAGE
+    methods = yamlio.load(PACKAGE / "rules" / "methods.yaml")
+    for kind in ("lia", "tia"):
+        kinds = yamlio.load(PACKAGE / "schemas" / f"{kind}.schema.yaml")["properties"]["kind"]["enum"]
+        assert set(kinds) == set(methods[kind]), kind

@@ -1,0 +1,9 @@
+# The method each assessment kind follows, printed under the decision. Edit here, not in templates.
+lia:
+  lia: "GDPR and UK GDPR Art. 6(1)(f): purpose, necessity, and balancing tests (CJEU C-621/22; EDPB Guidelines 1/2024; ICO legitimate interests guidance)"
+  recognized-interest: "UK GDPR Art. 6(1)(ea) and Annex 1, as inserted by the Data (Use and Access) Act 2025; ICO guidance"
+  compatibility: "GDPR and UK GDPR Art. 6(4)(a)-(e) compatibility factors; Art. 5(1)(b)"
+tia:
+  eu-tia: "EDPB Recommendations 01/2020 (six steps) and 2021 SCCs Clause 14; CJEU C-311/18 (Schrems II)"
+  uk-tra: "UK data protection test since the Data (Use and Access) Act 2025: protection not materially lower, judged reasonably and proportionately; ICO transfer risk assessment guidance (January 2026)"
+  ch-tia: "Swiss FADP Art. 16(2); FDPIC guidance on transfers abroad"

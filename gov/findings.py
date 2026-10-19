@@ -102,17 +102,30 @@ def _open_question_on(data: dict, field: str) -> bool:
     return any(q["field"] == field for q in data["open_questions"])
 
 
+def _law_action_citing(data: dict, pattern: str) -> bool:
+    """An action, open or done, filed as law with a scope citing the given provision."""
+    return any(a.get("block_reason") == "law" and re.search(pattern, a.get("scope", "")) for a in data["actions"])
+
+
+def _action_citing(data: dict, pattern: str) -> bool:
+    return any(re.search(pattern, a.get("scope", "") + " " + a["action"]) for a in data["actions"])
+
+
 def lia(data: dict) -> list:
     out = []
     decision = data["decision"]["value"]
     holds = decision in ("holds", "holds-with-conditions")
     if data["special_category"]["value"] is True:
         out.append(("special_category", "an LIA never supplies an Art. 9 condition; confirm the DPIA names one"))
+        if not _action_citing(data, r"Art\.\s*9"):
+            out.append(("actions", "special category data is involved, but no action addresses the Art. 9 condition"))
     objection = data["objection"]
     if objection["direct_marketing"] is True and not re.search(r"\b(absolute|always|stop|stops)\b", objection["how"], re.I):
         out.append(("objection", "direct marketing makes the right to object absolute (Art. 21(3)); say that processing stops on objection"))
     if objection["notice"] == "gap":
         out.append(("objection/notice", "the notice doesn't name the interest (Art. 13(1)(d), 14(2)(b)); recommend a notice update"))
+    if objection["notice"] != "covered" and not _law_action_citing(data, r"Art\.\s*1[34]"):
+        out.append(("actions", "the notice isn't confirmed to cover this; add a launch-blocking law action for it, with Art. 13 or 14 in scope"))
     if holds:
         for key, call in (("purpose_test", "legitimate"), ("necessity_test", "necessary")):
             test = data[key]
@@ -141,6 +154,8 @@ def tia(data: dict) -> list:
             out.append(("measures", "the decision is to proceed, but step 3 found a problem or left it open and no measure is shown to work"))
         if data["procedural"]["signed"] is not True:
             out.append(("procedural", "the decision is to proceed, but the transfer tool isn't signed"))
+    if data["procedural"]["signed"] is not True and not _law_action_citing(data, r"Art\.\s*46|IDTA|FADP"):
+        out.append(("actions", "the transfer tool isn't confirmed signed; add a launch-blocking law action to sign or confirm it, citing Art. 46"))
     if data["transfer_map"]["special_category"]["value"] is True and not data["measures"]:
         out.append(("measures", "special category data is transferred with no supplementary measures recorded"))
     if is_tbc(data["activity"]):

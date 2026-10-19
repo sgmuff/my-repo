@@ -307,7 +307,9 @@ Done when the RoPA evals produce valid YAML, two triage runs print the same plan
 - [x] Fixes from the iteration 3 review: launch blockers grouped by reason, required notices as `law`, a trail for negative transfer screens, and live transfers flagged first
 - [x] Iteration 4 evals reviewed: `lia` 94% and `tia` 98% against 57% without the skill
 - [x] Fixes from the iteration 4 review: `gov validate` rejects a law block without a cited provision; replies attribute counts to `gov`, group blockers by reason, and set no unsourced dates
-- [ ] Iteration 5 evals, with the new assertions
+- [x] Iteration 5 evals reviewed with records visible: `lia` 100% and `tia` 98% against 57% and 58% without the skill
+- [x] Fixes from the iteration 5 review: a method line per assessment kind, `gov` findings for dropped notice, Art. 9, and transfer-tool duties, CLOUD Act and DPF onward-transfer corrections, and proportionate TIAs
+- [ ] Iteration 6 evals, with the mixed DPF and SCC eval
 - [ ] Description optimizer runs for `lia` and `tia`
 - [x] `phase-1` merged to main
 

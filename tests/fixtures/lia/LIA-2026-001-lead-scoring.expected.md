@@ -18,6 +18,8 @@ generated_from: LIA-2026-001-lead-scoring.yaml
 
 **Decision:** Open. Provisional: Balancing depends on how the data is obtained (Q1) and the notice (A1)
 
+**Method:** GDPR and UK GDPR Art. 6(1)(f): purpose, necessity, and balancing tests (CJEU C-621/22; EDPB Guidelines 1/2024; ICO legitimate interests guidance)
+
 This assessment proposes a decision. It authorizes no processing; only the privacy lead's recorded approval does.
 
 Marketing scores B2B prospects from LinkedIn profile data so Sales can prioritize outreach. The company relies on its interest in finding likely buyers.

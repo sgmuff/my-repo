@@ -191,6 +191,12 @@ def required_rows(root, data: dict) -> list:
     return rows
 
 
+@lru_cache(maxsize=None)
+def _methods() -> dict:
+    from gov import yamlio
+    return yamlio.load(PACKAGE / "rules" / "methods.yaml")
+
+
 def finding_rows(rec) -> list:
     """Every current finding with its response, then responses whose finding no longer arises."""
     from gov.findings import FINDINGS
@@ -208,7 +214,7 @@ def finding_rows(rec) -> list:
 
 def render_record(rec, root=None) -> str:
     template = _env().get_template(f"{rec.type}.md.j2")
-    extra = {"findings": finding_rows(rec)}
+    extra = {"findings": finding_rows(rec), "method": _methods().get(rec.type, {}).get(rec.data.get("kind"))}
     if rec.type == "ropa":
         extra.update(vendors=derive.vendor_slugs(rec.data), required=required_rows(root, rec.data))
     text = template.render(r=rec.data, d=derive.DERIVE[rec.type](rec.data), source_file=rec.path.name, **extra)

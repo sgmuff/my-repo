@@ -18,6 +18,8 @@ generated_from: TIA-2026-001-crm-vendor-us.yaml
 
 **Decision:** Open. Provisional: Step 3 needs the vendor's government-access record (Q1)
 
+**Method:** EDPB Recommendations 01/2020 (six steps) and 2021 SCCs Clause 14; CJEU C-311/18 (Schrems II)
+
 This assessment proposes a decision. It authorizes no processing; only the privacy lead's recorded approval does.
 
 EU customer contact data is hosted in Frankfurt, and the CRM vendor's US support team can access it remotely. The vendor isn't DPF-certified, so the transfer relies on SCCs Module 2.
@@ -32,7 +34,7 @@ EU customer contact data is hosted in Frankfurt, and the CRM vendor's US support
 | Exporter | TBC | — | Controller | Stated by: Sales request |
 | Importer | CRM vendor Inc. | United States | Processor | Document: Vendor DPA draft |
 
-## 2. Step 1: the transfer (EDPB Recommendations 01/2020)
+## 2. Step 1: the transfer
 
 | Data | People | Purpose | Access | Onward transfers | Special category | Source |
 |---|---|---|---|---|---|---|

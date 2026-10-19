@@ -18,6 +18,8 @@ generated_from: {{ source_file }}
 
 **Decision:** {{ r.decision | call }}
 
+**Method:** {{ method }}
+
 This assessment proposes a decision. It authorizes no processing; only the privacy lead's recorded approval does.
 
 {{ r.summary }}
@@ -32,7 +34,7 @@ This assessment proposes a decision. It authorizes no processing; only the priva
 | Exporter | {{ r.exporter.name | cell }} | — | {{ r.exporter.role | label }} | {{ r.exporter.source | src }} |
 | Importer | {{ r.importer.name | cell }} | {{ r.importer.country | cell }} | {{ r.importer.role | label }} | {{ r.importer.source | src }} |
 
-## 2. Step 1: the transfer (EDPB Recommendations 01/2020)
+## 2. Step 1: the transfer
 
 | Data | People | Purpose | Access | Onward transfers | Special category | Source |
 |---|---|---|---|---|---|---|

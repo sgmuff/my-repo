@@ -29,7 +29,7 @@ All three must be met. Record each as a call.
    - what the outcome changes for the person: ordering a sales queue is not the same as deciding access to an opportunity
    - the safeguards, which can tip the balance
 
-   Give each impact a basis, such as scale or what the score changes, so the ratings aren't false precision. For a score, ask whether a low score only orders a queue or drops people from it; leave severity TBC until that's known. For profiling, also weigh accuracy, inferred traits, and whether staff can explain a score.
+   Give each impact a basis, such as scale or what the score changes, so the ratings aren't false precision. For a score, ask whether a low score only orders a queue or drops people from it; leave severity TBC until that's known. For profiling, also weigh accuracy, inferred traits, and whether staff can explain a score. Exclude inputs that reveal Art. 9 categories; ordinary profile fields aren't Art. 9 data in themselves.
 
 ## 3. Objection and transparency
 
