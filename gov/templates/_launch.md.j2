@@ -1,5 +1,5 @@
 {% if d.launch_blockers %}
-**Launch:** blocked by {{ d.launch_blockers | join(", ") }}.
+**Launch:** blocked by {% for label, ids in d.launch_groups %}{{ ids | join(", ") }} ({{ label }}){{ "; " if not loop.last }}{% endfor %}.
 {% else %}
 **Launch:** no blockers recorded. The privacy lead decides whether anything open should block launch.
 {% endif %}

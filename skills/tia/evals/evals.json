@@ -21,7 +21,8 @@
         "The decision is open, proceed-with-measures, or suspend; never Confirmed",
         "The importer's sub-processors or onward transfers are captured or asked",
         "The reply's first line gives an actionable answer, such as \"No, not as proposed\" or \"Not yet: two facts decide it\"",
-        "No launch-blocking action is marked law unless it names the provision that requires it"
+        "No launch-blocking action is marked law unless it names the provision that requires it",
+        "transfer_map.access is remote-access, as the request states"
       ]
     },
     {
@@ -37,7 +38,8 @@
         "No TIA record concludes the transfer needs supplementary measures",
         "The reply is 200 words or fewer, excluding any numbered question list",
         "The reply's first line gives an actionable answer, such as \"No, not as proposed\" or \"Not yet: two facts decide it\"",
-        "No launch-blocking action is marked law unless it names the provision that requires it"
+        "No launch-blocking action is marked law unless it names the provision that requires it",
+        "The reply offers to record the screen outcome in the RoPA entry's transfer row"
       ]
     },
     {
@@ -59,7 +61,8 @@
         "The ICO approach or the Data (Use and Access) Act test is mentioned, with a verify flag where it depends on commencement",
         "The decision isn't Confirmed",
         "The reply's first line gives an actionable answer, such as \"No, not as proposed\" or \"Not yet: two facts decide it\"",
-        "No launch-blocking action is marked law unless it names the provision that requires it"
+        "No launch-blocking action is marked law unless it names the provision that requires it",
+        "The reply says the transfer is already running and gives the interim choice"
       ]
     }
   ]

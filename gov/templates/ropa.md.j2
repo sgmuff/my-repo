@@ -22,7 +22,7 @@ generated_from: {{ source_file }}
 **Open items:** {{ d.required_tbc }} Art. 30 {{ "element" if d.required_tbc == 1 else "elements" }} TBC · {{ d.launch_questions }} {{ "question blocks" if d.launch_questions == 1 else "questions block" }} launch · {{ d.approval_questions }} {{ "blocks" if d.approval_questions == 1 else "block" }} approval · {{ d.blocking_actions }} launch-blocking {{ "action" if d.blocking_actions == 1 else "actions" }} open · Lawful bases {{ d.lawful_basis_status }}
 
 {% if d.launch_blockers %}
-**Launch:** blocked by {{ d.launch_blockers | join(", ") }}.
+**Launch:** blocked by {% for label, ids in d.launch_groups %}{{ ids | join(", ") }} ({{ label }}){{ "; " if not loop.last }}{% endfor %}.
 {% else %}
 **Launch:** no blockers recorded. The privacy lead decides whether anything open should block launch.
 {% endif %}

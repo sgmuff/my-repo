@@ -23,7 +23,7 @@ This assessment proposes a decision. It authorizes no processing; only the priva
 EU customer contact data is hosted in Frankfurt, and the CRM vendor's US support team can access it remotely. The vendor isn't DPF-certified, so the transfer relies on SCCs Module 2.
 
 **Open items:** 0 supplementary measures shown effective · 0 questions block launch · 1 blocks approval
-**Launch:** blocked by A1.
+**Launch:** blocked by A1 (law).
 
 ## 1. Parties
 

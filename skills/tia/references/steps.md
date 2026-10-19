@@ -46,7 +46,7 @@ If no measure makes the protection essentially equivalent, the transfer must not
 
 *Volatile. Verify each.*
 
-- **The Digital Personal Data Protection Act 2023, s. 17(1)(d),** exempts much of the Act for data of people outside India processed under a contract with a foreign party. Say only that: the people can't rely on that Act's duties. It isn't, alone, a finding that Indian law gives the data little protection; step 3 turns on public-authority access and on whether the tool's rights can be enforced.
+- **The Digital Personal Data Protection Act 2023, s. 17(1)(d),** exempts much of the Act for data of people outside India processed under a contract with a foreign party. Say only that most of its duties don't apply; s. 8(1) and the security safeguards in s. 8(5) still do. It isn't, alone, a finding that Indian law gives the data little protection; step 3 turns on public-authority access and on whether the tool's rights can be enforced.
 - **The DPDP Rules** start in phases; check which duties apply on the assessment date.
 - **Interception powers** such as IT Act s. 69 come with prescribed procedural safeguards; describe them accurately and weigh them against this importer's exposure, rather than summarizing them as unchecked.
 - **Enforceability of the tool's third-party rights** in Indian courts; ask counsel.

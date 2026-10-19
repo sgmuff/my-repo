@@ -106,7 +106,7 @@ def test_vendor_slugs_fall_back_to_processor_names():
 def test_launch_status_lists_blockers(ropa_root):
     render_tree(ropa_root)
     text = (ropa_root / FOLDER / "ROPA-0001-gradebook-sync.md").read_text()
-    assert "**Launch:** blocked by A1, A3." in text
+    assert "**Launch:** blocked by A3 (law); A1 (risk)." in text
 
 
 def test_required_assessments_render(ropa_root):

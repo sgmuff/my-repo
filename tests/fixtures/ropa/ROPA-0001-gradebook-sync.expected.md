@@ -21,7 +21,7 @@ Nightly sync of rosters and grades from district LMSs into the reading app, with
 
 **Open items:** 3 Art. 30 elements TBC · 0 questions block launch · 3 block approval · 2 launch-blocking actions open · Lawful bases Open
 
-**Launch:** blocked by A1, A3.
+**Launch:** blocked by A3 (law); A1 (risk).
 
 **Still TBC:** Art. 30(1)(a)/(2)(a): company name and contact; Art. 30(1)(e)/(2)(c): transfers; Art. 30(1)(g)/(2)(d): security measures.
 

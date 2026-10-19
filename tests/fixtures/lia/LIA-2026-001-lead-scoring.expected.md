@@ -25,7 +25,7 @@ Marketing scores B2B prospects from LinkedIn profile data so Sales can prioritiz
 **Tests:** Purpose Yes · Necessity TBC · Balancing Open
 
 **Open items:** 0 questions block launch · 2 block approval
-**Launch:** blocked by A1.
+**Launch:** blocked by A1 (law).
 
 ## 1. Purpose test (Art. 6(1)(f))
 

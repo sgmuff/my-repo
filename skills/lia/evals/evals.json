@@ -23,7 +23,8 @@
         "The reply flags e-marketing consent rules (ePrivacy or PECR) as separate from legitimate interests",
         "The reply's first line gives an actionable answer, such as \"No, not as proposed\" or \"Not yet: two facts decide it\"",
         "Every balancing impact has a basis",
-        "No launch-blocking action is marked law unless it names the provision that requires it"
+        "No launch-blocking action is marked law unless it names the provision that requires it",
+        "The Art. 14 notice action is marked block_reason law"
       ]
     },
     {
@@ -69,7 +70,8 @@
         "National employment law, works councils, or Art. 88 is flagged",
         "The reply's first line gives an actionable answer, such as \"No, not as proposed\" or \"Not yet: two facts decide it\"",
         "Every balancing impact has a basis",
-        "No launch-blocking action is marked law unless it names the provision that requires it"
+        "No launch-blocking action is marked law unless it names the provision that requires it",
+        "The employee notice action is marked block_reason law"
       ]
     }
   ]

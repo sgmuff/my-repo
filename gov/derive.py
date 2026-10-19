@@ -37,6 +37,7 @@ def ropa(data: dict) -> dict:
         "blocking_actions": sum(1 for a in data["actions"] if a["launch_blocking"] and a["status"] == "open"),
         "launch_blockers": [a["id"] for a in data["actions"] if a["launch_blocking"] and a["status"] == "open"]
         + [q["id"] for q in data["open_questions"] if q["blocks"] == "launch"],
+        "launch_groups": _blocker_groups(data),
     }
 
 
@@ -110,6 +111,17 @@ def vendor_slugs(data: dict) -> list:
     return sorted(slugs)
 
 
+BLOCK_GROUPS = ("law", "risk", "policy")
+
+
+def _blocker_groups(data: dict) -> list:
+    """Open launch blockers grouped by why they block: law, risk, policy, then open questions."""
+    open_actions = [a for a in data["actions"] if a["launch_blocking"] and a["status"] == "open"]
+    groups = [(key, [a["id"] for a in open_actions if a.get("block_reason") == key]) for key in BLOCK_GROUPS]
+    groups.append(("open question", [q["id"] for q in data["open_questions"] if q["blocks"] == "launch"]))
+    return [(label, ids) for label, ids in groups if ids]
+
+
 def _blockers(data: dict) -> list:
     return [a["id"] for a in data["actions"] if a["launch_blocking"] and a["status"] == "open"] + [
         q["id"] for q in data["open_questions"] if q["blocks"] == "launch"
@@ -135,6 +147,7 @@ def lia(data: dict) -> dict:
         "test_results": results,
         "open_tests": len(open_calls) + (1 if balancing.get("applicable") and balancing["outcome"]["value"] == "open" else 0),
         "launch_blockers": _blockers(data),
+        "launch_groups": _blocker_groups(data),
         "blocking_questions": sum(1 for q in data["open_questions"] if q["blocks"] in ("launch", "approval")),
         "launch_questions": sum(1 for q in data["open_questions"] if q["blocks"] == "launch"),
         "approval_questions": sum(1 for q in data["open_questions"] if q["blocks"] == "approval"),
@@ -146,6 +159,7 @@ def tia(data: dict) -> dict:
         "decision": data["decision"]["value"],
         "effective_measures": sum(1 for m in data["measures"] if m["effective"]["value"] is True),
         "launch_blockers": _blockers(data),
+        "launch_groups": _blocker_groups(data),
         "blocking_questions": sum(1 for q in data["open_questions"] if q["blocks"] in ("launch", "approval")),
         "launch_questions": sum(1 for q in data["open_questions"] if q["blocks"] == "launch"),
         "approval_questions": sum(1 for q in data["open_questions"] if q["blocks"] == "approval"),
