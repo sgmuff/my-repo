@@ -53,6 +53,15 @@ procedural:
 reassessment:
   triggers: A change in US law, a DPF certification by the vendor, new sub-processors, or a government access request
 
+context: [vendor]
+issues:
+  - {issue: chapter-v, status: addressed, note: "Data is stored in the US, so Chapter V applies"}
+  - {issue: module-fit, status: addressed, note: "Company is controller and vendor processor, so Module 2"}
+  - {issue: transfer-notice, status: open, note: "Notice update is pending"}
+  - {issue: onward-transfers, status: open, note: "Vendor sub-processor list requested"}
+  - {issue: interim-position, status: not-applicable, note: "Transfer not yet started"}
+  - {issue: other-duties, status: addressed, note: "DPA with Art. 28 terms signed; RoPA link is the open finding"}
+  - {issue: us-laws, status: open, note: "FISA 702 and CLOUD Act reach depend on vendor facts"}
 actions:
   - {id: A1, action: Sign SCCs Module 2 with the vendor, owner: Privacy lead, due: TBC, closure_evidence: Signed SCCs on file, launch_blocking: true, block_reason: law, scope: GDPR Art. 46(2)(c), status: open}
 

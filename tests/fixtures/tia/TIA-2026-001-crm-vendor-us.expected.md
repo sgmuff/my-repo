@@ -76,13 +76,25 @@ EU customer contact data is hosted in Frankfurt, and the CRM vendor's US support
 
 A change in US law, a DPF certification by the vendor, new sub-processors, or a government access request Next review: 2027-10-18.
 
-## 8. Actions
+## 8. Issues checked
+
+| Issue | Status | Note | Source |
+|---|---|---|---|
+| Why this is a transfer | Addressed | Data is stored in the US, so Chapter V applies | EDPB Guidelines 05/2021 |
+| SCC module | Addressed | Company is controller and vendor processor, so Module 2 | Implementing Decision (EU) 2021/914 |
+| Transfer notice | Open | Notice update is pending | GDPR Art. 13(1)(f), 14(1)(f) |
+| Onward transfers | Open | Vendor sub-processor list requested | SCCs Clauses 8.8, 9; IDTA Part 2 |
+| Interim position | Not applicable | Transfer not yet started | SCCs Clauses 14(f), 16(b) |
+| Duties beyond the transfer | Addressed | DPA with Art. 28 terms signed; RoPA link is the open finding | GDPR Arts. 28, 30, 32 |
+| US surveillance law | Open | FISA 702 and CLOUD Act reach depend on vendor facts | 50 U.S.C. 1881a; EO 12333; 18 U.S.C. 2713; EO 14086 |
+
+## 9. Actions
 
 | # | Action | Owner | Due | Closure evidence | Blocks launch | Status |
 |---|---|---|---|---|---|---|
 | A1 | Sign SCCs Module 2 with the vendor | Privacy lead | TBC | Signed SCCs on file | Yes (law: GDPR Art. 46(2)(c)) | Open |
 
-## 9. Sign-off
+## 10. Sign-off
 
 | Decision | Approver | Name | Date | Outcome |
 |---|---|---|---|---|

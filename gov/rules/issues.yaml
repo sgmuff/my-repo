@@ -1,0 +1,188 @@
+# Issues an assessment must address, by the facts that raise them. `gov validate` raises a finding for
+# each triggered issue the record's `issues` list doesn't cover. Counsel owns this file.
+#
+# when (all keys must match; a list matches if any item does):
+#   types: record types (lia, tia, tsr)
+#   kinds: record kinds
+#   context: tags from the record's `context` list
+#   regimes: eu-gdpr, uk-gdpr, ch-fadp (an LIA's regimes; a TIA's or screen's from its kind)
+#   countries: importer countries, matched case-insensitively
+#   special_category: possible (true or TBC)
+version: 1
+context_tags:
+  employees: "The people include employees or other workers"
+  monitoring: "The processing monitors people's activity or communications"
+  children: "The people include children"
+  school-data: "The data came from or concerns schools or students"
+  profiling: "The processing evaluates or scores people"
+  ai-system: "An AI system is used"
+  direct-marketing: "The purpose includes direct marketing"
+  vendor: "A vendor processes the data"
+  public-source: "The data comes from public or third-party sources"
+
+issues:
+  # Legitimate interests and compatibility
+  data-source:
+    label: Data source
+    ask: "How the data is obtained, and whether the source and its terms allow this use"
+    cite: "GDPR Art. 5(1)(a), 14(2)(f)"
+    when: {types: [lia]}
+  notice:
+    label: Notice
+    ask: "What people are told and when: Art. 13 at collection, Art. 14 within a month or at first contact, Art. 13(3) before a new purpose"
+    cite: "GDPR Art. 13, 14"
+    when: {types: [lia]}
+  dpia-screening:
+    label: DPIA screening
+    ask: "Whether the processing is likely high risk, against the WP248 criteria and national Art. 35(4) lists"
+    cite: "GDPR Art. 35(1), 35(3), 35(4)"
+    when: {types: [lia]}
+  automated-decisions:
+    label: Automated decisions
+    ask: "Whether a decision based solely on the score has legal or similarly significant effects"
+    cite: "GDPR Art. 22; CJEU C-634/21"
+    when: {types: [lia], context: [profiling]}
+  inferred-special-category:
+    label: Inferred special category data
+    ask: "Inputs that reveal or infer special category data, and score accuracy"
+    cite: "GDPR Art. 9(1), 5(1)(d)"
+    when: {types: [lia], context: [profiling]}
+  ai-act:
+    label: EU AI Act
+    ask: "The company's AI Act role and the system's class: Art. 5 prohibitions, Annex III high-risk, Art. 50 transparency, Art. 4 AI literacy"
+    cite: "AI Act Arts. 4, 5, 6, 50; Annex III"
+    when: {types: [lia], context: [ai-system]}
+  e-marketing:
+    label: E-marketing rules
+    ask: "Channel rules for email, phone, or messages, per country, separate from the lawful basis"
+    cite: "ePrivacy Directive Art. 13; UK PECR regs 22-23"
+    when: {types: [lia], context: [direct-marketing]}
+  vendor-role:
+    label: Vendor role
+    ask: "An Art. 28 contract if the vendor is a processor; controller status if it reuses the data for its own purposes"
+    cite: "GDPR Art. 28(3), 28(10)"
+    when: {types: [lia], context: [vendor]}
+  uk-changes:
+    label: UK GDPR changes
+    ask: "UK changes under the Data (Use and Access) Act 2025, such as recognized legitimate interests and the Art. 6(9) examples"
+    cite: "UK GDPR Art. 6(1)(ea), 6(9); Annex 1"
+    when: {types: [lia], regimes: [uk-gdpr]}
+  employee-consent:
+    label: Consent at work
+    ask: "Consent isn't a valid fallback, given the imbalance between employer and employee"
+    cite: "EDPB Guidelines 05/2020, paras 21-22"
+    when: {types: [lia], context: [employees]}
+  employment-law:
+    label: National employment law
+    ask: "National employment law and worker representation in each country, such as works council co-determination or consultation"
+    cite: "GDPR Art. 88; BetrVG § 87(1) no. 6; Code du travail L2312-38"
+    when: {types: [lia], context: [employees]}
+  monitoring-notice:
+    label: Notice of monitoring
+    ask: "Prior notice of the monitoring and its reasons; covert monitoring only in exceptional, documented cases"
+    cite: "ECtHR Bărbulescu v Romania (2017); WP29 Opinion 2/2017"
+    when: {types: [lia], context: [monitoring]}
+  school-role:
+    label: Role for schools
+    ask: "Whether the company acts for schools, as processor or school official, which bars its own reuse"
+    cite: "GDPR Art. 28(10); FERPA 34 CFR 99.31(a)(1)(i)(B), 99.33"
+    when: {types: [lia], context: [school-data]}
+  student-privacy:
+    label: US student and child privacy law
+    ask: "COPPA, FERPA, and state student privacy laws such as SOPIPA, where US students or schools are involved"
+    cite: "16 CFR 312; 34 CFR 99; Cal. Bus. & Prof. Code 22584"
+    when: {types: [lia], context: [school-data, children]}
+  children:
+    label: Children's data
+    ask: "Children's data weighs more in balancing and compatibility"
+    cite: "GDPR Recital 38; Art. 6(1)(f)"
+    when: {types: [lia], context: [children, school-data]}
+  special-category-condition:
+    label: Art. 9 condition
+    ask: "An Art. 9(2) condition, or a design that keeps special category data out; an LIA can't supply one"
+    cite: "GDPR Art. 9(1)-(2)"
+    when: {types: [lia], special_category: possible}
+
+  # Transfers
+  chapter-v:
+    label: Why this is a transfer
+    ask: "Why Chapter V applies, including remote access from abroad"
+    cite: "EDPB Guidelines 05/2021"
+    when: {types: [tia]}
+  module-fit:
+    label: SCC module
+    ask: "Which SCC module fits the parties' roles"
+    cite: "Implementing Decision (EU) 2021/914"
+    when: {types: [tia], kinds: [eu-tia]}
+  transfer-notice:
+    label: Transfer notice
+    ask: "The privacy notice names the transfer and the safeguard"
+    cite: "GDPR Art. 13(1)(f), 14(1)(f)"
+    when: {types: [tia, tsr]}
+  onward-transfers:
+    label: Onward transfers
+    ask: "Onward transfers: who, where, and under which tool"
+    cite: "SCCs Clauses 8.8, 9; IDTA Part 2"
+    when: {types: [tia]}
+  interim-position:
+    label: Interim position
+    ask: "If the transfer is already running, the privacy lead's interim choice: continue under named measures, or suspend"
+    cite: "SCCs Clauses 14(f), 16(b)"
+    when: {types: [tia]}
+  other-duties:
+    label: Duties beyond the transfer
+    ask: "An Art. 28 contract, Art. 32 security, and the RoPA entry"
+    cite: "GDPR Arts. 28, 30, 32"
+    when: {types: [tia, tsr]}
+  us-laws:
+    label: US surveillance law
+    ask: "FISA 702, EO 12333, and the CLOUD Act, each on its own test, and the EO 14086 safeguards"
+    cite: "50 U.S.C. 1881a; EO 12333; 18 U.S.C. 2713; EO 14086"
+    when: {types: [tia], countries: [united states, usa, us]}
+  india-laws:
+    label: Indian law
+    ask: "IT Act s. 69, CERT-In directions, and the DPDP Act s. 17(1)(d) exemption, with s. 8(1) and 8(5) still applying"
+    cite: "IT Act 2000 s. 69; DPDP Act 2023 s. 17(1)(d)"
+    when: {types: [tia], countries: [india]}
+  enforceability:
+    label: Enforceability abroad
+    ask: "Whether people can enforce the tool's third-party rights in the destination"
+    cite: "SCCs Clause 18; IDTA Part 4"
+    when: {types: [tia], countries: [india]}
+  uk-test:
+    label: UK data protection test
+    ask: "Whether protection is not materially lower than in the UK, judged reasonably and proportionately, and which method was used"
+    cite: "UK GDPR as amended by the Data (Use and Access) Act 2025; ICO TRA guidance"
+    when: {types: [tia], kinds: [uk-tra]}
+  uk-special-category:
+    label: Art. 9 condition (UK)
+    ask: "An Art. 9(2) condition with its DPA 2018 Schedule 1 condition and an appropriate policy document"
+    cite: "UK GDPR Art. 9(2)(b); DPA 2018 s. 10, Sch. 1"
+    when: {types: [tia], kinds: [uk-tra], special_category: possible}
+
+  # Transfer screens
+  certification-scope:
+    label: Certification scope
+    ask: "The exact contracting entity is on the list, active, and certified for this data (HR or non-HR)"
+    cite: "DPF Principles; dataprivacyframework.gov"
+    when: {types: [tsr]}
+  dpf-onward:
+    label: Provider's onward transfers
+    ask: "The certified provider's onward transfers are its duty under the Accountability for Onward Transfer Principle; note its sub-processors and countries"
+    cite: "DPF Principles, Principle 3"
+    when: {types: [tsr]}
+  uk-swiss:
+    label: UK and Swiss data
+    ask: "UK data needs the UK Extension and Swiss data the Swiss-US DPF, each certified separately"
+    cite: "UK adequacy regulations 2023; Swiss Federal Council decision 2024"
+    when: {types: [tsr]}
+  fallback-tool:
+    label: Fallback tool
+    ask: "Any SCCs kept as a fallback, and that they need a TIA only once relied on"
+    cite: "GDPR Art. 46"
+    when: {types: [tsr]}
+  adequacy-challenge:
+    label: Challenges to adequacy
+    ask: "Pending challenges to the adequacy decision, as a reassessment trigger"
+    cite: "CJEU T-553/23; C-703/25 P"
+    when: {types: [tsr]}

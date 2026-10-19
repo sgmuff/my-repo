@@ -40,7 +40,7 @@
         "The reply is 200 words or fewer, excluding any numbered question list",
         "The reply's first line gives an actionable answer, such as \"No, not as proposed\" or \"Not yet: two facts decide it\"",
         "No launch-blocking action is marked law unless it names the provision that requires it",
-        "The reply offers to record the screen outcome in the RoPA entry's transfer row"
+        "A transfer screen record (TSR) records the screen, with the certification check and onward transfers"
       ]
     },
     {
@@ -81,7 +81,7 @@
         "The reply says SCCs in the DPA call for a TIA only if they are the tool relied on",
         "The reply doesn't say India access automatically requires a TIA; it ties the answer to who makes the onward transfer and which tool covers it",
         "The reply asks which entity in India has access and under what mechanism",
-        "The reply says what to document, such as the screen in the RoPA transfer row"
+        "The reply or records say what to document, such as the screen, the tool for each leg, and the notice"
       ]
     }
   ]

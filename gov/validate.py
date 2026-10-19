@@ -103,6 +103,7 @@ def validate_record(root: Path, rec: Record) -> list:
     problems.extend(_structure(where, rec.data))
     problems.extend(_gates(where, rec.data))
     problems.extend(_law_citations(where, rec.data))
+    problems.extend(_issue_ids(where, rec.data))
     problems.extend(_required(root, where, rec.data))
     for n, r in enumerate(rec.data.get("finding_responses", [])):
         if "claude" in r["by"].lower():
@@ -207,6 +208,17 @@ def _structure(where: str, data: dict) -> list:
 
 
 PROVISION = re.compile(r"\b(Art\.|Arts\.|Article|s\.|ss\.|Section|§|Clause|Reg\.|Regulation|Rule|CFR|U\.S\.C\.)\s*\d", re.I)
+
+
+def _issue_ids(where: str, data: dict) -> list:
+    """Context tags and issue IDs must come from gov/rules/issues.yaml."""
+    from gov import issues
+    rules = issues.rules()
+    problems = [Problem(where, "error", f"context: unknown tag {tag}; use {', '.join(rules['context_tags'])}")
+                for tag in data.get("context", []) if tag not in rules["context_tags"]]
+    problems += [Problem(where, "error", f"issues: unknown issue {i}; see gov/rules/issues.yaml")
+                 for i in issues.unknown(data)]
+    return problems
 
 
 def _law_citations(where: str, data: dict) -> list:

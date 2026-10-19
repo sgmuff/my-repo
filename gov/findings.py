@@ -163,4 +163,19 @@ def tia(data: dict) -> list:
     return out
 
 
-FINDINGS = {"ropa": ropa, "lia": lia, "tia": tia}
+def _with_issues(check):
+    from gov import issues
+    return lambda data: check(data) + issues.missing(data)
+
+
+def tsr(data: dict) -> list:
+    out = []
+    cert = data["mechanism"]["certification"]
+    if data["decision"]["value"] == "no-tia-needed" and (cert["status"] != "active" or cert["scope"] in ("TBC", "not-applicable")):
+        out.append(("mechanism", "the screen says no TIA is needed, but the certification isn't shown active and covering this data"))
+    if is_tbc(data["activity"]):
+        out.append(("activity", "link the RoPA entry this transfer belongs to"))
+    return out
+
+
+FINDINGS = {"ropa": ropa, "lia": _with_issues(lia), "tia": _with_issues(tia), "tsr": _with_issues(tsr)}

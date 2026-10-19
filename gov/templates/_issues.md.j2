@@ -1,0 +1,9 @@
+{% if issue_rows %}
+| Issue | Status | Note | Source |
+|---|---|---|---|
+{% for i in issue_rows %}
+| {{ i.label | cell }} | {{ i.status | label }} | {{ i.note | cell }} | {{ i.cite | cell }} |
+{% endfor %}
+{% else %}
+None raised.
+{% endif %}

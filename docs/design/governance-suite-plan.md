@@ -309,7 +309,10 @@ Done when the RoPA evals produce valid YAML, two triage runs print the same plan
 - [x] Fixes from the iteration 4 review: `gov validate` rejects a law block without a cited provision; replies attribute counts to `gov`, group blockers by reason, and set no unsourced dates
 - [x] Iteration 5 evals reviewed with records visible: `lia` 100% and `tia` 98% against 57% and 58% without the skill
 - [x] Fixes from the iteration 5 review: a method line per assessment kind, `gov` findings for dropped notice, Art. 9, and transfer-tool duties, CLOUD Act and DPF onward-transfer corrections, and proportionate TIAs
-- [ ] Iteration 6 evals, with the mixed DPF and SCC eval
+- [x] Iteration 6 evals, with the mixed DPF and SCC eval
+- [x] Counsel answer keys for the seven evals, and a blind comparison against them: the skills reach the expected outcome in all seven with no material errors, but trail on breadth (mean 73 against 77)
+- [x] Breadth fixes: issue rules in `gov/rules/issues.yaml` raised by context tags, kind, regime, and country; reasoning fields on each test; a transfer screen record (TSR) for negative screens (not yet committed)
+- [ ] Iteration 7, scored blind against the answer keys
 - [ ] Description optimizer runs for `lia` and `tia`
 - [x] `phase-1` merged to main
 

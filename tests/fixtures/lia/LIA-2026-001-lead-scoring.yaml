@@ -59,6 +59,15 @@ objection:
 
 special_category: {value: false, status: Provisional, reason: Professional profile fields only}
 
+context: [profiling, direct-marketing]
+issues:
+  - {issue: data-source, status: open, note: "Source of the LinkedIn data not yet known (Q1)"}
+  - {issue: notice, status: addressed, note: "Art. 14 notice at first contact is action A1"}
+  - {issue: dpia-screening, status: open, note: "Screening due once the data source is known"}
+  - {issue: uk-changes, status: not-applicable, note: "No UK prospects in scope; reassess if that changes"}
+  - {issue: automated-decisions, status: addressed, note: "Score only orders the queue; no decision based solely on it"}
+  - {issue: inferred-special-category, status: addressed, note: "Inputs limited to job title and company size"}
+  - {issue: e-marketing, status: open, note: "Counsel to confirm email rules per country"}
 actions:
   - {id: A1, action: Write the Art. 14 notice for scored prospects, owner: Privacy lead, due: TBC, closure_evidence: Approved notice text, launch_blocking: true, block_reason: law, scope: GDPR Art. 14, status: open}
 

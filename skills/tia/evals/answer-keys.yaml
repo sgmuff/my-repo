@@ -1,6 +1,7 @@
 # Answer keys for the tia evals. Counsel owns this file.
 # Each point is something a competent assessment must (or should) get right.
 # The grader scores each run against the points for its eval, from the reply and the records together.
+# Scoring (counsel, 2026-10-19): must points weigh 2, should 1; each material error deducts 5 points, and a conclusion beyond the expected outcome (approving, passing a test, or rating risk before the needed facts) is a material error.
 # weight: must | should. check: true marks a citation or date the drafter wasn't sure of.
 # Status: approved by counsel 2026-10-19, including the check: true items as drafted.
 

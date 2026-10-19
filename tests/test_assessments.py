@@ -36,7 +36,7 @@ def test_goldens(assess_root):
 
 
 def test_skeletons_are_valid(root):
-    for kind in ("lia", "tia"):
+    for kind in ("lia", "tia", "tsr"):
         new_record(root, kind, "blank", "Blank", "2026-10-18", "Claude")
     assert found(root, "error") == []
     assert render_tree(root).problems == []
@@ -158,7 +158,7 @@ def test_unsigned_tool_needs_a_law_action(assess_root):
 def test_every_kind_has_a_method():
     from gov.paths import PACKAGE
     methods = yamlio.load(PACKAGE / "rules" / "methods.yaml")
-    for kind in ("lia", "tia"):
+    for kind in ("lia", "tia", "tsr"):
         kinds = yamlio.load(PACKAGE / "schemas" / f"{kind}.schema.yaml")["properties"]["kind"]["enum"]
         assert set(kinds) == set(methods[kind]), kind
 
@@ -175,3 +175,40 @@ def test_requester_says_signed_but_unverified(assess_root):
 def test_possible_special_category_needs_an_art9_action(assess_root):
     edit(assess_root, LIA, lambda d: d.update(special_category={"value": "TBC", "status": "Provisional", "reason": "Logs may capture health details"}))
     assert any("is or may be involved" in m for m in found(assess_root, "finding"))
+
+
+def test_issue_rules_load():
+    from gov import issues
+    assert len(issues.rules()["issues"]) >= 25
+
+
+def test_triggered_issue_is_a_finding_until_addressed(assess_root):
+    edit(assess_root, LIA, lambda d: d["context"].append("employees"))
+    assert any("(employment-law)" in m for m in found(assess_root, "finding"))
+    edit(assess_root, LIA, lambda d: d["issues"].extend([
+        {"issue": "employment-law", "status": "addressed", "note": "Works council consulted"},
+        {"issue": "employee-consent", "status": "addressed", "note": "Consent not relied on"}]))
+    assert not any("(employ" in m for m in found(assess_root, "finding"))
+
+
+def test_unknown_tag_and_issue_are_errors(assess_root):
+    edit(assess_root, LIA, lambda d: (d["context"].append("made-up"), d["issues"].append({"issue": "made-up", "status": "open", "note": "x"})))
+    errors = found(assess_root, "error")
+    assert any("unknown tag made-up" in m for m in errors) and any("unknown issue made-up" in m for m in errors)
+
+
+def test_destination_country_raises_its_laws(assess_root):
+    edit(assess_root, TIA, lambda d: d["importer"].update(country="India"))
+    findings = found(assess_root, "finding")
+    assert any("(india-laws)" in m for m in findings) and any("(enforceability)" in m for m in findings)
+    assert not any("(us-laws)" in m for m in findings)
+
+
+def test_screen_says_no_tia_only_with_an_active_covering_certification(root):
+    path = new_record(root, "tsr", "cloud-db", "Cloud database to US provider", "2026-10-18", "Claude")
+    data = yamlio.load(path)
+    data["decision"] = {"value": "no-tia-needed", "status": "Provisional", "reason": "DPF certified"}
+    path.write_text(yamlio.dumps(data), encoding="utf-8")
+    assert any("isn't shown active" in m for m in found(root, "finding"))
+    assert any("(certification-scope)" in m for m in found(root, "finding"))
+    assert render_tree(root).problems == []

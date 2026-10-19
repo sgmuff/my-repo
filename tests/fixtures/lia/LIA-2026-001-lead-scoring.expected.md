@@ -87,13 +87,25 @@ Not applicable: legitimate interests assessment.
 
 No. Provisional: Professional profile fields only An LIA never supplies an Art. 9 condition; the DPIA must name one where special category data is involved.
 
-## 9. Actions
+## 9. Issues checked
+
+| Issue | Status | Note | Source |
+|---|---|---|---|
+| Data source | Open | Source of the LinkedIn data not yet known (Q1) | GDPR Art. 5(1)(a), 14(2)(f) |
+| Notice | Addressed | Art. 14 notice at first contact is action A1 | GDPR Art. 13, 14 |
+| DPIA screening | Open | Screening due once the data source is known | GDPR Art. 35(1), 35(3), 35(4) |
+| Automated decisions | Addressed | Score only orders the queue; no decision based solely on it | GDPR Art. 22; CJEU C-634/21 |
+| Inferred special category data | Addressed | Inputs limited to job title and company size | GDPR Art. 9(1), 5(1)(d) |
+| E-marketing rules | Open | Counsel to confirm email rules per country | ePrivacy Directive Art. 13; UK PECR regs 22-23 |
+| UK GDPR changes | Not applicable | No UK prospects in scope; reassess if that changes | UK GDPR Art. 6(1)(ea), 6(9); Annex 1 |
+
+## 10. Actions
 
 | # | Action | Owner | Due | Closure evidence | Blocks launch | Status |
 |---|---|---|---|---|---|---|
 | A1 | Write the Art. 14 notice for scored prospects | Privacy lead | TBC | Approved notice text | Yes (law: GDPR Art. 14) | Open |
 
-## 10. Sign-off
+## 11. Sign-off
 
 | Decision | Approver | Name | Date | Outcome |
 |---|---|---|---|---|

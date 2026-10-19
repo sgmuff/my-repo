@@ -90,6 +90,17 @@ LABELS = {
     "record": "Record",
     "open": "Open",
     "done": "Done",
+    "addressed": "Addressed",
+    "not-addressed": "Not addressed",
+    "no-tia-needed": "No TIA needed",
+    "tia-needed": "TIA needed",
+    "adequacy-decision": "Adequacy decision",
+    "active": "Active",
+    "inactive": "Inactive",
+    "not-listed": "Not listed",
+    "hr": "HR data",
+    "non-hr": "Non-HR data",
+    "hr-and-non-hr": "HR and non-HR data",
 }
 SOURCE_KINDS = {"document": "Document", "stated": "Stated by", "inferred": "Inferred", "tbc": "TBC"}
 
@@ -214,7 +225,9 @@ def finding_rows(rec) -> list:
 
 def render_record(rec, root=None) -> str:
     template = _env().get_template(f"{rec.type}.md.j2")
-    extra = {"findings": finding_rows(rec), "method": _methods().get(rec.type, {}).get(rec.data.get("kind"))}
+    from gov import issues
+    extra = {"findings": finding_rows(rec), "method": _methods().get(rec.type, {}).get(rec.data.get("kind")),
+             "issue_rows": issues.rows(rec.data) if rec.type != "ropa" else []}
     if rec.type == "ropa":
         extra.update(vendors=derive.vendor_slugs(rec.data), required=required_rows(root, rec.data))
     text = template.render(r=rec.data, d=derive.DERIVE[rec.type](rec.data), source_file=rec.path.name, **extra)

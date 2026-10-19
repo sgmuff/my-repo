@@ -7,3 +7,5 @@ tia:
   eu-tia: "EDPB Recommendations 01/2020 (six steps) and 2021 SCCs Clause 14; CJEU C-311/18 (Schrems II)"
   uk-tra: "UK data protection test since the Data (Use and Access) Act 2025: protection not materially lower, judged reasonably and proportionately; ICO transfer risk assessment guidance (January 2026)"
   ch-tia: "Swiss FADP Art. 16(2); FDPIC guidance on transfers abroad"
+tsr:
+  adequacy: "GDPR Art. 45 adequacy, including the EU-US Data Privacy Framework (Implementing Decision (EU) 2023/1795); a TIA applies only to Art. 46 tools"

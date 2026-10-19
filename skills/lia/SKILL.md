@@ -33,7 +33,7 @@ Run `gov --version`; if it fails, stop and tell the user to run `skills/install.
 - `recognized-interest`: a UK Annex 1 purpose, which needs no balancing
 - `compatibility`: a new purpose for data collected for another (Art. 6(4))
 
-Run `gov new lia --slug <short-slug> --title "<what is assessed>" --date <today>`, set `kind`, and set the sections that don't fit the kind to `{applicable: false}`.
+Run `gov new lia --slug <short-slug> --title "<what is assessed>" --date <today>`, set `kind`, and set the sections that don't fit the kind to `{applicable: false}`. Set `context` to every tag in `gov/rules/issues.yaml` that fits the facts, such as `employees`, `profiling`, `direct-marketing`, `vendor`, or `school-data`; the tags decide which issues `gov validate` raises.
 
 ### 3. Fill in the tests
 
@@ -44,7 +44,7 @@ Follow `references/test.md`. Record what the sources show:
 - **Balancing:** whose data, any relationship, reasonable expectations, vulnerability, and each impact with its likelihood and severity. The outcome stays `open` while a fact that decides it is unknown.
 - **Safeguards and objection:** how people object, and whether direct marketing makes the right absolute. Say plainly that processing stops on objection when it's marketing.
 
-Ask for evidence that less intrusive options fall short, and give each impact its basis. Don't decide a test from the requester's confidence. "Marketing is sure prospects expect it" is a stated view, not evidence; ask what the people were told.
+Give each test a `reasoning` of up to 100 words with citations: the analysis behind the call, which the table cells can't hold. Ask for evidence that less intrusive options fall short, and give each impact its basis. Don't decide a test from the requester's confidence. "Marketing is sure prospects expect it" is a stated view, not evidence; ask what the people were told.
 
 ### 4. Ask for the gaps
 
@@ -52,7 +52,7 @@ Round 1 asks only the facts that block approval, five at most: usually how the d
 
 ### 5. Validate, render, and link
 
-Before validating: mark an action `block_reason: law` only when a provision requires that action, and cite it in `scope` (`gov validate` rejects a law block without one); gathering facts, verifying a point, or getting counsel's view is `risk` or `policy`, even when the question behind it is legal; a DPIA is `law` only once screening finds likely high risk or a national Art. 35(4) list names the processing, so until then the action is the screening; a notice the law requires at collection (Art. 13 or 14) is `law`; a RoPA entry, a vendor review, and vendor terms beyond Art. 28 are `policy`; give each verify flag its own resolution; and when no RoPA entry exists, add an action to create one rather than leaving it as a question. Run `gov validate`, fix errors, and resolve findings by changing the record. Report any you can't resolve in your reply; don't add a `finding_responses` entry yourself, because only a person decides a finding doesn't apply. Validation checks structure and consistency, not legal correctness. Run `gov render`. Then add `{assessment: lia, status: on-file, record: <LIA ID>}` to the RoPA entry's `assessments`, and rerun `gov validate` and `gov render`.
+Before validating: mark an action `block_reason: law` only when a provision requires that action, and cite it in `scope` (`gov validate` rejects a law block without one); gathering facts, verifying a point, or getting counsel's view is `risk` or `policy`, even when the question behind it is legal; a DPIA is `law` only once screening finds likely high risk or a national Art. 35(4) list names the processing, so until then the action is the screening; a notice the law requires at collection (Art. 13 or 14) is `law`; a RoPA entry, a vendor review, and vendor terms beyond Art. 28 are `policy`; give each verify flag its own resolution; and when no RoPA entry exists, add an action to create one rather than leaving it as a question. Run `gov validate`, fix errors, and resolve findings by changing the record. Address each issue it raises in `issues`: `addressed` with where and the conclusion, `not-applicable` with why, or `open` with what's needed. The issues are how the record covers the law around the test; keep each note to the point. Report any you can't resolve in your reply; don't add a `finding_responses` entry yourself, because only a person decides a finding doesn't apply. Validation checks structure and consistency, not legal correctness. Run `gov render`. Then add `{assessment: lia, status: on-file, record: <LIA ID>}` to the RoPA entry's `assessments`, and rerun `gov validate` and `gov render`.
 
 ### 6. Hand back
 

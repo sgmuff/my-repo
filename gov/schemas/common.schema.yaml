@@ -3,6 +3,23 @@ $id: common.schema.yaml
 title: Shared definitions for gov record schemas
 description: Referenced as common.schema.yaml#/$defs/<name>.
 $defs:
+  context:
+    description: "Facts that raise issues, from gov/rules/issues.yaml context_tags"
+    type: array
+    uniqueItems: true
+    items: {type: string, pattern: "^[a-z][a-z-]*$"}
+  issues:
+    description: "How the record addresses each issue gov/rules/issues.yaml raises for it"
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [issue, status, note]
+      properties:
+        issue: {type: string, pattern: "^[a-z][a-z-]*$"}
+        status: {enum: [addressed, not-applicable, open]}
+        note: {$ref: "#/$defs/text", x-max-words: 40, description: "Where it's addressed and the conclusion, why it doesn't apply, or what's needed"}
+  reasoning: {$ref: "#/$defs/text", x-max-words: 100, description: "The analysis behind the call, with citations"}
   text: {type: string, minLength: 1}
   short: {type: string, minLength: 1, x-max-words: 12}
   date: {type: string, pattern: "^\\d{4}-\\d{2}-\\d{2}$"}

@@ -166,4 +166,14 @@ def tia(data: dict) -> dict:
     }
 
 
-DERIVE = {"ropa": ropa, "lia": lia, "tia": tia}
+def tsr(data: dict) -> dict:
+    return {
+        "decision": data["decision"]["value"],
+        "launch_blockers": _blockers(data),
+        "launch_groups": _blocker_groups(data),
+        "launch_questions": sum(1 for q in data["open_questions"] if q["blocks"] == "launch"),
+        "approval_questions": sum(1 for q in data["open_questions"] if q["blocks"] == "approval"),
+    }
+
+
+DERIVE = {"ropa": ropa, "lia": lia, "tia": tia, "tsr": tsr}

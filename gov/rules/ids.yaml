@@ -21,3 +21,4 @@ prefixes:
   RC: {digits: 3, yearly: true}
   LIA: {digits: 3, yearly: true, type: lia, folder: assessments/lia}
   TIA: {digits: 3, yearly: true, type: tia, folder: assessments/tia}
+  TSR: {digits: 3, yearly: true, type: tsr, folder: assessments/transfer-screens}

@@ -36,6 +36,10 @@ This assessment proposes a decision. It authorizes no processing; only the priva
 | Interest | Whose | What the processing achieves | Legitimate | Source |
 |---|---|---|---|---|
 | {{ r.purpose_test.interest | cell }} | {{ r.purpose_test.whose | label }} | {{ r.purpose_test.benefit | cell }} | {{ r.purpose_test.legitimate | call }} | {{ r.purpose_test.source | src }} |
+{% if r.purpose_test.get('reasoning') %}
+
+{{ r.purpose_test.reasoning }}
+{% endif %}
 {% else %}
 Not applicable: {{ r.kind | label | lower }}.
 {% endif %}
@@ -56,6 +60,10 @@ Not applicable: {{ r.kind | label | lower }}.
 **Minimization:** {{ r.necessity_test.minimization }}
 
 **Necessary:** {{ r.necessity_test.necessary | call }}
+{% if r.necessity_test.get('reasoning') %}
+
+{{ r.necessity_test.reasoning }}
+{% endif %}
 {% else %}
 Not applicable: {{ r.kind | label | lower }}.
 {% endif %}
@@ -74,6 +82,10 @@ Not applicable: {{ r.kind | label | lower }}.
 {% endfor %}
 
 **Outcome:** {{ r.balancing.outcome | call }}
+{% if r.balancing.get('reasoning') %}
+
+{{ r.balancing.reasoning }}
+{% endif %}
 {% else %}
 Not applicable: {{ r.kind | label | lower }}.
 {% endif %}
@@ -84,6 +96,10 @@ Not applicable: {{ r.kind | label | lower }}.
 | Annex 1 purpose | Conditions met | In force |
 |---|---|---|
 | {{ r.recognized_interest.annex1_purpose | cell }} | {{ r.recognized_interest.conditions_met | call }} | {{ r.recognized_interest.commenced | call }} |
+{% if r.recognized_interest.get('reasoning') %}
+
+{{ r.recognized_interest.reasoning }}
+{% endif %}
 {% else %}
 Not applicable: {{ r.kind | label | lower }}.
 {% endif %}
@@ -101,6 +117,10 @@ Not applicable: {{ r.kind | label | lower }}.
 | (d) Consequences for the people | {{ r.compatibility.consequences | cell }} |
 
 **Outcome:** {{ r.compatibility.outcome | call }}
+{% if r.compatibility.get('reasoning') %}
+
+{{ r.compatibility.reasoning }}
+{% endif %}
 
 A compatible purpose still rests on the original lawful basis, and sector rules and e-marketing rules still apply; compatibility doesn't settle them.
 {% else %}
@@ -129,11 +149,15 @@ None recorded.
 
 {{ r.special_category | call }} An LIA never supplies an Art. 9 condition; the DPIA must name one where special category data is involved.
 
-## 9. Actions
+## 9. Issues checked
+
+{% include "_issues.md.j2" %}
+
+## 10. Actions
 
 {% include "_actions.md.j2" %}
 
-## 10. Sign-off
+## 11. Sign-off
 
 {% include "_signoff.md.j2" %}
 

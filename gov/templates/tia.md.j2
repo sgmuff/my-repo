@@ -45,6 +45,10 @@ This assessment proposes a decision. It authorizes no processing; only the priva
 | Tool | Module | No adequacy or covering DPF certification | Verified |
 |---|---|---|---|
 | {{ r.mechanism.tool | label }} | {{ r.mechanism.module | label }} | {{ r.mechanism.adequacy_checked | call }} | {{ r.mechanism.verified | cell }} |
+{% if r.mechanism.get('reasoning') %}
+
+{{ r.mechanism.reasoning }}
+{% endif %}
 
 ## 4. Step 3: the destination's law and practice
 
@@ -59,6 +63,10 @@ This assessment proposes a decision. It authorizes no processing; only the priva
 **Impinges on the tool:** {{ r.destination_law.impinges | call }}
 
 **Sources:** {{ r.destination_law.sources | join("; ") }}
+{% if r.destination_law.get('reasoning') %}
+
+{{ r.destination_law.reasoning }}
+{% endif %}
 
 ## 5. Step 4: supplementary measures
 
@@ -82,11 +90,15 @@ None recorded.
 
 {{ r.reassessment.triggers }} Next review: {{ r.next_review }}.
 
-## 8. Actions
+## 8. Issues checked
+
+{% include "_issues.md.j2" %}
+
+## 9. Actions
 
 {% include "_actions.md.j2" %}
 
-## 9. Sign-off
+## 10. Sign-off
 
 {% include "_signoff.md.j2" %}
 

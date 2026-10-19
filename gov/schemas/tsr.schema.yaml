@@ -1,0 +1,80 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+title: Transfer screen
+description: "A screen that finds a restricted transfer covered by adequacy, including a DPF certification, so no TIA is needed, or sends it to a TIA."
+type: object
+additionalProperties: false
+required: [id, type, schema_version, format_version, kind, title, status, version, activity, vendor_review,
+  business_owner, prepared_by, date_prepared, last_reviewed, next_review, summary, decision, regimes,
+  exporter, importer, mechanism, onward, context, issues, actions, open_questions, verify, finding_responses,
+  references, version_history, signoff]
+properties:
+  id: {type: string, pattern: "^TSR-\\d{4}-\\d{3}$"}
+  type: {const: tsr}
+  schema_version: {const: 1}
+  format_version: {const: 1}
+  kind: {enum: [adequacy]}
+  title: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 10}
+  status: {$ref: "common.schema.yaml#/$defs/doc_status"}
+  version: {$ref: "common.schema.yaml#/$defs/version"}
+  activity: {type: string, description: "The RoPA entry, ROPA-NNNN, or TBC"}
+  vendor_review: {type: string, description: "The vendor review ID, recommended, not-applicable, or TBC"}
+  business_owner: {$ref: "common.schema.yaml#/$defs/short"}
+  prepared_by: {$ref: "common.schema.yaml#/$defs/short"}
+  date_prepared: {$ref: "common.schema.yaml#/$defs/date"}
+  last_reviewed: {$ref: "common.schema.yaml#/$defs/date_or_null"}
+  next_review: {$ref: "common.schema.yaml#/$defs/date"}
+  summary: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 50}
+  decision:
+    description: "The screen's outcome. Only the privacy lead confirms it."
+    $ref: "common.schema.yaml#/$defs/call"
+    properties:
+      value: {enum: [no-tia-needed, tia-needed, open]}
+  regimes:
+    type: array
+    minItems: 1
+    uniqueItems: true
+    items: {enum: [eu-gdpr, uk-gdpr, ch-fadp]}
+  exporter:
+    type: object
+    additionalProperties: false
+    required: [name, role, source]
+    properties:
+      name: {$ref: "common.schema.yaml#/$defs/short"}
+      role: {enum: [controller, processor, TBC]}
+      source: {$ref: "common.schema.yaml#/$defs/source"}
+  importer:
+    type: object
+    additionalProperties: false
+    required: [name, country, role, source]
+    properties:
+      name: {$ref: "common.schema.yaml#/$defs/short", description: "The exact legal entity"}
+      country: {$ref: "common.schema.yaml#/$defs/short"}
+      role: {enum: [controller, processor, sub-processor, TBC]}
+      source: {$ref: "common.schema.yaml#/$defs/source"}
+  mechanism:
+    type: object
+    additionalProperties: false
+    required: [route, certification, fallback]
+    properties:
+      route: {enum: [eu-us-dpf, uk-extension, swiss-us-dpf, adequacy-decision, TBC]}
+      certification:
+        type: object
+        additionalProperties: false
+        required: [entity, status, scope, checked]
+        properties:
+          entity: {$ref: "common.schema.yaml#/$defs/short", description: "The entity as listed, or TBC"}
+          status: {enum: [active, inactive, not-listed, not-applicable, TBC]}
+          scope: {enum: [hr, non-hr, hr-and-non-hr, not-applicable, TBC]}
+          checked: {$ref: "common.schema.yaml#/$defs/short", description: "Where and when the list was checked, or TBC"}
+      fallback: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 25, description: "Any SCCs kept as a fallback, or none"}
+      reasoning: {$ref: "common.schema.yaml#/$defs/reasoning"}
+  onward: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 30, description: "The provider's sub-processors and countries, and who owes the onward-transfer duty"}
+  context: {$ref: "common.schema.yaml#/$defs/context"}
+  issues: {$ref: "common.schema.yaml#/$defs/issues"}
+  actions: {$ref: "common.schema.yaml#/$defs/actions"}
+  open_questions: {$ref: "common.schema.yaml#/$defs/open_questions"}
+  verify: {$ref: "common.schema.yaml#/$defs/verify"}
+  finding_responses: {$ref: "common.schema.yaml#/$defs/finding_responses"}
+  references: {$ref: "common.schema.yaml#/$defs/references"}
+  version_history: {$ref: "common.schema.yaml#/$defs/version_history"}
+  signoff: {$ref: "common.schema.yaml#/$defs/signoff"}
