@@ -1,0 +1,83 @@
+# Legitimate interests or compatibility assessment. Fill in what the sources show, give each
+# call its status and reason, and run `gov validate` then `gov render`. Never guess: leave a fact
+# TBC and add an open question. Text with a comma inside {...} goes in double quotes.
+# A "call" is {value, status: Provisional|Confirmed, reason}; only an approver confirms.
+id: {{ id }}
+type: lia
+schema_version: 1
+format_version: 1
+# lia: the three-part test. recognized-interest: a UK Annex 1 purpose (no balancing).
+# compatibility: a new purpose for data collected for another (Art. 6(4)).
+# The sections that don't fit the kind take {applicable: false}.
+kind: lia
+title: {{ title | tojson }}
+status: Draft
+version: "0.1"
+activity: {ropa: TBC, purposes: []}  # the RoPA entry and its purpose IDs
+regimes: [eu-gdpr]  # eu-gdpr | uk-gdpr
+business_owner: TBC
+prepared_by: {{ prepared_by | tojson }}
+date_prepared: "{{ date }}"
+last_reviewed: null
+next_review: "{{ next_review }}"
+summary: TBC  # the processing and the interest relied on, 50 words at most
+decision: {value: open, status: Provisional, reason: Tests not yet completed}  # holds | holds-with-conditions | does-not-hold | open
+
+purpose_test:  # Art. 6(1)(f): is there a legitimate interest?
+  applicable: true
+  interest: TBC  # specific, 30 words at most
+  whose: company  # company | third-party | both
+  benefit: TBC  # what the processing achieves for that interest
+  legitimate: {value: TBC, status: Provisional, reason: Interest not yet stated}
+  source: {kind: tbc}
+
+necessity_test:  # Art. 6(1)(f): is the processing necessary for it?
+  applicable: true
+  why_needed: TBC
+  alternatives: []  # list of {option, outcome}: less intrusive ways, and why each was or wasn't chosen
+  minimization: TBC  # data left out or limited
+  necessary: {value: TBC, status: Provisional, reason: Not yet assessed}
+
+balancing:  # Art. 6(1)(f), Recital 47: do the person's interests override?
+  applicable: true
+  people: TBC
+  relationship: TBC  # any relationship with the company, or none
+  expectations: {value: TBC, status: Provisional, reason: Not yet assessed}  # would they reasonably expect it?
+  vulnerable: {value: TBC, status: Provisional, reason: Not yet assessed}
+  impacts:  # likelihood and severity: Low | Medium | High | TBC; basis: why, such as scale or what the score changes
+    - {impact: TBC, likelihood: TBC, severity: TBC, basis: TBC}
+  outcome: {value: open, status: Provisional, reason: Not yet weighed}  # interest-prevails | rights-prevail | open
+
+recognized_interest: {applicable: false}  # for kind recognized-interest: {applicable: true, annex1_purpose, conditions_met, commenced}
+
+# For kind compatibility: {applicable: true, original_purpose, new_purpose, link, context, nature,
+# consequences, outcome: {value: compatible|not-compatible|open, status, reason}}
+compatibility: {applicable: false}
+
+safeguards: []  # list of {safeguard, status: in-place|planned|TBC}
+
+objection:  # Art. 21; direct marketing makes the right absolute (Art. 21(3))
+  how: TBC
+  direct_marketing: TBC  # true | false | TBC
+  notice: TBC  # covered | gap | TBC: does the notice name the interest?
+
+special_category: {value: TBC, status: Provisional, reason: Data not yet confirmed}  # an LIA never supplies an Art. 9 condition
+
+actions: []  # list of {id: A1, action, owner, due, closure_evidence, launch_blocking, block_reason: law|policy|risk, scope, status}
+open_questions: []  # list of {id: Q1, question, field, blocks: launch|approval|record|none, owner, needed_by}
+verify: []
+finding_responses: []
+references: []  # list of {file: gdpr.md, version, verified}
+
+version_history:
+  - version: "0.1"
+    date: "{{ date }}"
+    author: {{ prepared_by | tojson }}
+    change: First draft
+
+signoff:
+  - decision: Assessment approved
+    approver_role: Privacy lead
+    name: null
+    date: null
+    outcome: null

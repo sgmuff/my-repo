@@ -1,0 +1,60 @@
+{
+  "skill_name": "tia",
+  "evals": [
+    {
+      "id": 1,
+      "name": "support-desk-us-sccs",
+      "prompt": "Our support desk vendor, HelpHub Inc., lets its US support team access EU customer tickets. They're not on the Data Privacy Framework list, so we signed SCCs Module 2. Can you do the TIA?",
+      "expected_output": "An eu-tia record for HelpHub's US remote access: SCCs Module 2, adequacy and DPF checked (with a verify flag), step 3 lists FISA 702 and EO 12333 as points to check with verify flags, measures with effectiveness open, decision open or proceed-with-measures Provisional. Asks sub-processors, access controls, and government-access record.",
+      "files": [],
+      "expectations": [
+        "`gov validate` reports 0 errors after the run",
+        "`gov render --check` reports everything up to date",
+        "A TIA record exists under compliance/assessments/tia/ with an ID allocated by gov",
+        "The reply, excluding its numbered question list, is 200 words or fewer",
+        "The reply's numbered question list has five questions or fewer",
+        "The reply doesn't present `gov validate` as legal approval",
+        "kind is eu-tia, tool sccs, module 2, and access is remote-access or both",
+        "Step 3 lists FISA Section 702 or another US surveillance law, each with a source or a verify flag",
+        "No step 3 law is marked as definitely applying without a cited source",
+        "Each supplementary measure has a Provisional effectiveness call",
+        "The decision is open, proceed-with-measures, or suspend; never Confirmed",
+        "The importer's sub-processors or onward transfers are captured or asked"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "dpf-certified-screen-out",
+      "prompt": "We're moving our EU customer database to a US cloud provider that says it's certified under the EU-US Data Privacy Framework. Do we need a TIA?",
+      "expected_output": "Screens first: if the provider's exact entity is DPF-certified for this data, adequacy covers the transfer and no TIA is needed. Says to check dataprivacyframework.gov for the entity and scope, with a verify flag, and to keep SCCs as a fallback (DPF litigation). Doesn't create a full TIA record, or creates one only to record the screening.",
+      "files": [],
+      "expectations": [
+        "The reply says no TIA is needed if a DPF certification covers the provider's exact entity and this data",
+        "The reply says to check the DPF list for the entity and scope, or records a verify flag for it",
+        "The reply mentions keeping SCCs as a fallback, or the DPF's pending litigation",
+        "No TIA record concludes the transfer needs supplementary measures",
+        "The reply is 200 words or fewer, excluding any numbered question list"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "uk-payroll-india-messy",
+      "prompt": "uk payroll goes to our payroll bureau in india, we signed the IDTA i think. need the TRA thing for it",
+      "expected_output": "A uk-tra record: tool uk-idta, signed TBC (asked), destination India's law points flagged for verification, payroll data including bank details and possibly health (sick pay) noted, decision open. Mentions the ICO TRA approach and the DUAA test change with a verify flag.",
+      "files": [],
+      "expectations": [
+        "`gov validate` reports 0 errors after the run",
+        "`gov render --check` reports everything up to date",
+        "A TIA record exists under compliance/assessments/tia/ with an ID allocated by gov",
+        "The reply, excluding its numbered question list, is 200 words or fewer",
+        "The reply's numbered question list has five questions or fewer",
+        "The reply doesn't present `gov validate` as legal approval",
+        "kind is uk-tra and tool is uk-idta",
+        "Whether the IDTA is signed is TBC or asked, not assumed",
+        "Step 3 cites India's law with a source or a verify flag",
+        "The ICO approach or the Data (Use and Access) Act test is mentioned, with a verify flag where it depends on commencement",
+        "The decision isn't Confirmed"
+      ]
+    }
+  ]
+}

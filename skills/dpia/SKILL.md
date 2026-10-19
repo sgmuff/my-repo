@@ -88,7 +88,7 @@ Flag these wherever they appear: special category data (with the biometric disti
 
 Use `gdpr.md`, §3–6. For each purpose:
 
-- **Lawful basis** under Art. 6, plus an Art. 9 condition where needed. For legitimate interests, write the three-part test inline. For consent, check that it is freely given, specific, informed, unambiguous, and as easy to withdraw as to give.
+- **Lawful basis** under Art. 6, plus an Art. 9 condition where needed. For legitimate interests, link the LIA (`lia` skill) by its ID, and summarize its outcome in a line; if none exists, recommend running `lia` rather than writing the test inline. For consent, check that it is freely given, specific, informed, unambiguous, and as easy to withdraw as to give.
 - **Data minimization:** for each data element, why it's needed, and whether a less intrusive option exists. Name the elements to drop.
 - **Purpose limitation:** list each secondary use, especially analytics, product improvement, model training, and staff performance evaluation, and whether it's compatible under Art. 6(4). Treat each one as a separate purpose that needs its own basis.
 - **Transparency** (Arts. 13–14) and **data subject rights** (Arts. 15–22), including at processors and in backups, logs, and model weights.

@@ -70,13 +70,17 @@ Keep the entry proportionate. A routine activity, such as a webinar signup, gets
 
 Add to `follow_ons`, recommending without concluding: `dpia` when high-risk indicators appear (`dpia/references/screening.md`), `vendor-review` for each recipient without a current review, `ai-intake` when AI is used, `tia` when a flow may be a restricted transfer, and `notice-and-policy` when the notice doesn't cover the activity.
 
-### 6. Validate and render
+### 6. Answer the required assessments
+
+Run `gov required <the entry's YAML file>`. It lists what the catalog (`gov/rules/assessments.yaml`) says this activity owes, from the entry's facts. For each one marked owed, add an `assessments` item: `on-file` with its record ID, or `planned`. Don't mark anything `not-applicable` yourself; only a person decides that, and the item names them. "May be owed" means an open fact decides it; ask that fact in Round 1 if it blocks approval.
+
+### 7. Validate and render
 
 Run `gov validate` and fix every error. Validation checks structure and consistency, not legal correctness, so report it as "`gov validate` found no structural errors" and never as approval. Then resolve each **finding** by changing the record. A finding you can't resolve goes in your reply for the privacy lead. Don't add a `finding_responses` entry yourself; only a person records why a finding doesn't apply. Rerun until no errors remain, then run `gov render`.
 
 Text that contains a comma inside `{...}` must be in double quotes, or YAML splits it. `gov validate` points this out.
 
-### 7. Route approval and hand back
+### 8. Route approval and hand back
 
 The business owner confirms the facts, and the privacy lead confirms the calls and approves (`approvals.md`). Leave `signoff` empty; only a recorded approval fills it.
 

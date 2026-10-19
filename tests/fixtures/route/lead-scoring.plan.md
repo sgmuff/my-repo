@@ -3,8 +3,8 @@
 | 1 | DPIA screening | `dpia` | Required | Now | new_processing = yes; indicators: profiling, ai_profiles_people, indirect_collection | — |
 | 2 | Vendor review | `vendor-review` | Required | Now | vendor_involved = yes | — |
 | 3 | AI intake | `ai-intake` | Required | Now | ai_involved = yes | — |
-| 4 | Transfer screening | `tia` (no skill yet) | If cross_border_access = yes | After 2 | — | — |
-| 5 | Legitimate interests assessment | `lia` (no skill yet) | Required | Now | lawful_basis = legitimate-interests | — |
+| 4 | Transfer screening | `tia` | If cross_border_access = yes | After 2 | — | — |
+| 5 | Legitimate interests assessment | `lia` | Required | Now | lawful_basis = legitimate-interests | — |
 | 6 | AI impact assessment | `ai-impact-assessment` | Required | After 3 | ai_profiles_people = yes | — |
 | 7 | AI Act deployer readiness | `ai-act-deployer` (no skill yet) | If ai_high_risk = yes | After 3 | ai_act_role = deployer | — |
 | 8 | RoPA entry | `ropa` | Required | Now | new_processing = yes | 1, 2, 5 |
@@ -29,7 +29,7 @@
 | step 1 | Whether a full DPIA or state assessment is required; risk acceptance by rating | Privacy lead | Policy | — |
 | step 2 | Onboard, onboard with conditions, or not | Approver for the residual rating | Law | — |
 | step 3 | Internal AI tier, EU AI Act role, and EU AI Act classification, decided separately | Privacy lead | Policy | — |
-| step 5 | The LIA for each purpose; it feeds the lawful-basis decision | Privacy lead | Law | No skill yet: the owner runs this step by hand, and launch waits until the result is recorded |
+| step 5 | The LIA for each purpose; it feeds the lawful-basis decision | Privacy lead | Law | — |
 | step 6 | Residual AI risk; whether any customer owes a FRIA (AI Act Art. 27) | Privacy lead | Policy | — |
 | step 8 | Business owner confirms the facts; privacy lead approves the entry | Business owner, then privacy lead | Law | — |
 | step 9 | Any notice change, and its timing | Privacy lead and counsel | Law | — |

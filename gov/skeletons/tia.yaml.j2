@@ -1,0 +1,74 @@
+# Transfer impact assessment, in the six steps of EDPB Recommendations 01/2020. Fill in what the
+# sources show, and run `gov validate` then `gov render`. Never guess the destination's law: cite
+# the reference file or a source, and add a verify flag. Text with a comma inside {...} goes in quotes.
+# A "call" is {value, status: Provisional|Confirmed, reason}; only an approver confirms.
+id: {{ id }}
+type: tia
+schema_version: 1
+format_version: 1
+kind: eu-tia  # eu-tia (SCCs or BCRs) | uk-tra (IDTA or UK Addendum) | ch-tia (Swiss SCCs)
+title: {{ title | tojson }}
+status: Draft
+version: "0.1"
+activity: TBC  # the RoPA entry, ROPA-NNNN
+vendor_review: TBC  # the vendor review ID, recommended, not-applicable, or TBC
+business_owner: TBC
+prepared_by: {{ prepared_by | tojson }}
+date_prepared: "{{ date }}"
+last_reviewed: null
+next_review: "{{ next_review }}"
+summary: TBC  # 50 words at most
+decision: {value: open, status: Provisional, reason: Steps not yet completed}  # proceed | proceed-with-measures | suspend | open
+
+exporter: {name: TBC, role: TBC, source: {kind: tbc}}  # role: controller | processor | TBC
+importer: {name: TBC, country: TBC, role: TBC, source: {kind: tbc}}  # role: controller | processor | sub-processor | TBC
+
+transfer_map:  # step 1, including remote access and onward transfers
+  data: TBC
+  people: TBC
+  purpose: TBC
+  access: TBC  # stored | remote-access | both | TBC
+  onward: TBC  # sub-processors and their countries, none, or TBC
+  special_category: {value: TBC, status: Provisional, reason: Data not yet confirmed}
+  source: {kind: tbc}
+
+mechanism:  # step 2; adequacy or a covering DPF certification means no TIA is needed
+  tool: TBC  # sccs | bcrs | uk-idta | uk-addendum | ch-sccs | TBC
+  module: TBC  # "1" | "2" | "3" | "4" | not-applicable | TBC
+  adequacy_checked: {value: TBC, status: Provisional, reason: Adequacy and DPF not yet checked}
+  verified: TBC
+
+destination_law:  # step 3, for this importer and this data
+  laws:
+    - {law: TBC, applies: {value: TBC, status: Provisional, reason: Not yet assessed}}
+  practice: TBC  # evidence of how the law is applied, such as transparency reports
+  impinges: {value: TBC, status: Provisional, reason: Not yet assessed}
+  sources: [TBC]
+
+measures: []  # step 4: list of {measure, kind: technical|contractual|organizational, effective: call}
+
+procedural:  # step 5
+  signed: TBC  # true | false | TBC
+  steps: TBC
+
+reassessment:  # step 6
+  triggers: TBC
+
+actions: []
+open_questions: []
+verify: []
+finding_responses: []
+references: []
+
+version_history:
+  - version: "0.1"
+    date: "{{ date }}"
+    author: {{ prepared_by | tojson }}
+    change: First draft
+
+signoff:
+  - decision: Assessment approved
+    approver_role: Privacy lead
+    name: null
+    date: null
+    outcome: null

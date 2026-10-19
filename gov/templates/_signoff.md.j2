@@ -1,0 +1,5 @@
+| Decision | Approver | Name | Date | Outcome |
+|---|---|---|---|---|
+{% for s in r.signoff %}
+| {{ s.decision | cell }} | {{ s.approver_role | cell }} | {{ s.name | cell }} | {{ s.date | cell }} | {{ s.outcome | label }} |
+{% endfor %}

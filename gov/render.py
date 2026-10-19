@@ -60,6 +60,29 @@ LABELS = {
     "uk-extension": "UK Extension to the DPF",
     "swiss-us-dpf": "Swiss-US DPF",
     "launch": "Launch",
+    "lia": "Legitimate interests assessment",
+    "recognized-interest": "UK recognized legitimate interest",
+    "compatibility": "Compatibility assessment",
+    "holds": "Holds",
+    "holds-with-conditions": "Holds with conditions",
+    "does-not-hold": "Does not hold as proposed",
+    "interest-prevails": "Interest prevails",
+    "rights-prevail": "Rights prevail",
+    "compatible": "Compatible",
+    "not-compatible": "Not compatible",
+    "third-party": "Third party",
+    "in-place": "In place",
+    "planned": "Planned",
+    "eu-tia": "EU transfer impact assessment",
+    "uk-tra": "UK transfer risk assessment",
+    "ch-tia": "Swiss transfer assessment",
+    "ch-sccs": "SCCs with Swiss adaptations",
+    "proceed": "Proceed",
+    "proceed-with-measures": "Proceed with measures",
+    "suspend": "Suspend",
+    "technical": "Technical",
+    "contractual": "Contractual",
+    "organizational": "Organizational",
     "law": "law",
     "policy": "policy",
     "risk": "risk",
@@ -129,10 +152,54 @@ def _env() -> Environment:
     return env
 
 
-def render_record(rec) -> str:
+STATUS_TEXT = {
+    "owed": "Owed",
+    "tbc": "May be owed",
+    "not-yet-applicable": "Not yet applicable",
+    "no-reference": "Waiting for its reference file",
+    "on-file": "On file",
+    "planned": "Planned",
+    "not-applicable": "Not applicable",
+}
+
+
+def required_rows(root, data: dict) -> list:
+    """The catalog's verdict for this activity, merged with the record's responses, in catalog order."""
+    from gov import required as req
+    responses = {a["assessment"]: a for a in data.get("assessments", [])}
+    computed = {r["assessment"]: r for r in req.evaluate(req.facts_from_ropa(data), data["date_prepared"], root)}
+    rows = []
+    for e in req.catalog()["entries"]:
+        eid = e["id"]
+        if eid not in computed and eid not in responses:
+            continue
+        r = computed.get(eid)
+        a = responses.get(eid)
+        if a:
+            status = STATUS_TEXT[a["status"]]
+            detail = a.get("record") or ""
+            if a.get("reason"):
+                detail = (detail + "; " if detail else "") + a["reason"]
+            if a["status"] == "not-applicable":
+                detail += f" ({a['by']})"
+        else:
+            status, detail = STATUS_TEXT[r["status"]], r["reason"]
+        rows.append({"name": e["name"], "citation": e["citation"], "gate": e["gate"].capitalize(),
+                     "status": status, "detail": detail, "skill": e["produced_by"],
+                     "kind": "listed" if a or r["status"] == "owed" else r["status"], "open": (r or {}).get("open_facts", []),
+                     "applies_from": e["applies_from"], "reference": e["reference"]})
+    return rows
+
+
+def render_record(rec, root=None) -> str:
     template = _env().get_template(f"{rec.type}.md.j2")
     vendors = derive.vendor_slugs(rec.data) if rec.type == "ropa" else []
-    text = template.render(r=rec.data, d=derive.DERIVE[rec.type](rec.data), source_file=rec.path.name, vendors=vendors)
+    if rec.type != "ropa":
+        text = template.render(r=rec.data, d=derive.DERIVE[rec.type](rec.data), source_file=rec.path.name)
+        return _tidy(text)
+    required = required_rows(root, rec.data) if rec.type == "ropa" else []
+    text = template.render(r=rec.data, d=derive.DERIVE[rec.type](rec.data), source_file=rec.path.name,
+                           vendors=vendors, required=required)
     return _tidy(text)
 
 
@@ -145,7 +212,7 @@ def render_index(record_type: str, records: list) -> str:
     text = template.render(
         rows=rows,
         approved=sum(1 for row in rows if row["r"]["status"].startswith("Approved")),
-        tbc=sum(row["d"]["required_tbc"] for row in rows),
+        tbc=sum(row["d"].get("required_tbc", 0) for row in rows),
     )
     return _tidy(text)
 
@@ -167,7 +234,7 @@ def render_tree(root: Path, check: bool = False) -> RenderResult:
     by_type = {}
     for path in record_files(root):
         rec = load(path)
-        outputs[rec.markdown_path] = render_record(rec)
+        outputs[rec.markdown_path] = render_record(rec, root)
         by_type.setdefault(rec.type, []).append(rec)
     for record_type, spec in ids.managed_types().items():
         folder = output_root(root) / spec["folder"]

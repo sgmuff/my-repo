@@ -4,7 +4,7 @@
 | 2 | DPIA screening | `dpia` | Required | Now | new_processing = yes; indicators: children_or_students | — |
 | 3 | Vendor review | `vendor-review` | If vendor_involved = yes | Now | — | — |
 | 4 | AI intake | `ai-intake` | If ai_involved = yes | Now | — | — |
-| 5 | Transfer screening | `tia` (no skill yet) | If cross_border_access = yes | After 3 | — | — |
+| 5 | Transfer screening | `tia` | If cross_border_access = yes | After 3 | — | — |
 | 6 | AI impact assessment | `ai-impact-assessment` | If ai_profiles_people = yes or ai_influences_decisions = yes | After 4 | — | — |
 | 7 | AI Act provider readiness | `ai-act-provider` (no skill yet) | If ai_act_role = provider and ai_high_risk = yes | After 4 | — | — |
 | 8 | AI Act deployer readiness | `ai-act-deployer` (no skill yet) | If ai_act_role = deployer and ai_high_risk = yes | After 4 | — | — |

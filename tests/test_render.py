@@ -61,7 +61,7 @@ def test_each_art30_element_counts_once():
 def test_new_skeleton_is_valid_and_renders(root):
     path = new_record(root, "ropa", "webinar-signup", "Webinar signup", "2026-10-18", "Claude")
     assert path.name == "ROPA-0001-webinar-signup.yaml"
-    assert validate_tree(root) == []
+    assert [p for p in validate_tree(root) if p.level == "error"] == []
     assert render_tree(root).problems == []
     assert yamlio.load(path)["next_review"] == "2027-10-18"
 
@@ -107,3 +107,10 @@ def test_launch_status_lists_blockers(ropa_root):
     render_tree(ropa_root)
     text = (ropa_root / FOLDER / "ROPA-0001-gradebook-sync.md").read_text()
     assert "**Launch:** blocked by A1, A3." in text
+
+
+def test_required_assessments_render(ropa_root):
+    render_tree(ropa_root)
+    text = (ropa_root / FOLDER / "ROPA-0001-gradebook-sync.md").read_text()
+    assert "| Security risk assessment | GDPR Art. 32 | Law | Planned |" in text
+    assert "**Waiting for reference files:** HIPAA security risk analysis (`hipaa.md`)" in text

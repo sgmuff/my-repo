@@ -10,6 +10,7 @@ from jsonschema import Draft202012Validator, ValidationError, validators
 from jsonschema.exceptions import best_match
 
 from gov import ids, yamlio
+from gov import required as req
 from gov.findings import FINDINGS
 from gov.paths import PACKAGE, output_root
 from gov.records import Record, load, record_files, schema, slug_from_filename
@@ -36,8 +37,21 @@ GovValidator = validators.extend(Draft202012Validator, {"x-max-words": _max_word
 
 
 @lru_cache(maxsize=None)
+def _registry():
+    """Every schema file by name, so a schema can reference common.schema.yaml#/$defs/..."""
+    from referencing import Registry, Resource
+    from referencing.jsonschema import DRAFT202012
+
+    resources = [
+        (path.name, Resource.from_contents(yamlio.load(path), default_specification=DRAFT202012))
+        for path in sorted((PACKAGE / "schemas").glob("*.schema.yaml"))
+    ]
+    return Registry().with_resources(resources)
+
+
+@lru_cache(maxsize=None)
 def _validator(record_type: str):
-    return GovValidator(schema(record_type))
+    return GovValidator(schema(record_type), registry=_registry())
 
 
 @lru_cache(maxsize=None)
@@ -54,7 +68,10 @@ def validate_tree(root: Path) -> list:
         try:
             rec = load(path)
         except Exception as exc:  # malformed YAML
-            problems.append(Problem(_rel(root, path), "error", f"can't parse YAML: {exc}"))
+            hint = ""
+            if "flow mapping" in str(exc):
+                hint = " Inside {...}, text containing a comma, colon, question mark, or # must be in double quotes."
+            problems.append(Problem(_rel(root, path), "error", f"can't parse YAML: {exc}{hint}"))
             continue
         records.append(rec)
         problems.extend(validate_record(root, rec))
@@ -85,7 +102,11 @@ def validate_record(root: Path, rec: Record) -> list:
     problems.extend(_local_ids(where, rec.data))
     problems.extend(_structure(where, rec.data))
     problems.extend(_gates(where, rec.data))
-    answered = {r["pointer"] for r in rec.data.get("finding_responses", [])}
+    problems.extend(_required(root, where, rec.data))
+    for n, r in enumerate(rec.data.get("finding_responses", [])):
+        if "claude" in r["by"].lower():
+            problems.append(Problem(where, "error", f"finding_responses/{n}: only a person answers a finding; remove this, and report the finding instead"))
+    answered = {r["pointer"] for r in rec.data.get("finding_responses", []) if "claude" not in r["by"].lower()}
     problems.extend(
         Problem(where, "finding", f"{pointer}: {message}")
         for pointer, message in FINDINGS[rec.type](rec.data)
@@ -148,7 +169,33 @@ def _local_ids(where: str, data: dict) -> list:
     return problems
 
 
+KIND_SECTIONS = {
+    "lia": {"purpose_test", "necessity_test", "balancing"},
+    "recognized-interest": {"recognized_interest"},
+    "compatibility": {"compatibility"},
+}
+TIA_TOOLS = {"eu-tia": {"sccs", "bcrs"}, "uk-tra": {"uk-idta", "uk-addendum"}, "ch-tia": {"ch-sccs"}}
+
+
 def _structure(where: str, data: dict) -> list:
+    if data.get("type") == "lia":
+        wanted = KIND_SECTIONS[data["kind"]]
+        problems = []
+        for section in ("purpose_test", "necessity_test", "balancing", "recognized_interest", "compatibility"):
+            applicable = data[section].get("applicable")
+            if (section in wanted) != applicable:
+                state = "fill in" if section in wanted else "set applicable: false for"
+                problems.append(Problem(where, "error", f"{section}: a {data['kind']} assessment must {state} this section"))
+        if data["kind"] == "recognized-interest" and data["regimes"] != ["uk-gdpr"]:
+            problems.append(Problem(where, "error", "regimes: recognized legitimate interests exist only under the UK GDPR"))
+        return problems
+    if data.get("type") == "tia":
+        tool = data["mechanism"]["tool"]
+        if tool != "TBC" and tool not in TIA_TOOLS[data["kind"]]:
+            return [Problem(where, "error", f"mechanism/tool: {tool} doesn't fit a {data['kind']}; use {', '.join(sorted(TIA_TOOLS[data['kind']]))}")]
+        return []
+    if data.get("type") != "ropa":
+        return []
     rtype = data["record_type"]["value"]
     applicable = data["processor_record"].get("applicable")
     if rtype in ("processor", "both") and not applicable:
@@ -173,6 +220,31 @@ def _gates(where: str, data: dict) -> list:
         for a in data.get("actions", []):
             if a["launch_blocking"] and a["status"] == "open":
                 problems.append(Problem(where, "error", f"status is Approved, but launch-blocking action {a['id']} is open; use Approved with conditions"))
+    return problems
+
+
+def _required(root: Path, where: str, data: dict) -> list:
+    """Each assessment the catalog says this activity owes needs a response before review."""
+    if data.get("type") != "ropa":
+        return []
+    problems = []
+    known = {e["id"] for e in req.catalog()["entries"]}
+    covered = set()
+    for n, a in enumerate(data.get("assessments", [])):
+        if a["assessment"] not in known:
+            problems.append(Problem(where, "error", f"assessments/{n}: {a['assessment']} isn't in the catalog (gov/rules/assessments.yaml)"))
+        if a["status"] == "on-file" and not ids.parse_id(a.get("record", "")):
+            problems.append(Problem(where, "error", f"assessments/{n}: record must be a document ID, such as DPIA-2026-004"))
+        covered.add(a["assessment"])
+    in_review = data["status"] in {"In review"} | APPROVED
+    for r in req.evaluate(req.facts_from_ropa(data), data["date_prepared"], root):
+        if r["assessment"] in covered:
+            continue
+        if r["status"] == "owed":
+            level = "error" if in_review else "finding"
+            problems.append(Problem(where, level, f"assessments: owes {r['name']} ({r['citation']}); record it as on-file, planned, or not-applicable with who decided"))
+        elif r["status"] == "tbc" and in_review:
+            problems.append(Problem(where, "error", f"assessments: may owe {r['name']}; it {r['reason']}. Settle the facts or record a response before review"))
     return problems
 
 

@@ -1,0 +1,81 @@
+id: LIA-2026-001
+type: lia
+schema_version: 1
+format_version: 1
+kind: lia
+title: AI lead scoring from LinkedIn data
+status: Draft
+version: "0.1"
+activity: {ropa: ROPA-0001, purposes: [P1]}
+regimes: [eu-gdpr, uk-gdpr]
+business_owner: Head of Marketing
+prepared_by: Claude (privacy-governance suite)
+date_prepared: "2026-10-18"
+last_reviewed: null
+next_review: "2027-10-18"
+summary: Marketing scores B2B prospects from LinkedIn profile data so Sales can prioritize outreach. The company relies on its interest in finding likely buyers.
+decision: {value: open, status: Provisional, reason: Balancing depends on how the data is obtained (Q1) and the notice (A1)}
+
+purpose_test:
+  applicable: true
+  interest: Prioritize sales outreach to prospects most likely to buy
+  whose: company
+  benefit: Sales contacts fewer, better-matched prospects
+  legitimate: {value: true, status: Provisional, reason: A commercial interest that is lawful and clearly stated}
+  source: {kind: stated, ref: Marketing request}
+
+necessity_test:
+  applicable: true
+  why_needed: Scoring needs job title, company, and seniority to rank prospects
+  alternatives:
+    - {option: Manual review of inbound leads only, outcome: "Rejected: misses outbound prospects Sales targets"}
+    - {option: Firmographic scoring without personal data, outcome: Possible for account-level ranking; asked in Q2}
+  minimization: No profile photos, contact networks, or posts
+  necessary: {value: TBC, status: Provisional, reason: Depends on whether account-level scoring would do (Q2)}
+
+balancing:
+  applicable: true
+  people: B2B prospects with public LinkedIn profiles
+  relationship: None; prospects haven't contacted us
+  expectations: {value: TBC, status: Provisional, reason: Depends on how the data is obtained and what LinkedIn tells members (Q1)}
+  vulnerable: {value: false, status: Provisional, reason: Adults in a professional context}
+  impacts:
+    - {impact: Unexpected sales contact from a company they never dealt with, likelihood: High, severity: Low, basis: Every scored prospect may be contacted; contact is a single email}
+    - {impact: Profiling they can't see or correct, likelihood: Medium, severity: Medium, basis: Scores only order the sales queue; accuracy of job titles is unknown}
+  outcome: {value: open, status: Provisional, reason: Expectations and notice not yet settled}
+
+recognized_interest: {applicable: false}
+compatibility: {applicable: false}
+
+safeguards:
+  - {safeguard: Art. 14 notice at first contact, status: planned}
+  - {safeguard: Objection honored at once and suppressed in the scoring tool, status: planned}
+  - {safeguard: Scores reviewed by a person before outreach, status: TBC}
+
+objection:
+  how: A link in every outreach email; processing and marketing stop on objection
+  direct_marketing: true
+  notice: gap
+
+special_category: {value: false, status: Provisional, reason: Professional profile fields only}
+
+actions:
+  - {id: A1, action: Write the Art. 14 notice for scored prospects, owner: Privacy lead, due: TBC, closure_evidence: Approved notice text, launch_blocking: true, block_reason: law, status: open}
+
+open_questions:
+  - {id: Q1, question: "Is the LinkedIn data scraped, exported from Sales Navigator, or supplied by the vendor?", field: balancing/expectations, blocks: approval, owner: Marketing, needed_by: TBC}
+  - {id: Q2, question: "Would account-level scoring without personal data meet the need?", field: necessity_test/necessary, blocks: approval, owner: Marketing, needed_by: TBC}
+
+verify:
+  - {id: V1, claim: LinkedIn's terms restrict copying member data into third-party tools, why: Affects whether the source is lawful to use, check: Current LinkedIn User Agreement, owner: Counsel, needed_by: TBC}
+
+finding_responses: []
+
+references:
+  - {file: gdpr.md, version: "EU GDPR as of 2026-10-16", verified: "2026-10-16"}
+
+version_history:
+  - {version: "0.1", date: "2026-10-18", author: Claude (privacy-governance suite), change: First draft}
+
+signoff:
+  - {decision: Assessment approved, approver_role: Privacy lead, name: null, date: null, outcome: null}

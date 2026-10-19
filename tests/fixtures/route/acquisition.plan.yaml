@@ -80,7 +80,7 @@ plan:
   step: transfer-screening
   label: Transfer screening
   skill: tia
-  available: false
+  available: true
   time_critical: false
   status: conditional
   applies_if: cross_border_access = yes
@@ -235,7 +235,7 @@ decisions:
   status: conditional
   applies_if: cross_border_access = yes
   blocks_launch: true
-  note: 'No skill yet: the owner runs this step by hand, and launch waits until the result is recorded'
+  note: null
 - about: step 6
   decision: Residual AI risk; whether any customer owes a FRIA (AI Act Art. 27)
   owner: Privacy lead
@@ -420,4 +420,3 @@ assumed:
 not_built:
 - ai-act-deployer
 - ai-act-provider
-- tia

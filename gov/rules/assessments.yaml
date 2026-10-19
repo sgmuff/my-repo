@@ -1,0 +1,297 @@
+# Catalog of required assessments, read by `gov required`. Changes need the privacy lead's approval.
+#
+# Each entry names the law, who owes the assessment, what triggers it, the date it applies from, and
+# the skill that produces it. Triggers use the facts in routing.yaml plus the extra facts below.
+#   when / when_any: as in routing.yaml. A list value matches any item; a list-valued fact matches
+#     when any of its values does.
+#   gate: law (required where the law applies), policy (our own rule), or risk.
+#   reference: the file in skills/_shared/references/ the entry rests on. An entry whose reference
+#     file doesn't exist yet reports "no reference file" instead of applying.
+#   required_content: what the assessment must contain, each with its citation. Templates follow it.
+version: 1
+
+facts:
+  eu_people: {type: boolean, question: "Does it involve people in the EEA, or an establishment there?"}
+  uk_people: {type: boolean, question: "Does it involve people in the UK, or an establishment there?"}
+  ch_people: {type: boolean, question: "Does it involve people in Switzerland, or an establishment there?"}
+  transfer_mechanism: {type: enum, values: [adequacy, eu-us-dpf, uk-extension, swiss-us-dpf, sccs, uk-idta, uk-addendum, bcrs, art49-derogation], question: "Which mechanism covers each restricted transfer?"}
+  dpia_high_residual: {type: boolean, question: "Did the DPIA leave a high residual risk?"}
+  new_purpose_for_old_data: {type: boolean, question: "Does it reuse data collected for one purpose for a new one?"}
+  cppa_business: {type: boolean, question: "Does the company meet the CCPA's business thresholds?"}
+  cppa_audit_threshold: {type: boolean, question: "Does the processing present significant risk to security under the CCPA audit rules?"}
+  ny_school_contract: {type: boolean, question: "Is there a contract with a New York educational agency?"}
+  nyc_hiring_tool: {type: boolean, question: "Is the tool used to screen candidates or employees in New York City?"}
+  ai_modified: {type: boolean, question: "Will we rebrand, substantially modify, or repurpose a high-risk AI system?"}
+  ai_not_high_risk_claim: {type: boolean, question: "Are we relying on the Art. 6(3) derogation for an Annex III system?"}
+  phi: {type: boolean, question: "Does it involve protected health information for a covered entity or as its business associate?"}
+  glba_customer_info: {type: boolean, question: "Does it involve customer information of a financial institution, such as federal student aid records?"}
+  nis2_service: {type: boolean, question: "Is it part of a service that makes the company an essential or important entity under NIS2?"}
+  quebec_people: {type: boolean, question: "Does it involve personal information of people in Quebec?"}
+  gpai_model: {type: boolean, question: "Does the company train or place on the market a general-purpose AI model?"}
+  fria_deployer: {type: boolean, question: "Are we, or the customer, a body governed by public law, a private provider of public services, or a deployer of credit-scoring or insurance-pricing AI?"}
+
+entries:
+  - id: dpia
+    name: Data protection impact assessment (screening first)
+    citation: "GDPR and UK GDPR Art. 35; FADP Art. 22"
+    owed_by: controller
+    gate: law
+    when: {company_role: [controller, both], new_processing: true}
+    applies_from: "2018-05-25"
+    produced_by: dpia
+    reference: gdpr.md
+    required_content:
+      - {key: processing, cite: "GDPR Art. 35(7)(a)"}
+      - {key: necessity, cite: "GDPR Art. 35(7)(b)"}
+      - {key: risks, cite: "GDPR Art. 35(7)(c)"}
+      - {key: measures, cite: "GDPR Art. 35(7)(d)"}
+      - {key: dpo_advice, cite: "GDPR Art. 35(2)"}
+      - {key: data_subject_views, cite: "GDPR Art. 35(9)"}
+  - id: prior-consultation
+    name: Prior consultation with the supervisory authority
+    citation: "GDPR Art. 36; FADP Art. 23"
+    owed_by: controller
+    gate: law
+    when: {company_role: [controller, both], dpia_high_residual: true}
+    applies_from: "2018-05-25"
+    produced_by: dpia
+    reference: gdpr.md
+  - id: state-assessment
+    name: State data protection assessment
+    citation: "US state privacy laws (us-state-privacy.md)"
+    owed_by: controller
+    gate: law
+    when: {company_role: [controller, both]}
+    when_any: {profiling: true, special_category: true, children_or_students: true, tracking_tech: true, vendor_own_use: true}
+    applies_from: "2023-01-01"
+    produced_by: dpia
+    reference: us-state-privacy.md
+  - id: cppa-risk-assessment
+    name: CPPA risk assessment
+    citation: "CCPA Regs., 11 CCR § 7150"
+    owed_by: business
+    gate: law
+    when: {cppa_business: true}
+    when_any: {special_category: true, profiling: true, ai_influences_decisions: true, tracking_tech: true, vendor_own_use: true}
+    applies_from: "2026-01-01"
+    produced_by: dpia
+    reference: us-state-privacy.md
+  - id: lia
+    name: Legitimate interests assessment
+    citation: "GDPR and UK GDPR Art. 6(1)(f), 5(2)"
+    owed_by: controller
+    gate: law
+    when: {company_role: [controller, both], lawful_basis: legitimate-interests}
+    applies_from: "2018-05-25"
+    produced_by: lia
+    reference: gdpr.md
+    required_content:
+      - {key: purpose, cite: "Art. 6(1)(f): a legitimate interest"}
+      - {key: necessity, cite: "Art. 6(1)(f): necessity"}
+      - {key: balancing, cite: "Art. 6(1)(f): balance against the individual's interests, rights, and reasonable expectations (Recital 47)"}
+      - {key: safeguards, cite: "Art. 5(2); Art. 21 objection handling"}
+  - id: compatibility
+    name: Compatibility assessment
+    citation: "GDPR and UK GDPR Art. 6(4)"
+    owed_by: controller
+    gate: law
+    when: {company_role: [controller, both], new_purpose_for_old_data: true}
+    applies_from: "2018-05-25"
+    produced_by: lia
+    reference: gdpr.md
+    required_content:
+      - {key: link, cite: "Art. 6(4)(a)"}
+      - {key: context, cite: "Art. 6(4)(b)"}
+      - {key: nature, cite: "Art. 6(4)(c)"}
+      - {key: consequences, cite: "Art. 6(4)(d)"}
+      - {key: safeguards, cite: "Art. 6(4)(e)"}
+  - id: tia
+    name: Transfer impact assessment
+    citation: "2021 SCCs Clause 14; EDPB Recommendations 01/2020"
+    owed_by: data-exporter
+    gate: law
+    when: {eu_people: true, cross_border_access: true, transfer_mechanism: [sccs, bcrs]}
+    applies_from: "2021-06-27"
+    produced_by: tia
+    reference: gdpr.md
+    required_content:
+      - {key: transfer_map, cite: "Recommendations 01/2020, step 1"}
+      - {key: mechanism, cite: "step 2"}
+      - {key: destination_law, cite: "step 3"}
+      - {key: supplementary_measures, cite: "step 4"}
+      - {key: procedural_steps, cite: "step 5"}
+      - {key: reassessment, cite: "step 6"}
+  - id: uk-transfer-risk-assessment
+    name: UK transfer risk assessment
+    citation: "UK GDPR Art. 46; ICO guidance; DUAA test once commenced"
+    owed_by: data-exporter
+    gate: law
+    when: {uk_people: true, cross_border_access: true, transfer_mechanism: [uk-idta, uk-addendum]}
+    applies_from: "2022-03-21"
+    produced_by: tia
+    reference: gdpr.md
+  - id: swiss-transfer-assessment
+    name: Swiss transfer assessment
+    citation: "FADP Art. 16"
+    owed_by: data-exporter
+    gate: law
+    when: {ch_people: true, cross_border_access: true, transfer_mechanism: [sccs]}
+    applies_from: "2023-09-01"
+    produced_by: tia
+    reference: gdpr.md
+  - id: security-risk-assessment
+    name: Security risk assessment
+    citation: "GDPR Art. 32"
+    owed_by: controller and processor
+    gate: law
+    when: {new_processing: true}
+    applies_from: "2018-05-25"
+    produced_by: controls-and-evidence
+    reference: gdpr.md
+  - id: ccpa-cybersecurity-audit
+    name: CCPA cybersecurity audit preparation
+    citation: "CCPA Regs. (us-state-privacy.md section 6)"
+    owed_by: business
+    gate: law
+    when: {cppa_business: true, cppa_audit_threshold: true}
+    applies_from: "2028-04-01"
+    produced_by: controls-and-evidence
+    reference: us-state-privacy.md
+  - id: coppa-security-program
+    name: COPPA security program risk assessment
+    citation: "16 CFR Part 312, as amended in 2025"
+    owed_by: operator
+    gate: law
+    when: {children_under_13: true}
+    applies_from: "2026-04-22"
+    produced_by: controls-and-evidence
+    reference: ferpa.md
+  - id: ny-student-data-plan
+    name: Student data security and privacy plan
+    citation: "NY Educ. Law § 2-d; 8 NYCRR Part 121"
+    owed_by: third-party contractor
+    gate: law
+    when: {ny_school_contract: true}
+    applies_from: "2020-01-29"
+    produced_by: controls-and-evidence
+    reference: ferpa.md
+  - id: ai-prohibited-screening
+    name: Prohibited practice screening
+    citation: "AI Act Art. 5"
+    owed_by: provider and deployer
+    gate: law
+    when: {ai_involved: true}
+    applies_from: "2025-02-02"
+    produced_by: ai-intake
+    reference: eu-ai-act.md
+  - id: ai-provider-role-check
+    name: Provider role check
+    citation: "AI Act Art. 25"
+    owed_by: deployer, distributor, or importer
+    gate: law
+    when: {ai_act_role: deployer, ai_modified: true}
+    applies_from: "2026-08-02"
+    produced_by: ai-intake
+    reference: eu-ai-act.md
+  - id: ai-non-high-risk-documentation
+    name: Non-high-risk documentation
+    citation: "AI Act Art. 6(4)"
+    owed_by: provider
+    gate: law
+    when: {ai_act_role: provider, ai_not_high_risk_claim: true}
+    applies_from: "2026-08-02"
+    produced_by: ai-act-provider
+    reference: eu-ai-act.md
+  - id: ai-risk-management
+    name: Risk management system, data governance, conformity readiness, and post-market monitoring
+    citation: "AI Act Art. 9, 10, 11, 43, 72; Annex IV"
+    owed_by: provider
+    gate: law
+    when: {ai_act_role: provider, ai_high_risk: true}
+    applies_from: "2027-12-02"
+    produced_by: ai-act-provider
+    reference: eu-ai-act.md
+  - id: ai-deployer-duties
+    name: Deployer duties check
+    citation: "AI Act Art. 26"
+    owed_by: deployer
+    gate: law
+    when: {ai_act_role: deployer, ai_high_risk: true}
+    applies_from: "2027-12-02"
+    produced_by: ai-act-deployer
+    reference: eu-ai-act.md
+  - id: fria
+    name: Fundamental rights impact assessment
+    citation: "AI Act Art. 27"
+    owed_by: certain deployers
+    gate: law
+    when: {ai_act_role: deployer, ai_high_risk: true, fria_deployer: true}
+    applies_from: "2027-12-02"
+    produced_by: ai-impact-assessment
+    reference: eu-ai-act.md
+  - id: ai-impact-assessment
+    name: AI impact assessment
+    citation: "Company policy (AIUC-1, NIST AI RMF, ISO/IEC 42001)"
+    owed_by: company
+    gate: policy
+    when_any: {ai_profiles_people: true, ai_influences_decisions: true}
+    applies_from: "2026-01-01"
+    produced_by: ai-impact-assessment
+    reference: aiuc-1.md
+  - id: nyc-bias-audit
+    name: Bias audit preparation (the audit itself needs an independent auditor)
+    citation: "NYC Local Law 144"
+    owed_by: employer or employment agency
+    gate: law
+    when: {nyc_hiring_tool: true}
+    applies_from: "2023-07-05"
+    produced_by: ai-impact-assessment
+    reference: us-state-privacy.md
+
+  # Conditional regimes (company-profile.md). Each waits for its reference file.
+  - id: hipaa-risk-analysis
+    name: HIPAA security risk analysis
+    citation: "45 CFR § 164.308(a)(1)(ii)(A)"
+    owed_by: covered entity or business associate
+    gate: law
+    when: {phi: true}
+    applies_from: "2005-04-20"
+    produced_by: controls-and-evidence
+    reference: hipaa.md
+  - id: glba-risk-assessment
+    name: GLBA Safeguards Rule written risk assessment
+    citation: "16 CFR § 314.4(b)"
+    owed_by: financial institution or its service provider
+    gate: law
+    when: {glba_customer_info: true}
+    applies_from: "2023-06-09"
+    produced_by: controls-and-evidence
+    reference: glba.md
+  - id: nis2-risk-management
+    name: NIS2 cybersecurity risk management
+    citation: "NIS2 Directive Art. 21, as transposed"
+    owed_by: essential or important entity
+    gate: law
+    when: {nis2_service: true}
+    applies_from: "2024-10-18"
+    produced_by: controls-and-evidence
+    reference: nis2.md
+  - id: quebec-pia
+    name: Quebec privacy impact assessment
+    citation: "Quebec Law 25 (Act respecting the protection of personal information in the private sector, s. 3.3, 17)"
+    owed_by: enterprise
+    gate: law
+    when: {quebec_people: true}
+    when_any: {new_processing: true, cross_border_access: true}
+    applies_from: "2023-09-22"
+    produced_by: dpia
+    reference: quebec-law-25.md
+  - id: gpai-duties
+    name: General-purpose AI model duties
+    citation: "AI Act Art. 53, 55"
+    owed_by: GPAI model provider
+    gate: law
+    when: {gpai_model: true}
+    applies_from: "2025-08-02"
+    produced_by: ai-act-provider
+    reference: eu-ai-act-gpai.md

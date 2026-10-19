@@ -75,7 +75,7 @@ Items marked **Evidence** ask for a document, not just an answer. Record what wa
     - **EU:** an adequacy decision, the EU-US DPF (check that the recipient is certified and active), the 2021 SCCs (record the module: 1 C2C, 2 C2P, 3 P2P, 4 P2C), BCRs, or an Art. 49 derogation (occasional transfers only)
     - **UK:** adequacy regulations, the UK Extension to the DPF, the IDTA, or the UK Addendum
     - **Switzerland:** an adequacy listing, the Swiss-US DPF, or SCCs with Swiss adaptations
-37. [R2] A transfer impact assessment on file for SCC or BCR transfers, and any supplementary measures
+37. [R2] A transfer impact assessment on file for SCC or BCR transfers, and any supplementary measures. If none exists, recommend the `tia` skill.
 38. [R2] Remote access from third countries, such as support staff. Remote access counts as a transfer.
 
 ## H. Retention and deletion

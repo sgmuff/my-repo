@@ -102,4 +102,50 @@ def _open_question_on(data: dict, field: str) -> bool:
     return any(q["field"] == field for q in data["open_questions"])
 
 
-FINDINGS = {"ropa": ropa}
+def lia(data: dict) -> list:
+    out = []
+    decision = data["decision"]["value"]
+    holds = decision in ("holds", "holds-with-conditions")
+    if data["special_category"]["value"] is True:
+        out.append(("special_category", "an LIA never supplies an Art. 9 condition; confirm the DPIA names one"))
+    objection = data["objection"]
+    if objection["direct_marketing"] is True and not re.search(r"\b(absolute|always|stop|stops)\b", objection["how"], re.I):
+        out.append(("objection", "direct marketing makes the right to object absolute (Art. 21(3)); say that processing stops on objection"))
+    if objection["notice"] == "gap":
+        out.append(("objection/notice", "the notice doesn't name the interest (Art. 13(1)(d), 14(2)(b)); recommend a notice update"))
+    if holds:
+        for key, call in (("purpose_test", "legitimate"), ("necessity_test", "necessary")):
+            test = data[key]
+            if test.get("applicable") and test[call]["value"] is not True:
+                out.append((key, f"the decision says the interest holds, but {key.replace('_', ' ')} isn't met"))
+        balancing = data["balancing"]
+        if balancing.get("applicable") and balancing["outcome"]["value"] != "interest-prevails":
+            out.append(("balancing", "the decision says the interest holds, but the balance doesn't favor it"))
+        compat = data["compatibility"]
+        if compat.get("applicable") and compat["outcome"]["value"] != "compatible":
+            out.append(("compatibility", "the decision says the new purpose is fine, but compatibility isn't established"))
+    if is_tbc(data["activity"]["ropa"]):
+        out.append(("activity", "link the RoPA entry this assesses"))
+    return out
+
+
+def tia(data: dict) -> list:
+    out = []
+    decision = data["decision"]["value"]
+    if data["mechanism"]["adequacy_checked"]["value"] is not True:
+        out.append(("mechanism", "check adequacy and any DPF certification first; if one covers the importer, no TIA is needed"))
+    impinges = data["destination_law"]["impinges"]["value"]
+    effective = any(m["effective"]["value"] is True for m in data["measures"])
+    if decision in ("proceed", "proceed-with-measures"):
+        if impinges is not False and not effective:
+            out.append(("measures", "the decision is to proceed, but step 3 found a problem or left it open and no measure is shown to work"))
+        if data["procedural"]["signed"] is not True:
+            out.append(("procedural", "the decision is to proceed, but the transfer tool isn't signed"))
+    if data["transfer_map"]["special_category"]["value"] is True and not data["measures"]:
+        out.append(("measures", "special category data is transferred with no supplementary measures recorded"))
+    if is_tbc(data["activity"]):
+        out.append(("activity", "link the RoPA entry this transfer belongs to"))
+    return out
+
+
+FINDINGS = {"ropa": ropa, "lia": lia, "tia": tia}

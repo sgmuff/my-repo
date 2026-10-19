@@ -1,0 +1,138 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+title: Transfer impact assessment
+description: "A transfer impact assessment in the six steps of EDPB Recommendations 01/2020, for SCCs or BCRs (EU), the IDTA or UK Addendum (UK), or Swiss SCCs."
+type: object
+additionalProperties: false
+required: [id, type, schema_version, format_version, kind, title, status, version, activity, vendor_review,
+  business_owner, prepared_by, date_prepared, last_reviewed, next_review, summary, decision,
+  exporter, importer, transfer_map, mechanism, destination_law, measures, procedural, reassessment,
+  actions, open_questions, verify, finding_responses, references, version_history, signoff]
+properties:
+  id: {type: string, pattern: "^TIA-\\d{4}-\\d{3}$"}
+  type: {const: tia}
+  schema_version: {const: 1}
+  format_version: {const: 1}
+  kind:
+    enum: [eu-tia, uk-tra, ch-tia]
+    description: "eu-tia: 2021 SCCs Clause 14 or BCRs. uk-tra: IDTA or UK Addendum (ICO guidance). ch-tia: Swiss-adapted SCCs (FADP Art. 16)."
+  title: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 10}
+  status: {$ref: "common.schema.yaml#/$defs/doc_status"}
+  version: {$ref: "common.schema.yaml#/$defs/version"}
+  activity: {type: string, description: "The RoPA entry for the transfer, ROPA-NNNN, or TBC"}
+  vendor_review: {type: string, description: "The vendor review ID, recommended, not-applicable, or TBC"}
+  business_owner: {$ref: "common.schema.yaml#/$defs/short"}
+  prepared_by: {$ref: "common.schema.yaml#/$defs/short"}
+  date_prepared: {$ref: "common.schema.yaml#/$defs/date"}
+  last_reviewed: {$ref: "common.schema.yaml#/$defs/date_or_null"}
+  next_review: {$ref: "common.schema.yaml#/$defs/date"}
+  summary: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 50}
+
+  decision:
+    description: "The outcome. Only the privacy lead confirms it."
+    $ref: "common.schema.yaml#/$defs/call"
+    properties:
+      value: {enum: [proceed, proceed-with-measures, suspend, open]}
+
+  exporter:
+    type: object
+    additionalProperties: false
+    required: [name, role, source]
+    properties:
+      name: {$ref: "common.schema.yaml#/$defs/short"}
+      role: {enum: [controller, processor, TBC]}
+      source: {$ref: "common.schema.yaml#/$defs/source"}
+
+  importer:
+    type: object
+    additionalProperties: false
+    required: [name, country, role, source]
+    properties:
+      name: {$ref: "common.schema.yaml#/$defs/short"}
+      country: {$ref: "common.schema.yaml#/$defs/short"}
+      role: {enum: [controller, processor, sub-processor, TBC]}
+      source: {$ref: "common.schema.yaml#/$defs/source"}
+
+  transfer_map:
+    description: "Step 1: know the transfer, including onward transfers and remote access."
+    type: object
+    additionalProperties: false
+    required: [data, people, purpose, access, onward, special_category, source]
+    properties:
+      data: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 25}
+      people: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 15}
+      purpose: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 20}
+      access: {enum: [stored, remote-access, both, TBC]}
+      onward: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 25, description: "Sub-processors and countries the importer passes data to, none, or TBC"}
+      special_category: {$ref: "common.schema.yaml#/$defs/call_tristate"}
+      source: {$ref: "common.schema.yaml#/$defs/source"}
+
+  mechanism:
+    description: "Step 2: the transfer tool. Adequacy, including a covering DPF certification, means no TIA is needed."
+    type: object
+    additionalProperties: false
+    required: [tool, module, adequacy_checked, verified]
+    properties:
+      tool: {enum: [sccs, bcrs, uk-idta, uk-addendum, ch-sccs, TBC]}
+      module: {enum: ["1", "2", "3", "4", not-applicable, TBC], description: "SCC module: 1 C2C, 2 C2P, 3 P2P, 4 P2C"}
+      adequacy_checked: {$ref: "common.schema.yaml#/$defs/call_tristate", description: "true when you checked that no adequacy decision or covering DPF certification applies"}
+      verified: {$ref: "common.schema.yaml#/$defs/short", description: "Where and when the tool was checked, or TBC"}
+
+  destination_law:
+    description: "Step 3: whether the destination's law or practice impinges on the tool's safeguards, for this importer and this data."
+    type: object
+    additionalProperties: false
+    required: [laws, practice, impinges, sources]
+    properties:
+      laws:
+        type: array
+        minItems: 1
+        items:
+          type: object
+          additionalProperties: false
+          required: [law, applies]
+          properties:
+            law: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 15, description: "Such as FISA Section 702"}
+            applies: {$ref: "common.schema.yaml#/$defs/call_tristate", description: "Whether it can reach this importer and data"}
+      practice: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 40, description: "Evidence of how the law is applied, such as the importer's transparency report"}
+      impinges: {$ref: "common.schema.yaml#/$defs/call_tristate", description: "Whether it impinges on the tool's effectiveness"}
+      sources:
+        type: array
+        minItems: 1
+        items: {$ref: "common.schema.yaml#/$defs/short"}
+
+  measures:
+    description: "Step 4: supplementary measures, and whether each is effective against the risk found in step 3"
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [measure, kind, effective]
+      properties:
+        measure: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 20}
+        kind: {enum: [technical, contractual, organizational]}
+        effective: {$ref: "common.schema.yaml#/$defs/call_tristate"}
+
+  procedural:
+    description: "Step 5: the formal steps the tool needs"
+    type: object
+    additionalProperties: false
+    required: [signed, steps]
+    properties:
+      signed: {$ref: "common.schema.yaml#/$defs/tristate"}
+      steps: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 30, description: "Such as signing Module 3, annexes, or authority approval"}
+
+  reassessment:
+    description: "Step 6: when to look again"
+    type: object
+    additionalProperties: false
+    required: [triggers]
+    properties:
+      triggers: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 30}
+
+  actions: {$ref: "common.schema.yaml#/$defs/actions"}
+  open_questions: {$ref: "common.schema.yaml#/$defs/open_questions"}
+  verify: {$ref: "common.schema.yaml#/$defs/verify"}
+  finding_responses: {$ref: "common.schema.yaml#/$defs/finding_responses"}
+  references: {$ref: "common.schema.yaml#/$defs/references"}
+  version_history: {$ref: "common.schema.yaml#/$defs/version_history"}
+  signoff: {$ref: "common.schema.yaml#/$defs/signoff"}

@@ -1,0 +1,74 @@
+id: TIA-2026-001
+type: tia
+schema_version: 1
+format_version: 1
+kind: eu-tia
+title: CRM vendor support access from the US
+status: Draft
+version: "0.1"
+activity: ROPA-0001
+vendor_review: recommended
+business_owner: Head of Sales
+prepared_by: Claude (privacy-governance suite)
+date_prepared: "2026-10-18"
+last_reviewed: null
+next_review: "2027-10-18"
+summary: EU customer contact data is hosted in Frankfurt, and the CRM vendor's US support team can access it remotely. The vendor isn't DPF-certified, so the transfer relies on SCCs Module 2.
+decision: {value: open, status: Provisional, reason: Step 3 needs the vendor's government-access record (Q1)}
+
+exporter: {name: TBC, role: controller, source: {kind: stated, ref: Sales request}}
+importer: {name: CRM vendor Inc., country: United States, role: processor, source: {kind: document, ref: Vendor DPA draft}}
+
+transfer_map:
+  data: Customer contact names, work emails, and deal notes
+  people: Customer contacts in the EEA
+  purpose: Support troubleshooting on request
+  access: remote-access
+  onward: TBC
+  special_category: {value: false, status: Provisional, reason: Business contact data only}
+  source: {kind: document, ref: Vendor DPA draft}
+
+mechanism:
+  tool: sccs
+  module: "2"
+  adequacy_checked: {value: true, status: Provisional, reason: Vendor not on the DPF list as of 2026-10-18}
+  verified: dataprivacyframework.gov, 2026-10-18
+
+destination_law:
+  laws:
+    - {law: FISA Section 702, applies: {value: TBC, status: Provisional, reason: Depends on whether the vendor is an electronic communication service provider}}
+    - {law: Executive Order 12333, applies: {value: TBC, status: Provisional, reason: Applies to data in transit; not yet assessed}}
+  practice: TBC
+  impinges: {value: TBC, status: Provisional, reason: Depends on step 3 facts (Q1)}
+  sources: [gdpr.md section 11, EDPB Recommendations 01/2020]
+
+measures:
+  - {measure: Access only on a support ticket the customer opens, kind: organizational, effective: {value: TBC, status: Provisional, reason: Not yet tested}}
+  - {measure: Encryption at rest with keys held in the EEA, kind: technical, effective: {value: TBC, status: Provisional, reason: Doesn't protect data viewed during remote access}}
+
+procedural:
+  signed: false
+  steps: Sign SCCs Module 2 with the annexes completed
+
+reassessment:
+  triggers: A change in US law, a DPF certification by the vendor, new sub-processors, or a government access request
+
+actions:
+  - {id: A1, action: Sign SCCs Module 2 with the vendor, owner: Privacy lead, due: TBC, closure_evidence: Signed SCCs on file, launch_blocking: true, block_reason: law, status: open}
+
+open_questions:
+  - {id: Q1, question: "Has the vendor received government access requests, and does it publish a transparency report?", field: destination_law/practice, blocks: approval, owner: Privacy lead, needed_by: TBC}
+
+verify:
+  - {id: V1, claim: The vendor isn't DPF-certified, why: Certification would make this TIA unnecessary, check: dataprivacyframework.gov list, owner: Privacy lead, needed_by: TBC}
+
+finding_responses: []
+
+references:
+  - {file: gdpr.md, version: "EU GDPR as of 2026-10-16", verified: "2026-10-16"}
+
+version_history:
+  - {version: "0.1", date: "2026-10-18", author: Claude (privacy-governance suite), change: First draft}
+
+signoff:
+  - {decision: Assessment approved, approver_role: Privacy lead, name: null, date: null, outcome: null}

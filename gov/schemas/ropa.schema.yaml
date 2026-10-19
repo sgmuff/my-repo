@@ -6,13 +6,13 @@ additionalProperties: false
 required: [id, type, schema_version, format_version, title, status, version, record_type,
   business_area, business_owner, system_owner, prepared_by, date_prepared, last_reviewed, next_review, summary,
   company, processor_record, purposes, data_subjects, data_categories, recipients, transfers, retention, security,
-  systems, us_flags, ai_used, related, follow_ons, actions, open_questions, verify, finding_responses, nist_pf,
+  systems, us_flags, ai_used, related, assessments, follow_ons, actions, open_questions, verify, finding_responses, nist_pf,
   references, version_history, signoff]
 properties:
   id: {type: string, pattern: "^ROPA-\\d{4}$"}
   type: {const: ropa}
-  schema_version: {const: 2}
-  format_version: {const: 2}
+  schema_version: {const: 3}
+  format_version: {const: 3}
   title: {$ref: "#/$defs/text", x-max-words: 8, description: Activity name, short}
   status: {$ref: "#/$defs/doc_status"}
   version: {type: string, pattern: "^\\d+\\.\\d+$", description: "Quoted, such as \"0.1\""}
@@ -243,6 +243,25 @@ properties:
       ai_intake: {$ref: "#/$defs/short", description: "AI system ID, recommended, not-applicable, or TBC"}
       notice: {enum: [covered, gap, TBC], description: Whether the privacy notice covers this activity}
       linked_entries: {type: array, items: {type: string, pattern: "^ROPA-\\d{4}$"}, description: "Related RoPA entries, such as the controller entry for a purpose the company decides itself"}
+
+  assessments:
+    description: "Responses to the assessments `gov required` says this activity owes. Each names a catalog entry and says whether it's on file, planned, or not applicable, with who decided."
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [assessment, status]
+      properties:
+        assessment: {type: string, pattern: "^[a-z0-9]+(-[a-z0-9]+)*$", description: "Catalog entry ID, such as dpia or tia"}
+        status: {enum: [on-file, planned, not-applicable]}
+        record: {type: string, description: "The assessment's ID, when on file"}
+        reason: {$ref: "#/$defs/text", x-max-words: 20}
+        by: {$ref: "#/$defs/short", description: "Who decided it doesn't apply, with role"}
+      allOf:
+        - if: {properties: {status: {const: on-file}}}
+          then: {required: [record]}
+        - if: {properties: {status: {const: not-applicable}}}
+          then: {required: [reason, by]}
 
   follow_ons:
     description: Recommended next steps. The RoPA recommends; it doesn't conclude.

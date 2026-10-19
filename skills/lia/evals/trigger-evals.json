@@ -1,0 +1,82 @@
+[
+  {
+    "query": "marketing wants to rely on legitimate interests for scoring leads we pulled off linkedin, can you write up the balancing test",
+    "should_trigger": true
+  },
+  {
+    "query": "Do we have a legitimate interest in keeping former customers' emails to send them win-back offers? Need something documented for the file.",
+    "should_trigger": true
+  },
+  {
+    "query": "We want to reuse support chat transcripts to train our help-center bot. They were collected to resolve tickets. Is that a compatible purpose?",
+    "should_trigger": true
+  },
+  {
+    "query": "can we use legit interest for CCTV in the warehouse or do we need consent",
+    "should_trigger": true
+  },
+  {
+    "query": "The DPO asked for an LIA before we turn on fraud scoring at checkout. Can you draft it?",
+    "should_trigger": true
+  },
+  {
+    "query": "Is product analytics on our own app users OK under Article 6(1)(f)? I need the three-part test written down.",
+    "should_trigger": true
+  },
+  {
+    "query": "UK team wants to share info with police about a safeguarding concern — is that a recognized legitimate interest now?",
+    "should_trigger": true
+  },
+  {
+    "query": "we collected emails for event registration, now sales wants to upload them to a lookalike audience tool. compatible or not?",
+    "should_trigger": true
+  },
+  {
+    "query": "gov required says this RoPA entry owes an LIA for P2. Can you do it?",
+    "should_trigger": true
+  },
+  {
+    "query": "Can we justify monitoring employees' email for data loss prevention on legitimate interests? EU staff.",
+    "should_trigger": true
+  },
+  {
+    "query": "Do we need a DPIA for the new churn model?",
+    "should_trigger": false
+  },
+  {
+    "query": "Add the webinar signup flow to the RoPA.",
+    "should_trigger": false
+  },
+  {
+    "query": "Review this vendor DPA against Article 28 for me.",
+    "should_trigger": false
+  },
+  {
+    "query": "What lawful basis should payroll use, contract or legal obligation?",
+    "should_trigger": false
+  },
+  {
+    "query": "Can we email prospects in Germany without consent? Just the ePrivacy question, the GDPR side is done.",
+    "should_trigger": false
+  },
+  {
+    "query": "A customer asked us to delete their data and stop marketing to them. What do we do?",
+    "should_trigger": false
+  },
+  {
+    "query": "Write the privacy notice section explaining our legitimate interests to users.",
+    "should_trigger": false
+  },
+  {
+    "query": "Is our support vendor's US access OK under the SCCs, or do we need a TIA?",
+    "should_trigger": false
+  },
+  {
+    "query": "We're buying an AI note-taker for sales calls. Where do I start on privacy?",
+    "should_trigger": false
+  },
+  {
+    "query": "What does Recital 47 say?",
+    "should_trigger": false
+  }
+]

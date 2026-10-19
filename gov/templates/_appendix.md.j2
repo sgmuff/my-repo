@@ -1,0 +1,53 @@
+## Appendix
+
+### Open questions
+
+{% if r.open_questions %}
+| # | Question | Field | Blocks | Owner | Needed by |
+|---|---|---|---|---|---|
+{% for q in r.open_questions %}
+| {{ q.id }} | {{ q.question | cell }} | {{ q.field | cell }} | {{ q.blocks | label }} | {{ q.owner | cell }} | {{ q.needed_by }} |
+{% endfor %}
+{% else %}
+None.
+{% endif %}
+
+### Verify flags
+
+{% if r.verify %}
+| # | Claim | Why it matters | Check | Owner | Needed by |
+|---|---|---|---|---|---|
+{% for v in r.verify %}
+| {{ v.id }} | {{ v.claim | cell }} | {{ v.why | cell }} | {{ v.check | cell }} | {{ v.owner | cell }} | {{ v.needed_by }} |
+{% endfor %}
+{% else %}
+None.
+{% endif %}
+
+### Responses to validation findings
+
+{% if r.finding_responses %}
+| About | Response | By |
+|---|---|---|
+{% for f in r.finding_responses %}
+| {{ f.pointer | cell }} | {{ f.response | cell }} | {{ f.by | cell }} |
+{% endfor %}
+{% else %}
+None.
+{% endif %}
+
+### References
+
+{% for ref in r.references %}
+- `{{ ref.file }}`: {{ ref.version }}, verified {{ ref.verified }}
+{% else %}
+- No references cited.
+{% endfor %}
+
+### Version history
+
+| Version | Date | Author | Change |
+|---|---|---|---|
+{% for v in r.version_history %}
+| {{ v.version }} | {{ v.date }} | {{ v.author | cell }} | {{ v.change | cell }} |
+{% endfor %}

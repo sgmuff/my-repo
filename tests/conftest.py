@@ -14,6 +14,7 @@ def root(tmp_path, monkeypatch):
     """An empty suite: the marker file and nothing else."""
     (tmp_path / "skills" / "_shared").mkdir(parents=True)
     shutil.copy(REPO / "skills" / "_shared" / "company-profile.md", tmp_path / "skills" / "_shared")
+    shutil.copytree(REPO / "skills" / "_shared" / "references", tmp_path / "skills" / "_shared" / "references")
     monkeypatch.delenv("GOV_ROOT", raising=False)
     return tmp_path
 
@@ -35,3 +36,17 @@ def golden(path: Path, actual: str) -> None:
     if UPDATE or not path.exists():
         path.write_text(actual, encoding="utf-8")
     assert actual == path.read_text(encoding="utf-8"), f"{path.name} differs; rerun with UPDATE_GOLDEN=1 if intended"
+
+
+@pytest.fixture
+def assess_root(ropa_root):
+    """The RoPA fixture plus the LIA and TIA fixtures, with their IDs issued."""
+    from gov import ids
+
+    for kind in ("lia", "tia"):
+        folder = ropa_root / "compliance" / "assessments" / kind
+        folder.mkdir(parents=True)
+        for path in (FIXTURES / kind).glob("*.yaml"):
+            shutil.copy(path, folder)
+        ids.next_id(ropa_root, kind.upper(), "2026")
+    return ropa_root

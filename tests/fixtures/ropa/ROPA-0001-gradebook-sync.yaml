@@ -1,7 +1,7 @@
 id: ROPA-0001
 type: ropa
-schema_version: 2
-format_version: 2
+schema_version: 3
+format_version: 3
 title: Gradebook Sync
 status: Draft
 version: "0.1"
@@ -170,6 +170,10 @@ related:
   ai_intake: recommended
   notice: TBC
   linked_entries: []
+
+assessments:
+  - {assessment: security-risk-assessment, status: planned, reason: Covered by the controls-and-evidence review of the integration}
+  - {assessment: ai-prohibited-screening, status: planned, reason: Part of the recommended ai-intake}
 
 follow_ons:
   - skill: dpia

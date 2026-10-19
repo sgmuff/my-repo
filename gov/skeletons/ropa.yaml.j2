@@ -6,8 +6,8 @@
 # A source is {kind: document|stated|inferred|tbc, ref: "name and version; person, role, date; or inferred from what"}.
 id: {{ id }}
 type: ropa
-schema_version: 2
-format_version: 2
+schema_version: 3
+format_version: 3
 title: {{ title | tojson }}  # activity name, 8 words at most
 status: Draft  # Draft | In review | Approved | Approved with conditions | Rejected | Superseded
 version: "0.1"  # quoted
@@ -108,6 +108,10 @@ related:
   ai_intake: TBC  # AI system ID, recommended, not-applicable, or TBC
   notice: TBC  # covered | gap | TBC
   linked_entries: []  # related RoPA IDs, such as the controller entry for the company's own purposes
+
+# Responses to `gov required`. List of {assessment: <catalog ID>, status: on-file|planned|not-applicable,
+# record: <ID> (when on file), reason, by (who decided it doesn't apply; only a person decides that)}
+assessments: []
 
 follow_ons: []  # list of {skill: dpia|vendor-review|ai-intake|notice-and-policy|tia, reason}; recommend, don't conclude
 

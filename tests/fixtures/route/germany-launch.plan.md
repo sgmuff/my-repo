@@ -3,7 +3,7 @@
 | 1 | DPIA screening | `dpia` | Required | Now | new_processing = yes | — |
 | 2 | Vendor review | `vendor-review` | Required | Now | vendor_involved = yes | — |
 | 3 | AI intake | `ai-intake` | Required | Now | ai_involved = yes | — |
-| 4 | Transfer screening | `tia` (no skill yet) | If cross_border_access = yes | After 2 | — | — |
+| 4 | Transfer screening | `tia` | If cross_border_access = yes | After 2 | — | — |
 | 5 | AI impact assessment | `ai-impact-assessment` | If ai_profiles_people = yes or ai_influences_decisions = yes | After 3 | — | — |
 | 6 | AI Act deployer readiness | `ai-act-deployer` (no skill yet) | If ai_high_risk = yes | After 3 | ai_act_role = deployer | — |
 | 7 | RoPA entry | `ropa` | Required | Now | new_processing = yes | 1, 2 |

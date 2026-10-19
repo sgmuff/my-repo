@@ -1,0 +1,82 @@
+[
+  {
+    "query": "Our helpdesk vendor's US engineers can see EU tickets. We're on SCCs module 2. Can you do the transfer impact assessment?",
+    "should_trigger": true
+  },
+  {
+    "query": "is it ok to send our EU customer list to a CRM hosted in the US after Schrems II",
+    "should_trigger": true
+  },
+  {
+    "query": "uk payroll goes to a bureau in india under the IDTA, need the transfer risk assessment",
+    "should_trigger": true
+  },
+  {
+    "query": "We're moving the EU database to AWS us-east-1. Do we need a TIA or does the DPF cover it?",
+    "should_trigger": true
+  },
+  {
+    "query": "Our Swiss subsidiary's HR data goes to the parent in the US under Swiss SCCs. Need the assessment the FDPIC expects.",
+    "should_trigger": true
+  },
+  {
+    "query": "Developers in Ukraine and the Philippines get read access to production. Is that a transfer and what do we document?",
+    "should_trigger": true
+  },
+  {
+    "query": "gov required lists a TIA for this RoPA entry. Can you write it?",
+    "should_trigger": true
+  },
+  {
+    "query": "The vendor isn't DPF certified and uses sub-processors in India. What supplementary measures do we need for the SCCs?",
+    "should_trigger": true
+  },
+  {
+    "query": "Triage plan says transfer screening for the analytics vendor. Can you run that step?",
+    "should_trigger": true
+  },
+  {
+    "query": "Our BCRs cover intra-group transfers to Brazil. Legal wants the Clause 14-style assessment documented anyway.",
+    "should_trigger": true
+  },
+  {
+    "query": "Review this vendor's DPA, including their transfer clauses and their own TIA document.",
+    "should_trigger": false
+  },
+  {
+    "query": "Is the EU-US Data Privacy Framework still valid after the Latombe case?",
+    "should_trigger": false
+  },
+  {
+    "query": "Do we need a DPIA for the new data warehouse?",
+    "should_trigger": false
+  },
+  {
+    "query": "Add the US payroll processing to the RoPA.",
+    "should_trigger": false
+  },
+  {
+    "query": "Which SCC module do we use when we're a processor sending to a sub-processor?",
+    "should_trigger": false
+  },
+  {
+    "query": "A Chinese customer asked whether we store their data in China. What do I tell them?",
+    "should_trigger": false
+  },
+  {
+    "query": "We had a breach at our US vendor. Do we have to notify the Irish DPC?",
+    "should_trigger": false
+  },
+  {
+    "query": "Can you write the legitimate interests assessment for lead scoring?",
+    "should_trigger": false
+  },
+  {
+    "query": "We're launching in Germany with a new payments partner. What's our privacy to-do list?",
+    "should_trigger": false
+  },
+  {
+    "query": "What countries have EU adequacy decisions?",
+    "should_trigger": false
+  }
+]

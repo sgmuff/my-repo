@@ -37,6 +37,11 @@ def main(argv=None) -> int:
 
     sub.add_parser("index", help="rebuild register indexes (same as render)")
 
+    p = sub.add_parser("required", help="list the assessments a record or set of facts owes")
+    p.add_argument("source", help="a record YAML file, or a facts YAML file, or - for stdin")
+    p.add_argument("--as-of", help="YYYY-MM-DD; defaults to a record's date_prepared, and is required for facts")
+    p.add_argument("--format", choices=["yaml", "markdown"], default="markdown")
+
     p = sub.add_parser("route", help="print the triage plan for a facts file")
     p.add_argument("facts", help="YAML file of deciding facts, or - for stdin")
     p.add_argument("--format", choices=["yaml", "markdown", "questions"], default="yaml",
@@ -92,6 +97,26 @@ def _render(root, args) -> int:
     return 0
 
 
+def _required(root, args) -> int:
+    from gov import required as req
+    text = sys.stdin.read() if args.source == "-" else Path(args.source).read_text(encoding="utf-8")
+    data = yamlio.loads(text) or {}
+    if not isinstance(data, dict):
+        raise RoutingError("the file must be a mapping")
+    if data.get("type") == "ropa":
+        facts, as_of = req.facts_from_ropa(data), args.as_of or data["date_prepared"]
+    else:
+        if not args.as_of:
+            raise RoutingError("pass --as-of YYYY-MM-DD with a facts file")
+        facts, as_of = data, args.as_of
+    try:
+        results = req.evaluate(facts, as_of, root)
+    except req.CatalogError as exc:
+        raise RoutingError(str(exc)) from None
+    print(req.to_markdown(results) if args.format == "markdown" else yamlio.dumps(results), end="")
+    return 0
+
+
 def _route(root, args) -> int:
     text = sys.stdin.read() if args.facts == "-" else Path(args.facts).read_text(encoding="utf-8")
     facts = yamlio.loads(text) or {}
@@ -107,7 +132,7 @@ def _route(root, args) -> int:
     return 0
 
 
-COMMANDS = {"next-id": _next_id, "new": _new, "validate": _validate, "render": _render, "index": _render, "route": _route}
+COMMANDS = {"required": _required, "next-id": _next_id, "new": _new, "validate": _validate, "render": _render, "index": _render, "route": _route}
 
 if __name__ == "__main__":
     raise SystemExit(main())

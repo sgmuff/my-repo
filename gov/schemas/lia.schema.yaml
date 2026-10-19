@@ -1,0 +1,199 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+title: Legitimate interests or compatibility assessment
+description: "An LIA (GDPR and UK GDPR Art. 6(1)(f)), a UK recognized legitimate interest (UK GDPR Art. 6(1)(ea)), or an Art. 6(4) compatibility assessment."
+type: object
+additionalProperties: false
+required: [id, type, schema_version, format_version, kind, title, status, version, activity, regimes,
+  business_owner, prepared_by, date_prepared, last_reviewed, next_review, summary, decision,
+  purpose_test, necessity_test, balancing, recognized_interest, compatibility, safeguards, objection,
+  special_category, actions, open_questions, verify, finding_responses, references, version_history, signoff]
+properties:
+  id: {type: string, pattern: "^LIA-\\d{4}-\\d{3}$"}
+  type: {const: lia}
+  schema_version: {const: 1}
+  format_version: {const: 1}
+  kind:
+    enum: [lia, recognized-interest, compatibility]
+    description: "lia: the three-part test. recognized-interest: a UK Annex 1 purpose, which needs no balancing. compatibility: a new purpose for data collected for another."
+  title: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 10}
+  status: {$ref: "common.schema.yaml#/$defs/doc_status"}
+  version: {$ref: "common.schema.yaml#/$defs/version"}
+  activity:
+    description: "The RoPA entry and purposes this assesses"
+    type: object
+    additionalProperties: false
+    required: [ropa, purposes]
+    properties:
+      ropa: {type: string, description: "ROPA-NNNN, or TBC"}
+      purposes: {type: array, items: {type: string, pattern: "^P\\d+$"}, description: "Purpose IDs in that entry"}
+  regimes:
+    type: array
+    minItems: 1
+    uniqueItems: true
+    items: {enum: [eu-gdpr, uk-gdpr]}
+  business_owner: {$ref: "common.schema.yaml#/$defs/short"}
+  prepared_by: {$ref: "common.schema.yaml#/$defs/short"}
+  date_prepared: {$ref: "common.schema.yaml#/$defs/date"}
+  last_reviewed: {$ref: "common.schema.yaml#/$defs/date_or_null"}
+  next_review: {$ref: "common.schema.yaml#/$defs/date"}
+  summary: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 50, description: "The processing and the interest relied on, in two sentences"}
+
+  decision:
+    description: "The outcome. Only the privacy lead confirms it."
+    $ref: "common.schema.yaml#/$defs/call"
+    properties:
+      value: {enum: [holds, holds-with-conditions, does-not-hold, open]}
+
+  purpose_test:
+    description: "Art. 6(1)(f): is there a legitimate interest? Not applicable for a recognized interest."
+    oneOf:
+      - type: object
+        additionalProperties: false
+        required: [applicable]
+        properties:
+          applicable: {const: false}
+      - type: object
+        additionalProperties: false
+        required: [applicable, interest, whose, benefit, legitimate, source]
+        properties:
+          applicable: {const: true}
+          interest: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 30, description: "The specific interest, such as \"prioritize sales outreach to likely buyers\""}
+          whose: {enum: [company, third-party, both]}
+          benefit: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 25, description: "What the processing achieves for that interest"}
+          legitimate: {$ref: "common.schema.yaml#/$defs/call_tristate", description: "Lawful, clearly stated, and real and present"}
+          source: {$ref: "common.schema.yaml#/$defs/source"}
+
+  necessity_test:
+    description: "Art. 6(1)(f): is the processing necessary for the interest? Not applicable for a recognized interest."
+    oneOf:
+      - type: object
+        additionalProperties: false
+        required: [applicable]
+        properties:
+          applicable: {const: false}
+      - type: object
+        additionalProperties: false
+        required: [applicable, why_needed, alternatives, minimization, necessary]
+        properties:
+          applicable: {const: true}
+          why_needed: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 30}
+          alternatives:
+            description: Less intrusive ways to reach the same interest, and why each was or wasn't chosen
+            type: array
+            items:
+              type: object
+              additionalProperties: false
+              required: [option, outcome]
+              properties:
+                option: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 15}
+                outcome: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 20}
+          minimization: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 25, description: "Data left out or limited"}
+          necessary: {$ref: "common.schema.yaml#/$defs/call_tristate"}
+
+  balancing:
+    description: "Art. 6(1)(f) and Recital 47: do the person's interests, rights, or reasonable expectations override? Not applicable for a recognized interest."
+    oneOf:
+      - type: object
+        additionalProperties: false
+        required: [applicable]
+        properties:
+          applicable: {const: false}
+      - type: object
+        additionalProperties: false
+        required: [applicable, people, relationship, expectations, vulnerable, impacts, outcome]
+        properties:
+          applicable: {const: true}
+          people: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 15, description: "Whose data, such as \"B2B prospects found on LinkedIn\""}
+          relationship: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 20, description: "Any relationship with the company, or none"}
+          expectations: {$ref: "common.schema.yaml#/$defs/call_tristate", description: "Would they reasonably expect this processing?"}
+          vulnerable: {$ref: "common.schema.yaml#/$defs/call_tristate", description: "Children or others with less power to object"}
+          impacts:
+            type: array
+            minItems: 1
+            items:
+              type: object
+              additionalProperties: false
+              required: [impact, likelihood, severity, basis]
+              properties:
+                impact: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 20}
+                basis: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 15, description: "Why that likelihood and severity: scale, what the score changes, or evidence"}
+                likelihood: {enum: [Low, Medium, High, TBC]}
+                severity: {enum: [Low, Medium, High, TBC]}
+          outcome:
+            $ref: "common.schema.yaml#/$defs/call"
+            properties:
+              value: {enum: [interest-prevails, rights-prevail, open]}
+
+  recognized_interest:
+    description: "UK GDPR Art. 6(1)(ea) and Annex 1, only for kind recognized-interest"
+    oneOf:
+      - type: object
+        additionalProperties: false
+        required: [applicable]
+        properties:
+          applicable: {const: false}
+      - type: object
+        additionalProperties: false
+        required: [applicable, annex1_purpose, conditions_met, commenced]
+        properties:
+          applicable: {const: true}
+          annex1_purpose: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 20, description: "The Annex 1 purpose relied on"}
+          conditions_met: {$ref: "common.schema.yaml#/$defs/call_tristate"}
+          commenced: {$ref: "common.schema.yaml#/$defs/call_tristate", description: "Whether the provision is in force; see gdpr.md section 1"}
+
+  compatibility:
+    description: "Art. 6(4)(a)-(e), only for kind compatibility"
+    oneOf:
+      - type: object
+        additionalProperties: false
+        required: [applicable]
+        properties:
+          applicable: {const: false}
+      - type: object
+        additionalProperties: false
+        required: [applicable, original_purpose, new_purpose, link, context, nature, consequences, outcome]
+        properties:
+          applicable: {const: true}
+          original_purpose: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 20}
+          new_purpose: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 20}
+          link: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 25, description: "Art. 6(4)(a): the link between the purposes"}
+          context: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 25, description: "Art. 6(4)(b): the context of collection and the relationship"}
+          nature: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 25, description: "Art. 6(4)(c): the nature of the data, especially Art. 9 or 10 data"}
+          consequences: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 25, description: "Art. 6(4)(d): possible consequences for the people"}
+          outcome:
+            $ref: "common.schema.yaml#/$defs/call"
+            properties:
+              value: {enum: [compatible, not-compatible, open]}
+
+  safeguards:
+    description: "What reduces the impact: Art. 5(2), and Art. 6(4)(e) for compatibility"
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [safeguard, status]
+      properties:
+        safeguard: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 20}
+        status: {enum: [in-place, planned, TBC]}
+
+  objection:
+    description: "Art. 21: how people object, and whether direct marketing makes the right absolute (Art. 21(3))"
+    type: object
+    additionalProperties: false
+    required: [how, direct_marketing, notice]
+    properties:
+      how: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 20}
+      direct_marketing: {$ref: "common.schema.yaml#/$defs/tristate"}
+      notice: {enum: [covered, gap, TBC], description: "Whether the notice names the interest (Art. 13(1)(d), 14(2)(b))"}
+
+  special_category:
+    description: "An LIA never supplies an Art. 9 condition. If special category data is involved, the DPIA must name one."
+    $ref: "common.schema.yaml#/$defs/call_tristate"
+
+  actions: {$ref: "common.schema.yaml#/$defs/actions"}
+  open_questions: {$ref: "common.schema.yaml#/$defs/open_questions"}
+  verify: {$ref: "common.schema.yaml#/$defs/verify"}
+  finding_responses: {$ref: "common.schema.yaml#/$defs/finding_responses"}
+  references: {$ref: "common.schema.yaml#/$defs/references"}
+  version_history: {$ref: "common.schema.yaml#/$defs/version_history"}
+  signoff: {$ref: "common.schema.yaml#/$defs/signoff"}

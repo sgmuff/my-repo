@@ -2,7 +2,7 @@
 |---|---|---|---|---|---|---|
 | 1 | DPIA screening | `dpia` | Required | Now | new_processing = yes | — |
 | 2 | Vendor review | `vendor-review` | Required | Now | vendor_involved = yes | — |
-| 3 | Transfer screening | `tia` (no skill yet) | If cross_border_access = yes | After 2 | — | — |
+| 3 | Transfer screening | `tia` | If cross_border_access = yes | After 2 | — | — |
 | 4 | RoPA entry | `ropa` | Required | Now | new_processing = yes | 1, 2 |
 | 5 | Notice review | `notice-and-policy` | Required | Now | new_processing = yes | 4 |
 

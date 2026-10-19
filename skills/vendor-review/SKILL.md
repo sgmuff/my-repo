@@ -83,7 +83,7 @@ Use `dpa-checklist.md` §6, benchmarked to AIUC-1 (Oct 15, 2026 release; check `
 
 ### 6. Check transfers and security assurance
 
-**Transfers** (checklist §3): for each restricted transfer, confirm the mechanism for the right vendor entity and destination. For the DPF, check the active listing and its scope (EU, UK Extension, Swiss) on dataprivacyframework.gov when you can browse, and record the date. Otherwise make it a verify flag. Confirm SCCs as a fallback.
+**Transfers** (checklist §3): for each restricted transfer, confirm the mechanism for the right vendor entity and destination. For the DPF, check the active listing and its scope (EU, UK Extension, Swiss) on dataprivacyframework.gov when you can browse, and record the date. Otherwise make it a verify flag. Confirm SCCs as a fallback. Where a transfer relies on SCCs, BCRs, the IDTA, or the UK Addendum, recommend the `tia` skill for that flow and link its ID once it exists. When the vendor supplies its own transfer assessment, review it here, against `tia/references/steps.md`; don't start a new TIA just to restate it.
 
 **Security assurance** (checklist §7.1): record the report type, date, scope, and noted exceptions, and whether the scope covers the service in use. A deep security review belongs to the security team. Note what they should look at, and don't rate controls you haven't seen evidence for.
 

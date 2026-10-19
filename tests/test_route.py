@@ -5,7 +5,7 @@ from gov import route as routing
 from gov import yamlio
 
 SCENARIOS = sorted((FIXTURES / "route").glob("*.facts.yaml"))
-PLANNED = {"tia", "lia", "ai-act-provider", "ai-act-deployer"}  # in the plan, not built yet
+PLANNED = {"ai-act-provider", "ai-act-deployer"}  # in the plan, not built yet
 
 
 @pytest.mark.parametrize("facts_file", SCENARIOS, ids=lambda p: p.name.split(".")[0])
@@ -69,9 +69,10 @@ def test_coppa_only_with_children():
 
 
 def test_missing_skill_blocks_launch_with_a_note():
-    result = routing.route(REPO, {"lawful_basis": "legitimate-interests"})
-    lia = next(d for d in result["decisions"] if d["about"] == f"step {next(p['n'] for p in result['plan'] if p['step'] == 'lia')}")
-    assert lia["blocks_launch"] and lia["note"].startswith("No skill yet")
+    result = routing.route(REPO, {"ai_involved": True, "ai_act_role": "deployer", "ai_high_risk": True})
+    n = next(p["n"] for p in result["plan"] if p["step"] == "ai-act-deployer")
+    step = next(d for d in result["decisions"] if d["about"] == f"step {n}")
+    assert step["blocks_launch"] and step["note"].startswith("No skill yet")
 
 
 def test_next_questions_skip_unaskable_facts():
@@ -94,8 +95,8 @@ def test_every_step_skill_exists_or_is_planned():
 
 
 def test_planned_skills_are_marked_not_built():
-    result = routing.route(REPO, {"cross_border_access": True, "vendor_involved": True})
-    assert "tia" in result["not_built"]
+    result = routing.route(REPO, {"ai_involved": True, "ai_act_role": "deployer", "ai_high_risk": True})
+    assert "ai-act-deployer" in result["not_built"]
 
 
 def test_unknown_fact_and_bad_value():

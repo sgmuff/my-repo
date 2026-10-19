@@ -32,6 +32,8 @@ def ropa(data: dict) -> dict:
         "required_tbc": len(ropa_missing(data)),
         "missing": ropa_missing(data),
         "blocking_questions": sum(1 for q in data["open_questions"] if q["blocks"] in ("launch", "approval")),
+        "launch_questions": sum(1 for q in data["open_questions"] if q["blocks"] == "launch"),
+        "approval_questions": sum(1 for q in data["open_questions"] if q["blocks"] == "approval"),
         "blocking_actions": sum(1 for a in data["actions"] if a["launch_blocking"] and a["status"] == "open"),
         "launch_blockers": [a["id"] for a in data["actions"] if a["launch_blocking"] and a["status"] == "open"]
         + [q["id"] for q in data["open_questions"] if q["blocks"] == "launch"],
@@ -108,4 +110,35 @@ def vendor_slugs(data: dict) -> list:
     return sorted(slugs)
 
 
-DERIVE = {"ropa": ropa}
+def _blockers(data: dict) -> list:
+    return [a["id"] for a in data["actions"] if a["launch_blocking"] and a["status"] == "open"] + [
+        q["id"] for q in data["open_questions"] if q["blocks"] == "launch"
+    ]
+
+
+def lia(data: dict) -> dict:
+    tests = [data[k] for k in ("purpose_test", "necessity_test") if data[k].get("applicable")]
+    open_calls = [t for t in tests for key in ("legitimate", "necessary") if key in t and t[key]["value"] == TBC]
+    balancing = data["balancing"]
+    return {
+        "decision": data["decision"]["value"],
+        "open_tests": len(open_calls) + (1 if balancing.get("applicable") and balancing["outcome"]["value"] == "open" else 0),
+        "launch_blockers": _blockers(data),
+        "blocking_questions": sum(1 for q in data["open_questions"] if q["blocks"] in ("launch", "approval")),
+        "launch_questions": sum(1 for q in data["open_questions"] if q["blocks"] == "launch"),
+        "approval_questions": sum(1 for q in data["open_questions"] if q["blocks"] == "approval"),
+    }
+
+
+def tia(data: dict) -> dict:
+    return {
+        "decision": data["decision"]["value"],
+        "effective_measures": sum(1 for m in data["measures"] if m["effective"]["value"] is True),
+        "launch_blockers": _blockers(data),
+        "blocking_questions": sum(1 for q in data["open_questions"] if q["blocks"] in ("launch", "approval")),
+        "launch_questions": sum(1 for q in data["open_questions"] if q["blocks"] == "launch"),
+        "approval_questions": sum(1 for q in data["open_questions"] if q["blocks"] == "approval"),
+    }
+
+
+DERIVE = {"ropa": ropa, "lia": lia, "tia": tia}

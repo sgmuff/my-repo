@@ -1,0 +1,9 @@
+{% if r.actions %}
+| # | Action | Owner | Due | Closure evidence | Blocks launch | Status |
+|---|---|---|---|---|---|---|
+{% for a in r.actions %}
+| {{ a.id }} | {{ a.action | cell }} | {{ a.owner | cell }} | {{ a.due }} | {{ a.closure_evidence | cell }} | {% if a.launch_blocking %}Yes ({{ a.block_reason | label }}{% if a.get('scope') %}; {{ a.scope | cell }} only{% endif %}){% else %}No{% endif %} | {{ a.status | label }} |
+{% endfor %}
+{% else %}
+None.
+{% endif %}

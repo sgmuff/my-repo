@@ -1,0 +1,68 @@
+{
+  "skill_name": "lia",
+  "evals": [
+    {
+      "id": 1,
+      "name": "lead-scoring-li",
+      "prompt": "Marketing wants to score B2B leads from LinkedIn profiles with an AI tool so Sales can prioritize, and they want to rely on legitimate interests. We're the controller. Can you do the LIA?",
+      "expected_output": "An LIA (kind lia) with the three tests filled in as Provisional calls. Purpose test likely met. Necessity weighs less intrusive options such as account-level scoring. Balancing stays open on how the LinkedIn data is obtained and what prospects were told. Objection: direct marketing makes it absolute. Notice gap or TBC (Art. 14). Decision open. E-marketing consent flagged for counsel. Round 1 asks the data source.",
+      "files": [],
+      "expectations": [
+        "`gov validate` reports 0 errors after the run",
+        "`gov render --check` reports everything up to date",
+        "A LIA record exists under compliance/assessments/lia/ with an ID allocated by gov",
+        "The reply, excluding its numbered question list, is 200 words or fewer",
+        "The reply's numbered question list has five questions or fewer",
+        "The reply doesn't present `gov validate` as legal approval",
+        "kind is lia, and the purpose, necessity, and balancing sections are all filled in",
+        "The decision is open, or Provisional; never Confirmed",
+        "The necessity test lists at least one less intrusive alternative",
+        "The balancing outcome isn't interest-prevails while expectations or the data source are unknown",
+        "objection.direct_marketing is true, and the objection text says processing stops on objection",
+        "How the LinkedIn data is obtained is asked, or is an open question",
+        "The reply flags e-marketing consent rules (ePrivacy or PECR) as separate from legitimate interests"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "reuse-parent-emails",
+      "prompt": "We collected parents' emails so we could send them their kids' report cards. Product now wants to use those emails to send product updates and to train a churn model. Is that OK?",
+      "expected_output": "Compatibility assessment(s) (kind compatibility) under Art. 6(4) with the five factors; likely not compatible for marketing, open for churn model. Children's context raises the stakes. Direct marketing needs consent or a soft opt-in analysis under ePrivacy, flagged for counsel. Recommends DPIA screening for the churn model (profiling). Decision open or not compatible, Provisional.",
+      "files": [],
+      "expectations": [
+        "`gov validate` reports 0 errors after the run",
+        "`gov render --check` reports everything up to date",
+        "A LIA record exists under compliance/assessments/lia/ with an ID allocated by gov",
+        "The reply, excluding its numbered question list, is 200 words or fewer",
+        "The reply's numbered question list has five questions or fewer",
+        "The reply doesn't present `gov validate` as legal approval",
+        "At least one record has kind compatibility, with the Art. 6(4) factors filled in",
+        "The marketing reuse isn't marked compatible",
+        "The children's or school context is weighed in the consequences or context factor",
+        "The reply flags e-marketing consent rules as separate from compatibility",
+        "The churn model is sent to DPIA screening or flagged as profiling",
+        "No decision is Confirmed"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "keystroke-logging-messy",
+      "prompt": "can we just use legit interest for the employee monitoring thing? IT wants to log keystrokes on all laptops for security. EU staff too",
+      "expected_output": "An LIA (kind lia) for employee keystroke logging. Purpose (security) can be legitimate; necessity is doubtful given less intrusive options (endpoint detection, targeted logging); balancing weighs the employer-employee power imbalance and intrusiveness; decision does-not-hold or open, Provisional. Recommends DPIA screening (systematic monitoring of employees) and flags national employment law, works councils, and Art. 88.",
+      "files": [],
+      "expectations": [
+        "`gov validate` reports 0 errors after the run",
+        "`gov render --check` reports everything up to date",
+        "A LIA record exists under compliance/assessments/lia/ with an ID allocated by gov",
+        "The reply, excluding its numbered question list, is 200 words or fewer",
+        "The reply's numbered question list has five questions or fewer",
+        "The reply doesn't present `gov validate` as legal approval",
+        "The necessity test lists less intrusive options, such as endpoint detection or targeted logging",
+        "The balancing weighs the employee power imbalance or vulnerability",
+        "The decision isn't holds",
+        "DPIA screening is recommended for systematic monitoring of employees",
+        "National employment law, works councils, or Art. 88 is flagged"
+      ]
+    }
+  ]
+}

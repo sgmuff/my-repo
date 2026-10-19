@@ -3,7 +3,7 @@
 | 1 | DPIA screening | `dpia` | Required | Now | new_processing = yes; indicators: children_or_students, audio_video_recording | — |
 | 2 | Vendor review | `vendor-review` | Required | Now | vendor_involved = yes | — |
 | 3 | AI intake | `ai-intake` | Required | Now | ai_involved = yes | — |
-| 4 | Transfer screening | `tia` (no skill yet) | Required | After 2 | cross_border_access = yes | — |
+| 4 | Transfer screening | `tia` | Required | After 2 | cross_border_access = yes | — |
 | 5 | AI impact assessment | `ai-impact-assessment` | If ai_profiles_people = yes or ai_influences_decisions = yes | After 3 | — | — |
 | 6 | AI Act deployer readiness | `ai-act-deployer` (no skill yet) | If ai_high_risk = yes | After 3 | ai_act_role = deployer | — |
 | 7 | RoPA entry | `ropa` | Required | Now | new_processing = yes | 1, 2, 4 |
@@ -27,7 +27,7 @@
 | step 1 | Whether a full DPIA or state assessment is required; risk acceptance by rating | Privacy lead | Policy | — |
 | step 2 | Onboard, onboard with conditions, or not | Approver for the residual rating | Law | — |
 | step 3 | Internal AI tier, EU AI Act role, and EU AI Act classification, decided separately | Privacy lead | Policy | — |
-| step 4 | Which flows are restricted, the mechanism for each, and supplementary measures | Privacy lead | Law | No skill yet: the owner runs this step by hand, and launch waits until the result is recorded |
+| step 4 | Which flows are restricted, the mechanism for each, and supplementary measures | Privacy lead | Law | — |
 | step 7 | Business owner confirms the facts; privacy lead approves the entry | Business owner, then privacy lead | Law | — |
 | step 8 | Any notice change, and its timing | Privacy lead and counsel | Law | — |
 | our-role | Our role for each purpose: controller, processor, or both (GDPR Art. 4(7)-(8), 28(10)) | Privacy lead | Law | — |
