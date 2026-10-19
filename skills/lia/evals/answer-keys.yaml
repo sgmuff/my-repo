@@ -1,0 +1,147 @@
+# Answer keys for the lia evals. Counsel owns this file.
+# Each point is something a competent assessment must (or should) get right.
+# The grader scores each run against the points for its eval, from the reply and the records together.
+# weight: must | should. check: true marks a citation or date the drafter wasn't sure of.
+# Status: approved by counsel 2026-10-19, including the check: true items as drafted.
+
+lead-scoring-li:
+  outcome: "Open (provisional). The interest is legitimate in principle; necessity and balancing can't be decided until the data source, the notice, what a low score does, and the uplift over simpler scoring are known."
+  points:
+    - id: K1
+      weight: must
+      point: "Prioritizing B2B sales outreach can be a legitimate interest, but legitimacy alone doesn't decide the test."
+      source: "GDPR Art. 6(1)(f); Recital 47; CJEU C-621/22 (KNLTB)"
+    - id: K2
+      weight: must
+      point: "Necessity compares individual AI scoring with account-level or rules-based scoring; the AI score is necessary only if those wouldn't meet the objective about as well."
+      source: "CJEU C-252/21 (Meta v Bundeskartellamt), paras 108-109"
+    - id: K3
+      weight: must
+      point: "How the LinkedIn data is obtained decides much of the case: a licensed product or vendor differs from scraping, which breaches LinkedIn's terms and has drawn fines. Public visibility doesn't make data free to use."
+      source: "CNIL sanction against KASPR (December 2024)"
+      check: true
+    - id: K4
+      weight: must
+      point: "Art. 14 notice for indirectly collected data: within a reasonable period, at most one month, or at first contact if earlier. It names the interest and the right to object. The Art. 14(5)(b) exception is narrow."
+      source: "GDPR Art. 14(1)-(3), 14(2)(b), 14(5)(b)"
+    - id: K5
+      weight: must
+      point: "Profiling for direct marketing gives an absolute right to object: scoring and outreach stop for that person, and only a minimal suppression record is kept."
+      source: "GDPR Art. 21(2)-(3)"
+    - id: K6
+      weight: must
+      point: "E-marketing channel rules are separate from the lawful basis and are checked per country and channel."
+      source: "ePrivacy Directive Art. 13; national laws; UK PECR regs 22-23"
+    - id: K7
+      weight: should
+      point: "Art. 22 likely doesn't apply if the score only orders a queue; it may if a low score excludes people with significant effect. Ask which."
+      source: "GDPR Art. 22; CJEU C-634/21 (SCHUFA)"
+    - id: K8
+      weight: should
+      point: "DPIA screening is needed (evaluation or scoring, possibly large scale); it isn't automatically mandatory."
+      source: "GDPR Art. 35(1), 35(3)(a); WP248 rev.01 criteria"
+    - id: K9
+      weight: should
+      point: "The AI vendor needs an Art. 28 contract if it's a processor; if it trains on or reuses the data for its own purposes, it becomes a controller for that use."
+      source: "GDPR Art. 28(3), 28(10)"
+    - id: K10
+      weight: should
+      point: "Exclude inputs that reveal or infer Art. 9 categories, and address score accuracy."
+      source: "GDPR Art. 9(1); Art. 5(1)(d)"
+    - id: K11
+      weight: should
+      point: "EU AI Act: B2B lead scoring isn't an Annex III high-risk use; AI literacy (Art. 4) applies to the deployer."
+      source: "AI Act Art. 4, Art. 6, Annex III"
+    - id: K12
+      weight: should
+      point: "For UK prospects, the UK GDPR as amended by the DUAA lists direct marketing as processing that may be carried out for legitimate interests; the three-part test still applies."
+      source: "UK GDPR Art. 6(9), inserted by the Data (Use and Access) Act 2025"
+      check: true
+
+reuse-parent-emails:
+  outcome: "Product updates: no, not as proposed; they need separate opt-in consent and the e-marketing rules met. Churn model: open. The decisive first fact is whether parents gave the emails directly or schools supplied them."
+  points:
+    - id: K1
+      weight: must
+      point: "Establish the role first. If schools supplied the data, the company is likely a processor, or a school official under FERPA, and can't repurpose the data for its own marketing or models; doing so would make it a controller in breach of the contract."
+      source: "GDPR Art. 28(10); FERPA 34 CFR 99.31(a)(1)(i)(B), 99.33"
+    - id: K2
+      weight: must
+      point: "Compatibility, the lawful basis, and channel rules are three separate questions; an incompatible purpose needs a new basis, and marketing email needs ePrivacy-compliant consent."
+      source: "GDPR Art. 5(1)(b), 6(4); ePrivacy Directive Art. 13"
+    - id: K3
+      weight: must
+      point: "Product updates are unrelated to report-card delivery: the link is weak, parents wouldn't expect it, and the data concerns children. This points to incompatibility."
+      source: "GDPR Art. 6(4)(a)-(e); Recital 38"
+    - id: K4
+      weight: must
+      point: "Keep service messages about report cards apart from marketing."
+      source: "ePrivacy Directive Art. 13; GDPR Art. 6(4)"
+    - id: K5
+      weight: must
+      point: "The churn model is a separate assessment: what it predicts (school or parent churn), what data trains it, and what a score triggers. Aggregated school-level data is the less intrusive option, and pseudonymized data is still personal data."
+      source: "GDPR Recital 26; Art. 5(1)(c)"
+    - id: K6
+      weight: must
+      point: "Notice of the new purpose before it starts."
+      source: "GDPR Art. 13(3), 14(4)"
+    - id: K7
+      weight: should
+      point: "US student-privacy rules may bar both uses outright where they apply: COPPA school authorization is limited to the educational purpose, and state laws such as SOPIPA bar non-educational use and targeted advertising."
+      source: "COPPA Rule 16 CFR 312 as amended (compliance date April 22, 2026); Cal. Bus. & Prof. Code 22584; N.Y. Educ. Law 2-d; 105 ILCS 85 (SOPPA)"
+      check: true
+    - id: K8
+      weight: should
+      point: "Marketing gives an absolute right to object, and every message needs an unsubscribe."
+      source: "GDPR Art. 21(2)-(3); ePrivacy Directive Art. 13(2)"
+    - id: K9
+      weight: should
+      point: "Profiling parents for churn calls for DPIA screening; Art. 22 is unlikely unless scores drive significant decisions."
+      source: "GDPR Art. 35; Art. 22"
+
+keystroke-logging-messy:
+  outcome: "Does not hold as proposed. Security is a legitimate interest, but capturing all typed content fails necessity and balancing; reassess a narrower, event-based or investigation-specific design."
+  points:
+    - id: K1
+      weight: must
+      point: "Network and information security is a legitimate interest."
+      source: "GDPR Recital 49"
+    - id: K2
+      weight: must
+      point: "Blanket capture of keystroke content fails necessity where EDR, DLP, SIEM, or targeted logging on concrete suspicion can meet the security goal."
+      source: "WP29 Opinion 2/2017 on data processing at work; BAG 27 July 2017, 2 AZR 681/16"
+    - id: K3
+      weight: must
+      point: "Balancing weighs the power imbalance, reasonable expectations, private use, and capture of passwords and private messages; prior notice and less intrusive means are part of the test."
+      source: "ECtHR Bărbulescu v Romania (GC, 2017); WP29 Opinion 2/2017"
+    - id: K4
+      weight: must
+      point: "Consent isn't a valid fallback in employment because of the imbalance."
+      source: "EDPB Guidelines 05/2020 on consent, paras 21-22"
+      check: true
+    - id: K5
+      weight: must
+      point: "National employment law applies on top of the GDPR, country by country. In Germany, works council co-determination is required before rollout. Other countries require consultation or authorization, such as France's CSE consultation and Italy's union agreement or labour inspectorate authorization."
+      source: "GDPR Art. 88; BetrVG § 87(1) no. 6; Code du travail L2312-38, L1222-4; Statuto dei lavoratori Art. 4"
+      check: true
+    - id: K6
+      weight: must
+      point: "Logs will capture special category data incidentally. That needs an Art. 9(2) condition or a design that keeps it out, and an LIA can't supply the condition."
+      source: "GDPR Art. 9(1)-(2)"
+    - id: K7
+      weight: must
+      point: "Systematic monitoring of employees likely requires a DPIA, and several national Art. 35(4) lists name it."
+      source: "GDPR Art. 35(1), 35(4); WP248 rev.01"
+    - id: K8
+      weight: should
+      point: "Employees get notice before monitoring starts; covert monitoring is only for exceptional, documented cases."
+      source: "GDPR Art. 13; WP29 Opinion 2/2017"
+    - id: K9
+      weight: should
+      point: "A store of captured passwords and secrets is itself a security risk."
+      source: "GDPR Art. 32"
+    - id: K10
+      weight: should
+      point: "In Germany, § 26 BDSG can't be relied on as a standalone basis after the CJEU's 2023 ruling; Art. 6(1)(f) or a works agreement under Art. 88 is needed."
+      source: "CJEU C-34/21 (Hauptpersonalrat)"
+      check: true

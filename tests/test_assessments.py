@@ -152,7 +152,7 @@ def test_special_category_needs_an_art9_action(assess_root):
 
 def test_unsigned_tool_needs_a_law_action(assess_root):
     edit(assess_root, TIA, lambda d: d["actions"][0].update(scope="GDPR Art. 28(3)"))
-    assert any("isn't confirmed signed" in m for m in found(assess_root, "finding"))
+    assert any("no law action covers the transfer tool" in m for m in found(assess_root, "finding"))
 
 
 def test_every_kind_has_a_method():
@@ -161,3 +161,17 @@ def test_every_kind_has_a_method():
     for kind in ("lia", "tia"):
         kinds = yamlio.load(PACKAGE / "schemas" / f"{kind}.schema.yaml")["properties"]["kind"]["enum"]
         assert set(kinds) == set(methods[kind]), kind
+
+
+def test_requester_says_signed_but_unverified(assess_root):
+    def stated(d):
+        d["procedural"]["signed"] = True
+        d["mechanism"]["verified"] = "TBC"
+        d["actions"][0].update(block_reason="policy", scope="annexes")
+    edit(assess_root, TIA, stated)
+    assert any("no law action covers the transfer tool" in m for m in found(assess_root, "finding"))
+
+
+def test_possible_special_category_needs_an_art9_action(assess_root):
+    edit(assess_root, LIA, lambda d: d.update(special_category={"value": "TBC", "status": "Provisional", "reason": "Logs may capture health details"}))
+    assert any("is or may be involved" in m for m in found(assess_root, "finding"))

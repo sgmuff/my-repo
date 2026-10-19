@@ -1,0 +1,167 @@
+# Answer keys for the tia evals. Counsel owns this file.
+# Each point is something a competent assessment must (or should) get right.
+# The grader scores each run against the points for its eval, from the reply and the records together.
+# weight: must | should. check: true marks a citation or date the drafter wasn't sure of.
+# Status: approved by counsel 2026-10-19, including the check: true items as drafted.
+
+support-desk-us-sccs:
+  outcome: "Open (provisional). A TIA is required; step 3 can't be decided without HelpHub's facts, and no supplementary measure is yet shown to work. The privacy lead decides the interim position."
+  points:
+    - id: K1
+      weight: must
+      point: "Remote access by US agents to tickets hosted in the EEA is a Chapter V transfer."
+      source: "EDPB Guidelines 05/2021 on the interplay of Art. 3 and Chapter V"
+    - id: K2
+      weight: must
+      point: "Without DPF certification, the SCCs are the Art. 46 tool. Check the module: Module 2 fits if the company is a controller; Module 3 if it's a processor for its own customers."
+      source: "GDPR Art. 46(2)(c); Implementing Decision (EU) 2021/914"
+    - id: K3
+      weight: must
+      point: "A Clause 14 assessment is required, following the six EDPB steps, for this importer and these data."
+      source: "SCCs Clause 14; EDPB Recommendations 01/2020"
+    - id: K4
+      weight: must
+      point: "Each US law is assessed on its own test. FISA 702 reaches electronic communication service providers, which a SaaS helpdesk may be. The CLOUD Act reaches ECS or RCS providers for data in their possession, custody, or control. EO 12333 covers collection outside the US, including data in transit."
+      source: "50 U.S.C. 1881a, 1881(b)(4); 18 U.S.C. 2713; EO 12333"
+    - id: K5
+      weight: must
+      point: "The EO 14086 safeguards and the Data Protection Review Court redress apply to all EU transfers to the US, including those on SCCs, and weigh in step 3. Check 702's current authorization status."
+      source: "EO 14086; Implementing Decision (EU) 2023/1795, recitals; RISAA 2024"
+      check: true
+    - id: K6
+      weight: must
+      point: "Agents read plaintext, so encryption can't stop compelled access by HelpHub. Effective measures reduce what agents see: EEA-only routing for sensitive tickets, minimization, masked identifiers, and restricted attachments. Contractual commitments only supplement them."
+      source: "EDPB Recommendations 01/2020, Annex 2 use cases 6-7; SCCs Clause 15"
+    - id: K7
+      weight: must
+      point: "The transfer is already running. If no effective measure can be found, the transfer must be suspended; the privacy lead decides the interim position."
+      source: "SCCs Clause 14(f), Clause 16(b)"
+    - id: K8
+      weight: should
+      point: "HelpHub's sub-processors and their locations are onward transfers under the SCCs."
+      source: "SCCs Module 2 Clauses 8.8, 9"
+    - id: K9
+      weight: should
+      point: "Don't rate risk without facts: government-access likelihood comes from HelpHub's profile and its record of requests, not from the data being 'ordinary'."
+      source: "EDPB Recommendations 01/2020, paras 43-47"
+      check: true
+    - id: K10
+      weight: should
+      point: "The privacy notice names the transfer and the safeguard."
+      source: "GDPR Art. 13(1)(f), 14(1)(f)"
+
+dpf-certified-screen-out:
+  outcome: "Provisionally no TIA, provided the provider's exact contracting entity holds an active DPF certification covering this (non-HR) data. Record the screen."
+  points:
+    - id: K1
+      weight: must
+      point: "A transfer to a DPF-certified organization relies on adequacy under Art. 45, so no Art. 46 TIA is needed for that transfer."
+      source: "GDPR Art. 45; Implementing Decision (EU) 2023/1795 (July 10, 2023)"
+    - id: K2
+      weight: must
+      point: "Verify on the DPF list that the exact legal entity is active and that its certification covers non-HR data, or HR data if staff data is included."
+      source: "dataprivacyframework.gov; DPF Principles"
+    - id: K3
+      weight: must
+      point: "The certified provider's onward transfers to its sub-processors are its own duty under the Accountability for Onward Transfer Principle; they don't trigger a TIA for the exporter."
+      source: "DPF Principles, Principle 3; Supplemental Principles"
+    - id: K4
+      weight: should
+      point: "SCCs kept in the DPA as a fallback are dormant and need a TIA only if they become the tool relied on."
+      source: "GDPR Art. 46; EDPB Recommendations 01/2020, para 9"
+      check: true
+    - id: K5
+      weight: should
+      point: "Latombe: the General Court dismissed T-553/23 on September 3, 2025, and the appeal C-703/25 P is pending. Monitor it as a reassessment trigger, not a blocker."
+      source: "CJEU case records"
+    - id: K6
+      weight: should
+      point: "UK data needs the UK Extension and Swiss data needs the Swiss-US DPF, each with its own certification."
+      source: "UK Data Protection (Adequacy) (United States of America) Regulations 2023; Swiss Federal Council decision effective September 15, 2024"
+      check: true
+    - id: K7
+      weight: should
+      point: "The rest of the GDPR still applies: an Art. 28 DPA, Art. 32 security, the RoPA, and a notice naming the US transfer."
+      source: "GDPR Arts. 13(1)(f), 28, 30, 32"
+    - id: K8
+      weight: should
+      point: "Document the screen: the mechanism, the date checked, the certification scope, and who checked."
+      source: "GDPR Art. 5(2)"
+
+uk-payroll-india-messy:
+  outcome: "Open (provisional). A TRA is required under the IDTA. First confirm the IDTA is executed and complete; the transfer is already running, so the privacy lead decides the interim position. Scale the assessment to the transfer."
+  points:
+    - id: K1
+      weight: must
+      point: "Payroll data sent to or accessed from a separate bureau in India is a restricted transfer, and India has no UK adequacy regulations, so an Art. 46 safeguard such as the IDTA is needed."
+      source: "UK GDPR Arts. 44-46"
+    - id: K2
+      weight: must
+      point: "The TRA is now the statutory data protection test: protection must be not materially lower than in the UK, judged reasonably and proportionately. The ICO's TRA tool or another method can be used."
+      source: "UK GDPR Art. 46(1A)-(1C) as inserted by the Data (Use and Access) Act 2025; ICO TRA guidance (January 15, 2026)"
+      check: true
+    - id: K3
+      weight: must
+      point: "\"I think we signed it\" isn't enough. Confirm the IDTA is executed with its tables complete; without a valid safeguard there's no lawful transfer mechanism."
+      source: "IDTA Part 1 tables; UK GDPR Art. 46"
+    - id: K4
+      weight: must
+      point: "Payroll includes special category data (sickness, union dues). That needs an Art. 9(2)(b) condition with DPA 2018 Sch. 1 para 1 and an appropriate policy document, and fields the bureau doesn't need are minimized."
+      source: "UK GDPR Art. 9(2)(b); DPA 2018 s. 10, Sch. 1 paras 1, 39"
+    - id: K5
+      weight: must
+      point: "India: DPDP Act s. 17(1)(d) exempts most of the Act for non-residents' data processed under a foreign contract, but s. 8(1) and s. 8(5) still apply. IT Act s. 69 interception and decryption powers come with procedural safeguards, and CERT-In directions require logs."
+      source: "DPDP Act 2023 s. 17(1)(d); IT Act 2000 s. 69; CERT-In Directions (April 2022)"
+    - id: K6
+      weight: must
+      point: "The bureau reads plaintext, so encryption doesn't stop its access. Minimization and access controls are the effective measures."
+      source: "ICO TRA guidance; EDPB Recommendations 01/2020 use case 6"
+    - id: K7
+      weight: should
+      point: "Whether employees can enforce their IDTA rights in practice in India; check reciprocal enforcement of UK judgments."
+      source: "IDTA Part 4; Code of Civil Procedure (India) s. 44A"
+      check: true
+    - id: K8
+      weight: should
+      point: "An Art. 28 processor contract with the bureau, which the IDTA can sit alongside or incorporate."
+      source: "UK GDPR Art. 28(3)"
+    - id: K9
+      weight: should
+      point: "The employee privacy notice names the transfer and the safeguard."
+      source: "UK GDPR Art. 13(1)(f)"
+    - id: K10
+      weight: should
+      point: "The assessment is proportionate to a payroll bureau; risk isn't rated from the data type alone, and counsel review isn't a blocker unless step 3 turns on it."
+      source: "ICO TRA guidance (proportionality)"
+
+dpf-plus-sccs-india-support:
+  outcome: "No TIA for the transfer to the certified US provider, if the certification covers the entity and data; the SCCs are dormant for that leg. India access depends on who makes it: the provider's onward transfer under the DPF, or a transfer on SCCs that needs its own Clause 14 assessment."
+  points:
+    - id: K1
+      weight: must
+      point: "The transfer to the DPF-certified provider relies on Art. 45, so no TIA is needed for that leg once the entity and data coverage are verified."
+      source: "GDPR Art. 45; Implementing Decision (EU) 2023/1795"
+    - id: K2
+      weight: must
+      point: "Where the DPA lists both the DPF and the SCCs, record which tool is relied on for each leg; for the US leg the SCCs are dormant."
+      source: "GDPR Art. 46; EDPB Recommendations 01/2020"
+    - id: K3
+      weight: must
+      point: "If the provider's own staff or affiliate in India access data the provider received under the DPF, that's the provider's onward transfer under the Accountability for Onward Transfer Principle. The exporter verifies the provider's arrangements but doesn't run a TIA."
+      source: "DPF Principles, Principle 3"
+    - id: K4
+      weight: must
+      point: "If the India access runs on the SCCs, for example a sub-processor engaged under Module 3 or a direct export, a Clause 14 assessment of India is needed."
+      source: "SCCs Clause 14; Module 3"
+    - id: K5
+      weight: must
+      point: "Ask which entity in India has access, to which data, and under which mechanism."
+      source: "GDPR Art. 28(2), 28(4); SCCs Clause 9"
+    - id: K6
+      weight: should
+      point: "If India is assessed: IT Act s. 69, CERT-In logging, and the DPDP s. 17(1)(d) exemption for non-residents' data."
+      source: "IT Act 2000 s. 69; DPDP Act 2023 s. 17(1)(d)"
+    - id: K7
+      weight: must
+      point: "Document the DPF check (date and scope), the tool relied on for each leg, the sub-processor list and locations, the onward-transfer assurances, the RoPA transfer row, and a notice naming the transfers."
+      source: "GDPR Arts. 5(2), 13(1)(f), 30(1)(e)"

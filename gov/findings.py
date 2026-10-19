@@ -117,8 +117,8 @@ def lia(data: dict) -> list:
     holds = decision in ("holds", "holds-with-conditions")
     if data["special_category"]["value"] is True:
         out.append(("special_category", "an LIA never supplies an Art. 9 condition; confirm the DPIA names one"))
-        if not _action_citing(data, r"Art\.\s*9"):
-            out.append(("actions", "special category data is involved, but no action addresses the Art. 9 condition"))
+    if data["special_category"]["value"] is not False and not _action_citing(data, r"Art\.\s*9"):
+        out.append(("actions", "special category data is or may be involved, but no action addresses the Art. 9 condition"))
     objection = data["objection"]
     if objection["direct_marketing"] is True and not re.search(r"\b(absolute|always|stop|stops)\b", objection["how"], re.I):
         out.append(("objection", "direct marketing makes the right to object absolute (Art. 21(3)); say that processing stops on objection"))
@@ -154,8 +154,8 @@ def tia(data: dict) -> list:
             out.append(("measures", "the decision is to proceed, but step 3 found a problem or left it open and no measure is shown to work"))
         if data["procedural"]["signed"] is not True:
             out.append(("procedural", "the decision is to proceed, but the transfer tool isn't signed"))
-    if data["procedural"]["signed"] is not True and not _law_action_citing(data, r"Art\.\s*46|IDTA|FADP"):
-        out.append(("actions", "the transfer tool isn't confirmed signed; add a launch-blocking law action to sign or confirm it, citing Art. 46"))
+    if not _law_action_citing(data, r"Art\.\s*46|IDTA|FADP"):
+        out.append(("actions", "no law action covers the transfer tool; add one to sign, or obtain and check, the executed tool, citing Art. 46, and mark it done once checked"))
     if data["transfer_map"]["special_category"]["value"] is True and not data["measures"]:
         out.append(("measures", "special category data is transferred with no supplementary measures recorded"))
     if is_tbc(data["activity"]):
