@@ -1,0 +1,394 @@
+# Answer keys for the holdout scenarios. Drafted 2026-10-19 by an agent that saw only the scenario prompts, for counsel review.
+# Same format as the development keys. weight: must | should. check: true marks an uncertain citation or date.
+# Scoring: must 2, should 1; each material error deducts 5; a conclusion beyond the expected outcome is a material error.
+# Status: approved by counsel 2026-10-19, including the check: true items as drafted.
+
+fraud-scoring-payments:
+  outcome: "Legitimate interests is a credible basis for fraud scoring itself (Recital 47), but the auto-decline is a solely automated decision that must first be tested under Article 22; if it has legal or similarly significant effects, legitimate interests cannot carry the decision and the merchant needs an Article 22(2) exception (most plausibly contract necessity) plus Article 22(3) safeguards, or a meaningful human review step. Whether Article 22 bites stays open until we know what a decline does in practice (retry or alternative payment, account blocking, blocklisting, repeat declines) and what data and vendor feed the model."
+  points:
+    - id: K1
+      weight: must
+      point: "Recognises that fraud prevention is an accepted legitimate interest, but only for processing strictly necessary for that purpose; the necessity and balancing limbs still have to be done, not assumed."
+      source: "GDPR Art 6(1)(f), Recital 47; CJEU C-621/22 KNLTB (4 Oct 2024); EDPB Guidelines 1/2024 on legitimate interests"
+    - id: K2
+      weight: must
+      point: "Identifies the auto-decline as a decision based solely on automated processing and analyses whether it produces legal or similarly significant effects, rather than treating the LIA as the whole answer."
+      source: "GDPR Art 22(1); WP29 Guidelines on automated decision-making WP251rev.01 (endorsed by EDPB)"
+    - id: K3
+      weight: must
+      point: "Does not conclude prematurely either way on significance: a one-off declined card payment with easy alternatives may not be similarly significant, but denial of access to goods or services, repeated declines, account suspension or shared blocklisting point towards it; the answer depends on the decline flow."
+      source: "WP251rev.01 (section on 'similarly significant'); CJEU C-634/21 SCHUFA Holding (7 Dec 2023) on a broad reading of 'decision'"
+    - id: K4
+      weight: must
+      point: "If Article 22 applies, legitimate interests is not an available exception; the controller needs contract necessity (Art 22(2)(a)), Union or Member State law authorising it (Art 22(2)(b), which PSD2 fraud-monitoring duties give PSPs, not a merchant), or explicit consent, and must provide human intervention, the right to express a view, and the right to contest."
+      source: "GDPR Art 22(2)-(3); PSD2 Art 94 and RTS on SCA (Reg 2017/389) Art 2 apply to PSPs"
+    - id: K5
+      weight: must
+      point: "Flags transparency duties for automated decisions, including meaningful information about the logic involved and the consequences, and the access-right equivalent; an explanation must be intelligible, not just a disclosure that a model exists."
+      source: "GDPR Arts 13(2)(f), 14(2)(g), 15(1)(h); CJEU C-203/22 Dun & Bradstreet Austria (27 Feb 2025)"
+      check: true
+    - id: K6
+      weight: should
+      point: "Treats a DPIA as likely required: systematic evaluation by automated means with significant effects, innovative technology, and large-scale processing, and fraud scoring or blocklisting appears on several national DPIA lists."
+      source: "GDPR Art 35(1), 35(3)(a); WP248rev.01 DPIA criteria; national Art 35(4) lists"
+    - id: K7
+      weight: should
+      point: "Checks the model inputs: device fingerprinting or other reading from the user's terminal engages ePrivacy Article 5(3), which needs consent unless strictly necessary for the requested service, independently of the GDPR lawful basis."
+      source: "Directive 2002/58/EC Art 5(3); EDPB Guidelines 2/2023 on the technical scope of Art 5(3)"
+      check: true
+    - id: K8
+      weight: should
+      point: "Considers whether fraud flags, suspected-fraud lists or shared blocklists are criminal-offence data or otherwise specially regulated in some Member States (for example Dutch rules on blacklists), and that Article 22(4) bars automated decisions based on special category data."
+      source: "GDPR Arts 10, 22(4); Netherlands UAVG Art 33 and AP practice on blacklists"
+      check: true
+    - id: K9
+      weight: should
+      point: "Addresses role allocation where a PSP or fraud vendor (for example a network-wide model) is involved: the vendor may be an independent or joint controller for consortium data, which changes contracts and notices."
+      source: "GDPR Arts 4(7), 26, 28; EDPB Guidelines 07/2020 on controller and processor"
+    - id: K10
+      weight: should
+      point: "Notes that the EU AI Act carves AI systems used to detect financial fraud out of the high-risk creditworthiness category, so the model is not high-risk on that ground; a careless answer would either impose high-risk obligations or ignore the Act entirely."
+      source: "Regulation (EU) 2024/1689 Annex III point 5(b)"
+    - id: K11
+      weight: should
+      point: "Covers accuracy, false positives and bias testing, threshold governance, the Art 21 right to object (usually answered by compelling grounds for fraud), and short retention for non-fraud transactions as balancing safeguards."
+      source: "GDPR Arts 5(1)(c)-(e), 21(1), 25"
+
+cctv-offices-spain-netherlands:
+  outcome: "Entrance cameras can probably rest on legitimate interests in both countries with signage, notice, a DPIA and site-specific justification, but the break room is prohibited outright in Spain and very unlikely to be proportionate in the Netherlands, continuous filming of open-plan desks is very hard to justify in either, and 60-day retention exceeds Spain's one-month statutory maximum and the Dutch AP's usual four-week expectation. The Amsterdam deployment also needs works council consent; whether any desk coverage survives depends on a documented, specific security risk that less intrusive measures cannot address."
+  points:
+    - id: K1
+      weight: must
+      point: "Analyses each zone (entrances, desks, break room) and each country separately; a single yes or no across both offices is wrong because national employment-monitoring rules under Article 88 differ."
+      source: "GDPR Art 88; EDPB Guidelines 3/2019 on processing of personal data through video devices"
+    - id: K2
+      weight: must
+      point: "Spain prohibits video surveillance in places for workers' rest or recreation such as changing rooms, toilets and canteens, so the Madrid break room is excluded regardless of any LIA."
+      source: "Spain LOPDGDD (Organic Law 3/2018) Art 89(2)"
+    - id: K3
+      weight: must
+      point: "Spain caps CCTV retention at one month from capture unless footage must be kept as evidence of acts against persons, property or premises, so 60 days is unlawful in Madrid."
+      source: "Spain LOPDGDD Art 22(3)"
+    - id: K4
+      weight: must
+      point: "Netherlands requires works council consent for systems aimed at or suitable for observing or monitoring staff presence, behaviour or performance; without it the decision is voidable."
+      source: "Netherlands Works Councils Act (WOR) Art 27(1)(l)"
+    - id: K5
+      weight: must
+      point: "Treats open-plan desk coverage as continuous employee monitoring that is presumptively disproportionate; necessity requires a specific documented risk and the failure of less intrusive alternatives (access control, cameras on entrances or cash or server areas only)."
+      source: "EDPB Guidelines 3/2019; CJEU C-708/18 TK v Asociatia de Proprietari bloc M5A-ScaraA (11 Dec 2019); ECtHR Barbulescu v Romania (GC, 2017)"
+    - id: K6
+      weight: must
+      point: "Retention must be justified by purpose; EDPB guidance points to a few days (around 72 hours) absent incidents, and the Dutch AP generally expects no more than four weeks, so 60 days is excessive in Amsterdam too unless an incident is being investigated."
+      source: "EDPB Guidelines 3/2019 (retention section); Autoriteit Persoonsgegevens guidance on camera surveillance at work"
+      check: true
+    - id: K7
+      weight: must
+      point: "Requires express, prior, clear information to employees (and their representatives in Spain), plus layered signage; Spain requires an informative sign at entrances and employees must be told specifically about workplace monitoring purposes. Covert surveillance is only exceptionally permissible."
+      source: "GDPR Arts 12-13; LOPDGDD Arts 22(4), 89(1); Estatuto de los Trabajadores Arts 20.3, 64.5(f); ECtHR Lopez Ribalda v Spain (GC, 17 Oct 2019)"
+      check: true
+    - id: K8
+      weight: should
+      point: "Flags that a DPIA is likely required: systematic monitoring of employees is on both the AEPD and AP DPIA lists, and entrances open to visitors may be publicly accessible areas."
+      source: "GDPR Art 35(1), 35(3)(c), 35(4); AEPD and AP DPIA lists"
+    - id: K9
+      weight: should
+      point: "Excludes audio recording, which needs separate and much stronger justification (Spain allows it only where risks are relevant and with proportionality), and checks cameras do not capture public streets beyond what is essential."
+      source: "LOPDGDD Arts 22(2), 89(3); EDPB Guidelines 3/2019"
+    - id: K10
+      weight: should
+      point: "Rejects employee consent as a basis, given the imbalance of power, and keeps the basis as legitimate interests with a written balancing test per site."
+      source: "GDPR Arts 6(1)(f), 7(4), Recital 43; EDPB Guidelines 05/2020 on consent"
+    - id: K11
+      weight: should
+      point: "Covers access controls, a restricted viewing log, rules for disciplinary use of footage, and handling access requests involving third parties in footage."
+      source: "GDPR Arts 15(4), 25, 32; EDPB Guidelines 3/2019"
+
+intra-group-analytics-uk-eu:
+  outcome: "Legitimate interests can plausibly support sharing for genuine group analytics, preferably on pseudonymised or aggregated data, but cross-selling is a new direct-marketing purpose that needs its own compatibility analysis, an absolute right to object, and compliance with national ePrivacy rules, which usually means consent for electronic marketing of other group companies' products. HQ being in the UK matters less for the transfer, which can currently rely on the EU's renewed UK adequacy decision, than for roles, notices, and the parent's own obligations; the answer stays open until the marketing channels, the data fields, and the parent's controller role are known."
+  points:
+    - id: K1
+      weight: must
+      point: "No intra-group privilege: each subsidiary disclosing to the parent needs its own lawful basis, and the parent is a separate controller (or joint controller) for its analytics and cross-selling purposes."
+      source: "GDPR Arts 4(7), 6(1), 26, Recital 48"
+    - id: K2
+      weight: must
+      point: "Recital 48 supports intra-group transmission for internal administrative purposes, which fits group reporting analytics but not customer-level cross-selling; the two purposes need separate balancing."
+      source: "GDPR Recital 48; EDPB Guidelines 1/2024 on legitimate interests"
+    - id: K3
+      weight: must
+      point: "Direct marketing can be a legitimate interest, but cross-selling to customers who bought from one subsidiary is a further purpose needing an Article 6(4) compatibility check and a balancing test focused on reasonable expectations and profiling intensity."
+      source: "GDPR Arts 6(1)(f), 6(4), Recital 47; CJEU C-252/21 Meta Platforms v Bundeskartellamt (4 Jul 2023)"
+    - id: K4
+      weight: must
+      point: "Electronic marketing (email, SMS) is governed by national ePrivacy rules; the soft opt-in covers only the same entity's own similar products, so marketing other group companies' products generally needs prior consent, whatever the GDPR basis."
+      source: "Directive 2002/58/EC Art 13(1)-(2) and national implementations"
+    - id: K5
+      weight: must
+      point: "Customers have an absolute right to object to processing, including profiling, for direct marketing, which must be explicitly offered at the latest at first communication."
+      source: "GDPR Art 21(2)-(4)"
+    - id: K6
+      weight: must
+      point: "Transfer: the UK benefits from an EU adequacy decision, so no SCCs or TIA are needed for EU-to-UK flows while it stands; the decision was extended in 2025 and then renewed, and the answer should confirm its current status rather than assume it."
+      source: "GDPR Art 45; Commission Implementing Decision (EU) 2021/1772 and its 2025 extension and renewal"
+      check: true
+    - id: K7
+      weight: should
+      point: "Does not apply UK-only rules to the EU subsidiaries: the Data (Use and Access) Act 2025 changes to UK GDPR legitimate interests (recognised legitimate interests, examples such as intra-group transmission and direct marketing) govern the parent's processing in the UK but not the EU entities' disclosure, which stays under EU GDPR."
+      source: "Data (Use and Access) Act 2025, amendments to UK GDPR Art 6"
+      check: true
+    - id: K8
+      weight: should
+      point: "Considers whether EU GDPR applies to the parent directly, via processing in the context of the EU subsidiaries' establishments or via monitoring EU customers' behaviour, and if so whether an Art 27 representative is needed and how the one-stop-shop works without an EU main establishment."
+      source: "GDPR Arts 3(1), 3(2)(b), 27, 56; CJEU C-131/12 Google Spain (13 May 2014)"
+    - id: K9
+      weight: should
+      point: "Requires transparency: subsidiaries must disclose the recipient and purpose, and the parent must give Art 14 information, with notices updated before the new purposes start."
+      source: "GDPR Arts 13(1)(e), 13(3), 14"
+    - id: K10
+      weight: should
+      point: "Uses minimisation as a balancing safeguard: aggregated or pseudonymised data for analytics, opt-out suppression lists, and an intra-group data sharing agreement, plus an onward-transfer check if the UK parent uses non-UK vendors."
+      source: "GDPR Arts 5(1)(b)-(c), 25, 44"
+
+call-recordings-speech-model:
+  outcome: "Reuse is not clearly compatible as the corpus stands: 'quality and training purposes' would reasonably be read as staff training, not building a commercial ML model, and the recordings contain customer and employee voices and possibly special category content. A defensible path probably needs a fresh legitimate-interests assessment with updated notices, an opt-out, de-identification, exclusion of out-of-retention and sensitive calls, and an AI Act check on the sentiment feature; the final view depends on the original notice wording, the retention schedule, and the product's intended uses."
+  points:
+    - id: K1
+      weight: must
+      point: "Runs the Article 6(4) compatibility factors (link between purposes, context and reasonable expectations, nature of data, consequences, safeguards) rather than relying on the word 'training' in the notice."
+      source: "GDPR Arts 5(1)(b), 6(4), Recital 50"
+    - id: K2
+      weight: must
+      point: "Recognises that 'for quality and training purposes' is conventionally understood as training staff, so callers would not reasonably expect their voices to train a commercial speech or sentiment product; this weighs heavily against compatibility."
+      source: "GDPR Art 6(4)(b), Recital 50; EDPB Opinion 28/2024 on AI models (reasonable expectations)"
+    - id: K3
+      weight: must
+      point: "Checks storage limitation first: three years of recordings may exceed the original retention period, and calls that should already have been deleted cannot be legitimised by repurposing."
+      source: "GDPR Art 5(1)(e); CJEU C-77/21 Digi Tavkozlesi (20 Oct 2022)"
+    - id: K4
+      weight: must
+      point: "Identifies both data subject groups, customers and the company's own agents, and that employee data brings employment-law and works council constraints in some Member States."
+      source: "GDPR Art 88; Germany BetrVG s87(1)(6)"
+      check: true
+    - id: K5
+      weight: must
+      point: "Addresses special category content incidentally disclosed on calls (health, finances of vulnerable customers, and so on) and notes voice is biometric data under Article 9 only if processed for unique identification, so speaker identification features would change the analysis."
+      source: "GDPR Arts 4(14), 9(1), Recital 51"
+    - id: K6
+      weight: must
+      point: "Flags the AI Act: a sentiment model inferring emotions from voice is an emotion recognition system; its use in the workplace (for example on agents) is prohibited from 2 Feb 2025 outside medical or safety reasons, and other uses are high-risk with transparency duties; text-only sentiment may fall outside the definition."
+      source: "Regulation (EU) 2024/1689 Arts 3(39), 5(1)(f), 50(3), Annex III point 1(c); Commission Guidelines on prohibited AI practices (Feb 2025)"
+      check: true
+    - id: K7
+      weight: should
+      point: "Treats compatibility and lawful basis carefully: even if compatible, the processing still needs a lawful basis in practice, and legitimate interests for AI development must pass the three-step test with documented necessity and safeguards."
+      source: "GDPR Recital 50; EDPB Opinion 28/2024 (Dec 2024)"
+    - id: K8
+      weight: should
+      point: "Proposes concrete safeguards that tilt the assessment: transcript redaction, removal of identifiers, excluding flagged sensitive calls, testing whether the trained model is anonymous (resistance to extraction and membership inference), and access controls."
+      source: "GDPR Arts 6(4)(e), 25, 89(1); EDPB Opinion 28/2024 on model anonymity"
+    - id: K9
+      weight: should
+      point: "Requires informing data subjects before the further processing starts and honouring the right to object, including for past callers where feasible."
+      source: "GDPR Arts 13(3), 14(4), 21(1)"
+    - id: K10
+      weight: should
+      point: "Treats a DPIA as likely required: innovative technology, large volume of voice data, employee monitoring aspects, and potential vulnerable customers."
+      source: "GDPR Art 35; WP248rev.01 criteria"
+    - id: K11
+      weight: should
+      point: "Checks the original collection was lawful (recording notice given, applicable national rules on call recording met); a defect at collection carries through to reuse."
+      source: "GDPR Art 5(1)(a); Directive 2002/58/EC Art 5(1)-(2); EDPB Opinion 28/2024 on consequences of unlawful development"
+
+hr-outsourcer-philippines:
+  outcome: "SCCs Module 2 are the right instrument if the Manila outsourcer is a processor, and the TIA can likely support the transfer with supplementary measures, since no identified Philippine law appears to give authorities broad, unchecked access to a private BPO's HR data. That conclusion is provisional until local-law review (especially the Anti-Terrorism Act and Cybercrime Act regimes), the importer's disclosure-request history, its sub-processors, and the access scope are confirmed. Separately, 'full access' to sick leave and bank data fails minimisation and needs fixing regardless of the TIA."
+  points:
+    - id: K1
+      weight: must
+      point: "Treats remote access from Manila to Workday as a transfer even if Workday stays hosted in the EU, and confirms the Philippines has no EU adequacy decision, so Article 46 safeguards plus a transfer impact assessment are needed."
+      source: "GDPR Arts 44-46; EDPB Guidelines 05/2021 on the interplay between Art 3 and Chapter V"
+    - id: K2
+      weight: must
+      point: "Confirms module choice: Module 2 fits only if the outsourcer acts on documented instructions as a processor; if it decides purposes or means for its own ends, Module 1 and different terms apply."
+      source: "Commission Implementing Decision (EU) 2021/914; EDPB Guidelines 07/2020"
+    - id: K3
+      weight: must
+      point: "Follows the Schrems II and EDPB method: map the data, identify the tool, assess Philippine law and practice applicable to this importer and data, decide on supplementary measures, document, and re-evaluate. The answer must not assume the SCCs alone are enough."
+      source: "CJEU C-311/18 Schrems II (16 Jul 2020); EDPB Recommendations 01/2020 v2.0 (18 Jun 2021); SCCs Clause 14"
+    - id: K4
+      weight: must
+      point: "Assesses the relevant Philippine surveillance and access laws, notably the Anti-Terrorism Act 2020 (surveillance with Court of Appeals authorisation), the Cybercrime Prevention Act 2012 (with the Supreme Court having struck down real-time traffic data collection in Disini), the Anti-Wiretapping Act, and AML bank inquiry powers, and their oversight and redress."
+      source: "RA 11479 s16; RA 10175 and Disini v Secretary of Justice (G.R. No. 203335, 2014); RA 4200; RA 9160 as amended"
+      check: true
+    - id: K5
+      weight: must
+      point: "Recognises that because staff must read the data in the clear to do HR admin, encryption cannot protect against access compelled from the importer; supplementary measures will be contractual and organisational (challenge and notify duties, transparency reports, access logging, EU-held keys for data at rest) and the TIA must say candidly what they do and do not mitigate."
+      source: "EDPB Recommendations 01/2020 v2.0, Annex 2 use cases 6 and 7; SCCs Clauses 14-15"
+    - id: K6
+      weight: must
+      point: "Treats sick leave as health data requiring an Article 9(2)(b) condition and national employment-law basis, and applies data minimisation: role-based access so the outsourcer sees only the fields each task needs, not full Workday access."
+      source: "GDPR Arts 5(1)(c), 9(1), 9(2)(b), 25, 32; national Art 88 rules"
+    - id: K7
+      weight: should
+      point: "Covers onward sub-processing by the outsourcer (prior authorisation under Clause 9, flow-down, and whether any further countries are involved) and Workday's own role as the company's processor."
+      source: "SCCs Clauses 8.8, 9; GDPR Art 28(2), 28(4)"
+    - id: K8
+      weight: should
+      point: "Notes the Philippine Data Privacy Act and NPC regime as context (security obligations, breach notification), including the scope carve-out for information collected from foreign residents under foreign law and processed in the Philippines, which limits how much the DPA protects EU data."
+      source: "Republic Act 10173 (Data Privacy Act 2012) s4; NPC Circulars"
+      check: true
+    - id: K9
+      weight: should
+      point: "Flags employee-side obligations: updated employee privacy notice naming the transfer and safeguards, and works council consultation or consent where required (for example Germany, Netherlands)."
+      source: "GDPR Arts 13(1)(f), 14(1)(f); Germany BetrVG s87(1)(6); Netherlands WOR Art 27(1)(k)"
+      check: true
+    - id: K10
+      weight: should
+      point: "Confirms the SCCs are complete and docked correctly: annexes filled (data categories including special categories, security measures), Clause 13 supervisory authority, Clause 17 governing law of an EU Member State, and the Module 2 terms serving as the Art 28 contract."
+      source: "Commission Implementing Decision (EU) 2021/914, Recital 9 and Clauses 13, 17, Annexes I-II"
+
+uk-company-us-ai-vendor:
+  outcome: "If the vendor (the actual US importing entity) is validly self-certified under the EU-US DPF with the UK Extension active and covering this data, the transfer relies on the UK's US adequacy regulations and no TRA is needed. That is only the transfer question: the company still needs an Article 28 processor contract that bars the vendor from training on customer content, a DPIA, transparency to call participants, and a fallback IDTA or Addendum plus TRA for any part of the flow outside the certification. Confirmation on the DPF List, data scope, and sub-processors remains open."
+  points:
+    - id: K1
+      weight: must
+      point: "Correct core answer: transfers to a US organisation certified under the UK Extension rely on adequacy regulations, and a TRA is required only when relying on Article 46 safeguards such as the IDTA or the UK Addendum."
+      source: "UK GDPR Art 45 (as amended); Data Protection (Adequacy) (United States of America) Regulations 2023 (SI 2023/1028), in force 12 Oct 2023; ICO TRA guidance"
+    - id: K2
+      weight: must
+      point: "Requires verification, not the vendor's word: check the DPF List that the specific legal entity receiving the data is active, that the UK Extension is selected, that the certification covers non-HR (and if relevant HR) data, and that it is current."
+      source: "DPF Principles; dataprivacyframework.gov list; DSIT UK-US data bridge factsheet"
+    - id: K3
+      weight: must
+      point: "Notes the UK Extension's requirement to identify sensitive data, including criminal offence data and categories the UK treats as special, to the vendor so it is protected; call content may include such data."
+      source: "SI 2023/1028; DSIT UK Extension guidance on identifying sensitive data"
+      check: true
+    - id: K4
+      weight: must
+      point: "Identifies that adequacy covers the transfer only; the company still needs an Art 28 contract restricting use to its instructions, and must check whether the vendor uses call content to train its own models, which would make the vendor a controller for that purpose and require its own lawful basis and notice."
+      source: "UK GDPR Arts 5(1)(b), 28; ICO guidance on controllers and processors"
+    - id: K5
+      weight: must
+      point: "Flags transparency and recording rules for customer calls: participants must be told the call is recorded and transcribed by an AI tool, and business recording of communications must fit UK interception law (lawful business practice rules)."
+      source: "UK GDPR Arts 13-14; Investigatory Powers Act 2016 s46; Telecommunications (Lawful Business Practice) (Interception of Communications) Regulations 2000"
+      check: true
+    - id: K6
+      weight: should
+      point: "Treats a DPIA as likely needed: innovative technology, recording and AI-generated summaries of customer calls, possible special category content, and possible speaker identification (biometric) features."
+      source: "UK GDPR Art 35; ICO list of processing likely to result in high risk"
+    - id: K7
+      weight: should
+      point: "Checks the vendor's sub-processors and onward transfers (for example model providers or hosting outside the US): onward transfers must meet the DPF Accountability for Onward Transfer principle, and any non-US routing needs its own mechanism."
+      source: "DPF Principles, Accountability for Onward Transfer; UK GDPR Art 44"
+    - id: K8
+      weight: should
+      point: "Mentions the durability risk: the EU DPF survived Latombe at the General Court (3 Sept 2025) but an appeal is pending, and the UK bridge depends on the same US framework (EO 14086, PCLOB oversight), so a fallback IDTA or Addendum with TRA is prudent contingency planning, not a present requirement."
+      source: "General Court T-553/23 Latombe v Commission (3 Sept 2025); Executive Order 14086"
+      check: true
+    - id: K9
+      weight: should
+      point: "Notes the Data (Use and Access) Act 2025 reframed UK transfer rules (data protection test, Arts 45A-45C) while preserving existing adequacy regulations, so the answer does not change but citations should reflect the amended provisions once commenced."
+      source: "Data (Use and Access) Act 2025, Schedule 7"
+      check: true
+    - id: K10
+      weight: should
+      point: "Considers employees' voices and data on the calls: DPF treats data collected in the employment context as HR data, so check whether the certification's HR scope matters for staff data captured by the tool."
+      source: "DPF Supplemental Principle 9 (Human Resources Data)"
+      check: true
+
+swiss-data-india-dev-team:
+  outcome: "The Swiss-adapted EU SCCs are a valid transfer basis under the FADP for India without notifying the FDPIC, but they are not enough on their own: the Swiss entity must also assess Indian law and practice (no Swiss adequacy, broad state access powers with limited independent oversight), add supplementary measures, and, above all, minimise what the developers see, since bug fixing rarely needs live customer data in the clear. Whether the residual risk is acceptable stays open until the access model (masked or production data, just-in-time access), the data categories, and the Indian entity's government-request exposure are known."
+  points:
+    - id: K1
+      weight: must
+      point: "Treats remote access from Pune as a disclosure abroad, and treats the group company as a separate recipient: there is no intra-group exemption under the FADP."
+      source: "Swiss FADP (in force 1 Sept 2023) Arts 16-17"
+    - id: K2
+      weight: must
+      point: "Confirms India is not on the Federal Council's adequacy list, so a safeguard under Art 16(2) is needed; FDPIC-recognised SCCs with Swiss adaptations qualify under Art 16(2)(d) without prior FDPIC notification (unlike bespoke clauses under Art 16(2)(b))."
+      source: "FADP Art 16(1)-(2); Data Protection Ordinance (DPO) Annex 1; FDPIC recognition of the 2021 SCCs (27 Aug 2021)"
+      check: true
+    - id: K3
+      weight: must
+      point: "Checks the Swiss adaptations are actually present: FDPIC as competent authority (in parallel where relevant), the term 'Member State' not excluding Swiss data subjects from suing in Switzerland, and references to the GDPR read as references to the FADP."
+      source: "FDPIC paper on the 2021 SCCs (27 Aug 2021)"
+      check: true
+    - id: K4
+      weight: must
+      point: "Requires a transfer risk assessment of Indian law and practice despite the SCCs, as the FDPIC expects following Schrems II, covering IT Act s69 and s69B interception and decryption orders, CERT-In directions, the Telecommunications Act 2023, and DPDP Act exemptions and information powers for state instrumentalities."
+      source: "Information Technology Act 2000 ss69, 69B; CERT-In Directions (28 Apr 2022); Telecommunications Act 2023; DPDP Act 2023 ss17, 36; FDPIC guidance on transfers"
+      check: true
+    - id: K5
+      weight: must
+      point: "Makes minimisation the central measure: bug fixing normally needs reproducible test or masked data, not production customer records; production access should be exceptional, just-in-time, logged, and limited to the fields needed."
+      source: "FADP Arts 6(2)-(3), 7 (privacy by design and default), 8 (data security)"
+    - id: K6
+      weight: should
+      point: "Correctly characterises the Indian entity as a processor (Module 2) and covers processor obligations: assurance of data security, no own-purpose use, and authorisation for any sub-processing."
+      source: "FADP Art 9; Commission Implementing Decision (EU) 2021/914 Module 2 as adapted"
+    - id: K7
+      weight: should
+      point: "Flags the privacy notice duty to name the destination states and the safeguards used for disclosure abroad."
+      source: "FADP Art 19(4)"
+    - id: K8
+      weight: should
+      point: "Notes India's DPDP Act and DPDP Rules (notified Nov 2025 with phased commencement) as importer-side context, without treating them as making India adequate."
+      source: "Digital Personal Data Protection Act 2023; DPDP Rules 2025"
+      check: true
+    - id: K9
+      weight: should
+      point: "Mentions personal criminal liability under the FADP: responsible individuals can be fined for intentional breaches of the transfer rules, which raises the stakes of getting this right."
+      source: "FADP Art 61(a)"
+      check: true
+    - id: K10
+      weight: should
+      point: "Checks record-keeping, DPIA triggers if the database holds sensitive data or the processing is high risk, and breach notification paths for incidents in India."
+      source: "FADP Arts 5(c), 12, 22, 24"
+
+japan-adequacy-china-subprocessor:
+  outcome: "Yes, it changes things: Japan's adequacy covers the EU-to-Japan leg, but the onward transfer from Japan to Shenzhen must meet Supplementary Rule (4), and if the distributor is the company's processor the Shenzhen provider is a sub-processor needing prior authorisation, flow-down terms and, in practice, a risk assessment of Chinese state-access laws. If EU systems are accessed directly from Shenzhen, that is a direct EU-China transfer needing SCCs and a TIA. Which of these applies stays open until the distributor's role (controller or processor), the data flow architecture, and the sub-processor's access scope are confirmed."
+  points:
+    - id: K1
+      weight: must
+      point: "Confirms the EU-to-Japan leg can rely on the Japan adequacy decision, which covers business operators subject to the APPI together with the Supplementary Rules, so no SCCs or TIA are needed for that leg alone."
+      source: "Commission Implementing Decision (EU) 2019/419 (23 Jan 2019); GDPR Art 45"
+    - id: K2
+      weight: must
+      point: "Identifies that onward transfers of EU-origin data from Japan to a third country are restricted by Supplementary Rule (4): they need the individual's prior consent after being informed about the destination's circumstances, or a contract or binding arrangement ensuring equivalent protection; China is not a PPC-recognised country."
+      source: "Decision 2019/419, Annex I Supplementary Rules, Rule (4); APPI Art 28"
+    - id: K3
+      weight: must
+      point: "Determines the distributor's role: if it is an independent controller, the onward transfer is its compliance obligation (though the company should do due diligence and contract for it); if it is the company's processor, Shenzhen is a sub-processor requiring prior written authorisation and Art 28(4) flow-down."
+      source: "GDPR Arts 28(2), 28(4), 44; EDPB Guidelines 07/2020"
+    - id: K4
+      weight: must
+      point: "Catches the direct-transfer trap: if the Shenzhen team accesses EU-hosted systems directly, the flow is EU to China, outside the Japan decision, needing Art 46 safeguards such as SCCs plus a TIA."
+      source: "GDPR Arts 44, 46; EDPB Guidelines 05/2021"
+    - id: K5
+      weight: must
+      point: "Assesses Chinese state-access law as a substantive risk: the National Intelligence Law's duty to support intelligence work, the Data Security Law, the Counter-Espionage Law, and PIPL, which are generally viewed as not providing essentially equivalent safeguards."
+      source: "PRC National Intelligence Law 2017 Art 7; Data Security Law 2021; Counter-Espionage Law (2023 revision); PIPL 2021"
+      check: true
+    - id: K6
+      weight: should
+      point: "Cites enforcement showing the risk is real: the Irish DPC fined TikTok EUR 530 million in 2025 for remote-access transfers to China without adequate assessment of Chinese law."
+      source: "Irish DPC decision on TikTok Technology Limited (May 2025)"
+      check: true
+    - id: K7
+      weight: should
+      point: "Notes accountability for processor chains: the controller must be able to identify all sub-processors and verify their safeguards, not merely trust the distributor."
+      source: "GDPR Arts 5(2), 24, 28(1); EDPB Opinion 22/2024 on processors and sub-processors (Oct 2024)"
+      check: true
+    - id: K8
+      weight: should
+      point: "Recognises other Supplementary Rules apply to EU data in Japan, such as treating GDPR special categories as special care-required personal information and limiting use to the purpose received."
+      source: "Decision 2019/419, Annex I, Rules (1) and (3)"
+    - id: K9
+      weight: should
+      point: "Recommends minimising what Shenzhen sees (ticket-level data, masking, no bulk export), and flags that Chinese outbound rules may also apply if data is sent back out of China."
+      source: "GDPR Arts 5(1)(c), 25, 32; PIPL Art 38; CAC Provisions on Promoting and Regulating Cross-Border Data Flows (Mar 2024)"
+      check: true
+    - id: K10
+      weight: should
+      point: "Requires updating the privacy notice to reflect recipients and third countries, including China, and the safeguards relied on."
+      source: "GDPR Arts 13(1)(e)-(f), 14(1)(e)-(f)"
