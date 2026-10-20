@@ -1,7 +1,10 @@
 # Answer keys for the lia evals. Counsel owns this file.
 # Each point is something a competent assessment must (or should) get right.
 # The grader scores each run against the points for its eval, from the reply and the records together.
-# Scoring (counsel, 2026-10-19): must points weigh 2, should 1; each material error deducts 5 points, and a conclusion beyond the expected outcome (approving, passing a test, or rating risk before the needed facts) is a material error.
+# Scoring (counsel, revised 2026-10-19): must 2, should 1. A material error (minus 5, not double-counted) is a legally
+#   incorrect proposition, a failure to address a controlling requirement, or an unjustified conclusion that contradicts
+#   the facts given, such as approving or rating risk before the facts the key says are needed. A legally defensible,
+#   reasoned different conclusion is not an error. Iteration 7 was scored under the earlier, stricter rule.
 # weight: must | should. check: true marks a citation or date the drafter wasn't sure of.
 # Status: approved by counsel 2026-10-19, including the check: true items as drafted.
 
