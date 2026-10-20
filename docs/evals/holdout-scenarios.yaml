@@ -1,0 +1,46 @@
+# Holdout scenarios for the lia and tia skills: cases the skills and gov/rules/issues.yaml were not built against.
+# Counsel picks four to six, edits the prompts, and writes an answer key for each in the same format as
+# skills/<skill>/evals/answer-keys.yaml (outcome, then points with weight must|should and a source).
+# Don't share these with the skill-building work until the holdout run is scored.
+# Status: DRAFT prompts, prepared by Claude 2026-10-19. No answer keys yet.
+
+scenarios:
+  - id: fraud-scoring-payments
+    skill: lia
+    prompt: "Risk wants to run a fraud model on card payments at checkout. It scores each transaction and auto-declines anything over the threshold. We're the merchant and the controller, EU customers. Legitimate interests should be fine for fraud, right?"
+    tests: "Fraud prevention as a recognized interest (Recital 47), automatic declines as a solely automated decision with significant effects (Art. 22), and the right to human review. The development set only had scores that order a queue."
+
+  - id: cctv-offices-spain-netherlands
+    skill: lia
+    prompt: "Facilities wants CCTV in our Madrid and Amsterdam offices, covering entrances, open-plan desks, and the break room. Recordings kept 60 days. Can we do this on legitimate interests?"
+    tests: "Employee monitoring outside Germany: Spain's LOPDGDD rules on workplace video and a one-month retention limit, works council consent in the Netherlands, and areas like break rooms. Tests whether the employment-law issue generalizes beyond the examples it cites."
+
+  - id: intra-group-analytics-uk-eu
+    skill: lia
+    prompt: "Our UK parent wants the EU subsidiaries to send it customer purchase data every month for group analytics and cross-selling. Does legitimate interests cover it, and does it matter that HQ is in the UK?"
+    tests: "Intra-group sharing (Recital 48) with no group privilege, a transfer from the EU to the UK (adequacy), cross-selling as direct marketing, and the UK DUAA examples on the UK side. Mixes an LIA with a transfer point."
+
+  - id: call-recordings-speech-model
+    skill: lia
+    prompt: "We have three years of recorded support calls. The data science team wants to use them to train a speech-to-text and sentiment model for our product. The calls were recorded 'for quality and training purposes'. OK to reuse?"
+    tests: "A compatibility assessment where the original notice is ambiguous, voice data that becomes biometric if used to identify people (Art. 9), sentiment inference, retention beyond the original need, and AI Act points about emotion recognition."
+
+  - id: hr-outsourcer-philippines
+    skill: tia
+    prompt: "We're moving HR admin for our EU staff to an outsourcer in Manila. They'll have full access to Workday, including sick leave and bank details. We've signed SCCs Module 2. TIA please."
+    tests: "A destination with no reference file (the Philippines): the skill must flag what it can't assess rather than invent law. Also employee special category data, and measures where the importer reads plaintext."
+
+  - id: uk-company-us-ai-vendor
+    skill: tia
+    prompt: "We're a UK company. We want to use a US AI note-taking tool for customer calls. The vendor says it's on the UK Extension to the DPF. Do we need a TRA?"
+    tests: "A UK screen via the UK Extension (UK-US data bridge), which needs its own certification. Also the vendor's model-training terms and its sub-processors. Exercises the transfer screen record outside the EU-US case."
+
+  - id: swiss-data-india-dev-team
+    skill: tia
+    prompt: "Our Swiss entity's customer database is accessed by our development team in Pune for bug fixes. Same company group. We use the Swiss-adapted SCCs. Is that enough?"
+    tests: "The ch-tia kind, never run in the evals: FADP Art. 16, the FDPIC's position, and remote access within a group, which is still a transfer. Indian law reappears, but under the Swiss test."
+
+  - id: japan-adequacy-china-subprocessor
+    skill: tia
+    prompt: "We're sending EU customer data to our Japanese distributor. Japan has adequacy, so no TIA. But I just found out they use a sub-processor in Shenzhen for customer support. Does that change anything?"
+    tests: "Adequacy other than the DPF (Japan, with its Supplementary Rules on onward transfers), an onward transfer to China, and who owes which assessment. Exercises the screen record and onward-transfer reasoning beyond the DPF."
