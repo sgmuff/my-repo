@@ -35,7 +35,9 @@ One record per flow: one exporter, one importer, one tool. Run `gov new tia --sl
 
 ### 3. Work through the six steps
 
-Follow `references/steps.md`:
+Follow `references/steps.md`. Analyse before you fill in the record. Work through the law as fully as you would in a memo to counsel: every regime and country the facts touch, the national rules on top of the GDPR, the sector rules, and the traps a quick answer misses. Use the references, and your own knowledge where they're silent, with a verify flag for each point you can't check. Write that analysis in `analysis`, 400 words at most, then fill in the fields from it. The analysis always gives a provisional view: which way the decision leans and why, even when `decision` stays `open` because a fact is missing.
+
+Then record the six steps:
 
 1. **The transfer:** data, people, purpose, stored or remote access, and onward transfers.
 2. **The tool:** the SCC module, and the date you checked adequacy and the DPF list.
@@ -56,6 +58,6 @@ Before validating: mark an action `block_reason: law` only when a provision requ
 
 ### 6. Hand back
 
-The privacy lead decides the transfer mechanism and supplementary measures (`approvals.md`). Reply in 150 words at most in total, however many records, plus the Round 1 questions: the record's path and ID, whether a TIA was needed, the decision and why it's open or proposed, what blocks launch, and the decisions needed.
+The privacy lead decides the transfer mechanism and supplementary measures (`approvals.md`). Write the reply for the requester, in plain English. Start with the answer and why, then what they need to do and who decides, then the Round 1 questions. Say what blocks launch in words, grouped as legal requirements, risks, and internal policy. Give a date only when the request, a contract, or the law sets it. End with one line for the file: the record IDs and paths, and the counts from `gov` of open questions, findings, and verify flags. Keep the reply to 200 words at most before the questions, however many records; the record holds the full reasoning.
 
-If the transfer is already running, say so first, with the privacy lead's interim choice: continue under named measures while the assessment finishes, or suspend. A signed tool is necessary but not enough; if step 3 finds no effective measure, propose suspend. Open with a one-line answer the requester can act on, such as "Provisionally no TIA: confirm the certification covers this entity" or "Not yet: step 3 needs the vendor's facts", and any safer design, such as keeping sensitive tickets in the EEA. The record holds the full reasoning; the reply is the decision-oriented summary of it. Take counts of tests, questions, and findings from the rendered record, not your own tally, and say they come from `gov`; the decision is the assessment's, and the privacy lead approves it. Give launch blockers grouped by reason, as the record's Launch line does. Give a date only when the request, a contract, or the law sets it; the record's due dates are proposals. A provisional answer names the design or fact it rests on.
+If the transfer is already running, say so first, with the privacy lead's interim choice: continue under named measures while the assessment finishes, or suspend. A signed tool is necessary but not enough; if step 3 finds no effective measure, propose suspend. Open with an answer the requester can act on, such as "Provisionally no TIA: confirm the certification covers this entity" or "Probably yes with measures, once the vendor confirms two facts", and any safer design, such as keeping sensitive tickets in the EEA.

@@ -8,6 +8,7 @@
 #   regimes: eu-gdpr, uk-gdpr, ch-fadp (an LIA's regimes; a TIA's or screen's from its kind)
 #   countries: importer countries, matched case-insensitively
 #   special_category: possible (true or TBC)
+#   routes: a transfer screen's mechanism route (eu-us-dpf, uk-extension, swiss-us-dpf, adequacy-decision, TBC)
 version: 1
 context_tags:
   employees: "The people include employees or other workers"
@@ -165,22 +166,27 @@ issues:
     label: Certification scope
     ask: "The exact contracting entity is on the list, active, and certified for this data (HR or non-HR)"
     cite: "DPF Principles; dataprivacyframework.gov"
-    when: {types: [tsr]}
+    when: {types: [tsr], routes: [eu-us-dpf, uk-extension, swiss-us-dpf, TBC]}
   dpf-onward:
     label: Provider's onward transfers
     ask: "The certified provider's onward transfers are its duty under the Accountability for Onward Transfer Principle; note its sub-processors and countries"
     cite: "DPF Principles, Principle 3"
-    when: {types: [tsr]}
+    when: {types: [tsr], routes: [eu-us-dpf, uk-extension, swiss-us-dpf, TBC]}
   uk-swiss:
     label: UK and Swiss data
     ask: "UK data needs the UK Extension and Swiss data the Swiss-US DPF, each certified separately"
     cite: "UK adequacy regulations 2023; Swiss Federal Council decision 2024"
-    when: {types: [tsr]}
+    when: {types: [tsr], routes: [eu-us-dpf, TBC]}
   fallback-tool:
     label: Fallback tool
     ask: "Any SCCs kept as a fallback, and that they need a TIA only once relied on"
     cite: "GDPR Art. 46"
     when: {types: [tsr]}
+  adequacy-scope:
+    label: Scope of the adequacy decision
+    ask: "What the decision covers (sector, recipients, any supplementary rules) and the rules on onward transfers out of that country"
+    cite: "GDPR Art. 45; the adequacy decision itself"
+    when: {types: [tsr], routes: [adequacy-decision]}
   adequacy-challenge:
     label: Challenges to adequacy
     ask: "Pending challenges to the adequacy decision, as a reassessment trigger"

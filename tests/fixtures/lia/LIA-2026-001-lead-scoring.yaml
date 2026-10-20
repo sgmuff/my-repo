@@ -15,6 +15,7 @@ last_reviewed: null
 next_review: "2027-10-18"
 summary: Marketing scores B2B prospects from LinkedIn profile data so Sales can prioritize outreach. The company relies on its interest in finding likely buyers.
 decision: {value: open, status: Provisional, reason: Balancing depends on how the data is obtained (Q1) and the notice (A1)}
+analysis: "Prioritizing B2B outreach is a legitimate interest (Art. 6(1)(f), Recital 47), but necessity and balancing turn on facts not yet known: the data source, the notice, and whether AI scoring beats simpler ranking. Provisionally open; it leans toward holding if the source is licensed, the inputs are limited, and an Art. 14 notice is given."
 
 purpose_test:
   applicable: true

@@ -37,7 +37,9 @@ Run `gov new lia --slug <short-slug> --title "<what is assessed>" --date <today>
 
 ### 3. Fill in the tests
 
-Follow `references/test.md`. Record what the sources show:
+Follow `references/test.md`. Analyse before you fill in the record. Work through the law as fully as you would in a memo to counsel: every regime and country the facts touch, the national rules on top of the GDPR, the sector rules, and the traps a quick answer misses. Use the references, and your own knowledge where they're silent, with a verify flag for each point you can't check. Write that analysis in `analysis`, 400 words at most, then fill in the fields from it. The analysis always gives a provisional view: which way the decision leans and why, even when `decision` stays `open` because a fact is missing.
+
+Record what the sources show:
 
 - **Purpose:** the specific interest, whose it is, and what the processing achieves for it.
 - **Necessity:** why the processing is needed, the less intrusive options and why each was or wasn't chosen, and what data is left out.
@@ -56,6 +58,6 @@ Before validating: mark an action `block_reason: law` only when a provision requ
 
 ### 6. Hand back
 
-The privacy lead decides whether legitimate interests holds (`approvals.md`). Reply in 150 words at most in total, however many records, plus the Round 1 questions: the record's path and ID, the decision and why it's open or proposed, what blocks launch, and the decisions needed. Point to counsel for e-marketing consent rules, which neither legitimate interests nor compatibility settles. Use wording that fits the kind: a compatibility assessment isn't an LIA. For a new purpose, keep compatibility, the lawful basis, and marketing channel rules apart, and say which one blocks it.
+The privacy lead decides whether legitimate interests holds (`approvals.md`). Write the reply for the requester, in plain English. Start with the answer and why, then what they need to do and who decides, then the Round 1 questions. Say what blocks launch in words, grouped as legal requirements, risks, and internal policy. Give a date only when the request, a contract, or the law sets it. End with one line for the file: the record IDs and paths, and the counts from `gov` of open questions, findings, and verify flags. Keep the reply to 200 words at most before the questions, however many records; the record holds the full reasoning.
 
-Open with a one-line answer the requester can act on, such as "Not as proposed: logging all typed content fails necessity" or "Not yet: two facts decide it", and the less intrusive way to reach the same goal if there is one. The record holds the full reasoning; the reply is the decision-oriented summary of it. Take counts of tests, questions, and findings from the rendered record, not your own tally, and say they come from `gov`; the decision is the assessment's, and the privacy lead approves it. Give launch blockers grouped by reason, as the record's Launch line does. Give a date only when the request, a contract, or the law sets it; the record's due dates are proposals. A provisional answer names the design or fact it rests on.
+Open with an answer the requester can act on, such as "Not as proposed: logging all typed content fails necessity" or "Probably, if two facts check out", and the less intrusive way to reach the same goal if there is one. Point to counsel for e-marketing consent rules, which neither legitimate interests nor compatibility settles. Use wording that fits the kind: a compatibility assessment isn't an LIA. For a new purpose, keep compatibility, the lawful basis, and marketing channel rules apart, and say which one blocks it.

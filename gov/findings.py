@@ -163,16 +163,26 @@ def tia(data: dict) -> list:
     return out
 
 
+def _analysis(data: dict) -> list:
+    return [("analysis", "write the analysis: the full legal reasoning, the provisional view, and what would change it")] if is_tbc(data.get("analysis", "TBC")) else []
+
+
 def _with_issues(check):
     from gov import issues
-    return lambda data: check(data) + issues.missing(data)
+    return lambda data: check(data) + _analysis(data) + issues.missing(data)
+
+
+CERTIFICATION_ROUTES = {"eu-us-dpf", "uk-extension", "swiss-us-dpf", "TBC"}
 
 
 def tsr(data: dict) -> list:
     out = []
     cert = data["mechanism"]["certification"]
-    if data["decision"]["value"] == "no-tia-needed" and (cert["status"] != "active" or cert["scope"] in ("TBC", "not-applicable")):
+    certified_route = data["mechanism"]["route"] in CERTIFICATION_ROUTES
+    if data["decision"]["value"] == "no-tia-needed" and certified_route and (cert["status"] != "active" or cert["scope"] in ("TBC", "not-applicable")):
         out.append(("mechanism", "the screen says no TIA is needed, but the certification isn't shown active and covering this data"))
+    if data["mechanism"]["route"] == "adequacy-decision" and cert["status"] not in ("not-applicable", "TBC"):
+        out.append(("mechanism", "a country adequacy decision needs no certification; set the certification to not-applicable"))
     if is_tbc(data["activity"]):
         out.append(("activity", "link the RoPA entry this transfer belongs to"))
     return out

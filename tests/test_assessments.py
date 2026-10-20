@@ -212,3 +212,25 @@ def test_screen_says_no_tia_only_with_an_active_covering_certification(root):
     assert any("isn't shown active" in m for m in found(root, "finding"))
     assert any("(certification-scope)" in m for m in found(root, "finding"))
     assert render_tree(root).problems == []
+
+
+def test_whose_both_reads_as_company_and_third_party(assess_root):
+    edit(assess_root, LIA, lambda d: d["purpose_test"].update(whose="both"))
+    assert "| Company and third party |" in rendered(assess_root, LIA)
+
+
+def test_country_adequacy_screen_needs_no_certification(root):
+    path = new_record(root, "tsr", "japan", "EU data to Japanese distributor", "2026-10-20", "Claude")
+    data = yamlio.load(path)
+    data["mechanism"]["route"] = "adequacy-decision"
+    data["mechanism"]["certification"] = {"entity": "not-applicable", "status": "not-applicable", "scope": "not-applicable", "checked": "not-applicable"}
+    data["decision"] = {"value": "no-tia-needed", "status": "Provisional", "reason": "Japan adequacy"}
+    path.write_text(yamlio.dumps(data), encoding="utf-8")
+    findings = found(root, "finding")
+    assert not any("isn't shown active" in m or "(certification-scope)" in m or "(dpf-onward)" in m for m in findings)
+    assert any("(adequacy-scope)" in m for m in findings)
+
+
+def test_missing_analysis_is_a_finding(assess_root):
+    edit(assess_root, LIA, lambda d: d.update(analysis="TBC"))
+    assert any("write the analysis" in m for m in found(assess_root, "finding"))

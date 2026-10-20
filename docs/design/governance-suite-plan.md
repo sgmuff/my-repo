@@ -313,7 +313,9 @@ Done when the RoPA evals produce valid YAML, two triage runs print the same plan
 - [x] Counsel answer keys for the seven evals, and a blind comparison against them: the skills reach the expected outcome in all seven with no material errors, but trail on breadth (mean 73 against 77)
 - [x] Breadth fixes: issue rules in `gov/rules/issues.yaml` raised by context tags, kind, regime, and country; reasoning fields on each test; a transfer screen record (TSR) for negative screens 
 - [x] Iteration 7, scored blind against the answer keys: skill 94 against 72 for the baseline, ahead in all seven
-- [ ] Holdout scenarios from counsel, with answer keys, to test beyond the development set
+- [x] Holdout of eight new scenarios, scored blind: the skill trails, 76 against 84, though it makes no material errors and scores higher with a regulator (4.5 against 3.1). The development gain was largely fitted to its seven scenarios.
+- [x] Changes from the holdout: a 400-word analysis section in every record, written before the fields; a provisional view always; a plain-English reply for the requester; `gov` fixes for the purpose test's "both" label and country adequacy screens
+- [ ] A second holdout to judge those changes
 - [ ] Description optimizer runs for `lia` and `tia`
 - [x] `phase-1` merged to main
 

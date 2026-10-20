@@ -7,7 +7,7 @@ from gov import yamlio
 from gov.paths import PACKAGE
 
 KIND_REGIME = {"eu-tia": "eu-gdpr", "uk-tra": "uk-gdpr", "ch-tia": "ch-fadp"}
-CONDITIONS = {"types", "kinds", "context", "regimes", "countries", "special_category"}
+CONDITIONS = {"types", "kinds", "context", "regimes", "countries", "special_category", "routes"}
 
 
 class IssueRulesError(ValueError):
@@ -62,6 +62,8 @@ def _matches(when: dict, data: dict) -> bool:
     if "regimes" in when and not set(when["regimes"]) & _regimes(data):
         return False
     if "countries" in when and not set(when["countries"]) & _countries(data):
+        return False
+    if "routes" in when and (data.get("mechanism") or {}).get("route") not in when["routes"]:
         return False
     if when.get("special_category") == "possible" and _special_category(data) is False:
         return False

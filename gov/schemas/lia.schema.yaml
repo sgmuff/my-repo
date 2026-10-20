@@ -4,7 +4,7 @@ description: "An LIA (GDPR and UK GDPR Art. 6(1)(f)), a UK recognized legitimate
 type: object
 additionalProperties: false
 required: [id, type, schema_version, format_version, kind, title, status, version, activity, regimes,
-  business_owner, prepared_by, date_prepared, last_reviewed, next_review, summary, decision,
+  business_owner, prepared_by, date_prepared, last_reviewed, next_review, summary, decision, analysis,
   purpose_test, necessity_test, balancing, recognized_interest, compatibility, safeguards, objection,
   special_category, actions, open_questions, verify, finding_responses, references, version_history, signoff]
 properties:
@@ -38,6 +38,7 @@ properties:
   next_review: {$ref: "common.schema.yaml#/$defs/date"}
   summary: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 50, description: "The processing and the interest relied on, in two sentences"}
 
+  analysis: {$ref: "common.schema.yaml#/$defs/analysis"}
   decision:
     description: "The outcome. Only the privacy lead confirms it."
     $ref: "common.schema.yaml#/$defs/call"

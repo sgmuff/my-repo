@@ -29,6 +29,10 @@ Marketing scores B2B prospects from LinkedIn profile data so Sales can prioritiz
 **Open items:** 0 questions block launch · 2 block approval
 **Launch:** blocked by A1 (law).
 
+## Analysis
+
+Prioritizing B2B outreach is a legitimate interest (Art. 6(1)(f), Recital 47), but necessity and balancing turn on facts not yet known: the data source, the notice, and whether AI scoring beats simpler ranking. Provisionally open; it leans toward holding if the source is licensed, the inputs are limited, and an Art. 14 notice is given.
+
 ## 1. Purpose test (Art. 6(1)(f))
 
 | Interest | Whose | What the processing achieves | Legitimate | Source |

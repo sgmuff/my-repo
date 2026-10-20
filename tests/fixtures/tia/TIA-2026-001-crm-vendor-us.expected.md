@@ -27,6 +27,10 @@ EU customer contact data is hosted in Frankfurt, and the CRM vendor's US support
 **Open items:** 0 supplementary measures shown effective · 0 questions block launch · 1 blocks approval
 **Launch:** blocked by A1 (law).
 
+## Analysis
+
+Storing CRM data in the US is a Chapter V transfer on SCCs Module 2, so Clause 14 requires this assessment. Whether FISA 702 reaches the vendor is unknown, and no measure is yet shown to work against it. Provisionally open; it leans toward proceeding with measures if the vendor's facts limit exposure.
+
 ## 1. Parties
 
 | Party | Name | Country | Role | Source |

@@ -15,6 +15,7 @@ last_reviewed: null
 next_review: "2027-10-18"
 summary: EU customer contact data is hosted in Frankfurt, and the CRM vendor's US support team can access it remotely. The vendor isn't DPF-certified, so the transfer relies on SCCs Module 2.
 decision: {value: open, status: Provisional, reason: Step 3 needs the vendor's government-access record (Q1)}
+analysis: "Storing CRM data in the US is a Chapter V transfer on SCCs Module 2, so Clause 14 requires this assessment. Whether FISA 702 reaches the vendor is unknown, and no measure is yet shown to work against it. Provisionally open; it leans toward proceeding with measures if the vendor's facts limit exposure."
 
 exporter: {name: TBC, role: controller, source: {kind: stated, ref: Sales request}}
 importer: {name: CRM vendor Inc., country: United States, role: processor, source: {kind: document, ref: Vendor DPA draft}}
