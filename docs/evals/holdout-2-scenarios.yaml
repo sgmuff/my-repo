@@ -1,5 +1,5 @@
 # Second holdout set: scenarios drafted 2026-10-20 by an agent that saw no skills, rules, or earlier outputs.
-# Status: DRAFT for counsel review.
+# Status: approved by counsel 2026-10-20.
 scenarios:
   - id: lia-01-municipal-smart-meter-fraud
     skill: lia
