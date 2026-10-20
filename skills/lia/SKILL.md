@@ -6,58 +6,41 @@ compatibility: Requires the gov command from this repository (skills/install.sh 
 
 # Legitimate interests and compatibility assessments
 
-This skill writes the assessment a controller needs before relying on legitimate interests, or before reusing data for a new purpose. The output is one YAML record, rendered to Markdown in a fixed format.
+This skill answers a question about legitimate interests, or about reusing data for a new purpose, and records the answer as an assessment a regulator can read. The record is one YAML file, rendered to Markdown in a fixed format.
 
-**You fill in the record; `gov` writes the document.** Every assessment renders the same sections in the same order, each citing what it satisfies, so a regulator can read any of them the same way. Never write or edit the `.md` file.
+**Answer first, then record.** The legal analysis is yours, as full and as careful as you would give without this skill. The record captures it; it doesn't shape it. Never write or edit the `.md` file; `gov` writes it.
 
-**The assessment proposes; the privacy lead decides.** Every test is a call with a value, Provisional, and a one-line reason. The decision stays `open` until the facts support it, and only the privacy lead confirms it.
+**The assessment proposes; the privacy lead decides.** Give a provisional view on every answer, and never present a test as passed, or the processing as approved, before the facts that decide it are known.
 
 ## Files
 
 | File | Read it when |
 |---|---|
-| [`references/test.md`](references/test.md) | Always: how to run each test |
+| [`references/test.md`](references/test.md) | Step 2, to check your answer for gaps |
 | [`../_shared/references/gdpr.md`](../_shared/references/gdpr.md) | Section 3 for lawful bases, section 1 for UK changes |
-| [`../_shared/conventions.md`](../_shared/conventions.md) | At the start of every run |
-| [`../_shared/approvals.md`](../_shared/approvals.md) | Step 6 |
+| [`../_shared/conventions.md`](../_shared/conventions.md) | Step 3 |
+| [`../_shared/approvals.md`](../_shared/approvals.md) | Step 5 |
 
 ## Workflow
 
 ### 1. Check the tool and the role
 
-Run `gov --version`; if it fails, stop and tell the user to run `skills/install.sh`. Find the RoPA entry for the activity. If the company is a processor for the purpose, stop: the customer chooses its own basis. Say so, and offer to note it in the RoPA.
+Run `gov --version`; if it fails, stop and tell the user to run `skills/install.sh`. If the company is a processor for the purpose, say so: the customer chooses its own basis, and no LIA is the company's to write.
 
-### 2. Pick the kind
+### 2. Answer the question
 
-- `lia`: legitimate interests under the three-part test
-- `recognized-interest`: a UK Annex 1 purpose, which needs no balancing
-- `compatibility`: a new purpose for data collected for another (Art. 6(4))
+Answer the request as a careful privacy lawyer would, before you open any template: what the right basis is, whether legitimate interests or compatibility can work, every regime and country the facts touch, the national and sector rules on top of the GDPR, the traps a quick answer misses, a less intrusive way to reach the goal, and your provisional view with the facts that would change it. Write it in whatever form fits the question. Then read `references/test.md` and add anything your answer missed; don't cut what it already covers. Mark each point you can't check against a source as one to verify.
 
-Run `gov new lia --slug <short-slug> --title "<what is assessed>" --date <today>`, set `kind`, and set the sections that don't fit the kind to `{applicable: false}`. Set `context` to every tag in `gov/rules/issues.yaml` that fits the facts, such as `employees`, `profiling`, `direct-marketing`, `vendor`, or `school-data`; the tags decide which issues `gov validate` raises.
+### 3. Record it
 
-### 3. Fill in the tests
+Run `gov new lia --slug <short-slug> --title "<what is assessed>" --date <today>`, and set `kind`: `lia` for the three-part test, `recognized-interest` for a UK Annex 1 purpose, or `compatibility` for a new purpose under Art. 6(4). Set the sections that don't fit the kind to `{applicable: false}`. Set `context` to every tag in `gov/rules/issues.yaml` that fits the facts.
 
-Follow `references/test.md`. Analyse before you fill in the record. Work through the law as fully as you would in a memo to counsel: every regime and country the facts touch, the national rules on top of the GDPR, the sector rules, and the traps a quick answer misses. Use the references, and your own knowledge where they're silent, with a verify flag for each point you can't check. Write that analysis in `analysis`, 400 words at most, then fill in the fields from it. The analysis always gives a provisional view: which way the decision leans and why, even when `decision` stays `open` because a fact is missing.
+Fill in the record from your answer. Put its reasoning in `analysis`, condensed to 400 words, and each test's call, with its reason, in the test's fields. Each call stays Provisional, and a test stays `open` while a fact that decides it is unknown. If a point doesn't fit a field, it goes in `analysis`; the record never changes your conclusion. Add a verify flag for each point to verify.
 
-Record what the sources show:
+### 4. Validate and render
 
-- **Purpose:** the specific interest, whose it is, and what the processing achieves for it.
-- **Necessity:** why the processing is needed, the less intrusive options and why each was or wasn't chosen, and what data is left out.
-- **Balancing:** whose data, any relationship, reasonable expectations, vulnerability, and each impact with its likelihood and severity. The outcome stays `open` while a fact that decides it is unknown.
-- **Safeguards and objection:** how people object, and whether direct marketing makes the right absolute. Say plainly that processing stops on objection when it's marketing.
+Before validating: mark an action `block_reason: law` only when a provision requires that action, and cite it in `scope` (`gov validate` rejects a law block without one). Gathering facts, verifying a point, or getting counsel's view is `risk` or `policy`. A DPIA is `law` only once screening finds likely high risk or a national Art. 35(4) list names the processing; a notice the law requires at collection (Art. 13 or 14) is `law`; a RoPA entry, a vendor review, and vendor terms beyond Art. 28 are `policy`. When no RoPA entry exists, add an action to create one. Run `gov validate`, fix errors, and resolve findings by changing the record. For each issue it raises, record in `issues` how your answer deals with it: `addressed` with the conclusion, `not-applicable` with why, or `open` with what's needed. If `gov` raises an issue your answer missed, deal with it in the answer too. Don't add a `finding_responses` entry yourself; only a person decides a finding doesn't apply. Validation checks structure and consistency, not legal correctness. Run `gov render`, then add the record to the RoPA entry's `assessments` if one exists, and rerun `gov validate` and `gov render`.
 
-Give each test a `reasoning` of up to 100 words with citations: the analysis behind the call, which the table cells can't hold. Ask for evidence that less intrusive options fall short, and give each impact its basis. Don't decide a test from the requester's confidence. "Marketing is sure prospects expect it" is a stated view, not evidence; ask what the people were told.
+### 5. Reply
 
-### 4. Ask for the gaps
-
-Round 1 asks only the facts that block approval, five at most: usually how the data was obtained, what the people were told, and whether a less intrusive option would work.
-
-### 5. Validate, render, and link
-
-Before validating: mark an action `block_reason: law` only when a provision requires that action, and cite it in `scope` (`gov validate` rejects a law block without one); gathering facts, verifying a point, or getting counsel's view is `risk` or `policy`, even when the question behind it is legal; a DPIA is `law` only once screening finds likely high risk or a national Art. 35(4) list names the processing, so until then the action is the screening; a notice the law requires at collection (Art. 13 or 14) is `law`; a RoPA entry, a vendor review, and vendor terms beyond Art. 28 are `policy`; give each verify flag its own resolution; and when no RoPA entry exists, add an action to create one rather than leaving it as a question. Run `gov validate`, fix errors, and resolve findings by changing the record. Address each issue it raises in `issues`: `addressed` with where and the conclusion, `not-applicable` with why, or `open` with what's needed. The issues are how the record covers the law around the test; keep each note to the point. Report any you can't resolve in your reply; don't add a `finding_responses` entry yourself, because only a person decides a finding doesn't apply. Validation checks structure and consistency, not legal correctness. Run `gov render`. Then add `{assessment: lia, status: on-file, record: <LIA ID>}` to the RoPA entry's `assessments`, and rerun `gov validate` and `gov render`.
-
-### 6. Hand back
-
-The privacy lead decides whether legitimate interests holds (`approvals.md`). Write the reply for the requester, in plain English. Start with the answer and why, then what they need to do and who decides, then the Round 1 questions. Say what blocks launch in words, grouped as legal requirements, risks, and internal policy. Give a date only when the request, a contract, or the law sets it. End with one line for the file: the record IDs and paths, and the counts from `gov` of open questions, findings, and verify flags. Keep the reply to 200 words at most before the questions, however many records; the record holds the full reasoning.
-
-Open with an answer the requester can act on, such as "Not as proposed: logging all typed content fails necessity" or "Probably, if two facts check out", and the less intrusive way to reach the same goal if there is one. Point to counsel for e-marketing consent rules, which neither legitimate interests nor compatibility settles. Use wording that fits the kind: a compatibility assessment isn't an LIA. For a new purpose, keep compatibility, the lawful basis, and marketing channel rules apart, and say which one blocks it.
+The privacy lead decides whether legitimate interests holds (`approvals.md`). Send the answer from step 2, as you amended it, to the requester: in plain English, as long as the answer needs and no longer, without restating the record. Put what blocks launch in words, grouped as legal requirements, risks, and internal policy, and the open questions, five at most, that would change the answer. Give a date only when the request, a contract, or the law sets it. End with one line for the file: the record IDs and paths, and the counts from `gov` of open questions, findings, and verify flags. Point to counsel for e-marketing consent rules, which neither legitimate interests nor compatibility settles, and keep compatibility, the lawful basis, and channel rules apart when they differ.

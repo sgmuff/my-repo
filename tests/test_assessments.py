@@ -234,3 +234,13 @@ def test_country_adequacy_screen_needs_no_certification(root):
 def test_missing_analysis_is_a_finding(assess_root):
     edit(assess_root, LIA, lambda d: d.update(analysis="TBC"))
     assert any("write the analysis" in m for m in found(assess_root, "finding"))
+
+
+def test_swiss_screen_cites_swiss_method(root):
+    path = new_record(root, "tsr", "swiss", "Swiss clinic to US vendor", "2026-10-20", "Claude")
+    data = yamlio.load(path)
+    data["regimes"] = ["ch-fadp"]
+    path.write_text(yamlio.dumps(data), encoding="utf-8")
+    render_tree(root)
+    text = path.with_suffix(".md").read_text()
+    assert "**Method:** Swiss FADP Art. 16(1)" in text and "GDPR Art. 45" not in text

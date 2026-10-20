@@ -226,7 +226,10 @@ def finding_rows(rec) -> list:
 def render_record(rec, root=None) -> str:
     template = _env().get_template(f"{rec.type}.md.j2")
     from gov import issues
-    extra = {"findings": finding_rows(rec), "method": _methods().get(rec.type, {}).get(rec.data.get("kind")),
+    method = _methods().get(rec.type, {}).get(rec.data.get("kind"))
+    if isinstance(method, dict):
+        method = method.get((rec.data.get("regimes") or ["eu-gdpr"])[0])
+    extra = {"findings": finding_rows(rec), "method": method,
              "issue_rows": issues.rows(rec.data) if rec.type != "ropa" else []}
     if rec.type == "ropa":
         extra.update(vendors=derive.vendor_slugs(rec.data), required=required_rows(root, rec.data))

@@ -6,58 +6,41 @@ compatibility: Requires the gov command from this repository (skills/install.sh 
 
 # Transfer impact assessments
 
-This skill decides whether a transfer needs an assessment, and writes it in the six steps of EDPB Recommendations 01/2020. The output is one YAML record per transfer flow, rendered to Markdown in a fixed format.
+This skill answers a question about a transfer of personal data out of the EEA, the UK, or Switzerland, and records the answer: a transfer screen when no assessment is needed, or an assessment in the six EDPB steps when one is. Each record is one YAML file, rendered to Markdown in a fixed format.
 
-**You fill in the record; `gov` writes the document.** Every TIA renders the same steps in the same order, so a regulator can read any of them the same way. Never write or edit the `.md` file.
+**Answer first, then record.** The legal analysis is yours, as full and as careful as you would give without this skill. The record captures it; it doesn't shape it. Never write or edit the `.md` file; `gov` writes it.
 
-**Foreign law is volatile, and the record must say so.** Each finding about the destination's law cites a source and carries a verify flag. Step 3 asks what can reach *this* importer and *this* data, not what a country's law says in general.
+**The assessment proposes; the privacy lead decides.** Give a provisional view on every answer, and never present a transfer as cleared, or a risk as rated, before the facts that decide it are known. Destination law is volatile: mark what you can't check against a source as a point to verify.
 
 ## Files
 
 | File | Read it when |
 |---|---|
-| [`references/steps.md`](references/steps.md) | Always: when a TIA is needed, the six steps, and US points to check |
+| [`references/steps.md`](references/steps.md) | Step 2, to check your answer for gaps |
 | [`../_shared/references/gdpr.md`](../_shared/references/gdpr.md) | Section 11 for mechanisms, adequacy, and the DPF |
-| [`../_shared/conventions.md`](../_shared/conventions.md) | At the start of every run |
-| [`../_shared/approvals.md`](../_shared/approvals.md) | Step 6 |
+| [`../_shared/conventions.md`](../_shared/conventions.md) | Step 3 |
+| [`../_shared/approvals.md`](../_shared/approvals.md) | Step 5 |
 
 ## Workflow
 
-### 1. Check the tool and screen the transfer
+### 1. Check the tool
 
 Run `gov --version`; if it fails, stop and tell the user to run `skills/install.sh`.
 
-Screen before assessing. A restricted transfer exists when a regime applies and data is stored in, or accessed from, a country without adequacy. Where the data subjects live doesn't settle it. If an adequacy decision covers the destination, or a DPF certification covers this importer's exact entity and this data, no TIA is needed: say so, with the source and date you checked, and record it: run `gov new tsr --slug <short-slug> --title "<importer and flow>" --date <today>`, fill in the route, the certification check, and the onward transfers, address its issues, then validate and render. Don't start a TIA. A vendor's US headquarters is a reason to screen, not a finding.
+### 2. Answer the question
 
-### 2. Start the record
+Answer the request as a careful privacy lawyer would, before you open any template: which flows are transfers and which aren't (remote access counts; where the people live doesn't settle it), the mechanism for each, whether an adequacy decision or a certification covers it, what the destination's law and practice mean for this importer and this data, which measures would actually work, what the interim position is if the transfer is already running, and your provisional view with the facts that would change it. Write it in whatever form fits the question. Then read `references/steps.md` and add anything your answer missed; don't cut what it already covers.
 
-One record per flow: one exporter, one importer, one tool. Run `gov new tia --slug <short-slug> --title "<importer and flow>" --date <today>`, and set `kind`: `eu-tia` (SCCs or BCRs), `uk-tra` (IDTA or UK Addendum), or `ch-tia` (Swiss SCCs). Set `context` to every tag in `gov/rules/issues.yaml` that fits the facts, such as `employees` or `vendor`; the tags, the kind, and the importer's country decide which issues `gov validate` raises.
+### 3. Record it
 
-### 3. Work through the six steps
+If your answer finds that adequacy or a certification covers a flow, record it as a screen: `gov new tsr --slug <short-slug> --title "<importer and flow>" --date <today>`. For a flow that needs an assessment, run `gov new tia` with the same arguments and set `kind`: `eu-tia` (SCCs or BCRs), `uk-tra` (IDTA or UK Addendum), or `ch-tia` (Swiss SCCs). One record per flow. Set `context` to every tag in `gov/rules/issues.yaml` that fits the facts.
 
-Follow `references/steps.md`. Analyse before you fill in the record. Work through the law as fully as you would in a memo to counsel: every regime and country the facts touch, the national rules on top of the GDPR, the sector rules, and the traps a quick answer misses. Use the references, and your own knowledge where they're silent, with a verify flag for each point you can't check. Write that analysis in `analysis`, 400 words at most, then fill in the fields from it. The analysis always gives a provisional view: which way the decision leans and why, even when `decision` stays `open` because a fact is missing.
+Fill in the record from your answer. Put its reasoning in `analysis`, condensed to 400 words, and each step's findings in the step's fields, with what the request stated recorded as a stated source. Each call stays Provisional, and the decision stays `open` while step 3 is open; propose `suspend` where no measure makes the protection essentially equivalent. If a point doesn't fit a field, it goes in `analysis`; the record never changes your conclusion. Add a verify flag for each point to verify.
 
-Then record the six steps:
+### 4. Validate and render
 
-1. **The transfer:** data, people, purpose, stored or remote access, and onward transfers.
-2. **The tool:** the SCC module, and the date you checked adequacy and the DPF list.
-3. **The destination's law and practice:** each law that could reach this importer, whether it can, and the importer's own evidence, such as transparency reports. Cite a source for each, and add a verify flag.
-4. **Supplementary measures:** technical, contractual, or organizational, each with whether it works against what step 3 found. Only technical measures stop access the law compels.
-5. **Procedural steps:** whether the tool is signed, and what's left.
-6. **Reassessment:** the triggers for looking again.
+Before validating: mark an action `block_reason: law` only when a provision requires that action, and cite it in `scope` (`gov validate` rejects a law block without one). Gathering facts, verifying a point, or getting counsel's view is `risk` or `policy`. A DPIA is `law` only once screening finds likely high risk or a national Art. 35(4) list names the processing; a notice the law requires at collection (Art. 13 or 14) is `law`; a RoPA entry, a vendor review, and vendor terms beyond Art. 28 are `policy`. When no RoPA entry exists, add an action to create one. Run `gov validate`, fix errors, and resolve findings by changing the record. For each issue it raises, record in `issues` how your answer deals with it: `addressed` with the conclusion, `not-applicable` with why, or `open` with what's needed. If `gov` raises an issue your answer missed, deal with it in the answer too. Don't add a `finding_responses` entry yourself; only a person decides a finding doesn't apply. Validation checks structure and consistency, not legal correctness. Run `gov render`, then add the record to the RoPA entry's `assessments` if one exists, and rerun `gov validate` and `gov render`.
 
-Record what the request states as a stated source, such as remote access or "not on the DPF list", and verify it separately: unverified isn't failed. Give steps 2 and 3 a `reasoning` of up to 100 words with citations. The decision stays `open` while step 3 is open. If nothing makes the protection essentially equivalent, propose `suspend`.
+### 5. Reply
 
-### 4. Ask for the gaps
-
-Round 1 asks only what blocks approval, five at most, in the order that changes the decision: what the importer's staff can actually see, which measures can reduce that, the importer's legal and service profile, where the data is stored and accessed from with its sub-processors, and its record of government access requests. Ask the vendor review for these where one exists. Scale the record to the transfer: actions for what the law requires and what decides step 3, and counsel review as a blocker only where step 3 turns on it.
-
-### 5. Validate, render, and link
-
-Before validating: mark an action `block_reason: law` only when a provision requires that action, and cite it in `scope` (`gov validate` rejects a law block without one); gathering facts, verifying a point, or getting counsel's view is `risk` or `policy`, even when the question behind it is legal; a DPIA is `law` only once screening finds likely high risk or a national Art. 35(4) list names the processing, so until then the action is the screening; a notice the law requires at collection (Art. 13 or 14) is `law`; a RoPA entry, a vendor review, and vendor terms beyond Art. 28 are `policy`; give each verify flag its own resolution; and when no RoPA entry exists, add an action to create one rather than leaving it as a question. Run `gov validate`, fix errors, and resolve findings by changing the record. Address each issue it raises in `issues`: `addressed` with where and the conclusion, `not-applicable` with why, or `open` with what's needed. The issues are how the record covers the law around the test; keep each note to the point. Report any you can't resolve in your reply; don't add a `finding_responses` entry yourself, because only a person decides a finding doesn't apply. Validation checks structure and consistency, not legal correctness. Run `gov render`. Then add `{assessment: tia, status: on-file, record: <TIA ID>}` (or `uk-transfer-risk-assessment`, `swiss-transfer-assessment`) to the RoPA entry's `assessments`, and rerun `gov validate` and `gov render`.
-
-### 6. Hand back
-
-The privacy lead decides the transfer mechanism and supplementary measures (`approvals.md`). Write the reply for the requester, in plain English. Start with the answer and why, then what they need to do and who decides, then the Round 1 questions. Say what blocks launch in words, grouped as legal requirements, risks, and internal policy. Give a date only when the request, a contract, or the law sets it. End with one line for the file: the record IDs and paths, and the counts from `gov` of open questions, findings, and verify flags. Keep the reply to 200 words at most before the questions, however many records; the record holds the full reasoning.
-
-If the transfer is already running, say so first, with the privacy lead's interim choice: continue under named measures while the assessment finishes, or suspend. A signed tool is necessary but not enough; if step 3 finds no effective measure, propose suspend. Open with an answer the requester can act on, such as "Provisionally no TIA: confirm the certification covers this entity" or "Probably yes with measures, once the vendor confirms two facts", and any safer design, such as keeping sensitive tickets in the EEA.
+The privacy lead decides the transfer mechanism and supplementary measures (`approvals.md`). Send the answer from step 2, as you amended it, to the requester: in plain English, as long as the answer needs and no longer, without restating the record. Put what blocks launch in words, grouped as legal requirements, risks, and internal policy, and the open questions, five at most, that would change the answer. Give a date only when the request, a contract, or the law sets it. End with one line for the file: the record IDs and paths, and the counts from `gov` of open questions, findings, and verify flags. If the transfer is already running, say so first, with the privacy lead's interim choice: continue under named measures while the assessment finishes, or suspend.
