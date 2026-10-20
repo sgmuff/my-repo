@@ -1,0 +1,79 @@
+# Second holdout set: scenarios drafted 2026-10-20 by an agent that saw no skills, rules, or earlier outputs.
+# Status: DRAFT for counsel review.
+scenarios:
+  - id: lia-01-municipal-smart-meter-fraud
+    skill: lia
+    prompt: |
+      hi, I'm in the data team at a mid-sized Dutch gemeente. We want to pull smart-meter consumption data (via the
+      regional grid operator) for every household on bijstand and flag addresses where usage suggests an extra person is
+      living there (undeclared cohabitation = benefit fraud). Our vendor says we can do this on legitimate interest because
+      recital 47 says fraud prevention is a legitimate interest. Can you write the LIA so we can start the pilot in January?
+    tests: "Whether the tool refuses to run a balancing test where Art. 6(1)(f) is unavailable to a public authority acting in its tasks, and redirects to Art. 6(1)(c)/(e) with a Member State legal basis."
+
+  - id: lia-02-grocery-diet-segments-to-pharmacy
+    skill: lia
+    prompt: |
+      Hi - we're an online supermarket in Belgium, about 400k active customers. Marketing wants to tag customers by diet
+      from what they buy (diabetic, gluten-free, halal, kosher, "baby on the way") and share those segments with a pharmacy
+      chain we partner with so they can send their own offers. Customers originally gave us their data to order groceries.
+      This is compatible with the original purpose, right, since it's all about shopping? Our DPO wants a 6(4) compatibility
+      assessment before Thursday.
+    tests: "Whether the tool sees that the segments infer Art. 9 data, that Art. 6(4) cannot supply an Art. 9 condition, and that disclosure to a third-party marketer is incompatible, rather than giving a quick compatible-purpose yes."
+
+  - id: lia-03-uk-saas-login-security-logs
+    skill: lia
+    prompt: |
+      quick one. UK B2B SaaS (shift/rota planning). For security we log every login: user ID, timestamp, IP, rough location
+      from IP, browser/device string, success/fail. We use it to catch credential stuffing and account takeover and we
+      alert the customer's admin if a login looks suspicious. Logs sit in our SIEM 90 days then get deleted. Our customer
+      contracts say we're processor for the rota data. Do we need consent from end users or is legitimate interests fine?
+      Just need a short LIA for the file.
+    tests: "Whether the tool gives a confident yes for ordinary security logging on legitimate interests under UK GDPR, handles the controller role for security telemetry, and describes the Data (Use and Access) Act 2025 changes without overstating them."
+
+  - id: lia-04-car-rental-telematics-speeding
+    skill: lia
+    prompt: |
+      We run a car rental business across Italy, every car has a telematics box. Ops want to:
+      (1) see live location of a car when it's reported stolen or is more than 24h overdue,
+      (2) automatically charge the customer's card a EUR 150 "safe driving fee" whenever the box shows them more than
+      30 km/h over the limit, and
+      (3) keep full trip logs (GPS every 30 seconds, speed, harsh braking) for 12 months "for insurance".
+      Can we cover all of this with one legitimate interests assessment? Legal said LI is fine for fleet stuff.
+    tests: "Whether the tool splits a bundled request, accepts event-triggered location on legitimate interests, and rejects speeding penalties as Art. 10 offence data and disproportionate surveillance, rather than approving the bundle as fleet management."
+
+  - id: tia-01-brazil-direct-collection-irish-kyc
+    skill: tia
+    prompt: |
+      We're a fintech in São Paulo, no entity in the EU. Our app is marketed in Portugal and Spain (Portuguese and Spanish
+      UI, prices in euro). Users sign up directly in the app and their data goes straight to our servers in Brazil. ID
+      verification is done by a KYC vendor in Ireland that we contract with as our processor: it checks the ID document and
+      selfie and sends the result and the images back to us. A lawyer in Lisbon told us we need SCCs with every EU customer
+      because it's an international transfer. Is that right? Please run a transfer screen.
+    tests: "Whether the tool recognises that direct collection from data subjects is not a Chapter V transfer and identifies the real transfer from the Irish processor back to the Brazilian controller, including the gap in the 2021 SCCs for importers already subject to GDPR under Art. 3(2)."
+
+  - id: tia-02-uk-motor-insurer-south-africa-claims
+    skill: tia
+    prompt: |
+      We're a UK motor insurer moving first notification of loss and bodily-injury claims handling to an outsourcer in Cape
+      Town (they'd be our processor). Their staff would see claimant names, contact details, policy data, medical reports
+      for injury claims, and sometimes notes from our counter-fraud team. Data stays hosted on AWS in Dublin but their team
+      works on it from SA. Procurement wants the TRA done this week. What do we need and does it pass?
+    tests: "Whether the tool treats remote access as a restricted transfer, runs a UK transfer risk assessment under the post-DUAA data protection test for a non-adequate country, and weights the health and offence data properly."
+
+  - id: tia-03-swiss-clinic-us-telehealth
+    skill: tia
+    prompt: |
+      Our private clinic group (Zurich and Basel) wants to use a US telehealth platform for video consults and
+      e-prescriptions. Patient name, date of birth, insurance number, consultation notes and video recordings would be stored
+      by the vendor in the US. Their sales rep says they're "Data Privacy Framework certified" so we don't need any transfer
+      assessment for Switzerland. True? We need the Swiss transfer assessment either way.
+    tests: "Whether the tool checks Swiss-U.S. DPF certification specifically rather than EU-U.S. DPF, applies the FADP rules on sensitive data and processors, and spots medical professional secrecy as a separate constraint."
+
+  - id: tia-04-spain-retailer-shenzhen-dev-access
+    skill: tia
+    prompt: |
+      Spanish online fashion retailer, about 2m customers across the EU. We're rebuilding our mobile app with a dev agency
+      in Shenzhen. Their engineers want read access to the production customer DB (names, addresses, emails, order history,
+      PSP card tokens + last 4 digits, loyalty points) to "debug realistic edge cases". We'll sign SCCs Module 2 with them and
+      they've told us they have never had a government request. Can you do a quick TIA so we can turn on access next sprint?
+    tests: "Whether the tool resists a sign-the-SCCs-and-go answer for clear-text access from China and steers to data minimisation (synthetic or masked data) instead of paper safeguards."

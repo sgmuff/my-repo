@@ -1,0 +1,388 @@
+# Answer keys for the second holdout set. Drafted 2026-10-20 by the same agent, before any run.
+# Status: revised 2026-10-20 after counsel's review; awaiting counsel approval.
+# as_of: 2026-10-20. weight: must | should. check: true means the citation or date wasn't independently verified.
+# Scoring: must 2, should 1. A material error (minus 5, not double-counted) is a legally incorrect proposition, a failure to
+#   address a controlling requirement, or an unjustified conclusion that contradicts the facts given. A legally defensible,
+#   reasoned different conclusion is not an error. Score the reasoning and conditions, not verbal agreement with the outcome.
+# A must point tests a controlling requirement or an essential step of analysis, not one fact-dependent result.
+
+lia-01-municipal-smart-meter-fraud:
+  outcome: "No on legitimate interests: a municipality detecting social-assistance fraud is a public authority performing its tasks, so Art. 6(1)(f) is excluded and no LIA should be written as if it were available. The pilot could proceed only if a specific Dutch statutory provision under Art. 6(1)(c) or (e) and Art. 6(3) authorises obtaining and using smart-meter data for this purpose with adequate safeguards, and the grid operator has its own basis to disclose; that legal basis, and a DPIA, are the open items."
+  points:
+    - id: K1
+      weight: must
+      point: "Art. 6(1)(f) does not apply to processing by public authorities in the performance of their tasks. Benefit-fraud detection by a gemeente is a core public task, so the vendor's route fails at the threshold and a balancing test should not be run."
+      source: "GDPR Art. 6(1), second subparagraph; Recital 47"
+    - id: K2
+      weight: must
+      point: "The available bases are Art. 6(1)(c) or (e), which require a basis in Union or Member State law that is clear, precise, foreseeable and proportionate. The assessment must identify a specific provision of Dutch law (social-assistance or energy legislation) that covers obtaining smart-meter data for this purpose, or record that none has been found."
+      source: "GDPR Art. 6(3); Recital 41; Participatiewet (information and investigation powers)"
+      check: true
+    - id: K3
+      weight: must
+      point: "Recital 47's reference to fraud prevention concerns controllers who can rely on Art. 6(1)(f); it cannot override the public-authority exclusion in the same recital and article."
+      source: "GDPR Recital 47"
+    - id: K4
+      weight: must
+      point: "The grid operator's disclosure is separate processing that needs its own Art. 6 basis, such as a legal obligation, and must respect sector restrictions. Art. 6(4) compatibility is relevant to further processing but is not itself a lawful basis. Dutch energy law restricts the sharing of granular metering data, so the disclosure leg may fail independently."
+      source: "GDPR Art. 6(1)(c), 6(4); Dutch energy legislation on metering data (Elektriciteitswet 1998 / Energiewet)"
+      check: true
+    - id: K5
+      weight: must
+      point: "A DPIA is required before any pilot, reasoned from the cumulative high-risk factors (systematic profiling of a vulnerable group, matching datasets, large scale, novel use of smart-meter data) and the Autoriteit Persoonsgegevens DPIA list, not from profiling alone."
+      source: "GDPR Art. 35(1), 35(3)(a); WP248 rev.01; Autoriteit Persoonsgegevens DPIA list"
+    - id: K6
+      weight: should
+      point: "Granular consumption data reveals household routines and presence, and can hint at health or religious practice. Necessity and proportionality must be tested against less intrusive means, such as targeted checks on specific suspicion."
+      source: "GDPR Art. 5(1)(c); Charter Arts. 7-8; ECHR Art. 8"
+    - id: K7
+      weight: should
+      point: "The SyRI judgment held that a risk-profiling system targeting benefit recipients breached Art. 8 ECHR for lack of transparency and safeguards. A comparable model will face the same scrutiny even if a statutory basis exists."
+      source: "Rechtbank Den Haag, 5 February 2020, ECLI:NL:RBDHA:2020:865 (SyRI)"
+      check: true
+    - id: K8
+      weight: should
+      point: "If flags lead to investigations, suspension or recovery decisions with little real human review, Art. 22 may be engaged. SCHUFA reads 'decision' broadly to include an automated output that plays a determining role."
+      source: "GDPR Art. 22; CJEU C-634/21 SCHUFA Holding (Scoring), 7 December 2023"
+    - id: K9
+      weight: should
+      point: "If the flagging uses an AI system, it is likely high-risk under the AI Act (public authorities evaluating eligibility for public assistance), and a public body deployer needs a fundamental rights impact assessment. The application date of the high-risk obligations should be checked, given the Digital Omnibus proposal to defer them; a proposal doesn't change the timetable until adopted."
+      source: "Regulation (EU) 2024/1689, Art. 6(2), Annex III point 5(a), Art. 27, Art. 113; Digital Omnibus proposal (November 2025)"
+      check: true
+    - id: K10
+      weight: should
+      point: "Discrimination risk must be addressed. The Dutch childcare-benefits scandal and the related Autoriteit Persoonsgegevens enforcement against the Tax Administration show how fraud models can produce unlawful, discriminatory outcomes."
+      source: "Autoriteit Persoonsgegevens decisions against Belastingdienst (2021, 2022)"
+      check: true
+
+lia-02-grocery-diet-segments-to-pharmacy:
+  outcome: "Not compatible, and it cannot proceed on Art. 6(4) or legitimate interests: tagging customers as diabetic, coeliac, pregnant, halal or kosher infers health and religious data under Art. 9, and handing those segments to a pharmacy chain for its own marketing is a new purpose that customers would not expect. On these facts the viable route is separate, granular explicit consent to the profiling and the disclosure, plus the pharmacy's own e-marketing consent; what stays open is whether narrower, non-sensitive in-house recommendations without disclosure could run on legitimate interests with an opt-out."
+  points:
+    - id: K1
+      weight: must
+      point: "The proposed segments are special category data (health, religion) even though inferred from purchases. Data that indirectly reveals sensitive characteristics falls within Art. 9(1)."
+      source: "GDPR Art. 9(1); CJEU C-184/20 OT, 1 August 2022; CJEU C-252/21 Meta Platforms v Bundeskartellamt, 4 July 2023"
+    - id: K2
+      weight: must
+      point: "Art. 6(4) compatibility addresses only the Art. 6 basis; it does not supply an Art. 9(2) condition. On these facts the apparent viable route is explicit consent, which still leaves purpose limitation, transparency, necessity and the ePrivacy rules to satisfy separately."
+      source: "GDPR Art. 6(4), Art. 9(2)(a); Recital 50"
+    - id: K3
+      weight: must
+      point: "Applying the Art. 6(4) factors: the link to grocery fulfilment is weak, customers would not expect a supermarket to tell a pharmacy they are pregnant or diabetic, the data's sensitivity weighs heavily under 6(4)(c), the consequences include unwanted health and religious targeting, and no safeguard cures that. The conclusion is incompatible."
+      source: "GDPR Art. 6(4)(a)-(e); Recital 50; WP29 Opinion 03/2013 on purpose limitation"
+    - id: K4
+      weight: must
+      point: "Disclosure to the pharmacy chain makes it an independent controller. Compatibility of the supermarket's further processing would not legitimise the recipient's processing, which needs its own basis and Art. 14 notice."
+      source: "GDPR Art. 6(1), Art. 14; Art. 4(7)"
+    - id: K5
+      weight: should
+      point: "If consent is the route, it must be specific to each purpose and recipient, freely given (not a condition of ordering), unbundled from the terms, and as easy to withdraw as to give."
+      source: "GDPR Art. 4(11), Art. 7; CJEU C-673/17 Planet49, 1 October 2019; EDPB Guidelines 05/2020 on consent"
+    - id: K6
+      weight: should
+      point: "A fallback to legitimate interests also fails. KNLTB confirms that a purely commercial interest can be legitimate, but disclosing customer data to a partner for its marketing generally fails necessity or balancing without consent, all the more so for sensitive inferences."
+      source: "CJEU C-621/22 Koninklijke Nederlandse Lawn Tennis Bond, 4 October 2024"
+    - id: K7
+      weight: should
+      point: "Lindenapotheke shows how readily order data becomes health data: online orders of pharmacy-only medicines were treated as health data even though they did not prove the buyer's own condition."
+      source: "CJEU C-21/23 Lindenapotheke, 4 October 2024"
+    - id: K8
+      weight: should
+      point: "Electronic marketing by the pharmacy chain is likely to need prior consent under the Belgian ePrivacy rules, depending on the channel; the customer-relationship (soft opt-in) exception is not available to a third party."
+      source: "Directive 2002/58/EC Art. 13; Belgian Code of Economic Law Art. XII.13 and Royal Decree of 4 April 2003"
+      check: true
+    - id: K9
+      weight: should
+      point: "Data subjects have an absolute right to object to direct marketing, including related profiling, and must be told of it explicitly."
+      source: "GDPR Art. 21(2)-(4)"
+    - id: K10
+      weight: should
+      point: "A DPIA is required: large-scale profiling (400k customers) that produces special category data and combines it with a partner's marketing."
+      source: "GDPR Art. 35(3)(a)-(b); WP248 rev.01; Belgian DPA DPIA list"
+    - id: K11
+      weight: should
+      point: "If the original grocery processing rests on consent rather than contract or legitimate interests, the Art. 6(4) compatibility route is not available at all and new consent is needed."
+      source: "GDPR Art. 6(4) opening words; Recital 50"
+
+lia-03-uk-saas-login-security-logs:
+  outcome: "Yes: logging logins to detect credential stuffing and account takeover, with 90-day retention, is a standard legitimate interest under UK GDPR that passes necessity and balancing, and consent is neither needed nor appropriate. What stays open: confirming the company acts as controller for this security telemetry (or that customer instructions cover it), and whether any device cookies or fingerprinting go beyond what the PECR exemptions allow."
+  points:
+    - id: K1
+      weight: must
+      point: "Ensuring network and information security is a legitimate interest, and login logging is a proportionate, standard way to detect credential stuffing and account takeover, so purpose and necessity are met."
+      source: "UK GDPR Art. 6(1)(f); Recital 49; ICO guidance on legitimate interests"
+    - id: K2
+      weight: must
+      point: "Balancing favours the company: limited, non-sensitive data, B2B users who expect login security monitoring, protection that benefits the users themselves, and short retention. The assessment should reach a clear yes rather than hedge."
+      source: "UK GDPR Art. 6(1)(f); Recital 47; ICO legitimate interests guidance"
+    - id: K3
+      weight: must
+      point: "Consent is the wrong basis: it would not be freely given in an employment or B2B context, and withdrawal would defeat the security purpose."
+      source: "UK GDPR Art. 4(11), Art. 7; ICO consent guidance"
+    - id: K4
+      weight: must
+      point: "Role turns on who determines the purposes and essential means of the security processing. Logging to secure the provider's own service is usually the provider's own purpose, making it controller for that processing even though it is processor for rota data. Neither the contract label nor the fact that it runs the SIEM decides this alone, and the DPA or privacy notice should reflect the split."
+      source: "UK GDPR Art. 4(7), Art. 28(10); ICO guidance on controllers and processors"
+    - id: K5
+      weight: should
+      point: "The Data (Use and Access) Act 2025 added recognised legitimate interests that skip balancing, and listed network and information security as an example of processing that may be a legitimate interest. Security logging still needs necessity and balancing; the assessment should not claim the Act removed them, and should cite the provisions in force on the as_of date."
+      source: "Data (Use and Access) Act 2025, amending UK GDPR Art. 6 (new Art. 6(1)(ea), Annex 1, and examples in Art. 6(9)); commencement regulations"
+      check: true
+    - id: K6
+      weight: should
+      point: "Server-side logging of IP and user-agent does not engage PECR reg. 6. If the service sets device cookies or uses fingerprinting to recognise devices, the strictly-necessary exemption (and any security exemption added by the 2025 Act) must be assessed."
+      source: "PECR 2003 reg. 6, as amended by the Data (Use and Access) Act 2025"
+      check: true
+    - id: K7
+      weight: should
+      point: "Approximate location derived from IP is low precision and not special category data; it adds little intrusiveness if it is not used for other purposes."
+      source: "UK GDPR Art. 9(1); ICO legitimate interests guidance"
+    - id: K8
+      weight: should
+      point: "Alerting the customer's admin to suspicious logins is within reasonable expectations, but the alert content should be minimal. The employer's use of login data for performance or attendance monitoring would be a separate purpose outside this LIA."
+      source: "UK GDPR Art. 5(1)(b)-(c); ICO employment practices (monitoring workers) guidance"
+    - id: K9
+      weight: should
+      point: "Transparency and objection: end users must be told about the logging (directly or via the customer), and an objection under Art. 21(1) can be met by compelling legitimate grounds for security."
+      source: "UK GDPR Arts. 13-14, 21(1)"
+    - id: K10
+      weight: should
+      point: "Art. 32 supports the logging. The logs themselves need access controls and the 90-day deletion should actually be enforced."
+      source: "UK GDPR Art. 5(1)(e), Art. 32"
+
+lia-04-car-rental-telematics-speeding:
+  outcome: "Split it. Event-triggered location for stolen or overdue cars can rest on legitimate interests (or contract) with tight access rules. Automatic speeding fees should not proceed: processing that identifies a driver and a suspected speeding offence is likely Art. 10 data that a private rental firm has no legal authorisation to process for this purpose, and continuous speed surveillance to levy charges fails necessity and balancing. 12-month full trip-log retention 'for insurance' is not justified as stated; open are the insurer's actual requirements and how data is read from the vehicle under ePrivacy."
+  points:
+    - id: K1
+      weight: must
+      point: "The three uses are distinct purposes that need separate analysis. One LIA covering 'fleet stuff' is not adequate, and the conclusions differ by purpose."
+      source: "GDPR Art. 5(1)(b), Art. 6(1); EDPB Guidelines 1/2024 on Art. 6(1)(f)"
+      check: true
+    - id: K2
+      weight: must
+      point: "Location on theft report or overdue return serves a legitimate interest in protecting the fleet and is necessary if accessed only on those defined triggers, with logged access and no routine live viewing. It passes balancing with notice."
+      source: "GDPR Art. 6(1)(f); EDPB Guidelines 01/2020 on connected vehicles"
+    - id: K3
+      weight: must
+      point: "Identifies Art. 10 as a serious, likely issue and analyses it: raw speed and GPS telemetry differs from data linking an identifiable driver to a suspected offence, and from a record of a verified violation. Offence data counts under Art. 10 even where national law classes the offence as administrative (C-439/19), and processing it needs official authority or authorisation in law (in Italy, Art. 2-octies of the Privacy Code), which a rental company charging penalties likely lacks; legitimate interests cannot fill that gap."
+      source: "GDPR Art. 10; CJEU C-439/19 Latvijas Republikas Saeima (penalty points), 22 June 2021; D.Lgs. 196/2003 Art. 2-octies"
+      check: true
+    - id: K4
+      weight: must
+      point: "Apart from Art. 10, continuous speed monitoring to levy a 'fee' fails necessity and balancing: the company is not a traffic enforcer, the monitoring is intrusive and unexpected, and the accuracy of telematics speed against posted limits is doubtful."
+      source: "GDPR Art. 6(1)(f), Art. 5(1)(a), (c), (d)"
+    - id: K5
+      weight: should
+      point: "An automatic card charge based solely on telematics may be an Art. 22 decision with a similarly significant financial effect, assessed on the facts. The contract exception requires genuine necessity and safeguards, including human review and the right to contest."
+      source: "GDPR Art. 22(1)-(3)"
+    - id: K6
+      weight: should
+      point: "Reading data from a connected vehicle may engage ePrivacy terminal-equipment rules, which need consent unless strictly necessary for a service the user requested. This applies alongside the GDPR basis."
+      source: "Directive 2002/58/EC Art. 5(3); D.Lgs. 196/2003 Art. 122; EDPB Guidelines 01/2020 on connected vehicles (v2.0, 2021)"
+      check: true
+    - id: K7
+      weight: should
+      point: "12-month retention of 30-second GPS traces, speed and braking 'for insurance' is not specific enough. Retention should be justified against the insurer's actual requirements and limited to event data needed for claims or disputes, with short default deletion; insurance retention is not unlawful in itself."
+      source: "GDPR Art. 5(1)(c), (e)"
+    - id: K8
+      weight: should
+      point: "Continuous location histories are highly revealing (home, workplaces, clinics, places of worship), which raises intrusiveness in the balancing and argues for minimisation by default."
+      source: "GDPR Recital 75; EDPB Guidelines 01/2020 on connected vehicles"
+    - id: K9
+      weight: should
+      point: "Commercial interests such as cost recovery can be legitimate, but that only clears step one of the three-step test."
+      source: "CJEU C-621/22 KNLTB, 4 October 2024"
+    - id: K10
+      weight: should
+      point: "Customers must get clear notice at rental of what telematics data is collected, when location is accessed, retention, and the right to object."
+      source: "GDPR Art. 13, Art. 21(1)"
+    - id: K11
+      weight: should
+      point: "A DPIA is likely: systematic monitoring and location data at scale. Telematics and geolocation appear on the Garante's list."
+      source: "GDPR Art. 35; Garante list of processing requiring a DPIA (Provvedimento n. 467 of 11 October 2018)"
+      check: true
+
+tia-01-brazil-direct-collection-irish-kyc:
+  outcome: "No SCCs with customers: EU users submitting their own data directly to the Brazilian company is not a Chapter V transfer, but the company is directly subject to GDPR under Art. 3(2)(a) and needs an Art. 27 representative. The Irish KYC processor sending results and images back to the Brazilian controller is a transfer, which the EU adequacy decision for Brazil (Implementing Decision (EU) 2026/179, 26 January 2026) covers if the transfer falls within its scope, so no SCCs or TIA are needed for that leg. Open are confirming the decision's scope for this fintech, the Art. 9 condition for any facial matching, and onward transfers from Brazil."
+  points:
+    - id: K1
+      weight: must
+      point: "A transfer needs an exporter subject to GDPR disclosing to an importer in a third country. A data subject entering data directly into a non-EU company's app is not an exporter, so there is no transfer and no SCCs with customers."
+      source: "EDPB Guidelines 05/2021 on the interplay between Art. 3 and Chapter V (v2.0, 14 February 2023)"
+    - id: K2
+      weight: must
+      point: "GDPR applies directly to the Brazilian company under Art. 3(2)(a) because it targets users in Portugal and Spain (local languages, euro pricing). Full compliance follows, including an Art. 27 representative, assessed separately from Chapter V; the Art. 27(2) exemption is unlikely given large-scale ID and possibly biometric data."
+      source: "GDPR Art. 3(2)(a), Art. 27; EDPB Guidelines 3/2018 on territorial scope"
+    - id: K3
+      weight: must
+      point: "The Irish processor sending KYC results and ID images to the Brazilian controller is a transfer: the processor is subject to GDPR under Art. 3(1), so it needs a Chapter V basis."
+      source: "GDPR Art. 44; EDPB Guidelines 05/2021"
+    - id: K4
+      weight: must
+      point: "The EU adopted an adequacy decision for Brazil on 26 January 2026. If the transfer falls within its scope, Art. 45 covers the Irish-to-Brazil leg and no SCCs or TIA are needed for it; the assessment should confirm the scope rather than treat adequacy as open."
+      source: "GDPR Art. 45; Commission Implementing Decision (EU) 2026/179 (26 January 2026)"
+    - id: K5
+      weight: should
+      point: "Only if the adequacy decision doesn't cover the transfer: the 2021 SCCs are not designed for importers whose processing is already subject to GDPR under Art. 3(2), and the Commission announced separate clauses for that case, so the assessment should flag this gap rather than apply Module 4 uncritically."
+      source: "Decision (EU) 2021/914 Recital 7; Commission Q&A on the SCCs"
+      check: true
+    - id: K6
+      weight: should
+      point: "Only if SCCs are used: under Module 4, the Clause 14 transfer impact assessment applies only where the EU processor combines data received from the third-country controller with data it collected in the EU, which should be checked against the KYC flow."
+      source: "Decision (EU) 2021/914, Annex, Clause 14 (Module 4)"
+      check: true
+    - id: K7
+      weight: should
+      point: "A non-EU controller subject to Art. 3(2) can itself be an exporter. If the Brazilian company sends EU users' data on to processors in other third countries (such as US cloud), those onward flows are transfers that need Chapter V tools."
+      source: "EDPB Guidelines 05/2021 (examples of controllers subject to Art. 3(2) as exporters)"
+    - id: K8
+      weight: should
+      point: "Brazilian AML/KYC obligations are not an Art. 6(1)(c) basis because they are not Union or Member State law. The basis is likely Art. 6(1)(b) or (f), and selfie face-matching is biometric data under Art. 9 only where it is technical processing for unique identification; then it needs a condition, typically explicit consent. The processing basis is a separate question from the transfer mechanism."
+      source: "GDPR Art. 6(3), Art. 9(1), 9(2)(a); Recital 51"
+    - id: K9
+      weight: should
+      point: "Even where there is no Chapter V transfer, the risks of processing in Brazil (including government access) must be addressed under Art. 24 and Art. 32 security and accountability duties."
+      source: "GDPR Arts. 24, 32; EDPB Guidelines 05/2021"
+
+tia-02-uk-motor-insurer-south-africa-claims:
+  outcome: "Proceed with an IDTA (or the UK Addendum to the EU SCCs) and a documented TRA, with a reasoned conclusion on the UK data protection test. It can likely be met if the facts bear it out: a processor relationship, browser-only access with local downloads blocked, limited fraud-note and medical access, and South African legal powers and remedies assessed for this data. Irish hosting doesn't neutralise access from South Africa. A reasoned conclusion that the test fails, if the facts don't support the safeguards, is equally creditable. Open: the access model, the sub-processor chain, local storage in SA, and the volume of medical and counter-fraud data."
+  points:
+    - id: K1
+      weight: must
+      point: "Remote access by staff in South Africa to data hosted in Ireland is a restricted transfer under UK GDPR. EU hosting does not remove it, and UK adequacy for the EEA covers only the Dublin storage."
+      source: "UK GDPR Art. 44; ICO guidance on international transfers"
+    - id: K2
+      weight: must
+      point: "There are no UK adequacy regulations for South Africa, so an Art. 46 appropriate safeguard is needed: the IDTA or the UK Addendum to the EU SCCs."
+      source: "UK GDPR Art. 46; DPA 2018 s.119A; ICO IDTA and Addendum (in force 21 March 2022)"
+    - id: K3
+      weight: must
+      point: "After the Data (Use and Access) Act 2025, the test for Art. 46 safeguards is whether the standard of protection is not materially lower than in the UK, judged by a controller acting reasonably and proportionately. The TRA should apply that test, not a strict essential-equivalence standard."
+      source: "Data (Use and Access) Act 2025, Sch. 7 (amending UK GDPR Chapter V, Art. 46(1A)-(1C)); commencement regulations"
+      check: true
+    - id: K4
+      weight: must
+      point: "The TRA must assess South African law. POPIA is a comprehensive regime enforced by the Information Regulator, but state surveillance law has known weaknesses: in AmaBhungane the Constitutional Court held parts of RICA unconstitutional and found no lawful basis for bulk interception. The TRA should state the relevant powers, safeguards, oversight and remedies and the practical likelihood for this data, rather than rely on a general label."
+      source: "Protection of Personal Information Act 4 of 2013; RICA 70 of 2002; AmaBhungane Centre for Investigative Journalism v Minister of Justice [2021] ZACC 3 (4 February 2021)"
+      check: true
+    - id: K5
+      weight: must
+      point: "Medical reports are special category data and counter-fraud notes may be criminal offence data. Both raise the risk weighting, need a UK condition (for example the insurance and fraud conditions in DPA 2018 Sch. 1), and should be minimised in what the outsourcer can see."
+      source: "UK GDPR Arts. 9-10; DPA 2018 Sch. 1 Part 2 paras 10, 14 and 20"
+      check: true
+    - id: K6
+      weight: should
+      point: "Practical protective measures should be specified and verified: SSO with MFA, VDI or browser-only access with no local download or print, role-based access excluding fraud notes by default, logging, and encryption with keys controlled outside South Africa."
+      source: "UK GDPR Art. 32; ICO transfer risk assessment guidance and tool"
+    - id: K7
+      weight: should
+      point: "An Art. 28 processor contract is needed, the sub-processor chain (including AWS) must be mapped, and the IDTA terms on onward transfers must be applied."
+      source: "UK GDPR Art. 28; IDTA Part 4 mandatory clauses"
+    - id: K8
+      weight: should
+      point: "The SA outsourcer is subject to POPIA for processing in South Africa, including its own cross-border transfer rule in s.72 for any onward transfer out of SA."
+      source: "POPIA ss. 3, 72"
+      check: true
+    - id: K9
+      weight: should
+      point: "The processor status should be confirmed. If the outsourcer exercises real discretion over claims outcomes or uses data for its own purposes, roles and the transfer tool may need to change."
+      source: "UK GDPR Art. 4(7)-(8), Art. 28(10)"
+    - id: K10
+      weight: should
+      point: "The TRA should be documented and kept under review (for example on changes to SA surveillance law or the vendor's set-up), and the ICO's TRA tool is an acceptable method."
+      source: "ICO guidance on transfer risk assessments"
+
+tia-03-swiss-clinic-us-telehealth:
+  outcome: "Not necessarily true: Swiss adequacy for the US covers only organisations certified under the Swiss-U.S. DPF, so the clinic must confirm that the vendor is listed for that framework and that health data is in scope. If not, it needs FDPIC-recognised SCCs with Swiss adaptations and a transfer risk assessment. Separately, medical professional secrecy (Art. 321 Swiss Criminal Code) and Art. 9 FADP constrain the outsourcing whatever the transfer mechanism; open are the vendor's certification, its sub-processors, and whether encryption keeps notes and recordings unreadable to the vendor."
+  points:
+    - id: K1
+      weight: must
+      point: "Switzerland recognises adequate protection for the US only for organisations certified under the Swiss-U.S. DPF (listed in Annex 1 of the Data Protection Ordinance). EU-U.S. DPF certification alone is not enough, so the DPF List entry for the actual contracting entity, not the brand, must show Swiss participation covering this data."
+      source: "FADP Art. 16(1); DPO Art. 8 and Annex 1; Federal Council decision of 14 August 2024, effective 15 September 2024"
+      check: true
+    - id: K2
+      weight: must
+      point: "Without Swiss-U.S. certification, the clinic needs safeguards under FADP Art. 16(2), typically EU SCCs as recognised by the FDPIC with Swiss adaptations (FDPIC as authority, Switzerland treated as a Member State for data subjects' rights), plus a transfer risk assessment covering US law (FISA s.702, EO 12333 and EO 14086)."
+      source: "FADP Art. 16(2)(d); FDPIC recognition of EU SCCs (27 August 2021); FDPIC guidance on transfer risk assessment"
+    - id: K3
+      weight: must
+      point: "Health data is sensitive personal data under the FADP, and consultation notes and video recordings are especially sensitive. This raises the bar for safeguards and the weighting in the assessment."
+      source: "FADP Art. 5(c)(2)"
+    - id: K4
+      weight: must
+      point: "Doctors and their auxiliaries are bound by professional secrecy under Art. 321 Swiss Criminal Code. Disclosure to a foreign IT vendor must be structured so the vendor acts as a properly bound auxiliary under strict confidentiality, or rest on valid patient consent or another legally sufficient route; consent isn't a universal cure. Data protection compliance does not satisfy secrecy."
+      source: "Swiss Criminal Code (StGB) Art. 321"
+    - id: K5
+      weight: must
+      point: "FADP Art. 9 permits delegation to a processor only if no statutory or contractual duty of confidentiality prohibits it, and the controller must ensure the processor guarantees data security. The secrecy analysis therefore feeds directly into whether the processing can be outsourced."
+      source: "FADP Art. 9(1)(b), 9(2)"
+    - id: K6
+      weight: should
+      point: "US government access: Switzerland was designated a qualifying state under EO 14086, giving access to the redress mechanism. Instability at the PCLOB in 2025 and the pending appeal of the EU-U.S. DPF challenge (Latombe, dismissed by the General Court on 3 September 2025) are supporting risk factors to note, not a conclusion that the transfer is unlawful."
+      source: "EO 14086; US Attorney General designation of Switzerland; General Court T-553/23 Latombe v Commission, 3 September 2025"
+      check: true
+    - id: K7
+      weight: should
+      point: "A data protection impact assessment is required under FADP Art. 22 (extensive processing of sensitive data and new technology), with prior consultation of the FDPIC under Art. 23 if high residual risk remains."
+      source: "FADP Arts. 22-23"
+    - id: K8
+      weight: should
+      point: "The duty to inform requires telling patients the destination state and the safeguard or exception relied on."
+      source: "FADP Art. 19(4)"
+    - id: K9
+      weight: should
+      point: "Technical measures carry real weight: end-to-end encrypted video, no recording by default or short retention, and storage options or key management in Switzerland or the EU that keep content unreadable to the vendor."
+      source: "FADP Art. 8; DPO Arts. 1-3"
+    - id: K10
+      weight: should
+      point: "Cantonal health legislation (Zurich, Basel-Stadt) may impose patient-record retention, hosting or confidentiality requirements on private clinics, and these should be checked."
+      source: "Gesundheitsgesetz des Kantons Zürich; Gesundheitsgesetz Basel-Stadt"
+      check: true
+
+tia-04-spain-retailer-shenzhen-dev-access:
+  outcome: "No, not as proposed: clear-text read access to production customer data from Shenzhen cannot be shown to give essentially equivalent protection, because Chinese law allows broad state access that SCCs cannot override, and no supplementary measure works where the importer needs the data in the clear. The project can proceed with synthetic or properly masked test data, with any production debugging done by staff in the EU; open is whether a narrowly scoped dataset, pseudonymised with keys held in Spain, would meet the debugging need and survive a fresh TIA."
+  points:
+    - id: K1
+      weight: must
+      point: "Read access from China to an EU-hosted database is a transfer. Module 2 SCCs require a Clause 14 assessment of the importer's law and practice before access is enabled."
+      source: "GDPR Arts. 44, 46; Decision (EU) 2021/914, Clause 14; CJEU C-311/18 Schrems II, 16 July 2020"
+    - id: K2
+      weight: must
+      point: "Chinese law imposes broad duties on organisations and individuals to support and cooperate with state intelligence work, and the relevant powers lack independent oversight and effective redress meeting Charter Art. 47 standards. The assessment should name the powers and safeguards that matter here, and conclude they create serious risk for TIA purposes."
+      source: "PRC National Intelligence Law 2017 Arts. 7, 14; Counter-Espionage Law (revised 2023); Data Security Law 2021; EDPB European Essential Guarantees Recommendations 02/2020"
+      check: true
+    - id: K3
+      weight: must
+      point: "The importer's statement that it has never had a request cannot carry the assessment. Practical experience counts only if documented and relevant, and with problematic law and clear-text access it does not offset legal risk."
+      source: "EDPB Recommendations 01/2020 (v2.0, 18 June 2021), paras on practical experience"
+    - id: K4
+      weight: must
+      point: "For the clear-text access these developers need, no effective supplementary measure is available, so SCCs alone cannot carry the transfer of production data."
+      source: "EDPB Recommendations 01/2020 (v2.0), Annex 2 use cases 6 and 7"
+    - id: K5
+      weight: must
+      point: "Data minimisation and privacy by design point to synthetic or irreversibly masked test data; debugging edge cases does not need real customers' identities. Truly anonymous data falls outside GDPR and Chapter V."
+      source: "GDPR Art. 5(1)(c), Art. 25; Recital 26"
+    - id: K6
+      weight: should
+      point: "The DPC's 2025 TikTok decision fined the company EUR 530m in part for transfers to China whose assessment failed to address Chinese laws on state access. It is the leading enforcement precedent for this risk."
+      source: "Data Protection Commission (Ireland), TikTok Technology Limited decision, May 2025"
+      check: true
+    - id: K7
+      weight: should
+      point: "Pseudonymised data remains personal data for the exporter that holds the key. Under SRB the analysis is contextual and recipient-relative, but that doesn't relieve the exporter of Chapter V duties; a pseudonymised dataset is an open option to test, not an assured solution."
+      source: "CJEU C-413/23 P EDPS v SRB, 4 September 2025; EDPB Guidelines 01/2025 on pseudonymisation"
+      check: true
+    - id: K8
+      weight: should
+      point: "PRC law may also apply to the agency's processing (PIPL), and the Data Security Law and PIPL restrict providing data to foreign authorities. That affects the agency's ability to honour SCC obligations such as challenging requests or notifying the exporter."
+      source: "PIPL Arts. 3, 41; Data Security Law Art. 36"
+      check: true
+    - id: K9
+      weight: should
+      point: "PSP tokens and last-4 digits are lower-risk payment data in isolation, but combined with names, addresses and order histories of 2m customers they form a large-scale, profile-revealing dataset. The scale should weigh in the assessment."
+      source: "GDPR Recital 75, Art. 32"
+    - id: K10
+      weight: should
+      point: "Whatever the outcome, an Art. 28 processor contract is needed, and any transfer must be reflected in Art. 30 records and in the privacy notice's information on third-country transfers."
+      source: "GDPR Arts. 13(1)(f), 28, 30"
