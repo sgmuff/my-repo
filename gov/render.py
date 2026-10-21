@@ -126,6 +126,7 @@ LABELS = {
     "art26-11": "Art. 26(11) People told a high-risk system is used",
     "art50": "Art. 50 Transparency to people",
     "art86": "Art. 86 Right to an explanation",
+    "outside-scope": "Not high-risk (outside Annexes I and III)",
     "non-high-risk": "Not high-risk (Art. 6(3))",
     "high-risk": "High-risk",
     "deployer": "Deployer",

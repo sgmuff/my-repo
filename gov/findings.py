@@ -204,8 +204,10 @@ def aip(data: dict) -> list:
             out.append(("classification/profiling", "an Annex III system that profiles natural persons is always high-risk (Art. 6(3), last subparagraph); confirm it doesn't"))
         if c["art6_3_condition"] in ("none", "TBC", "not-applicable"):
             out.append(("classification/art6_3_condition", "a non-high-risk claim needs an Art. 6(3) condition; without one the system is high-risk"))
-    if c["call"]["value"] is True and data["kind"] == "non-high-risk":
-        out.append(("classification/call", "the classification says high-risk, but the file is kind non-high-risk"))
+    if data["kind"] == "outside-scope" and c["route"] in ("annex-i", "annex-iii"):
+        out.append(("classification/route", f"the route is {c['route']}, so the system isn't outside the annexes; use kind high-risk, or non-high-risk with an Art. 6(3) condition"))
+    if c["call"]["value"] is True and data["kind"] in ("non-high-risk", "outside-scope"):
+        out.append(("classification/call", f"the classification says high-risk, but the file is kind {data['kind']}"))
     if decision in ("ready", "not-high-risk") and _open_obligations(data):
         out.append(("obligations", f"the decision is {decision}, but these aren't in place: {', '.join(_open_obligations(data))}"))
     if is_tbc(data["application_date"]):

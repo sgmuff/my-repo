@@ -181,6 +181,7 @@ TIA_TOOLS = {"eu-tia": {"sccs", "bcrs"}, "uk-tra": {"uk-idta", "uk-addendum"}, "
 
 AI_ACT_REQUIRED = {
     "aip": {
+        "outside-scope": ["art4"],
         "non-high-risk": ["art6-4", "art49-2"],
         "high-risk": ["art9", "art10", "art11", "art12", "art13", "art14", "art15", "art17", "art43", "art47-49", "art72", "art73"],
     },

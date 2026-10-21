@@ -22,8 +22,8 @@ properties:
   summary: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 50}
   analysis: {$ref: "common.schema.yaml#/$defs/analysis"}
   kind:
-    enum: [non-high-risk, high-risk]
-    description: "non-high-risk: an Annex III system documented as not high-risk under Art. 6(3)-(4). high-risk: a high-risk system under Art. 6(1) or 6(2)."
+    enum: [outside-scope, non-high-risk, high-risk]
+    description: "outside-scope: an AI system in neither Annex I nor Annex III, so only the general duties apply (Arts. 4, 5, 50). non-high-risk: an Annex III system documented as not high-risk under Art. 6(3)-(4). high-risk: a high-risk system under Art. 6(1) or 6(2)."
   decision:
     description: "The outcome. Only the privacy or AI governance lead confirms it."
     $ref: "common.schema.yaml#/$defs/call"
@@ -50,7 +50,7 @@ properties:
       additionalProperties: false
       required: [article, status, evidence, owner]
       properties:
-        article: {enum: [art6-4, art49-2, art9, art10, art11, art12, art13, art14, art15, art17, art43, art47-49, art72, art73]}
+        article: {enum: [art4, art50, art6-4, art49-2, art9, art10, art11, art12, art13, art14, art15, art17, art43, art47-49, art72, art73]}
         status: {enum: [in-place, planned, gap, not-applicable, TBC]}
         evidence: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 25, description: "What shows it, where it is, or what's missing"}
         owner: {$ref: "common.schema.yaml#/$defs/short"}

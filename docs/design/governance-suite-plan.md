@@ -326,7 +326,7 @@ Done when the RoPA evals produce valid YAML, two triage runs print the same plan
 Each phase closes with skill evals, trigger evals, and a description optimizer run.
 
 1. **Catalog, `lia`, and `tia`.** Point `vendor-review` and `dpia` at them. Add reference files for the five conditional regimes, so their entries can be switched on.
-2. **`ai-act-provider` and `ai-act-deployer`,** and the Art. 25 check. Finish well before December 2, 2027. Built 2026-10-21, answer-first from the start: AIP and AID records with the required articles enforced, findings for profiling claimed as not high-risk, a deployer that has become the provider, "ready" with gaps, and an owed FRIA, plus AI Act issue rules. Still to do: answer keys and blind evals, and the trigger-rate run. The Art. 25 check lives in the AID record; `ai-intake` still owns the catalog entry.
+2. **`ai-act-provider` and `ai-act-deployer`,** and the Art. 25 check. Finish well before December 2, 2027. Built 2026-10-21, answer-first from the start: AIP and AID records with the required articles enforced, findings for profiling claimed as not high-risk, a deployer that has become the provider, "ready" with gaps, and an owed FRIA, plus AI Act issue rules. Counsel-approved answer keys (version 6) and blind holdout evals done 2026-10-21: 90.0 with the skill, 82.4 without, 5 wins of 8, no material errors with the skill (`docs/evals/ai-act-results.md`). Fixed after scoring: an `outside-scope` kind for provider files, and Art. 111(2) in the reference and issue rules. Still to do: the trigger-rate run. The Art. 25 check lives in the AID record; `ai-intake` still owns the catalog entry.
 3. **Security entries** in `controls-and-evidence`. The first CCPA audit is due April 1, 2028 at the earliest.
 4. **Existing assessments in the new format,** starting with the DPIA, plus `gov screen`.
 5. **Remaining registers.**
@@ -371,3 +371,29 @@ Each phase closes with skill evals, trigger evals, and a description optimizer r
 4. ~~Which conditional entries apply?~~ All five (2026-10-18).
 5. ~~Keep compatibility assessments in `lia`?~~ Yes (2026-10-18).
 6. Keep counsel's advice in a separate privileged memo that the assessment cites?
+
+## Backlog (2026-10-21)
+
+From an outside review of the repository (Lumo, via Proton), checked against the code before listing. Ordered by risk.
+
+1. **Third-party content.** AIUC-1 is © AIUC, all rights reserved; its terms (standard.aiuc-1.com/legal/terms, checked
+   2026-10-21) bar copying, distributing, or creating derivative works from its content. Done: `aiuc-1.md` §4 no longer
+   quotes AIUC's requirement summaries (IDs, titles, status, and tags remain, with links to AIUC's pages), and
+   `controls-and-evidence` reads requirement text from AIUC's site. Open for counsel:
+   - The quoted summaries remain in git history from commit `e69d73a`, and the repository is public. Removing them from
+     history needs a rewrite and a force push. The alternative is to ask AIUC for permission.
+   - §5 of `aiuc-1.md` and the "AIUC coverage" column in `iso-42001.md` reproduce AIUC's published crosswalk mappings.
+     These are closer to facts than to expression, but the terms reach all site content. Keep with attribution, or ask.
+   - `regulatory-change` downloads AIUC's `llms.txt`, which AIUC publishes for machine reading. One fetch per release
+     sits within normal use; note it if AIUC's terms change.
+2. **Stale references don't block.** `gov validate` doesn't check reference review dates. Make an overdue reference that
+   a record cites a validation finding, and show a banner in the rendered document.
+3. **Missing company facts.** `gov route` doesn't read `company-profile.md`; the skills read it and ask about each `TODO`
+   they need. Add a `gov` check that fails when a field that sets scope (regimes, establishments) is still `TODO`.
+4. **`incident_clock.py` has no unit tests.** It's the only component that reads the clock. Add fixtures for DST
+   changes, weekends, discovery late on a Friday, and occurrence versus awareness.
+5. **Router judgment isn't graded.** `privacy-governance` has assertion and trigger evals but no counsel-approved answer
+   keys. Build a small keyed holdout for the issues the router adds beyond `gov route`.
+6. **README vocabulary.** The skill list mixes "Wave" and "suite phase". Use one scheme, and say which skills are shipped.
+7. **Contributor path for reference files.** Document the header format, the review-date procedure, and the test to run,
+   so updating a reference file doesn't need knowledge of `assessments.yaml`.

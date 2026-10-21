@@ -33,7 +33,7 @@ Answer the request as a careful AI Act lawyer would, before you open any templat
 
 ### 3. Record it
 
-Run `gov new aip --slug <short-slug> --title "<system name>" --date <today>`, and set `kind`: `high-risk`, or `non-high-risk` for an Annex III system documented as not high-risk under Art. 6(3)-(4). Set `context` to every tag in `gov/rules/issues.yaml` that fits the facts.
+Run `gov new aip --slug <short-slug> --title "<system name>" --date <today>`, and set `kind`: `high-risk`; `non-high-risk` for an Annex III system documented as not high-risk under Art. 6(3)-(4); or `outside-scope` for a system in neither Annex I nor Annex III, which owes no Art. 6(4) assessment or Art. 49(2) registration. For `outside-scope`, replace the obligation rows with `art4`, plus `art50` where people interact with it or see its output. Set `context` to every tag in `gov/rules/issues.yaml` that fits the facts.
 
 Fill in the record from your answer. Put its reasoning in `analysis`, condensed to 400 words. Fill in `classification`, `application_date`, and one row per obligation with its status, the evidence or what's missing, and an owner; mark an obligation `not-applicable` only with the reason as evidence. Each call stays Provisional. If a point doesn't fit a field, it goes in `analysis`; the record never changes your conclusion. Add a verify flag for each point to verify.
 

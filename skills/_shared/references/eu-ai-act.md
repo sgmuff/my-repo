@@ -52,7 +52,7 @@ Exclusions include military and national security uses, scientific research and 
 | August 2, 2027 | GPAI models placed on the market before August 2, 2025 must comply (Art. 111(3)) |
 | **December 2, 2027** | **High-risk obligations for Annex III systems** (Art. 6(2); Chapter III, Sections 1–3), including deployer duties (Art. 26) and the FRIA (Art. 27). Moved from August 2, 2026 by the Omnibus. |
 | August 2, 2028 | High-risk obligations for Annex I systems (safety components of regulated products, Art. 6(1)) |
-| August 2, 2030 | High-risk systems used by public authorities and already on the market (Art. 111(2)) |
+| August 2, 2030 | Longstop for providers and deployers of high-risk systems intended for use by public authorities (Art. 111(2), second sentence). Its first sentence is separate: a high-risk system placed on the market or put into service before the Chapter III date is caught from that date only by a significant change in its design. Placing on the market (by the vendor) and putting into service are alternative triggers. 2030 is a longstop, not a blanket deferral; establish the system's market history and first use. |
 
 > **Verify:** Before telling a customer, an executive, or a regulator that a high-risk obligation applies on a date, confirm the date on EUR-Lex and record when you checked.
 

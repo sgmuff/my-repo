@@ -301,6 +301,29 @@ def test_non_high_risk_claim_fails_on_profiling(root):
     assert any("always high-risk" in m for m in found(root, "finding"))
 
 
+def _outside_scope(route):
+    def change(d):
+        d["kind"] = "outside-scope"
+        d["obligations"] = [{"article": "art4", "status": "TBC", "evidence": "TBC", "owner": "TBC"}]
+        d["classification"].update(route=route, art6_3_condition="not-applicable")
+    return change
+
+
+def test_outside_scope_needs_no_registration(root):
+    path = _ai_record(root, "aip", _outside_scope("none"))
+    assert found(root, "error") == []
+    assert not any("classification/route" in m or "kind outside-scope" in m for m in found(root, "finding"))
+    assert render_tree(root).problems == []
+    text = path.with_suffix(".md").read_text()
+    assert "Not high-risk (outside Annexes I and III)" in text
+    assert "Art. 49(2)" not in text
+
+
+def test_outside_scope_with_an_annex_route_is_a_finding(root):
+    _ai_record(root, "aip", _outside_scope("annex-iii"))
+    assert any("isn't outside the annexes" in m for m in found(root, "finding"))
+
+
 def test_deployer_that_rebrands_becomes_provider(root):
     _ai_record(root, "aid", lambda d: d["provider_role_check"].update(own_name={"value": True, "status": "Provisional", "reason": "Sold under our brand"}))
     findings = found(root, "finding")
