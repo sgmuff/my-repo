@@ -1,7 +1,7 @@
 ---
 name: privacy-governance
 description: Triage privacy and AI governance requests that span several workflows, or that don't say which one they need, and plan the order to run them in. For example, a new AI tool that will touch customer or student data, a product launch with new vendors and data uses, an acquisition or new market, "where do I start," or "what do we need to do before we can use X." Produces a short triage plan that names the facts that decide the path, the skills to run in order, and the human decisions along the way. Use it when a request mixes vendor, assessment, records, AI, or policy work, or when it's unclear which privacy workflow applies. Skip it when the request clearly matches one skill, such as "review this DPA" (vendor-review), "do we need a DPIA for X" (dpia), or "add this to the RoPA" (ropa), and go straight to that skill.
-compatibility: Requires the gov command from this repository (skills/install.sh installs it), with Python 3.9+, PyYAML, jsonschema, and Jinja2.
+compatibility: Requires the gov command from this repository (skills/install.sh installs it), with Python 3.10+, PyYAML, jsonschema, and Jinja2.
 ---
 
 # Privacy and AI governance triage

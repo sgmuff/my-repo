@@ -1,7 +1,7 @@
 ---
 name: ropa
 description: Create, update, or bulk-build record of processing activities (RoPA) entries from intake answers, interviews, or system documentation such as PRDs, architecture docs, data dictionaries, schemas, and vendor lists, covering GDPR Article 30 controller and processor records, Swiss FADP Article 12, and the data inventory duties in US state laws, and keep the register's index current. Use it whenever someone wants to document, map, or inventory what personal data a system, team, or process handles, add or update a processing activity, build a data map, answer "what data do we hold and why," or prepare RoPA records for an audit or regulator request, even if they don't say "RoPA." Not for deciding whether an activity is high risk or needs a DPIA (dpia), reviewing a vendor's contract (vendor-review), or inventorying AI systems and agents (ai-intake).
-compatibility: Requires the gov command from this repository (skills/install.sh installs it), with Python 3.9+, PyYAML, jsonschema, and Jinja2.
+compatibility: Requires the gov command from this repository (skills/install.sh installs it), with Python 3.10+, PyYAML, jsonschema, and Jinja2.
 ---
 
 # Record of processing activities

@@ -1,7 +1,7 @@
 ---
 name: lia
 description: Write a legitimate interests assessment (LIA), the GDPR three-part test of purpose, necessity, and balancing, or an Art. 6(4) compatibility assessment for reusing data for a new purpose, or record a UK recognized legitimate interest. Use it whenever someone wants to rely on legitimate interests, asks "can we use legitimate interests for X," needs a balancing test, wants to reuse customer or user data for something new such as analytics or model training, or `gov required` lists an LIA or compatibility assessment as owed, even if they don't say "LIA." Not for choosing among all lawful bases when legitimate interests isn't proposed (the RoPA and DPIA record those), the DPIA itself (dpia), or marketing consent rules alone (counsel).
-compatibility: Requires the gov command from this repository (skills/install.sh installs it), with Python 3.9+, PyYAML, jsonschema, and Jinja2.
+compatibility: Requires the gov command from this repository (skills/install.sh installs it), with Python 3.10+, PyYAML, jsonschema, and Jinja2.
 ---
 
 # Legitimate interests and compatibility assessments

@@ -1,7 +1,7 @@
 ---
 name: tia
 description: Write a transfer impact assessment (TIA) for personal data leaving the EEA, UK, or Switzerland under SCCs or BCRs, a UK transfer risk assessment under the IDTA or UK Addendum, or a Swiss transfer assessment, in the six EDPB steps, and screen first whether one is needed at all. Use it whenever someone sends or lets someone access data from outside Europe, asks "is it OK to send data to the US after Schrems II," mentions transfer risk, SCCs, or a vendor's support team abroad, or `gov required` or triage lists a TIA or transfer screening, even if they don't say "TIA." Not for reviewing a vendor's whole contract (vendor-review), checking a TIA a vendor sent as part of its review (vendor-review), or the DPIA (dpia).
-compatibility: Requires the gov command from this repository (skills/install.sh installs it), with Python 3.9+, PyYAML, jsonschema, and Jinja2.
+compatibility: Requires the gov command from this repository (skills/install.sh installs it), with Python 3.10+, PyYAML, jsonschema, and Jinja2.
 ---
 
 # Transfer impact assessments
