@@ -68,3 +68,7 @@ Fill in `_shared/company-profile.md`. The skills ask for any missing value they 
 ## Keeping references current
 
 Each reference file records its version and last-verified date, and `_shared/references/README.md` lists when each is due for review. AIUC-1 changes every quarter (January 15, April 15, July 15, October 15). The `regulatory-change` skill processes each release and sweep, and proposes edits for the privacy lead to approve. To edit by hand, follow the steps in that README.
+
+## License
+
+Copyright 2026 Stephen Muff. Licensed under the [Apache License, Version 2.0](../LICENSE); see [NOTICE](../NOTICE).
