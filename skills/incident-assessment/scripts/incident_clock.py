@@ -18,6 +18,11 @@ and gdpr.md (section 9). Every state row there is Provisional until counsel's
 review is recorded; this script inherits that status. States without a fixed
 deadline print the statutory standard instead of a date. Public holidays are
 not applied.
+
+Hour-based clocks (GDPR's 72 hours) count elapsed time, so a daylight saving
+change inside the window moves the local time shown. A local --aware time
+that doesn't exist (clocks went forward) is rejected; one that happens twice
+(clocks went back) is read as the earlier instant, and the output says so.
 """
 import argparse
 import datetime as dt
@@ -59,18 +64,27 @@ STATE_REGULATOR_TEXT = {
 
 
 def parse_aware(s, tz):
+    """The awareness time, and a note if the local time was ambiguous."""
     try:
         naive = dt.datetime.fromisoformat(s)
     except ValueError:
         sys.exit("--aware must be YYYY-MM-DDTHH:MM")
     if naive.tzinfo:
-        return naive
+        return naive, None
     if ZoneInfo is None:
-        return naive.replace(tzinfo=dt.timezone.utc)
+        if tz != "UTC":
+            sys.exit("Time zones need Python 3.9 or later; pass --aware with a UTC offset instead")
+        return naive.replace(tzinfo=dt.timezone.utc), None
     try:
-        return naive.replace(tzinfo=ZoneInfo(tz))
+        zone = ZoneInfo(tz)
     except Exception:
         sys.exit(f"Unknown time zone: {tz}")
+    first, second = naive.replace(tzinfo=zone, fold=0), naive.replace(tzinfo=zone, fold=1)
+    if first.astimezone(dt.timezone.utc).astimezone(zone).replace(tzinfo=None) != naive:
+        sys.exit(f"{s} doesn't exist in {tz} (the clocks went forward); check the time and pass it again")
+    if first.utcoffset() != second.utcoffset():
+        return first, f"{s} happens twice in {tz} (the clocks went back); using the earlier one. Confirm which it was."
+    return first, None
 
 
 def add_business_days(d, n):
@@ -90,12 +104,12 @@ def main():
     ap.add_argument("--individual-notice")
     a = ap.parse_args()
 
-    aware = parse_aware(a.aware, a.tz)
+    aware, note = parse_aware(a.aware, a.tz)
     day0 = aware.date()
     rows = []  # (sort_key, due_text, regime, duty)
 
     def at(delta, regime, duty):
-        due = aware + delta
+        due = (aware.astimezone(dt.timezone.utc) + delta).astimezone(aware.tzinfo)
         rows.append((due, due.strftime("%Y-%m-%d %H:%M %Z").strip(), regime, duty))
 
     def on(date, regime, duty):
@@ -151,6 +165,8 @@ def main():
         sys.exit("Nothing to compute: pass --regimes and/or --states")
     rows.sort(key=lambda r: r[0])
     print(f"Aware or discovered: {aware.strftime('%Y-%m-%d %H:%M %Z')} (working deadlines until this time is confirmed)")
+    if note:
+        print(note)
     for _, due, regime, duty in rows:
         print(f"{due:22} {regime:20} {duty}")
     print("\nAll rows are Provisional: state rows depend on us-breach-notification.md, which needs counsel review before live use.")

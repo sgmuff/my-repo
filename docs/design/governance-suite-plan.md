@@ -390,8 +390,10 @@ From an outside review of the repository (Lumo, via Proton), checked against the
    a record cites a validation finding, and show a banner in the rendered document.
 3. **Missing company facts.** `gov route` doesn't read `company-profile.md`; the skills read it and ask about each `TODO`
    they need. Add a `gov` check that fails when a field that sets scope (regimes, establishments) is still `TODO`.
-4. **`incident_clock.py` has no unit tests.** It's the only component that reads the clock. Add fixtures for DST
-   changes, weekends, discovery late on a Friday, and occurrence versus awareness.
+4. ~~**`incident_clock.py` has no unit tests.**~~ Done 2026-10-21: `tests/test_incident_clock.py` (12 cases). The tests
+   found that hour-based clocks added wall-clock time, so a 72-hour deadline across the autumn DST change printed an
+   hour late; the script now counts elapsed time, rejects a local time that doesn't exist, and flags one that happens
+   twice. Still open: occurrence versus awareness is the user's input, not the script's, and isn't tested.
 5. **Router judgment isn't graded.** `privacy-governance` has assertion and trigger evals but no counsel-approved answer
    keys. Build a small keyed holdout for the issues the router adds beyond `gov route`.
 6. **README vocabulary.** The skill list mixes "Wave" and "suite phase". Use one scheme, and say which skills are shipped.
