@@ -9,6 +9,7 @@
 | Last verified | 2026-10-16 |
 | Review interval | **Quarterly**, within two weeks of each release (January 15, April 15, July 15, October 15) |
 | Volatile points | The whole file. Requirements are added, renamed, and retired each quarter. |
+| Reuse terms | © AIUC, all rights reserved. AIUC's terms of use (standard.aiuc-1.com/legal/terms, checked 2026-10-21) grant a personal, noncommercial licence to use the site and bar copying, distributing, or creating derivative works from its content. This file holds IDs, titles, status, tags, and AIUC's published mappings, not requirement text. |
 
 Every deliverable that cites AIUC-1 names the release it used, for example "AIUC-1 E004 (Oct 15, 2026 release)."
 
@@ -64,86 +65,142 @@ AIUC-1 says itself that a certificate can't guarantee security, safety, or relia
 
 ## 4. Requirements by domain
 
-This table lists each requirement's ID, title, status, and capability tags ("Applies to"), from the October 15, 2026 release. For what a requirement asks, read its page on standard.aiuc-1.com.
+AIUC-1 is © AIUC, all rights reserved, and its terms of use bar copying or redistributing its content. This file lists only what a cross-reference needs: each requirement's ID, title, status, and capability tags ("Applies to"), from the October 15, 2026 release. For what a requirement asks and its controls, read its page on standard.aiuc-1.com (linked under each domain). Don't paste AIUC's requirement text into this file or into deliverables kept in the repository; cite the ID and release instead.
 
 ### A. Data & Privacy
+
+Requirement text: https://standard.aiuc-1.com/data-and-privacy
 
 | ID | Requirement | Status | Applies to |
 |---|---|---|---|
 | A001 | Establish input data policy | Mandatory | Universal |
+
 | A002 | Establish output data policy | Mandatory | Universal |
+
 | A003 | Limit AI agent data access | Mandatory | Universal |
+
 | A004 | Protect IP & trade secrets | Mandatory | Universal |
+
 | A005 | Prevent cross-customer data exposure | Mandatory | Universal |
+
 | A006 | Prevent PII leakage | Mandatory | Universal |
+
 | A007 | Prevent IP violations | Mandatory | External-facing |
+
 | A008 | Prevent leakage of credentials and secrets | Mandatory | Code-generation |
+
 | A009 | Third-party testing for data & privacy risk | Mandatory | Universal |
 
 ### B. Security
 
+Requirement text: https://standard.aiuc-1.com/security
+
 | ID | Requirement | Status | Applies to |
 |---|---|---|---|
 | B001 | Third-party testing for security risk | Mandatory | Universal |
+
 | B002 | Detect adversarial input | Optional | Universal |
+
 | B003 | Manage public release of technical details | Optional | Universal |
+
 | B004 | Prevent AI endpoint scraping | Mandatory | Universal |
+
 | B005 | Implement real-time input filtering | Optional | Text-generation, Voice-generation, Image-generation |
+
 | B006 | Prevent unauthorized AI agent actions | Mandatory | Automation |
+
 | B007 | Enforce user access privileges to AI systems | Mandatory | Universal |
+
 | B008 | Protect AI system deployment environment | Mandatory | Universal |
+
 | B009 | Limit output over-exposure | Mandatory | Text-generation, Voice-generation, Image-generation |
+
 | B010 | Promote secure patterns in generated code | Mandatory | Code-generation |
 
 ### C. Safety
 
+Requirement text: https://standard.aiuc-1.com/safety
+
 | ID | Requirement | Status | Applies to |
 |---|---|---|---|
 | C001 | Define AI risk taxonomy | Mandatory | Universal |
+
 | C002 | Conduct pre-deployment testing | Mandatory | Universal |
+
 | C003 | Prevent harmful outputs | Mandatory | Text-generation, Voice-generation, Image-generation |
+
 | C004 | Prevent out-of-scope outputs | Mandatory | Text-generation, Voice-generation |
+
 | C005 | Prevent agent-specific high risk outputs | Mandatory | Universal |
+
 | C006 | Prevent output vulnerabilities | Mandatory | Code-generation, Text-generation, Voice-generation |
+
 | C007 | Flag high risk outputs for human review | Optional | Universal |
+
 | C008 | Monitor AI risk categories | Optional | Universal |
+
 | C009 | Enable real-time feedback and intervention | Optional | Universal |
+
 | C010 | Third-party testing for safety risk | Mandatory | Universal |
 
 ### D. Reliability
 
+Requirement text: https://standard.aiuc-1.com/reliability
+
 | ID | Requirement | Status | Applies to |
 |---|---|---|---|
 | D001 | Prevent hallucinated outputs | Mandatory | Text-generation, Voice-generation, Code-generation |
+
 | D003 | Restrict unsafe tool calls | Mandatory | Automation |
+
 | D004 | Third-party testing for reliability risk | Mandatory | Universal |
 
 ### E. Accountability
 
+Requirement text: https://standard.aiuc-1.com/accountability
+
 | ID | Requirement | Status | Applies to |
 |---|---|---|---|
 | E001 | AI failure plan for security breaches | Mandatory | Universal |
+
 | E002 | AI failure plan for harmful outputs | Mandatory | External-facing |
+
 | E003 | AI failure plan for hallucinations | Mandatory | External-facing |
+
 | E004 | Assign accountability | Mandatory | Universal |
+
 | E005 | Document data storage security | Mandatory | Universal |
+
 | E006 | Conduct vendor and model due diligence | Mandatory | Universal |
+
 | E008 | Review internal processes | Mandatory | Universal |
+
 | E009 | Monitor third-party access | Mandatory | Universal |
+
 | E010 | Establish AI acceptable use policy | Mandatory | Universal |
+
 | E011 | Record processing locations | Mandatory | Universal |
+
 | E012 | Document regulatory compliance | Mandatory | Universal |
+
 | E013 | Implement quality management system | Optional | Universal |
+
 | E015 | Log AI system activity | Mandatory | Universal |
+
 | E016 | Implement AI disclosure mechanisms | Mandatory | Universal |
+
 | E017 | Document system transparency policy | Optional | Universal |
+
 | E018 | Third-party testing for accountability risk | Mandatory | Universal |
 
 ### F. Society
 
+Requirement text: https://standard.aiuc-1.com/society
+
 | ID | Requirement | Status | Applies to |
 |---|---|---|---|
 | F001 | Prevent AI cyber misuse | Mandatory | Text-generation, Automation, Voice-generation, Code-generation |
+
 | F002 | Prevent catastrophic misuse | Mandatory | Text-generation, Voice-generation, Image-generation |
 
 ---
