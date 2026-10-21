@@ -176,4 +176,15 @@ def tsr(data: dict) -> dict:
     }
 
 
-DERIVE = {"ropa": ropa, "lia": lia, "tia": tia, "tsr": tsr}
+def ai_act(data: dict) -> dict:
+    return {
+        "decision": data["decision"]["value"],
+        "gaps": sum(1 for o in data["obligations"] if o["status"] in ("gap", "TBC")),
+        "launch_blockers": _blockers(data),
+        "launch_groups": _blocker_groups(data),
+        "launch_questions": sum(1 for q in data["open_questions"] if q["blocks"] == "launch"),
+        "approval_questions": sum(1 for q in data["open_questions"] if q["blocks"] == "approval"),
+    }
+
+
+DERIVE = {"ropa": ropa, "lia": lia, "tia": tia, "tsr": tsr, "aip": ai_act, "aid": ai_act}

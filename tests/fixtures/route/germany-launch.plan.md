@@ -5,7 +5,7 @@
 | 3 | AI intake | `ai-intake` | Required | Now | ai_involved = yes | — |
 | 4 | Transfer screening | `tia` | If cross_border_access = yes | After 2 | — | — |
 | 5 | AI impact assessment | `ai-impact-assessment` | If ai_profiles_people = yes or ai_influences_decisions = yes | After 3 | — | — |
-| 6 | AI Act deployer readiness | `ai-act-deployer` (no skill yet) | If ai_high_risk = yes | After 3 | ai_act_role = deployer | — |
+| 6 | AI Act deployer readiness | `ai-act-deployer` | If ai_high_risk = yes | After 3 | ai_act_role = deployer | — |
 | 7 | RoPA entry | `ropa` | Required | Now | new_processing = yes | 1, 2 |
 | 8 | Notice review | `notice-and-policy` | Required | Now | new_processing = yes | 7 |
 

@@ -179,6 +179,15 @@ KIND_SECTIONS = {
 TIA_TOOLS = {"eu-tia": {"sccs", "bcrs"}, "uk-tra": {"uk-idta", "uk-addendum"}, "ch-tia": {"ch-sccs"}}
 
 
+AI_ACT_REQUIRED = {
+    "aip": {
+        "non-high-risk": ["art6-4", "art49-2"],
+        "high-risk": ["art9", "art10", "art11", "art12", "art13", "art14", "art15", "art17", "art43", "art47-49", "art72", "art73"],
+    },
+    "aid": {"deployer": ["art4", "art26-1", "art26-2", "art26-4", "art26-5", "art26-6", "art26-7", "art26-9", "art26-11", "art50", "art86"]},
+}
+
+
 def _structure(where: str, data: dict) -> list:
     if data.get("type") == "lia":
         wanted = KIND_SECTIONS[data["kind"]]
@@ -196,6 +205,11 @@ def _structure(where: str, data: dict) -> list:
         if tool != "TBC" and tool not in TIA_TOOLS[data["kind"]]:
             return [Problem(where, "error", f"mechanism/tool: {tool} doesn't fit a {data['kind']}; use {', '.join(sorted(TIA_TOOLS[data['kind']]))}")]
         return []
+    if data.get("type") in AI_ACT_REQUIRED:
+        wanted = AI_ACT_REQUIRED[data["type"]][data["kind"]]
+        present = {o["article"] for o in data["obligations"]}
+        missing = [a for a in wanted if a not in present]
+        return [Problem(where, "error", f"obligations: a {data['kind']} record must list {', '.join(missing)}; mark any that don't apply not-applicable with the reason as evidence")] if missing else []
     if data.get("type") != "ropa":
         return []
     rtype = data["record_type"]["value"]

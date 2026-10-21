@@ -1,0 +1,82 @@
+[
+  {
+    "query": "We sell a CV-screening model to EU employers. Is it high-risk and what do we need before December 2027?",
+    "should_trigger": true
+  },
+  {
+    "query": "our product scores loan applicants for banks in the EU, we built it. what does the AI Act make us do",
+    "should_trigger": true
+  },
+  {
+    "query": "We think our triage tool falls under the Art. 6(3) exception because it only does a preparatory task. Can you document that?",
+    "should_trigger": true
+  },
+  {
+    "query": "Getting ready for a conformity assessment and CE marking on our exam-proctoring software. Where are the gaps?",
+    "should_trigger": true
+  },
+  {
+    "query": "gov required lists provider readiness for our tutoring AI. Can you do it?",
+    "should_trigger": true
+  },
+  {
+    "query": "Our student-placement recommender ranks applicants. Does profiling mean we can't claim it's not high-risk?",
+    "should_trigger": true
+  },
+  {
+    "query": "What does a post-market monitoring plan need to cover for our high-risk product, and do we have one?",
+    "should_trigger": true
+  },
+  {
+    "query": "We build the emotion analysis feature for call centres and sell it under our brand in the EU. Are we in trouble?",
+    "should_trigger": true
+  },
+  {
+    "query": "Product wants to know if our benefits-eligibility engine for councils needs technical documentation under Annex IV",
+    "should_trigger": true
+  },
+  {
+    "query": "Draft the provider file for our high-risk hiring tool so the notified body can see where we stand",
+    "should_trigger": true
+  },
+  {
+    "query": "We're buying a vendor's AI recruiting tool. What do we have to do as the user?",
+    "should_trigger": false
+  },
+  {
+    "query": "Add our new chatbot to the AI inventory and tier it.",
+    "should_trigger": false
+  },
+  {
+    "query": "Run a fairness and bias review of our credit model.",
+    "should_trigger": false
+  },
+  {
+    "query": "Review the AI vendor's contract for training on our data.",
+    "should_trigger": false
+  },
+  {
+    "query": "Do we need a FRIA before the school district uses our product?",
+    "should_trigger": false
+  },
+  {
+    "query": "What's the deadline for GPAI model providers under the AI Act?",
+    "should_trigger": false
+  },
+  {
+    "query": "Write the AI acceptable use policy for staff.",
+    "should_trigger": false
+  },
+  {
+    "query": "Is our marketing copy generator prohibited under Article 5?",
+    "should_trigger": false
+  },
+  {
+    "query": "Do we need a DPIA for the new recommender?",
+    "should_trigger": false
+  },
+  {
+    "query": "Summarize what changed in the Digital Omnibus on AI.",
+    "should_trigger": false
+  }
+]

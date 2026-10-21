@@ -1,0 +1,78 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+title: AI Act deployer check
+description: "A deployer's AI Act check for one high-risk AI system: whether it has become a provider (Art. 25), its Art. 26 duties with Arts. 4, 50, and 86, and whether it owes a FRIA (Art. 27)."
+type: object
+additionalProperties: false
+required: [id, type, schema_version, format_version, kind, title, status, version, system, activity, business_owner, prepared_by, date_prepared, last_reviewed, next_review, summary, decision, analysis, provider, provider_role_check, fria, application_date, obligations, context, issues, actions, open_questions, verify, finding_responses, references, version_history, signoff]
+properties:
+  id: {type: string, pattern: "^AID-\\d{4}-\\d{3}$"}
+  type: {const: aid}
+  schema_version: {const: 1}
+  format_version: {const: 1}
+  title: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 10}
+  status: {$ref: "common.schema.yaml#/$defs/doc_status"}
+  version: {$ref: "common.schema.yaml#/$defs/version"}
+  system: {type: string, description: "The AI inventory entry, AIS-NNNN, or TBC"}
+  activity: {type: string, description: "The RoPA entry, ROPA-NNNN, not-applicable, or TBC"}
+  business_owner: {$ref: "common.schema.yaml#/$defs/short"}
+  prepared_by: {$ref: "common.schema.yaml#/$defs/short"}
+  date_prepared: {$ref: "common.schema.yaml#/$defs/date"}
+  last_reviewed: {$ref: "common.schema.yaml#/$defs/date_or_null"}
+  next_review: {$ref: "common.schema.yaml#/$defs/date"}
+  summary: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 50}
+  analysis: {$ref: "common.schema.yaml#/$defs/analysis"}
+  kind:
+    enum: [deployer]
+  decision:
+    description: "The outcome. Only the privacy or AI governance lead confirms it."
+    $ref: "common.schema.yaml#/$defs/call"
+    properties:
+      value: {enum: [ready, gaps, becomes-provider, open]}
+  provider:
+    type: object
+    additionalProperties: false
+    required: [name, annex_point, high_risk, source]
+    properties:
+      name: {$ref: "common.schema.yaml#/$defs/short"}
+      annex_point: {$ref: "common.schema.yaml#/$defs/short", description: "Such as Annex III point 4(a), or TBC"}
+      high_risk: {$ref: "common.schema.yaml#/$defs/call_tristate"}
+      source: {$ref: "common.schema.yaml#/$defs/source"}
+  provider_role_check:
+    description: "Art. 25(1): a deployer becomes the provider if it puts its name or trademark on the system, substantially modifies it, or changes its intended purpose so it becomes high-risk"
+    type: object
+    additionalProperties: false
+    required: [own_name, substantial_modification, new_high_risk_purpose]
+    properties:
+      own_name: {$ref: "common.schema.yaml#/$defs/call_tristate"}
+      substantial_modification: {$ref: "common.schema.yaml#/$defs/call_tristate"}
+      new_high_risk_purpose: {$ref: "common.schema.yaml#/$defs/call_tristate"}
+  fria:
+    description: "Art. 27: owed before first use by public-law bodies, private entities providing public services, and deployers of Annex III point 5(b) or 5(c) systems"
+    type: object
+    additionalProperties: false
+    required: [required, record]
+    properties:
+      required: {$ref: "common.schema.yaml#/$defs/call_tristate"}
+      record: {type: string, description: "The FRIA record ID, planned, not-applicable, or TBC"}
+  application_date: {$ref: "common.schema.yaml#/$defs/short", description: "When the deployer duties apply, such as 2027-12-02 for Annex III, with the source checked"}
+  obligations:
+    description: "Each obligation the record covers: its article, status, evidence, and owner"
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [article, status, evidence, owner]
+      properties:
+        article: {enum: [art4, art26-1, art26-2, art26-4, art26-5, art26-6, art26-7, art26-9, art26-11, art50, art86]}
+        status: {enum: [in-place, planned, gap, not-applicable, TBC]}
+        evidence: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 25, description: "What shows it, where it is, or what's missing"}
+        owner: {$ref: "common.schema.yaml#/$defs/short"}
+  context: {$ref: "common.schema.yaml#/$defs/context"}
+  issues: {$ref: "common.schema.yaml#/$defs/issues"}
+  actions: {$ref: "common.schema.yaml#/$defs/actions"}
+  open_questions: {$ref: "common.schema.yaml#/$defs/open_questions"}
+  verify: {$ref: "common.schema.yaml#/$defs/verify"}
+  finding_responses: {$ref: "common.schema.yaml#/$defs/finding_responses"}
+  references: {$ref: "common.schema.yaml#/$defs/references"}
+  version_history: {$ref: "common.schema.yaml#/$defs/version_history"}
+  signoff: {$ref: "common.schema.yaml#/$defs/signoff"}

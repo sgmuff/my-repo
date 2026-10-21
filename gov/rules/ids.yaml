@@ -22,3 +22,5 @@ prefixes:
   LIA: {digits: 3, yearly: true, type: lia, folder: assessments/lia}
   TIA: {digits: 3, yearly: true, type: tia, folder: assessments/tia}
   TSR: {digits: 3, yearly: true, type: tsr, folder: assessments/transfer-screens}
+  AIP: {digits: 3, yearly: true, type: aip, folder: assessments/ai-act/provider}
+  AID: {digits: 3, yearly: true, type: aid, folder: assessments/ai-act/deployer}

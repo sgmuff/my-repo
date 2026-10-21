@@ -120,7 +120,7 @@ plan:
   step: ai-act-deployer
   label: AI Act deployer readiness
   skill: ai-act-deployer
-  available: false
+  available: true
   time_critical: false
   status: conditional
   applies_if: ai_high_risk = yes
@@ -235,7 +235,7 @@ decisions:
   status: conditional
   applies_if: ai_high_risk = yes
   blocks_launch: true
-  note: 'No skill yet: the owner runs this step by hand, and launch waits until the result is recorded'
+  note: null
 - about: step 8
   decision: Business owner confirms the facts; privacy lead approves the entry
   owner: Business owner, then privacy lead
@@ -364,5 +364,4 @@ assumed:
   suspected_breach: false
   dsr_received: false
   regulator_inquiry: false
-not_built:
-- ai-act-deployer
+not_built: []

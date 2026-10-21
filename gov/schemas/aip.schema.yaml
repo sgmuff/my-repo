@@ -1,0 +1,65 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+title: AI Act provider file
+description: "A provider's AI Act file for one AI system: its classification under Art. 6, and either the Art. 6(4) documentation that it isn't high-risk or the high-risk provider obligations, each with status and evidence."
+type: object
+additionalProperties: false
+required: [id, type, schema_version, format_version, kind, title, status, version, system, activity, business_owner, prepared_by, date_prepared, last_reviewed, next_review, summary, decision, analysis, classification, application_date, obligations, context, issues, actions, open_questions, verify, finding_responses, references, version_history, signoff]
+properties:
+  id: {type: string, pattern: "^AIP-\\d{4}-\\d{3}$"}
+  type: {const: aip}
+  schema_version: {const: 1}
+  format_version: {const: 1}
+  title: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 10}
+  status: {$ref: "common.schema.yaml#/$defs/doc_status"}
+  version: {$ref: "common.schema.yaml#/$defs/version"}
+  system: {type: string, description: "The AI inventory entry, AIS-NNNN, or TBC"}
+  activity: {type: string, description: "The RoPA entry, ROPA-NNNN, not-applicable, or TBC"}
+  business_owner: {$ref: "common.schema.yaml#/$defs/short"}
+  prepared_by: {$ref: "common.schema.yaml#/$defs/short"}
+  date_prepared: {$ref: "common.schema.yaml#/$defs/date"}
+  last_reviewed: {$ref: "common.schema.yaml#/$defs/date_or_null"}
+  next_review: {$ref: "common.schema.yaml#/$defs/date"}
+  summary: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 50}
+  analysis: {$ref: "common.schema.yaml#/$defs/analysis"}
+  kind:
+    enum: [non-high-risk, high-risk]
+    description: "non-high-risk: an Annex III system documented as not high-risk under Art. 6(3)-(4). high-risk: a high-risk system under Art. 6(1) or 6(2)."
+  decision:
+    description: "The outcome. Only the privacy or AI governance lead confirms it."
+    $ref: "common.schema.yaml#/$defs/call"
+    properties:
+      value: {enum: [not-high-risk, ready, gaps, open]}
+  classification:
+    description: "Art. 6: why the system is or isn't high-risk"
+    type: object
+    additionalProperties: false
+    required: [intended_purpose, route, annex_point, art6_3_condition, profiling, call]
+    properties:
+      intended_purpose: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 30}
+      route: {enum: [annex-i, annex-iii, none, TBC], description: "Annex I safety component or product, Annex III use, or neither"}
+      annex_point: {$ref: "common.schema.yaml#/$defs/short", description: "Such as Annex III point 4(a), or not-applicable"}
+      art6_3_condition: {enum: [narrow-procedural-task, improves-completed-human-activity, detects-patterns-without-replacing-assessment, preparatory-task, none, not-applicable, TBC], description: "The Art. 6(3) condition relied on to say an Annex III system isn't high-risk"}
+      profiling: {$ref: "common.schema.yaml#/$defs/call_tristate", description: "Does it profile natural persons? If so, an Annex III system is always high-risk (Art. 6(3), last subparagraph)"}
+      call: {$ref: "common.schema.yaml#/$defs/call_tristate", description: "Is the system high-risk?"}
+  application_date: {$ref: "common.schema.yaml#/$defs/short", description: "When the obligations apply to this system, such as 2027-12-02 for Annex III, with the source checked"}
+  obligations:
+    description: "Each obligation the record covers: its article, status, evidence, and owner"
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [article, status, evidence, owner]
+      properties:
+        article: {enum: [art6-4, art49-2, art9, art10, art11, art12, art13, art14, art15, art17, art43, art47-49, art72, art73]}
+        status: {enum: [in-place, planned, gap, not-applicable, TBC]}
+        evidence: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 25, description: "What shows it, where it is, or what's missing"}
+        owner: {$ref: "common.schema.yaml#/$defs/short"}
+  context: {$ref: "common.schema.yaml#/$defs/context"}
+  issues: {$ref: "common.schema.yaml#/$defs/issues"}
+  actions: {$ref: "common.schema.yaml#/$defs/actions"}
+  open_questions: {$ref: "common.schema.yaml#/$defs/open_questions"}
+  verify: {$ref: "common.schema.yaml#/$defs/verify"}
+  finding_responses: {$ref: "common.schema.yaml#/$defs/finding_responses"}
+  references: {$ref: "common.schema.yaml#/$defs/references"}
+  version_history: {$ref: "common.schema.yaml#/$defs/version_history"}
+  signoff: {$ref: "common.schema.yaml#/$defs/signoff"}

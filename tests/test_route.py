@@ -1,3 +1,4 @@
+import shutil
 import pytest
 from conftest import FIXTURES, REPO, golden
 
@@ -68,8 +69,8 @@ def test_coppa_only_with_children():
     assert any(d["about"] == "coppa" and d["status"] == "required" for d in under_13["decisions"])
 
 
-def test_missing_skill_blocks_launch_with_a_note():
-    result = routing.route(REPO, {"ai_involved": True, "ai_act_role": "deployer", "ai_high_risk": True})
+def test_missing_skill_blocks_launch_with_a_note(root):
+    result = routing.route(root, {"ai_involved": True, "ai_act_role": "deployer", "ai_high_risk": True})
     n = next(p["n"] for p in result["plan"] if p["step"] == "ai-act-deployer")
     step = next(d for d in result["decisions"] if d["about"] == f"step {n}")
     assert step["blocks_launch"] and step["note"].startswith("No skill yet")
@@ -94,8 +95,8 @@ def test_every_step_skill_exists_or_is_planned():
             assert (REPO / "skills" / skill / "SKILL.md").is_file(), skill
 
 
-def test_planned_skills_are_marked_not_built():
-    result = routing.route(REPO, {"ai_involved": True, "ai_act_role": "deployer", "ai_high_risk": True})
+def test_planned_skills_are_marked_not_built(root):
+    result = routing.route(root, {"ai_involved": True, "ai_act_role": "deployer", "ai_high_risk": True})
     assert "ai-act-deployer" in result["not_built"]
 
 

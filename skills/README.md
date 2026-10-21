@@ -21,6 +21,10 @@ skills/
   dsr-response/             data subject and consumer requests (Wave 2)
   ai-intake/                AI system and agent inventory and tiering (Wave 2)
   ai-impact-assessment/     AI impact assessments and FRIAs (Wave 2)
+  lia/                      legitimate interests and compatibility assessments (suite phase 1)
+  tia/                      transfer screens and transfer impact assessments (suite phase 1)
+  ai-act-provider/          AI Act provider files: classification and provider obligations (suite phase 2)
+  ai-act-deployer/          AI Act deployer checks: Art. 25, Art. 26 duties, and the FRIA trigger (suite phase 2)
   incident-assessment/      breach notification clocks, analysis, and drafts (Wave 3)
   controls-and-evidence/    control library, evidence, AIUC-1 readiness, schedule (Wave 4)
   program-assessment/       NIST PF profiles, Tier, gaps, and roadmap (Wave 4)
@@ -64,6 +68,8 @@ Fill in `_shared/company-profile.md`. The skills ask for any missing value they 
 | 3 | `incident-assessment` | Built; needs counsel review of `us-breach-notification.md` before live use |
 | 4 | `controls-and-evidence`, `program-assessment` | Built |
 | 5 | `notice-and-policy`, `regulatory-change`, `leadership-report` | Built |
+| Suite 1 | `lia`, `tia`, the assessment catalog, and `gov` records | Built; answer-first, holdout-tested |
+| Suite 2 | `ai-act-provider`, `ai-act-deployer` | Built; evals pending |
 
 ## Keeping references current
 

@@ -118,7 +118,7 @@ plan:
   step: ai-act-provider
   label: AI Act provider readiness
   skill: ai-act-provider
-  available: false
+  available: true
   time_critical: false
   status: conditional
   applies_if: ai_act_role = provider and ai_high_risk = yes
@@ -138,7 +138,7 @@ plan:
   step: ai-act-deployer
   label: AI Act deployer readiness
   skill: ai-act-deployer
-  available: false
+  available: true
   time_critical: false
   status: conditional
   applies_if: ai_act_role = deployer and ai_high_risk = yes
@@ -249,7 +249,7 @@ decisions:
   status: conditional
   applies_if: ai_act_role = provider and ai_high_risk = yes
   blocks_launch: true
-  note: 'No skill yet: the owner runs this step by hand, and launch waits until the result is recorded'
+  note: null
 - about: step 8
   decision: Deployer readiness, and evidence of the provider's compliance
   owner: Privacy lead and business owner
@@ -257,7 +257,7 @@ decisions:
   status: conditional
   applies_if: ai_act_role = deployer and ai_high_risk = yes
   blocks_launch: true
-  note: 'No skill yet: the owner runs this step by hand, and launch waits until the result is recorded'
+  note: null
 - about: step 9
   decision: Business owner confirms the facts; privacy lead approves the entry
   owner: Business owner, then privacy lead
@@ -415,6 +415,4 @@ assumed:
   dsr_received: false
   regulator_inquiry: false
   lawful_basis: not-proposed
-not_built:
-- ai-act-deployer
-- ai-act-provider
+not_built: []

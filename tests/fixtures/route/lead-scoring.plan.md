@@ -6,7 +6,7 @@
 | 4 | Transfer screening | `tia` | If cross_border_access = yes | After 2 | — | — |
 | 5 | Legitimate interests assessment | `lia` | Required | Now | lawful_basis = legitimate-interests | — |
 | 6 | AI impact assessment | `ai-impact-assessment` | Required | After 3 | ai_profiles_people = yes | — |
-| 7 | AI Act deployer readiness | `ai-act-deployer` (no skill yet) | If ai_high_risk = yes | After 3 | ai_act_role = deployer | — |
+| 7 | AI Act deployer readiness | `ai-act-deployer` | If ai_high_risk = yes | After 3 | ai_act_role = deployer | — |
 | 8 | RoPA entry | `ropa` | Required | Now | new_processing = yes | 1, 2, 5 |
 | 9 | Notice review | `notice-and-policy` | Required | Now | new_processing = yes; indirect_collection = yes | 8 |
 

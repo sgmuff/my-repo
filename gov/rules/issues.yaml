@@ -20,6 +20,8 @@ context_tags:
   direct-marketing: "The purpose includes direct marketing"
   vendor: "A vendor processes the data"
   public-source: "The data comes from public or third-party sources"
+  interacts-with-people: "The AI system talks to people or generates content they see"
+  public-body: "The deployer is a public-law body or provides a public service"
 
 issues:
   # Legitimate interests and compatibility
@@ -160,6 +162,43 @@ issues:
     ask: "An Art. 9(2) condition with its DPA 2018 Schedule 1 condition and an appropriate policy document"
     cite: "UK GDPR Art. 9(2)(b); DPA 2018 s. 10, Sch. 1"
     when: {types: [tia], kinds: [uk-tra], special_category: possible}
+
+  # AI Act
+  prohibited-practices:
+    label: Prohibited practices
+    ask: "No Art. 5 prohibited practice, including the additions applying from 2 December 2026"
+    cite: "AI Act Art. 5"
+    when: {types: [aip, aid]}
+  ai-literacy:
+    label: AI literacy
+    ask: "Staff who operate or use the system have sufficient AI literacy"
+    cite: "AI Act Art. 4"
+    when: {types: [aip, aid]}
+  application-dates:
+    label: Application dates
+    ask: "Which dates apply to this system: Annex III high-risk from 2 December 2027, Annex I from 2 August 2028, checked on EUR-Lex"
+    cite: "AI Act Arts. 111, 113, as amended by Regulation (EU) 2026/1744"
+    when: {types: [aip, aid]}
+  gdpr-overlap:
+    label: Data protection overlap
+    ask: "The GDPR basis and DPIA for the personal data, and any special category data used for bias detection under Art. 4a"
+    cite: "GDPR Arts. 6, 9, 35; AI Act Art. 4a, 26(9)"
+    when: {types: [aip, aid]}
+  ai-transparency:
+    label: Transparency to people
+    ask: "People are told they're dealing with AI, and generated content is marked where Art. 50 requires"
+    cite: "AI Act Art. 50"
+    when: {types: [aip], context: [interacts-with-people]}
+  ai-workers:
+    label: Workers informed
+    ask: "Workers' representatives and affected workers are told before a high-risk system is used at work"
+    cite: "AI Act Art. 26(7)"
+    when: {types: [aid], context: [employees]}
+  ai-fria-public:
+    label: FRIA for public bodies
+    ask: "A public-law body or public service provider owes a FRIA before first use, except for Annex III point 2 systems"
+    cite: "AI Act Art. 27(1)"
+    when: {types: [aid], context: [public-body]}
 
   # Transfer screens
   certification-scope:

@@ -326,7 +326,7 @@ Done when the RoPA evals produce valid YAML, two triage runs print the same plan
 Each phase closes with skill evals, trigger evals, and a description optimizer run.
 
 1. **Catalog, `lia`, and `tia`.** Point `vendor-review` and `dpia` at them. Add reference files for the five conditional regimes, so their entries can be switched on.
-2. **`ai-act-provider` and `ai-act-deployer`,** and the Art. 25 check. Finish well before December 2, 2027.
+2. **`ai-act-provider` and `ai-act-deployer`,** and the Art. 25 check. Finish well before December 2, 2027. Built 2026-10-21, answer-first from the start: AIP and AID records with the required articles enforced, findings for profiling claimed as not high-risk, a deployer that has become the provider, "ready" with gaps, and an owed FRIA, plus AI Act issue rules. Still to do: answer keys and blind evals, and the trigger-rate run. The Art. 25 check lives in the AID record; `ai-intake` still owns the catalog entry.
 3. **Security entries** in `controls-and-evidence`. The first CCPA audit is due April 1, 2028 at the earliest.
 4. **Existing assessments in the new format,** starting with the DPIA, plus `gov screen`.
 5. **Remaining registers.**

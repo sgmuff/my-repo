@@ -1,0 +1,82 @@
+[
+  {
+    "query": "We're rolling out a vendor's AI tool to screen job applicants in Germany. What do we owe as deployer?",
+    "should_trigger": true
+  },
+  {
+    "query": "HR wants to keep using the CV ranking tool we license. Anything we must do before Dec 2027?",
+    "should_trigger": true
+  },
+  {
+    "query": "We're a university and want to use a vendor's AI to assess exam answers. Do we need a fundamental rights impact assessment?",
+    "should_trigger": true
+  },
+  {
+    "query": "We put our own logo on a licensed credit-scoring model and tweaked it. Are we still just the deployer?",
+    "should_trigger": true
+  },
+  {
+    "query": "insurer here, using a third-party model to price life cover. what are the deployer duties and is there a FRIA",
+    "should_trigger": true
+  },
+  {
+    "query": "Do we have to tell staff and the works council before we switch on the vendor's productivity scoring AI?",
+    "should_trigger": true
+  },
+  {
+    "query": "gov required lists deployer duties for the tenant-screening tool we use. Can you check them?",
+    "should_trigger": true
+  },
+  {
+    "query": "A customer denied by our AI-assisted loan decision wants an explanation. What do we owe under the AI Act?",
+    "should_trigger": true
+  },
+  {
+    "query": "We use the provider's high-risk triage system in our hospitals. Who monitors it, and how long do we keep the logs?",
+    "should_trigger": true
+  },
+  {
+    "query": "The council is buying an AI system to rank social housing applicants. What must the council do before using it?",
+    "should_trigger": true
+  },
+  {
+    "query": "We build and sell a hiring model. Is it high-risk?",
+    "should_trigger": false
+  },
+  {
+    "query": "Write the FRIA for the city's use of our tool.",
+    "should_trigger": false
+  },
+  {
+    "query": "Review this AI vendor's DPA and their model-change terms.",
+    "should_trigger": false
+  },
+  {
+    "query": "Register this new AI pilot in the inventory and give it a risk tier.",
+    "should_trigger": false
+  },
+  {
+    "query": "Do we need a DPIA for the HR analytics dashboard?",
+    "should_trigger": false
+  },
+  {
+    "query": "Run a bias audit on the vendor's hiring model outputs.",
+    "should_trigger": false
+  },
+  {
+    "query": "Is the chatbot on our website a high-risk system?",
+    "should_trigger": false
+  },
+  {
+    "query": "Update our privacy notice to mention the AI screening.",
+    "should_trigger": false
+  },
+  {
+    "query": "What fines can the AI Act impose?",
+    "should_trigger": false
+  },
+  {
+    "query": "Draft the employee AI acceptable use policy.",
+    "should_trigger": false
+  }
+]

@@ -191,4 +191,42 @@ def tsr(data: dict) -> list:
     return out
 
 
-FINDINGS = {"ropa": ropa, "lia": _with_issues(lia), "tia": _with_issues(tia), "tsr": _with_issues(tsr)}
+def _open_obligations(data: dict) -> list:
+    return [o["article"] for o in data["obligations"] if o["status"] not in ("in-place", "not-applicable")]
+
+
+def aip(data: dict) -> list:
+    out = []
+    c = data["classification"]
+    decision = data["decision"]["value"]
+    if data["kind"] == "non-high-risk":
+        if c["profiling"]["value"] is not False:
+            out.append(("classification/profiling", "an Annex III system that profiles natural persons is always high-risk (Art. 6(3), last subparagraph); confirm it doesn't"))
+        if c["art6_3_condition"] in ("none", "TBC", "not-applicable"):
+            out.append(("classification/art6_3_condition", "a non-high-risk claim needs an Art. 6(3) condition; without one the system is high-risk"))
+    if c["call"]["value"] is True and data["kind"] == "non-high-risk":
+        out.append(("classification/call", "the classification says high-risk, but the file is kind non-high-risk"))
+    if decision in ("ready", "not-high-risk") and _open_obligations(data):
+        out.append(("obligations", f"the decision is {decision}, but these aren't in place: {', '.join(_open_obligations(data))}"))
+    if is_tbc(data["application_date"]):
+        out.append(("application_date", "record when the obligations apply to this system, checked on EUR-Lex"))
+    return out
+
+
+def aid(data: dict) -> list:
+    out = []
+    check = data["provider_role_check"]
+    triggered = [k for k in ("own_name", "substantial_modification", "new_high_risk_purpose") if check[k]["value"] is True]
+    if triggered and data["decision"]["value"] != "becomes-provider":
+        out.append(("provider_role_check", f"the deployer becomes the provider under Art. 25 ({', '.join(triggered)}); set the decision to becomes-provider and start a provider file"))
+    if data["decision"]["value"] == "ready" and _open_obligations(data):
+        out.append(("obligations", f"the decision is ready, but these aren't in place: {', '.join(_open_obligations(data))}"))
+    if data["fria"]["required"]["value"] is not False and data["fria"]["record"] in ("TBC", "not-applicable"):
+        out.append(("fria", "a FRIA is or may be owed under Art. 27 before first use; plan it with ai-impact-assessment, or record why it isn't owed"))
+    if is_tbc(data["application_date"]):
+        out.append(("application_date", "record when the deployer duties apply to this system, checked on EUR-Lex"))
+    return out
+
+
+FINDINGS = {"ropa": ropa, "lia": _with_issues(lia), "tia": _with_issues(tia), "tsr": _with_issues(tsr),
+            "aip": _with_issues(aip), "aid": _with_issues(aid)}

@@ -36,7 +36,7 @@ def test_goldens(assess_root):
 
 
 def test_skeletons_are_valid(root):
-    for kind in ("lia", "tia", "tsr"):
+    for kind in ("lia", "tia", "tsr", "aip", "aid"):
         new_record(root, kind, "blank", "Blank", "2026-10-18", "Claude")
     assert found(root, "error") == []
     assert render_tree(root).problems == []
@@ -158,7 +158,7 @@ def test_unsigned_tool_needs_a_law_action(assess_root):
 def test_every_kind_has_a_method():
     from gov.paths import PACKAGE
     methods = yamlio.load(PACKAGE / "rules" / "methods.yaml")
-    for kind in ("lia", "tia", "tsr"):
+    for kind in ("lia", "tia", "tsr", "aip", "aid"):
         kinds = yamlio.load(PACKAGE / "schemas" / f"{kind}.schema.yaml")["properties"]["kind"]["enum"]
         assert set(kinds) == set(methods[kind]), kind
 
@@ -274,3 +274,42 @@ def test_answering_one_finding_leaves_the_others(assess_root):
     findings = found(assess_root, "finding")
     assert not any("(employment-law)" in m for m in findings)
     assert any("(employee-consent)" in m for m in findings)
+
+
+
+def _ai_record(root, kind, change):
+    path = new_record(root, kind, "hiring", "CV screening tool", "2026-10-21", "Claude")
+    data = yamlio.load(path)
+    change(data)
+    path.write_text(yamlio.dumps(data), encoding="utf-8")
+    return path
+
+
+def test_provider_file_needs_its_articles(root):
+    _ai_record(root, "aip", lambda d: d.update(obligations=d["obligations"][:3]))
+    assert any("a high-risk record must list" in m and "art43" in m for m in found(root, "error"))
+
+
+def test_non_high_risk_claim_fails_on_profiling(root):
+    def claim(d):
+        d["kind"] = "non-high-risk"
+        d["obligations"] = [{"article": a, "status": "TBC", "evidence": "TBC", "owner": "TBC"} for a in ("art6-4", "art49-2")]
+        d["classification"]["art6_3_condition"] = "preparatory-task"
+        d["classification"]["profiling"] = {"value": True, "status": "Provisional", "reason": "Ranks candidates"}
+    _ai_record(root, "aip", claim)
+    assert found(root, "error") == []
+    assert any("always high-risk" in m for m in found(root, "finding"))
+
+
+def test_deployer_that_rebrands_becomes_provider(root):
+    _ai_record(root, "aid", lambda d: d["provider_role_check"].update(own_name={"value": True, "status": "Provisional", "reason": "Sold under our brand"}))
+    findings = found(root, "finding")
+    assert any("becomes the provider under Art. 25" in m for m in findings)
+    assert any("FRIA is or may be owed" in m for m in findings)
+
+
+def test_ready_with_gaps_is_a_finding(root):
+    path = _ai_record(root, "aid", lambda d: d.update(decision={"value": "ready", "status": "Provisional", "reason": "All set"}))
+    assert any("the decision is ready, but these aren't in place" in m for m in found(root, "finding"))
+    assert render_tree(root).problems == []
+    assert "Art. 26(7) Workers and their representatives informed" in path.with_suffix(".md").read_text()
