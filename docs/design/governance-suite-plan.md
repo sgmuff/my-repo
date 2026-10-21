@@ -386,16 +386,21 @@ From an outside review of the repository (Lumo, via Proton), checked against the
      These are closer to facts than to expression, but the terms reach all site content. Keep with attribution, or ask.
    - `regulatory-change` downloads AIUC's `llms.txt`, which AIUC publishes for machine reading. One fetch per release
      sits within normal use; note it if AIUC's terms change.
-2. **Stale references don't block.** `gov validate` doesn't check reference review dates. Make an overdue reference that
+2. ~~**Stale references don't block.**~~ Done 2026-10-21: `gov validate` raises a finding when a cited file is past its
+   "Review by" date (as of the record's own date, or `--as-of`), or was re-verified after the record cited it; the finding
+   renders in the record and only a person can answer it. Original note: `gov validate` doesn't check reference review dates. Make an overdue reference that
    a record cites a validation finding, and show a banner in the rendered document.
-3. **Missing company facts.** `gov route` doesn't read `company-profile.md`; the skills read it and ask about each `TODO`
+3. ~~**Missing company facts.**~~ Done 2026-10-21: scope fields left as `TODO` give a warning while records are drafts
+   and an error on an approved record (`gov/profile.py`). Original note: `gov route` doesn't read `company-profile.md`; the skills read it and ask about each `TODO`
    they need. Add a `gov` check that fails when a field that sets scope (regimes, establishments) is still `TODO`.
 4. ~~**`incident_clock.py` has no unit tests.**~~ Done 2026-10-21: `tests/test_incident_clock.py` (12 cases). The tests
    found that hour-based clocks added wall-clock time, so a 72-hour deadline across the autumn DST change printed an
    hour late; the script now counts elapsed time, rejects a local time that doesn't exist, and flags one that happens
    twice. Still open: occurrence versus awareness is the user's input, not the script's, and isn't tested.
-5. **Router judgment isn't graded.** `privacy-governance` has assertion and trigger evals but no counsel-approved answer
+5. **Router judgment isn't graded.** Started 2026-10-21: six draft holdout scenarios in `docs/evals/router-scenarios.yaml`,
+   waiting for counsel's keys. Original note: `privacy-governance` has assertion and trigger evals but no counsel-approved answer
    keys. Build a small keyed holdout for the issues the router adds beyond `gov route`.
-6. **README vocabulary.** The skill list mixes "Wave" and "suite phase". Use one scheme, and say which skills are shipped.
-7. **Contributor path for reference files.** Document the header format, the review-date procedure, and the test to run,
+6. ~~**README vocabulary.**~~ Done 2026-10-21. Original note: The skill list mixes "Wave" and "suite phase". Use one scheme, and say which skills are shipped.
+7. ~~**Contributor path for reference files.**~~ Done 2026-10-21: "Contributing a reference update" in
+   `skills/_shared/references/README.md`. Original note: Document the header format, the review-date procedure, and the test to run,
    so updating a reference file doesn't need knowledge of `assessments.yaml`.

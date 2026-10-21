@@ -1,0 +1,29 @@
+# Holdout scenarios for privacy-governance's judgment layer: the "Issues for counsel the plan doesn't cover" that the
+# skill adds beyond `gov route`. Each scenario has a legal issue no routing step or check names. Counsel edits the
+# prompts, deletes any not worth scoring, and writes keys in router-answer-keys.yaml before any run.
+# Status: DRAFT prompts, prepared by Claude 2026-10-21. No keys, no runs. Don't share with skill-building work until scored.
+
+scenarios:
+  - id: rtr-01-telehealth-pixel
+    prompt: "Our patient portal team wants to add the Meta pixel and Google Analytics to the appointment-booking pages so marketing can measure campaigns. We're a US telehealth company. Where do we start?"
+    tests: "Beyond the vendor and notice steps: tracking technologies on authenticated health pages (HHS OCR guidance and its partial vacatur in AHA v. Becerra), the FTC Health Breach Notification Rule, Washington's My Health My Data Act, and VPPA- or wiretap-style class actions."
+
+  - id: rtr-02-voice-cloning-support
+    prompt: "Support wants to clone our top agents' voices with an AI vendor so the phone bot sounds like them, for callers in the US and EU. Agents would sign a consent form. What do we need?"
+    tests: "Employee consent's validity at work, Illinois BIPA if a voiceprint is captured, state right-of-publicity and voice laws (Tennessee ELVIS Act), and AI Act Art. 50 disclosure to callers."
+
+  - id: rtr-03-school-ai-proctoring
+    prompt: "We're piloting webcam-based AI exam proctoring for a university customer with students in Illinois and Germany. The vendor flags suspicious behaviour for instructors. Can we start next month?"
+    tests: "AI Act Annex III point 3(d) and the Art. 5(1)(f) emotion-recognition ban in education, BIPA for face geometry, FERPA school-official limits, and the German works-council and data protection authority positions on remote proctoring."
+
+  - id: rtr-04-children-game-chat
+    prompt: "Our mobile game is adding an AI chat companion. Players are 13 and up, with some in the UK and California. Product wants it live for the holidays."
+    tests: "UK Age Appropriate Design Code and the Online Safety Act duties, California's Age-Appropriate Design Code litigation status and its companion-chatbot law (SB 243), COPPA where under-13s are likely despite the age gate, and AI Act Art. 50."
+
+  - id: rtr-05-hr-sentiment-slack
+    prompt: "HR wants to run sentiment analysis on our internal Slack to spot burnout early across our offices in France, the Netherlands and Texas. Nothing individual goes to managers, just team-level dashboards. Where do we start?"
+    tests: "Art. 5(1)(f) (the Commission's guidelines treat burnout detection at work as prohibited), whether team-level aggregation avoids it, works council consent (Dutch WOR art. 27, French CSE), and ECPA and state wiretap consent for US employee communications."
+
+  - id: rtr-06-acquired-dataset
+    prompt: "We just acquired a small competitor. Sales wants to email their 200,000 customers about our product next week. The data came with the deal. What do we need to do?"
+    tests: "Whether the acquired consent or legitimate interest carries over, ePrivacy and PECR soft opt-in limits (it doesn't transfer to a new sender for different products), CAN-SPAM, the target's privacy notice promises (FTC deception), and data room diligence on lawful basis."

@@ -247,12 +247,14 @@ def _methods() -> dict:
     return yamlio.load(PACKAGE / "rules" / "methods.yaml")
 
 
-def finding_rows(rec) -> list:
+def finding_rows(rec, root=None) -> list:
     """Every current finding with its response, then responses whose finding no longer arises."""
+    from gov import references
     from gov.findings import FINDINGS
     responses = {r["pointer"]: r for r in rec.data.get("finding_responses", [])}
     rows, seen = [], set()
-    for pointer, message in FINDINGS[rec.type](rec.data):
+    stale = references.findings(root, rec.data) if root else []
+    for pointer, message in FINDINGS[rec.type](rec.data) + stale:
         r = responses.get(pointer)
         seen.add(pointer)
         rows.append({"pointer": pointer, "finding": message, "response": r["response"] if r else "Open", "by": r["by"] if r else None})
@@ -268,7 +270,7 @@ def render_record(rec, root=None) -> str:
     method = _methods().get(rec.type, {}).get(rec.data.get("kind"))
     if isinstance(method, dict):
         method = method.get((rec.data.get("regimes") or ["eu-gdpr"])[0])
-    extra = {"findings": finding_rows(rec), "method": method,
+    extra = {"findings": finding_rows(rec, root), "method": method,
              "issue_rows": issues.rows(rec.data) if rec.type != "ropa" else []}
     if rec.type == "ropa":
         extra.update(vendors=derive.vendor_slugs(rec.data), required=required_rows(root, rec.data))

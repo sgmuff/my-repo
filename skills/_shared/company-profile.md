@@ -1,6 +1,6 @@
 # Company profile
 
-Every skill in the suite reads this file at the start of a run. Fill it in once, replacing each `TODO`, and the skills will stop asking for these details. When a skill finds a `TODO` that matters to the current run, it asks for the value and offers to save it here.
+Every skill in the suite reads this file at the start of a run. Fill it in once, replacing each `TODO`, and the skills will stop asking for these details. `gov validate` warns while the scope fields (legal entity, sector, EU establishment, lead supervisory authority, and the US state list) are `TODO`, and won't pass an approved record until they're filled in. When a skill finds a `TODO` that matters to the current run, it asks for the value and offers to save it here.
 
 This file holds facts that stay stable between runs. It deliberately leaves out the company's role (controller, processor, provider, deployer). Roles change from one activity to the next, so each skill proposes a role for each run and asks you to confirm it. See `conventions.md`, section 5.
 

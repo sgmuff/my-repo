@@ -9,11 +9,23 @@ FIXTURES = Path(__file__).resolve().parent / "fixtures"
 UPDATE = os.environ.get("UPDATE_GOLDEN") == "1"
 
 
+def fill_scope(profile: str) -> str:
+    """The template profile with each scope field's TODO replaced, as a company would after its first run."""
+    from gov.profile import SCOPE_FIELDS
+    lines = []
+    for line in profile.splitlines():
+        if any(line.lstrip("- ").startswith(f) for f in SCOPE_FIELDS) and line.rstrip().endswith("TODO"):
+            line = line.rstrip()[: -len("TODO")] + "Filled in for tests"
+        lines.append(line)
+    return "\n".join(lines) + "\n"
+
+
 @pytest.fixture
 def root(tmp_path, monkeypatch):
-    """An empty suite: the marker file and nothing else."""
+    """An empty suite: a company profile with its scope fields filled in, and the reference files."""
     (tmp_path / "skills" / "_shared").mkdir(parents=True)
-    shutil.copy(REPO / "skills" / "_shared" / "company-profile.md", tmp_path / "skills" / "_shared")
+    profile = (REPO / "skills" / "_shared" / "company-profile.md").read_text(encoding="utf-8")
+    (tmp_path / "skills" / "_shared" / "company-profile.md").write_text(fill_scope(profile), encoding="utf-8")
     shutil.copytree(REPO / "skills" / "_shared" / "references", tmp_path / "skills" / "_shared" / "references")
     monkeypatch.delenv("GOV_ROOT", raising=False)
     return tmp_path

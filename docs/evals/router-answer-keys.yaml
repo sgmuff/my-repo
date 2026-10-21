@@ -1,0 +1,11 @@
+# Answer keys for the router holdout (router-scenarios.yaml). Counsel writes these before any run, in the format of
+# ai-act-answer-keys.yaml: an outcome, then points with weight must|should, a source, and check: true where unverified.
+# Score only the router's added issues and its handoff, not the routed plan, which golden tests already pin.
+# Status: blank.
+
+rtr-01-telehealth-pixel: {outcome: "", points: []}
+rtr-02-voice-cloning-support: {outcome: "", points: []}
+rtr-03-school-ai-proctoring: {outcome: "", points: []}
+rtr-04-children-game-chat: {outcome: "", points: []}
+rtr-05-hr-sentiment-slack: {outcome: "", points: []}
+rtr-06-acquired-dataset: {outcome: "", points: []}

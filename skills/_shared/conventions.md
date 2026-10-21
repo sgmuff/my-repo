@@ -77,7 +77,7 @@ Every deliverable lists the reference files it relied on, with each file's versi
 
 Laws, regulations, and standards change. The suite handles this in three ways.
 
-**Reference files carry their own dates.** Each file in `references/` opens with a table giving the version covered, the sources, the date last verified, and a review interval. Before relying on a file, check its last-verified date against the interval. If the file is overdue, say so in the deliverable's document control section, and flag each conclusion that depends on it.
+**Reference files carry their own dates.** Each file in `references/` opens with a table giving the version covered, the sources, the date last verified, and a review interval. Before relying on a file, check its last-verified date against the interval. If the file is overdue, say so in the deliverable's document control section, and flag each conclusion that depends on it. For a `gov` record, list the file in `references` with the version and the date you verified it: `gov validate` raises a finding when a cited file is past its "Review by" date in `references/README.md`, or has been re-verified since the record cited it, and only a person can answer that finding.
 
 **Volatile points are marked in the reference files.** A point marked *Volatile* in a reference file is one known to be changing: a pending amendment, a delayed effective date, a contested adequacy decision. A conclusion that rests on a volatile point gets a verify flag.
 

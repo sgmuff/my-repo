@@ -9,7 +9,7 @@ from pathlib import Path
 from jsonschema import Draft202012Validator, ValidationError, validators
 from jsonschema.exceptions import best_match
 
-from gov import ids, yamlio
+from gov import ids, profile, references, yamlio
 from gov import required as req
 from gov.findings import FINDINGS
 from gov.paths import PACKAGE, output_root
@@ -60,8 +60,9 @@ def _filler() -> list:
     return [(p, re.compile(r"\b" + re.escape(p) + r"\b", re.IGNORECASE)) for p in phrases]
 
 
-def validate_tree(root: Path) -> list:
-    """Validate every record under the output root, plus tree-wide checks."""
+def validate_tree(root: Path, as_of: str | None = None) -> list:
+    """Validate every record under the output root, plus tree-wide checks. as_of (YYYY-MM-DD) dates the reference
+    review check; without it, each record is checked as of its own last review or preparation date."""
     problems = []
     records = []
     for path in record_files(root):
@@ -74,12 +75,13 @@ def validate_tree(root: Path) -> list:
             problems.append(Problem(_rel(root, path), "error", f"can't parse YAML: {exc}{hint}"))
             continue
         records.append(rec)
-        problems.extend(validate_record(root, rec))
+        problems.extend(validate_record(root, rec, as_of))
     problems.extend(_tree_checks(root, records))
+    problems.extend(_profile_checks(root, records))
     return sorted(set(problems))
 
 
-def validate_record(root: Path, rec: Record) -> list:
+def validate_record(root: Path, rec: Record, as_of: str | None = None) -> list:
     where = _rel(root, rec.path)
     if not isinstance(rec.data, dict):
         return [Problem(where, "error", "the file must hold a mapping")]
@@ -111,10 +113,23 @@ def validate_record(root: Path, rec: Record) -> list:
     answered = {r["pointer"] for r in rec.data.get("finding_responses", []) if "claude" not in r["by"].lower()}
     problems.extend(
         Problem(where, "finding", f"{pointer}: {message}")
-        for pointer, message in FINDINGS[rec.type](rec.data)
+        for pointer, message in FINDINGS[rec.type](rec.data) + references.findings(root, rec.data, as_of)
         if pointer not in answered
     )
     problems.extend(_style(where, rec.data))
+    return problems
+
+
+def _profile_checks(root: Path, records: list) -> list:
+    """Scope fields left as TODO in the company profile: a warning while records are drafts, an error on approval."""
+    todo = profile.scope_todos(root)
+    if not todo or not records:
+        return []
+    fields = ", ".join(todo)
+    problems = [Problem(_rel(root, rec.path), "error", f"approved while the company profile's scope fields are TODO ({fields}); fill them in and re-check the regimes")
+                for rec in records if isinstance(rec.data, dict) and rec.data.get("status") in APPROVED]
+    if not problems:
+        problems.append(Problem("skills/_shared/company-profile.md", "warning", f"scope fields are TODO ({fields}); records can't be approved until they're filled in"))
     return problems
 
 

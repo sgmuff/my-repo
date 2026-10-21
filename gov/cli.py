@@ -30,7 +30,8 @@ def main(argv=None) -> int:
     p.add_argument("--date", required=True, help="date prepared, YYYY-MM-DD")
     p.add_argument("--prepared-by", default="Claude (privacy-governance suite)")
 
-    sub.add_parser("validate", help="check every record")
+    p = sub.add_parser("validate", help="check every record")
+    p.add_argument("--as-of", help="YYYY-MM-DD for the reference review check; defaults to each record's own date")
 
     p = sub.add_parser("render", help="write Markdown and indexes from the records")
     p.add_argument("--check", action="store_true", help="write nothing; fail if any output is stale")
@@ -68,7 +69,7 @@ def _new(root, args) -> int:
 
 
 def _validate(root, args) -> int:
-    problems = validate_tree(root)
+    problems = validate_tree(root, args.as_of)
     for problem in problems:
         print(problem)
     count = {level: sum(1 for p in problems if p.level == level) for level in ("error", "finding", "warning")}

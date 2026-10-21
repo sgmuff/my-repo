@@ -35,4 +35,25 @@ The `regulatory-change` skill runs these steps: it proposes the edits in a chang
 4. Commit with a message that says what changed and why, for example "AIUC-1: update to January 15, 2027 release."
 5. Search open deliverables under the output root for citations of anything you changed, and flag them for review.
 
+## Contributing a reference update
+
+You don't need to know the rest of the suite to update a file. In one change:
+
+1. **Edit the file.** Keep the opening header table: Covers, Version covered, Sources, Last verified, Review interval,
+   Volatile points. Quote primary sources (EUR-Lex, legislation.gov.uk, eCFR, a regulator's site), and mark anything you
+   couldn't check against one as *Verify*.
+2. **Bump the dates.** Set "Last verified" in the file's header to the day you checked. In the table above, set the same
+   date under "Last verified" and the next review under "Review by" (last verified plus the interval). Keep the table's
+   six columns and the file name in backticks: `gov` reads the first date in each of those two cells.
+3. **Don't copy third-party standards.** Statutes, regulations, and EU and US government publications can be quoted. A
+   commercial standard (AIUC-1, ISO) can be cited and paraphrased in your own words, not reproduced; see each file's
+   header for its terms.
+4. **Run the tests:** `pip install -e '.[test]'`, then `pytest -q`, `gov validate`, and `gov render --check`. The tests
+   check the index parses; `gov validate` will now raise a finding on any record that cited the old version.
+5. **Say what changed and why** in the commit message, for example "gdpr.md: DUAA commencement regulations 2027".
+
+What you don't need to touch: `gov/rules/assessments.yaml` names a file per catalog entry (`reference:`), and an entry
+is skipped only if its file doesn't exist. Renaming or deleting a file does need that file updated; editing one doesn't.
+Legal content changes need counsel's review before they're relied on (`../approvals.md`).
+
 A skill that finds a file past its "Review by" date says so in the deliverable's document control section and flags the conclusions that rely on it (`../conventions.md`, §4).
