@@ -1,6 +1,7 @@
 """Issues an assessment must address, from rules/issues.yaml. Each triggered issue the record doesn't cover is a finding."""
 from __future__ import annotations
 
+import re
 from functools import lru_cache
 
 from gov import yamlio
@@ -41,10 +42,10 @@ def _regimes(data: dict) -> set:
     return {KIND_REGIME[data["kind"]]} if data.get("kind") in KIND_REGIME else set()
 
 
-def _countries(data: dict) -> set:
-    country = (data.get("importer") or {}).get("country", "")
-    parts = {country.strip().lower()} | {p.strip().lower() for p in country.replace(";", ",").split(",")}
-    return {p for p in parts if p}
+def _country_matches(names: list, data: dict) -> bool:
+    """True if any listed name appears as a whole word in the importer's country, such as "India (Pune)"."""
+    country = str((data.get("importer") or {}).get("country", "")).lower()
+    return any(re.search(r"(?<![a-z])" + re.escape(name.lower()) + r"(?![a-z])", country) for name in names)
 
 
 def _special_category(data: dict):
@@ -61,7 +62,7 @@ def _matches(when: dict, data: dict) -> bool:
         return False
     if "regimes" in when and not set(when["regimes"]) & _regimes(data):
         return False
-    if "countries" in when and not set(when["countries"]) & _countries(data):
+    if "countries" in when and not _country_matches(when["countries"], data):
         return False
     if "routes" in when and (data.get("mechanism") or {}).get("route") not in when["routes"]:
         return False
@@ -79,7 +80,7 @@ def missing(data: dict) -> list:
     """(pointer, message) findings for triggered issues the record doesn't cover."""
     covered = {i["issue"] for i in data.get("issues", [])}
     return [
-        ("issues", f"address {rule['label'].lower()} ({issue_id}): {rule['ask']} ({rule['cite']})")
+        (f"issues/{issue_id}", f"address {rule['label'].lower()} ({issue_id}): {rule['ask']} ({rule['cite']})")
         for issue_id, rule in triggered(data)
         if issue_id not in covered
     ]

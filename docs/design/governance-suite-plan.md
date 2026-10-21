@@ -318,7 +318,7 @@ Done when the RoPA evals produce valid YAML, two triage runs print the same plan
 - [x] Second holdout, eight scenarios with counsel-approved keys: the skill trails, 83 against 91, with the same gap as the first
 - [x] Answer-first restructure: Claude answers as it would without the skill, then records it. On the second holdout, 88 against 93 with no material errors and regulator usability 4.5 against 3.9. Single runs vary by up to 10 points, so small gaps aren't reliable.
 - [x] Decision: `lia` and `tia` add the record and its checks, not better legal analysis; tuning them for legal quality stops here. Replies keep record details to one closing line.
-- [ ] Description optimizer runs for `lia` and `tia`
+- [x] Descriptions for `lia` and `tia` reviewed by hand against their 20-query trigger sets: exclusions added for notice wording, framework news, and general transfer questions. The automated optimizer (`claude -p`) hit the usage limit, so trigger rates aren't measured yet.
 - [x] `phase-1` merged to main
 
 ### Later phases

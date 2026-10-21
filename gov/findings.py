@@ -35,9 +35,9 @@ def ropa(data: dict) -> list:
         if c["flags"] != TBC and any(f["flag"] == "special-category" for f in c["flags"]):
             special_purposes.update(c["purposes"])
         if not c["purposes"] and not is_tbc(c["category"]):
-            out.append((f"data_categories/{n}", f"{c['category']}: no purpose uses this data; link it to a purpose, or stop collecting it"))
+            out.append((f"data_categories/{n}/purposes", f"{c['category']}: no purpose uses this data; link it to a purpose, or stop collecting it"))
         if c["source"]["kind"] == "inferred":
-            out.append((f"data_categories/{n}", f"{c['category']}: elements are inferred; confirm them or move them to an open question"))
+            out.append((f"data_categories/{n}/source", f"{c['category']}: elements are inferred; confirm them or move them to an open question"))
     for n, p in enumerate(data["purposes"]):
         if p["id"] in special_purposes and p["art9_condition"]["value"] == "none":
             out.append((f"purposes/{n}", f"{p['id']} uses data flagged special category but records no Art. 9 condition"))
@@ -117,15 +117,15 @@ def lia(data: dict) -> list:
     holds = decision in ("holds", "holds-with-conditions")
     if data["special_category"]["value"] is True:
         out.append(("special_category", "an LIA never supplies an Art. 9 condition; confirm the DPIA names one"))
-    if data["special_category"]["value"] is not False and not _action_citing(data, r"Art\.\s*9"):
-        out.append(("actions", "special category data is or may be involved, but no action addresses the Art. 9 condition"))
+    if data["special_category"]["value"] is not False and not _action_citing(data, r"Art\.\s*9\b"):
+        out.append(("actions/art9", "special category data is or may be involved, but no action addresses the Art. 9 condition"))
     objection = data["objection"]
     if objection["direct_marketing"] is True and not re.search(r"\b(absolute|always|stop|stops)\b", objection["how"], re.I):
         out.append(("objection", "direct marketing makes the right to object absolute (Art. 21(3)); say that processing stops on objection"))
     if objection["notice"] == "gap":
         out.append(("objection/notice", "the notice doesn't name the interest (Art. 13(1)(d), 14(2)(b)); recommend a notice update"))
-    if objection["notice"] != "covered" and not _law_action_citing(data, r"Art\.\s*1[34]"):
-        out.append(("actions", "the notice isn't confirmed to cover this; add a launch-blocking law action for it, with Art. 13 or 14 in scope"))
+    if objection["notice"] != "covered" and not _law_action_citing(data, r"Art\.\s*1[34]\b"):
+        out.append(("actions/notice", "the notice isn't confirmed to cover this; add a launch-blocking law action for it, with Art. 13 or 14 in scope"))
     if holds:
         for key, call in (("purpose_test", "legitimate"), ("necessity_test", "necessary")):
             test = data[key]
@@ -134,6 +134,9 @@ def lia(data: dict) -> list:
         balancing = data["balancing"]
         if balancing.get("applicable") and balancing["outcome"]["value"] != "interest-prevails":
             out.append(("balancing", "the decision says the interest holds, but the balance doesn't favor it"))
+        recognized = data["recognized_interest"]
+        if recognized.get("applicable") and (recognized["conditions_met"]["value"] is not True or recognized["commenced"]["value"] is not True):
+            out.append(("recognized_interest", "the decision says the interest holds, but the Annex 1 conditions or commencement aren't confirmed"))
         compat = data["compatibility"]
         if compat.get("applicable") and compat["outcome"]["value"] != "compatible":
             out.append(("compatibility", "the decision says the new purpose is fine, but compatibility isn't established"))
@@ -154,8 +157,8 @@ def tia(data: dict) -> list:
             out.append(("measures", "the decision is to proceed, but step 3 found a problem or left it open and no measure is shown to work"))
         if data["procedural"]["signed"] is not True:
             out.append(("procedural", "the decision is to proceed, but the transfer tool isn't signed"))
-    if not _law_action_citing(data, r"Art\.\s*46|IDTA|FADP"):
-        out.append(("actions", "no law action covers the transfer tool; add one to sign, or obtain and check, the executed tool, citing Art. 46, and mark it done once checked"))
+    if not _law_action_citing(data, r"Art\.\s*46\b|IDTA|UK Addendum|FADP\s+Art\.\s*16\b"):
+        out.append(("actions/transfer-tool", "no law action covers the transfer tool; add one to sign, or obtain and check, the executed tool, citing Art. 46, and mark it done once checked"))
     if data["transfer_map"]["special_category"]["value"] is True and not data["measures"]:
         out.append(("measures", "special category data is transferred with no supplementary measures recorded"))
     if is_tbc(data["activity"]):

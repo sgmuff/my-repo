@@ -244,3 +244,33 @@ def test_swiss_screen_cites_swiss_method(root):
     render_tree(root)
     text = path.with_suffix(".md").read_text()
     assert "**Method:** Swiss FADP Art. 16(1)" in text and "GDPR Art. 45" not in text
+
+
+def test_country_matches_inside_longer_names(assess_root):
+    edit(assess_root, TIA, lambda d: d["importer"].update(country="India (Pune)"))
+    assert any("(india-laws)" in m for m in found(assess_root, "finding"))
+    edit(assess_root, TIA, lambda d: d["importer"].update(country="Russia"))
+    assert not any("(us-laws)" in m or "(india-laws)" in m for m in found(assess_root, "finding"))
+
+
+def test_unrelated_fadp_citation_does_not_cover_the_transfer_tool(assess_root):
+    edit(assess_root, TIA, lambda d: d["actions"][0].update(scope="FADP Art. 9"))
+    assert any("no law action covers the transfer tool" in m for m in found(assess_root, "finding"))
+    edit(assess_root, TIA, lambda d: d["actions"][0].update(scope="UK Addendum Part 2"))
+    assert not any("no law action covers the transfer tool" in m for m in found(assess_root, "finding"))
+    assert not any("block_reason law needs scope" in m for m in found(assess_root, "error"))
+
+
+def test_article_numbers_need_word_boundaries(assess_root):
+    edit(assess_root, LIA, lambda d: d["actions"][0].update(scope="GDPR Art. 140"))
+    assert any("add a launch-blocking law action for it" in m for m in found(assess_root, "finding"))
+
+
+def test_answering_one_finding_leaves_the_others(assess_root):
+    def two(d):
+        d["context"].append("employees")
+        d["finding_responses"].append({"pointer": "issues/employment-law", "response": "No staff in scope", "by": "Pat Lee, privacy lead"})
+    edit(assess_root, LIA, two)
+    findings = found(assess_root, "finding")
+    assert not any("(employment-law)" in m for m in findings)
+    assert any("(employee-consent)" in m for m in findings)

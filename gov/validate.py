@@ -207,7 +207,7 @@ def _structure(where: str, data: dict) -> list:
     return []
 
 
-PROVISION = re.compile(r"\b(Art\.|Arts\.|Article|s\.|ss\.|Section|§|Clause|Reg\.|Regulation|Rule|CFR|U\.S\.C\.)\s*\d", re.I)
+PROVISION = re.compile(r"\b(Art\.|Arts\.|Article|s\.|ss\.|Section|§|Clause|Reg\.|Regulation|Rule|Part|Sch\.|Schedule|CFR|U\.S\.C\.)\s*\d", re.I)
 
 
 def _issue_ids(where: str, data: dict) -> list:
