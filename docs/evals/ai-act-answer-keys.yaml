@@ -1,70 +1,285 @@
-# Answer keys for the AI Act scenarios. Counsel writes these before any run, from their own view of the law.
-# Same format as docs/evals/holdout-2-answer-keys.yaml. Delete any scenario you don't want scored.
+# Answer keys for the AI Act scenarios. Drafted 2026-10-21 from counsel's review of the scenarios, before any run output
+# was read. Points marked "# added" are Claude's additions, not in counsel's review; counsel keeps, edits or deletes them.
+# Status: revision 6 (frozen 2026-10-21 for scoring the sealed pairs). Revision 5 applied counsel's four calibration
+#   decisions; revision 6 applies counsel's instruction on aip-04 K2. Changes are logged in
+#   docs/evals/ai-act-key-changelog.md; earlier versions are in docs/evals/ai-act-key-history/. Source checks and counsel's
+#   dispositions are in docs/evals/ai-act-verification.md.
+# key_version: 6. legal_text_date: 2026-10-21, the date the legal texts were checked: AI Act consolidated text as at
+#   27 July 2026 (Regulation (EU) 2026/1744); Commission Guidelines C(2025) 5052 final of 29 July 2025; Directive (EU)
+#   2023/2225 (OJ L, 30.10.2023); Code du travail as published on code.travail.gouv.fr; Polish Labour Code unified text
+#   dated 2026-08-18 and Act of 7 April 2006 unified text dated 2026-10-20. Every scoring run records the key_version,
+#   legal_text_date and the open items it was scored with.
 # as_of: 2026-10-21. weight: must | should. check: true means the citation or date wasn't independently verified.
 # Scoring: must 2, should 1. A material error (minus 5, not double-counted) is a legally incorrect proposition, a failure to
 #   address a controlling requirement, or an unjustified conclusion that contradicts the facts given. A legally defensible,
 #   reasoned different conclusion is not an error. Score the reasoning and conditions, not verbal agreement with the outcome.
+# A must point tests a controlling requirement or an essential step of analysis, not one fact-dependent result.
+# Applying the error rule:
+#   - A missing caveat or qualification is a material error only if the omission makes the conclusion materially misleading,
+#     contradicts the facts, or skips a controlling legal requirement. Otherwise it only loses the point that tests it.
+#   - No double penalty: when an error makes a point fail (a wrong deadline failing a date point), the point scores 0 and the
+#     same error is not also deducted 5. This holds for affirmative errors (stating wrong law) as well as omissions. Deduct 5
+#     only for an independent, material error that no point already captures.
+#   - There is no separate headline-consistency point. A headline or summary that goes beyond the answer's own analysis is
+#     a material error only if it materially misleads the reader, and only if no point already captures it.
+#   - Score a classification and a missing duty separately only where they test genuinely distinct requirements.
+#   - Reward identifying the applicable route and duties; don't require a recital of every article.
+#   - check: true stays until counsel verifies the provision, its amended wording, commencement and any transition. A
+#     plausible-looking citation isn't verified.
+# Dates: the current consolidated text (as amended by Regulation (EU) 2026/1744) applies Annex III high-risk obligations from
+#   2 December 2027 and Annex I obligations from 2 August 2028; Art. 50 applies from 2 August 2026; Arts. 4 and 5 from 2 February 2025.
+#   Art. 111(2) has two parts. Its first sentence is a legacy-system transition for high-risk systems placed on the market or
+#   put into service before the Chapter III application date. Its second sentence ("In any case") requires providers and
+#   deployers of high-risk systems intended for use by public authorities to comply by 2 August 2030, without repeating that
+#   placement-date condition. Treat 2030 as a statutory longstop, not as an automatic deferral of every obligation for a new
+#   public-authority deployment; the Art. 113 date and any earlier obligations still have to be reconciled with it.
 
 aip-01-cv-ranking-preparatory-claim:  # ai-act-provider
-  outcome: ""
+  outcome: "Don't write up the preparatory-task position. Ranking applicants is an Annex III point 4(a) use, and a system that profiles natural persons is always high-risk, so Art. 6(3) is unavailable whoever makes the final call. The provider must classify the add-on as high-risk and plan conformity assessment and documentation for 2 December 2027."
   points:
     - id: K1
       weight: must
-      point: ""
-      source: ""
+      point: "Scoring and ordering job applicants falls within Annex III point 4(a): AI systems intended for recruitment or selection, in particular to filter applications and evaluate candidates."
+      source: "AI Act Art. 6(2); Annex III point 4(a)"
+    - id: K2
+      weight: must
+      point: "Art. 6(3) can't be relied on because an Annex III system that performs profiling of natural persons is always high-risk. Scoring applicants is profiling, and a human recruiter making the final decision does not neutralise that exception."
+      source: "AI Act Art. 6(3), last subparagraph; GDPR Art. 4(4)"
+    - id: K3
+      weight: must
+      point: "The answer addresses what follows for the provider, distinguishing the substantive requirements (Chapter III Section 2, technical documentation, quality management) from the conformity-assessment route (internal control for point 4) and the registration, declaration and CE-marking duties. Identifying the route and duties counts; a mechanical recital of every article isn't required."
+      source: "AI Act Arts. 8-17, 43(2), 47-49; Annex IV; Annex VI"
+    - id: K4
+      weight: must
+      point: "The Annex III high-risk obligations apply from 2 December 2027 under the current consolidated text."
+      source: "AI Act Art. 113, as amended by Regulation (EU) 2026/1744"
+    - id: K5
+      weight: should
+      point: "Independently of profiling, ranking candidates is not a narrow procedural or merely preparatory task under Art. 6(3)(a) or (d): its output shapes who is considered."
+      source: "AI Act Art. 6(3)(a), (d); Recital 53"
+      # added
+    - id: K6
+      weight: should
+      point: "The provider should tell the CTO the classification in writing and note that a provider who wrongly documents a system as not high-risk under Art. 6(4) faces enforcement and penalties."
+      source: "AI Act Arts. 6(4), 80, 99"
+      # added
 
 aip-02-tutoring-feedback-genuinely-narrow:  # ai-act-provider
-  outcome: ""
+  outcome: "No: AI in education isn't high-risk as such. A spelling and grammar checker that suggests fixes, while teachers grade, doesn't evaluate learning outcomes, steer the learning process, decide access or level, or monitor tests, so it is a strong candidate for falling outside Annex III point 3 altogether. Only if it were within Annex III would the Art. 6(3) route, with its documented assessment and registration, be needed. The documentation is a classification note recording why, plus the general duties."
   points:
     - id: K1
       weight: must
-      point: ""
-      source: ""
+      point: "Tests the feature against each Annex III point 3 use: (a) access, admission or assignment; (b) evaluating learning outcomes, including steering the learning process; (c) assessing the appropriate level of education; (d) monitoring prohibited behaviour during tests. Spelling and grammar suggestions likely meet none."
+      source: "AI Act Annex III point 3(a)-(d)"
+    - id: K2
+      weight: must
+      point: "Distinguishes a system outside Annex III from one within Annex III that qualifies for Art. 6(3). Only the latter needs the Art. 6(4) assessment documented before placing on the market and registration under Art. 49(2)."
+      source: "AI Act Art. 6(3), 6(4), 49(2)"
+      check: true  # text verified 2026-10-21; date from which Arts. 6(4) and 49(2) apply to this system still to confirm
+    - id: K3
+      weight: must
+      point: "Does not require high-risk compliance merely because students use the product, and names the facts that would change the answer, such as output that feeds grades or scores, or profiling of students."
+      source: "AI Act Art. 6(2)-(3); Annex III point 3(b)"
+    - id: K4
+      weight: should
+      point: "Art. 4 AI literacy applies to the provider's staff now."
+      source: "AI Act Art. 4"
+      # added
+    - id: K5
+      weight: should
+      point: "Applies Art. 50(2), the provider's duty to mark synthetic content, only with its conditions: the exception for an assistive function for standard editing that doesn't substantially alter the input applies only where those conditions are met. Doesn't confuse Art. 50(2) with the separate deployer disclosure rules for published AI-generated text in Art. 50(4)."
+      source: "AI Act Art. 50(2), 50(4)"
+      # added
+    - id: K6
+      weight: should
+      point: "Assesses the GDPR side: whether essays identify students, the provider's controller or processor role for each processing purpose, and any independent model-training use. No credit merely for naming Art. 8, which concerns consent to information society services offered directly to a child."
+      source: "GDPR Arts. 4(1), 4(7)-(8), 28; Recital 38"
+      # added
 
 aip-03-elevator-safety-component:  # ai-act-provider
-  outcome: ""
+  outcome: "The AI module is high-risk under Art. 6(1) if it is a safety component of a lift covered by the Lifts Directive (Annex I Section A) and the lift needs third-party conformity assessment, which it does. The AI Act requirements are assessed within the existing Lifts Directive conformity procedure rather than in a second, separate CE process, and they apply from 2 August 2028, not the Annex III date."
   points:
     - id: K1
       weight: must
-      point: ""
-      source: ""
+      point: "Applies both Art. 6(1) conditions: the module is a safety component of a product covered by Annex I legislation (the Lifts Directive), and that product must undergo third-party conformity assessment under it. A module that predicts brake wear and can stop the car is likely a safety component, but that turns on whether it actually performs a safety function within the meaning of the Lifts Directive and Art. 3(14), not on its description alone."
+      source: "AI Act Art. 6(1), Art. 3(14); Annex I Section A; Directive 2014/33/EU"
+    - id: K2
+      weight: must
+      point: "Explains that the AI Act requirements are checked within the Lifts Directive conformity assessment by its notified body, with a single set of technical documentation, rather than treating CE marking as two independent processes."
+      source: "AI Act Arts. 8(2), 11(2), 43(3)"
+    - id: K3
+      weight: must
+      point: "The high-risk obligations for Annex I products apply from 2 August 2028, not the Annex III deadline."
+      source: "AI Act Art. 113, as amended by Regulation (EU) 2026/1744"
+    - id: K4
+      weight: should
+      point: "Identifies who is the provider: under Art. 25(3) the product manufacturer is treated as provider of an AI safety component placed on the market with the product under its name, so the lift manufacturer or installer and the controller maker need to settle roles."
+      source: "AI Act Art. 25(3)-(4); Directive 2014/33/EU Art. 2"
+      # added; Art. 25(3) text verified 2026-10-21, the product-manufacturer role stays a fact question (counsel)
+    - id: K5
+      weight: should
+      point: "Names the substantive requirements the module must meet, especially accuracy, robustness and cybersecurity, human oversight, logging, and post-market monitoring with serious-incident reporting."
+      source: "AI Act Arts. 9-15, 72, 73"
+      # added
 
 aip-04-call-centre-emotion-scoring:  # ai-act-provider
-  outcome: ""
+  outcome: "CE marking isn't the first question. If the tool infers call-centre agents' emotions, such as frustration, from their voice, it is an emotion recognition system used in the workplace and prohibited under Art. 5(1)(f); coaching isn't the narrow medical-or-safety exception. That turns on facts to establish: whether it infers emotions rather than physical states (whether stress alone is one is contested), from biometric data, at work. If it is prohibited, it can't be sold in the EU as designed."
   points:
     - id: K1
       weight: must
-      point: ""
-      source: ""
+      point: "Identifies Art. 5(1)(f), which prohibits placing on the market, putting into service or using AI systems to infer emotions of natural persons in the workplace, and treats the medical-or-safety exception as narrow and not met by supervisor coaching."
+      source: "AI Act Art. 5(1)(f); Recital 44"
+    - id: K2
+      weight: must
+      point: "Tests the definition rather than assuming it is met: an emotion recognition system infers emotions or intentions from biometric data, and voice features can be biometric data. Frustration is an emotion. Whether a stress score is an emotion or a physical state is contested: Recital 18 excludes physical states such as pain or fatigue, while the Commission's guidelines treat the general monitoring of workplace stress, and measuring employees' anxiety through stress levels, as prohibited outside a specific safety danger. Credit either reading if reasoned; full credit for engaging with that tension rather than asserting one reading as settled."
+      source: "AI Act Art. 3(34), 3(39); Recital 18; Commission Guidelines C(2025) 5052 final, paras 249, 257, 263"
+      # revised in key_version 6 on counsel's instruction (option 3); texts verified 2026-10-21
+    - id: K3
+      weight: must
+      point: "If the prohibition applies, says CE marking is not the appropriate question: the prohibition has applied since 2 February 2025, binds the provider placing the tool on the market, and carries the highest fines."
+      source: "AI Act Arts. 5, 99(3), 113(a)"
+    - id: K4
+      weight: should
+      point: "For a redesign outside the prohibition, notes it would likely still be high-risk: emotion recognition outside prohibited contexts is Annex III point 1(c), and monitoring workers' performance and behaviour is point 4(b)."
+      source: "AI Act Annex III points 1(c), 4(b)"
+      # added
+    - id: K5
+      weight: should
+      point: "Raises the GDPR side for the customers: inferring workers' states from voice is high-impact worker monitoring that needs a lawful basis, with the DPIA requirement and national employment-law consultation analysed against their own tests rather than asserted."
+      source: "GDPR Arts. 6, 35, 88"
+      # added
 
 aid-01-rebranded-credit-model:  # ai-act-deployer
-  outcome: ""
+  outcome: "Probably not just a deployer. The lender becomes a provider under Art. 25(1)(a) if its statutory conditions are met (its name or trademark on a high-risk system already placed on the market or put into service, without prejudice to contractual arrangements allocating the obligations otherwise, a proviso whose effect is unsettled); separately, it is a provider if the retraining is a substantial modification, which retraining alone doesn't establish, or if it has in substance created and placed its own system on the market. Offering the system to partner banks is relevant to placing on the market but isn't a freestanding substitute for the Art. 25 test. The answer must set out the resulting provider obligations. Where the system evaluates natural persons' creditworthiness or sets their credit score (Annex III point 5(b)), deployers owe a FRIA: each partner bank, and the lender too if it uses the system for its own customers."
   points:
     - id: K1
       weight: must
-      point: ""
-      source: ""
+      point: "Separates the branding trigger (Art. 25(1)(a): its name or trademark on a high-risk system already placed on the market or put into service) from the substantial-modification trigger (Art. 25(1)(b)), and establishes the facts each needs, such as whether the vendor's system was already on the market. Identifies the proviso in Art. 25(1)(a), 'without prejudice to contractual arrangements stipulating that the obligations are otherwise allocated', and what the licence says. The proviso's effect is unsettled: credit either reading (that a contract can keep the lender from being treated as provider, or that it only reallocates obligations between the parties) if reasoned, but not an answer that treats a contract as an automatic safe harbour. Branding may be enough on its own if its conditions are met; offering the system to the banks doesn't replace that test."
+      source: "AI Act Art. 25(1)(a)-(b)"
+    - id: K2
+      weight: must
+      point: "Retraining doesn't automatically establish a substantial modification: it is one only if not foreseen in the initial conformity assessment and it affects compliance or changes the intended purpose, so the vendor's documented pre-determined changes matter."
+      source: "AI Act Art. 3(23), 43(4)"
+    - id: K3
+      weight: must
+      point: "Identifies the resulting provider obligations rather than only labelling the lender a provider: Section 2 requirements, quality management system, technical documentation, conformity assessment, EU declaration, CE marking, registration and post-market monitoring, with the original vendor's duty to cooperate."
+      source: "AI Act Arts. 16, 17, 25(2), 43, 47-49, 72"
+    - id: K4
+      weight: must
+      point: "Credit scoring of natural persons is Annex III point 5(b), and each deployer of a point 5(b) system owes a FRIA under Art. 27 before first use. Identifies who conducts which FRIA: each partner bank separately for its own deployment, and the lender if it also uses the system for its own customers, since provider status doesn't remove its deployer duties."
+      source: "AI Act Annex III point 5(b); Art. 27(1)"
+    - id: K5
+      weight: should
+      point: "Beyond the FRIA, the lender has the Art. 26 deployer duties for any use of its own, and the partner banks have their own Art. 26 duties."
+      source: "AI Act Arts. 26, 27"
+      # added
+    - id: K6
+      weight: should
+      point: "Annex III high-risk obligations apply from 2 December 2027."
+      source: "AI Act Art. 113, as amended by Regulation (EU) 2026/1744"
+      # added
+    - id: K7
+      weight: should
+      point: "Raises three distinct regimes: GDPR Art. 22, which SCHUFA holds can be engaged where the bank draws strongly on an automated score to decide on the contract; the DPIA question under GDPR Art. 35; and the creditor's duties under the new Consumer Credit Directive, including the consumer's right to human intervention, an explanation and review where the creditworthiness assessment uses automated processing (Art. 18(8)), which Member States apply from 20 November 2026, subject to national transposition and the credit agreement being in the Directive's scope."
+      source: "GDPR Arts. 22, 35; CJEU C-634/21, 7 December 2023; Directive (EU) 2023/2225 Arts. 18(8), 48(1)"
+      # added; verified 2026-10-21 against the judgment and the Directive in the OJ
 
 aid-02-city-benefits-triage:  # ai-act-deployer
-  outcome: ""
+  outcome: "Yes. The vendor's CE marking covers the provider's obligations, not the council's. A public authority deploying an Annex III system to prioritise benefit applications generally owes a FRIA before first use and notification of its result, plus the Art. 26 deployer duties, registration under Art. 49(3), and GDPR duties. When those duties bite needs Art. 111(2) and Art. 113 read together: whether the system qualifies for the legacy-system transition in the first sentence, and what the second sentence's 2 August 2030 longstop for public-authority systems means alongside the 2 December 2027 date and any earlier obligations. The answer states the resulting timetable for this deployment without treating 2030 as an automatic deferral. Whether the Art. 86 explanation right and GDPR Art. 22 apply depends on the decision and its effects, so they are assessed, not asserted; the DPIA is assessed separately under GDPR Art. 35."
   points:
     - id: K1
       weight: must
-      point: ""
-      source: ""
+      point: "The CE marking doesn't substitute for the council's own deployer obligations under Art. 26: use per instructions, competent human oversight, relevant input data, monitoring and reporting, log retention, and informing people subject to decisions; and, as a public authority, registering its use in the EU database."
+      source: "AI Act Art. 26(1)-(2), (4)-(6), (11); Art. 26(8) with Art. 49(3)"
+    - id: K2
+      weight: must
+      point: "As a public authority it owes a FRIA before first use and must notify the market surveillance authority of the result, on the timetable K8 establishes."
+      source: "AI Act Art. 27(1), 27(3)"
+    - id: K3
+      weight: must
+      point: "Doesn't assert Art. 86 or GDPR Art. 22 unconditionally: they depend on the nature of the decision, the system's output and its effects on the individual. A queue-prioritisation tool may affect access to benefits, but not every internal ordering is an individual decision with legal or similarly significant effects."
+      source: "AI Act Art. 86; GDPR Art. 22; CJEU C-634/21"
+    - id: K4
+      weight: must
+      point: "Assesses the DPIA requirement separately under GDPR Art. 35, using the provider's information."
+      source: "GDPR Art. 35; AI Act Art. 26(9)"
+    - id: K5
+      weight: should
+      point: "Checks the Annex III point 5(a) fit: whether prioritising review is evaluating eligibility for public assistance benefits, and that profiling applicants rules out Art. 6(3)."
+      source: "AI Act Annex III point 5(a); Art. 6(3)"
+      # added
+    - id: K7
+      weight: should
+      point: "Raises discrimination and equality risk for a vulnerable group, and the need to test the vendor's claims rather than rely on them."
+      source: "AI Act Art. 27(1)(d); Charter Art. 21"
+      # added
+    - id: K8
+      weight: must
+      point: "Starts from the general Annex III date of 2 December 2027 (Art. 113) as the baseline, then examines Art. 111(2) as two questions: (1) whether the system qualifies for the legacy-system transition in the first sentence, given when it is placed on the market or put into service; (2) what timetable applies to this public-authority deployment, taking account of the second sentence's 2 August 2030 longstop, the Art. 113 date and any earlier obligations. Distinguishes a statutory longstop from an earlier applicable date. Neither assumes 2 December 2027 without checking nor tells the council every obligation is deferred to 2030. Placing on the market and putting into service are alternative triggers: the vendor's placing on the market before the Chapter III date may satisfy the condition independently of the council's first use, so the answer establishes the system's market history, first-use date and intended purpose, or says what it doesn't know. The council deploying now doesn't by itself make the system a legacy system."
+      source: "AI Act Arts. 111(2), 113, as amended by Regulation (EU) 2026/1744"
+      # added after counsel's audit; absorbs former K6 (key_version 5). Text verified 2026-10-21; application fact-dependent (counsel)
 
 aid-03-website-chatbot-not-high-risk:  # ai-act-deployer
-  outcome: ""
+  outcome: "No. A routine order-questions chatbot isn't high-risk merely because it uses AI, so the Art. 26 high-risk deployer duties and the FRIA don't apply. What applies is Art. 50(1) transparency, people being told they're interacting with AI subject to its conditions and exceptions, which has applied since 2 August 2026 and is framed as the provider's design duty, so the retailer checks the vendor delivers it; and Art. 4 AI literacy."
   points:
     - id: K1
       weight: must
-      point: ""
-      source: ""
+      point: "A customer-service chatbot isn't an Annex III use, so Art. 26 and the Art. 27 FRIA don't apply on that basis."
+      source: "AI Act Arts. 6(2), 26, 27; Annex III"
+    - id: K2
+      weight: must
+      point: "Art. 50(1) transparency applies when people interact directly with an AI system, subject to its conditions and exceptions (such as where it is obvious), and has applied since 2 August 2026."
+      source: "AI Act Art. 50(1); Art. 113"
+    - id: K3
+      weight: must
+      point: "Art. 4 AI literacy applies to the staff who operate or oversee the chatbot."
+      source: "AI Act Art. 4"
+    - id: K4
+      weight: should
+      point: "Notes that Art. 50(1) is framed as a provider duty, so the retailer checks the vendor's design delivers the disclosure, and owns it if it becomes the provider."
+      source: "AI Act Arts. 50(1), 25"
+      # added; Art. 50(1) text verified 2026-10-21
+    - id: K5
+      weight: should
+      point: "Names the facts that would change the answer, such as the bot making credit or eligibility decisions, inferring emotions, or using manipulative techniques."
+      source: "AI Act Art. 5(1)(a); Annex III point 5(b)"
+      # added
+    - id: K6
+      weight: should
+      point: "Raises the GDPR side: the vendor's processor contract, chat-log retention and the privacy notice."
+      source: "GDPR Arts. 13, 28"
+      # added
 
 aid-04-warehouse-shift-allocation:  # ai-act-deployer
-  outcome: ""
+  outcome: "High-risk, assuming the vendor's intended purpose matches: allocating tasks based on individual behaviour or traits and monitoring or evaluating workers' performance is Annex III point 4(b). The high-risk obligations apply from 2 December 2027, so the March 2028 rollout must comply at go-live, including informing affected workers and their representatives before use, national consultation rules in France and Poland, and GDPR. A FRIA isn't automatically owed by a private logistics employer."
   points:
     - id: K1
       weight: must
-      point: ""
-      source: ""
+      point: "Applies Annex III point 4(b), task allocation based on individual behaviour or personal traits and monitoring or evaluating performance and behaviour, while checking that the vendor's intended purpose matches."
+      source: "AI Act Annex III point 4(b)"
+    - id: K2
+      weight: must
+      point: "The application date is 2 December 2027, so the Art. 26 duties apply from the March 2028 rollout."
+      source: "AI Act Art. 113, as amended by Regulation (EU) 2026/1744"
+    - id: K3
+      weight: must
+      point: "Covers the Art. 26 duties, including informing workers' representatives and affected workers before the system is put into service or used at the workplace."
+      source: "AI Act Art. 26, 26(7)"
+    - id: K4
+      weight: must
+      point: "Addresses national employment and consultation rules: in France, informing and consulting the CSE before introducing new technology and means of monitoring; in Poland, informing and consulting employee representatives or unions and notifying employees of monitoring."
+      source: "Code du travail L1222-4, L2312-8 II 4°, L2312-38; Kodeks pracy Arts. 22^2 §6-7 and 22^3 §3-4 (unified text 2026-08-18); Act of 7 April 2006 on informing and consulting employees, Arts. 1(2), 13(1)(3) (employers with 50 or more employees)"
+      # verified 2026-10-21 against code.travail.gouv.fr and the Sejm unified texts; CSE size thresholds not checked
+    - id: K5
+      weight: must
+      point: "Addresses GDPR obligations: a lawful basis; whether a DPIA is required because the processing is likely to result in high risk, as distinct from merely prudent; and for Art. 22, whether decisions are based solely on automated processing with legal or similarly significant effects. A low-performer flag alone doesn't establish that."
+      source: "GDPR Arts. 6, 22, 35, 88"
+    - id: K6
+      weight: should
+      point: "Doesn't apply the FRIA automatically: Art. 27 covers bodies governed by public law, private entities providing public services, and deployers of point 5(b) (creditworthiness) and 5(c) (life and health insurance) systems, not a private employer deploying a workplace system as such."
+      source: "AI Act Art. 27(1)"
+    - id: K7
+      weight: should
+      point: "Checks that the system doesn't infer workers' emotions (Art. 5(1)(f)) and that the company doesn't alter it so as to become provider (Art. 25)."
+      source: "AI Act Arts. 5(1)(f), 25(1)"
+      # added
