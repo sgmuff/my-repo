@@ -1,0 +1,44 @@
+# AI Act scenarios for ai-act-provider and ai-act-deployer. Counsel edits the prompts and writes an answer key for each
+# in ai-act-answer-keys.yaml before any run. Delete any scenario you don't want scored.
+# Status: DRAFT prompts, prepared by Claude 2026-10-21. No answer keys yet.
+
+scenarios:
+  - id: aip-01-cv-ranking-preparatory-claim
+    skill: ai-act-provider
+    prompt: "We sell a CV-ranking add-on to EU employers. It scores and orders applicants, but recruiters make the final call, so our CTO says it's just a 'preparatory task' under Article 6(3) and not high-risk. Can you write that up so we can skip the high-risk stuff?"
+    tests: "The Art. 6(3) claim fails because ranking applicants is profiling of natural persons, which keeps an Annex III point 4(a) system high-risk. A quick answer would accept the preparatory-task label."
+
+  - id: aip-02-tutoring-feedback-genuinely-narrow
+    skill: ai-act-provider
+    prompt: "Our edtech product has an AI feature that checks student essays for spelling and grammar and suggests fixes. Teachers still grade. Someone on sales said anything AI in education is high-risk under the AI Act. Is that right, and what do we have to document?"
+    tests: "A narrow assistive feature that doesn't evaluate learning outcomes or steer admission likely falls outside Annex III point 3, or within Art. 6(3) with documentation and registration if it is in scope. Over-classifying everything in education as high-risk is the trap."
+
+  - id: aip-03-elevator-safety-component
+    skill: ai-act-provider
+    prompt: "We make lift controllers and are adding an AI module that predicts brake wear and can stop the car. It's sold inside lifts that go through CE marking under the Lifts Directive. What does the AI Act add, and when?"
+    tests: "Annex I route: an AI safety component of a product under listed harmonisation legislation that needs third-party conformity assessment is high-risk under Art. 6(1), with obligations from 2 August 2028, folded into the existing conformity assessment. Applying the Annex III date is the trap."
+
+  - id: aip-04-call-centre-emotion-scoring
+    skill: ai-act-provider
+    prompt: "We're launching a tool that listens to call-centre agents' calls and scores their stress and frustration in real time so supervisors can coach them. We sell it to EU companies. What do we need for CE marking?"
+    tests: "Emotion recognition in the workplace is prohibited under Art. 5(1)(f) outside medical or safety reasons, so the question isn't CE marking but whether the product can be sold in the EU as designed. A quick answer would run the high-risk checklist."
+
+  - id: aid-01-rebranded-credit-model
+    skill: ai-act-deployer
+    prompt: "We're a lender. We license a credit-scoring model from a vendor, retrained it on our own data, and offer it to two partner banks under our brand. We think we're just the deployer. What are our duties?"
+    tests: "Putting its name on the system and substantially modifying it makes the lender a provider under Art. 25, with provider obligations, and offering it to partner banks confirms it. Point 5(b) credit scoring also triggers a FRIA for the deployers. Treating the lender as only a deployer is the trap."
+
+  - id: aid-02-city-benefits-triage
+    skill: ai-act-deployer
+    prompt: "The city council wants to use a vendor's AI system to prioritise which housing benefit applications get reviewed first. The vendor says it's CE-marked and compliant. Is there anything we have to do ourselves?"
+    tests: "A public body deploying an Annex III point 5(a) system owes a FRIA before first use and notification of the result, plus Art. 26 duties, the Art. 86 right to an explanation, and GDPR Art. 22 and DPIA questions. Relying on the vendor's CE marking is the trap."
+
+  - id: aid-03-website-chatbot-not-high-risk
+    skill: ai-act-deployer
+    prompt: "We added a vendor's AI chatbot to our retail website to answer order questions. Legal asked whether we now have all the AI Act deployer obligations and need a FRIA."
+    tests: "A customer-service chatbot isn't an Annex III high-risk system, so Art. 26 and the FRIA don't apply; Art. 50 transparency, that people know they're talking to AI, and Art. 4 AI literacy do. Over-applying high-risk duties is the trap."
+
+  - id: aid-04-warehouse-shift-allocation
+    skill: ai-act-deployer
+    prompt: "Our logistics company is switching on a vendor's AI that assigns warehouse shifts and flags low performers for review across our sites in France and Poland. Rollout is planned for March 2028. What do we need to do?"
+    tests: "Allocating tasks and monitoring performance of workers is Annex III point 4(b), so the Art. 26 duties apply from 2 December 2027, including informing workers and their representatives under Art. 26(7), alongside national consultation rules (France's CSE) and the GDPR. A FRIA isn't owed by a private deployer here."

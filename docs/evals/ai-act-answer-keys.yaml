@@ -1,0 +1,70 @@
+# Answer keys for the AI Act scenarios. Counsel writes these before any run, from their own view of the law.
+# Same format as docs/evals/holdout-2-answer-keys.yaml. Delete any scenario you don't want scored.
+# as_of: 2026-10-21. weight: must | should. check: true means the citation or date wasn't independently verified.
+# Scoring: must 2, should 1. A material error (minus 5, not double-counted) is a legally incorrect proposition, a failure to
+#   address a controlling requirement, or an unjustified conclusion that contradicts the facts given. A legally defensible,
+#   reasoned different conclusion is not an error. Score the reasoning and conditions, not verbal agreement with the outcome.
+
+aip-01-cv-ranking-preparatory-claim:  # ai-act-provider
+  outcome: ""
+  points:
+    - id: K1
+      weight: must
+      point: ""
+      source: ""
+
+aip-02-tutoring-feedback-genuinely-narrow:  # ai-act-provider
+  outcome: ""
+  points:
+    - id: K1
+      weight: must
+      point: ""
+      source: ""
+
+aip-03-elevator-safety-component:  # ai-act-provider
+  outcome: ""
+  points:
+    - id: K1
+      weight: must
+      point: ""
+      source: ""
+
+aip-04-call-centre-emotion-scoring:  # ai-act-provider
+  outcome: ""
+  points:
+    - id: K1
+      weight: must
+      point: ""
+      source: ""
+
+aid-01-rebranded-credit-model:  # ai-act-deployer
+  outcome: ""
+  points:
+    - id: K1
+      weight: must
+      point: ""
+      source: ""
+
+aid-02-city-benefits-triage:  # ai-act-deployer
+  outcome: ""
+  points:
+    - id: K1
+      weight: must
+      point: ""
+      source: ""
+
+aid-03-website-chatbot-not-high-risk:  # ai-act-deployer
+  outcome: ""
+  points:
+    - id: K1
+      weight: must
+      point: ""
+      source: ""
+
+aid-04-warehouse-shift-allocation:  # ai-act-deployer
+  outcome: ""
+  points:
+    - id: K1
+      weight: must
+      point: ""
+      source: ""
