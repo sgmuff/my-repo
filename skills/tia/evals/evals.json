@@ -11,7 +11,7 @@
         "`gov validate` reports 0 errors after the run",
         "`gov render --check` reports everything up to date",
         "A TIA record exists under compliance/assessments/tia/ with an ID allocated by gov",
-        "The reply, excluding its numbered question list, is 200 words or fewer",
+        "The reply mentions the record only in one closing line, with no action or record IDs, field names, or finding counts elsewhere",
         "The reply's numbered question list has five questions or fewer",
         "The reply doesn't present `gov validate` as legal approval",
         "kind is eu-tia, tool sccs, module 2, and access is remote-access or both",
@@ -23,7 +23,7 @@
         "The reply's first line gives an actionable answer, such as \"No, not as proposed\" or \"Not yet: two facts decide it\"",
         "No launch-blocking action is marked law unless it names the provision that requires it",
         "transfer_map.access is remote-access, as the request states",
-        "The reply groups launch blockers by reason (law, risk, policy)"
+        "The reply groups what blocks launch as legal requirements, risks, and internal policy"
       ]
     },
     {
@@ -37,7 +37,7 @@
         "The reply says to check the DPF list for the entity and scope, or records a verify flag for it",
         "The reply mentions keeping SCCs as a fallback, or the DPF's pending litigation",
         "No TIA record concludes the transfer needs supplementary measures",
-        "The reply is 200 words or fewer, excluding any numbered question list",
+        "The reply mentions the record only in one closing line, with no action or record IDs, field names, or finding counts elsewhere",
         "The reply's first line gives an actionable answer, such as \"No, not as proposed\" or \"Not yet: two facts decide it\"",
         "No launch-blocking action is marked law unless it names the provision that requires it",
         "A transfer screen record (TSR) records the screen, with the certification check and onward transfers"
@@ -53,7 +53,7 @@
         "`gov validate` reports 0 errors after the run",
         "`gov render --check` reports everything up to date",
         "A TIA record exists under compliance/assessments/tia/ with an ID allocated by gov",
-        "The reply, excluding its numbered question list, is 200 words or fewer",
+        "The reply mentions the record only in one closing line, with no action or record IDs, field names, or finding counts elsewhere",
         "The reply's numbered question list has five questions or fewer",
         "The reply doesn't present `gov validate` as legal approval",
         "kind is uk-tra and tool is uk-idta",
@@ -74,7 +74,7 @@
       "expected_output": "Screens the EU-US transfer to the certified provider out of a TIA under the DPF, provided the certification covers the entity and data. Treats the SCCs as dormant unless relied on. Treats India support access as the provider's onward transfer under the DPF Onward Transfer Principle, or, if the company relies on SCCs for it, as a transfer needing its own assessment; asks which entity in India and which tool covers it. Records the screen or offers to.",
       "files": [],
       "expectations": [
-        "The reply, excluding its numbered question list, is 200 words or fewer",
+        "The reply mentions the record only in one closing line, with no action or record IDs, field names, or finding counts elsewhere",
         "The reply's numbered question list has five questions or fewer",
         "The reply's first line gives an actionable answer, such as \"No, not as proposed\" or \"Not yet: two facts decide it\"",
         "The reply says no TIA is needed for the transfer to the certified US provider, conditional on the certification covering the entity and data",

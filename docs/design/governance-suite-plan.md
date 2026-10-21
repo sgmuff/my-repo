@@ -315,7 +315,9 @@ Done when the RoPA evals produce valid YAML, two triage runs print the same plan
 - [x] Iteration 7, scored blind against the answer keys: skill 94 against 72 for the baseline, ahead in all seven
 - [x] Holdout of eight new scenarios, scored blind: the skill trails, 76 against 84, though it makes no material errors and scores higher with a regulator (4.5 against 3.1). The development gain was largely fitted to its seven scenarios.
 - [x] Changes from the holdout: a 400-word analysis section in every record, written before the fields; a provisional view always; a plain-English reply for the requester; `gov` fixes for the purpose test's "both" label and country adequacy screens
-- [ ] A second holdout to judge those changes
+- [x] Second holdout, eight scenarios with counsel-approved keys: the skill trails, 83 against 91, with the same gap as the first
+- [x] Answer-first restructure: Claude answers as it would without the skill, then records it. On the second holdout, 88 against 93 with no material errors and regulator usability 4.5 against 3.9. Single runs vary by up to 10 points, so small gaps aren't reliable.
+- [x] Decision: `lia` and `tia` add the record and its checks, not better legal analysis; tuning them for legal quality stops here. Replies keep record details to one closing line.
 - [ ] Description optimizer runs for `lia` and `tia`
 - [x] `phase-1` merged to main
 
