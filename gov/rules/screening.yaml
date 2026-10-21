@@ -1,0 +1,24 @@
+# DPIA screening indicators that `gov screen` can see in a RoPA record. Each is an EDPB criterion (WP248 rev.01). A
+# criterion with `raised_by` is suggested when any of its tests matches; one without is printed as "Ask". The screen
+# never concludes: the screening record decides Present, Not present, or Unclear, and the outcome.
+# Counsel owns this file. Status: DRAFT, 2026-10-21, pending counsel's review (docs/design/phase-4-dpia.md, decision 1).
+#
+# Tests:
+#   us_flag: <name>        us_flags.<name> is true or TBC
+#   data_flag: [flags]     any data category carries one of these flags
+#   vulnerable_subject     any data subject's vulnerable call is true or TBC
+#   ai_used                ai_used is true or TBC
+version: 1
+source: "WP29 Guidelines on DPIA (WP248 rev.01), endorsed by the EDPB; GDPR Art. 35(1), 35(3)"
+criteria:
+  - {id: 1, label: Evaluation or scoring, raised_by: [{us_flag: profiling}]}
+  - {id: 2, label: Automated decisions with legal or similarly significant effect}
+  - {id: 3, label: Systematic monitoring}
+  - id: 4
+    label: Sensitive or highly personal data
+    raised_by: [{data_flag: [special-category, criminal, biometric, us-sensitive, government-id, financial]}, {us_flag: sensitive_data}]
+  - {id: 5, label: Large scale}
+  - {id: 6, label: Matching or combining datasets}
+  - {id: 7, label: Vulnerable data subjects, raised_by: [vulnerable_subject, {data_flag: [children, education-record]}]}
+  - {id: 8, label: Innovative use of technology, raised_by: [ai_used]}
+  - {id: 9, label: "Processing that blocks a right, service, or contract"}

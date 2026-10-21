@@ -43,6 +43,10 @@ def main(argv=None) -> int:
     p.add_argument("--as-of", help="YYYY-MM-DD; defaults to a record's date_prepared, and is required for facts")
     p.add_argument("--format", choices=["yaml", "markdown"], default="markdown")
 
+    p = sub.add_parser("screen", help="list the DPIA screening indicators a RoPA record suggests, marked Provisional")
+    p.add_argument("record", help="a RoPA record YAML file")
+    p.add_argument("--format", choices=["yaml", "markdown"], default="markdown")
+
     p = sub.add_parser("route", help="print the triage plan for a facts file")
     p.add_argument("facts", help="YAML file of deciding facts, or - for stdin")
     p.add_argument("--format", choices=["yaml", "markdown", "questions"], default="yaml",
@@ -133,7 +137,18 @@ def _route(root, args) -> int:
     return 0
 
 
-COMMANDS = {"required": _required, "next-id": _next_id, "new": _new, "validate": _validate, "render": _render, "index": _render, "route": _route}
+def _screen(root, args) -> int:
+    from gov.screen import screen, to_markdown
+    data = yamlio.load(Path(args.record))
+    if not isinstance(data, dict) or data.get("type") != "ropa":
+        print("gov: screen reads a RoPA record", file=sys.stderr)
+        return 2
+    result = screen(data)
+    print(to_markdown(result) if args.format == "markdown" else yamlio.dumps(result), end="")
+    return 0
+
+
+COMMANDS = {"screen": _screen, "required": _required, "next-id": _next_id, "new": _new, "validate": _validate, "render": _render, "index": _render, "route": _route}
 
 if __name__ == "__main__":
     raise SystemExit(main())
