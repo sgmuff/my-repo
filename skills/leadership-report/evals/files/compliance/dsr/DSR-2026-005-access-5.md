@@ -14,9 +14,13 @@ generated_from: DSR-2026-005-access-5.yaml
 # DSR-2026-005: Access, customer
 
 **Earliest deadline: 2026-11-05** (gdpr: Respond (one month, Art. 12(3)))
-| Status | Received | Channel | Requester | Request types | Company role | Verification |
+| Status | Received | Channel | Reference | Requester | Request types | Verification |
 |---|---|---|---|---|---|---|
-| Awaiting verification | 2026-10-05 10:00 ET | Privacy inbox | Data subject | Access | Controller. Confirmed: Recorded for the eval fixture | Requested |
+| Awaiting verification | 2026-10-05 10:00 ET | Privacy inbox | TBC | Data subject | Access | Requested |
+
+| Account or data | Company role |
+|---|---|
+| Customer account | Controller. Confirmed: Recorded for the eval fixture |
 
 Access request from a customer.
 

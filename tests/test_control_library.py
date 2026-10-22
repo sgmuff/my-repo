@@ -18,7 +18,7 @@ def control(root, change, slug="admin-access-review"):
 
 
 def evidence(ev, type_="record", shows="operation"):
-    return {"id": ev, "type": type_, "shows": shows, "what": "Q3 review ticket", "location": "https://jira/IT-1",
+    return {"id": ev, "status": "on-file", "type": type_, "shows": shows, "what": "Q3 review ticket", "location": "https://jira/IT-1",
             "date": "2026-10-01", "period": "Q3 2026", "owner": "IT lead", "stale_after": "2027-01-01"}
 
 
@@ -56,12 +56,12 @@ def test_a_policy_is_not_operating_evidence(root):
 
 def test_testing_dates_follow_the_frequency_and_failures_need_actions(root):
     def tested(d):
-        d.update(frequency="quarterly", operating="unverified", last_tested="2026-09-30", next_test="2027-03-31")
+        d.update(frequency="continuous", test_frequency="quarterly", operating="unverified", last_tested="2026-09-30", next_test="2027-03-31")
         d["testing"] = [{"date": "2026-09-30", "method": "sample", "scope": "All admin roles", "tested_by": "Internal audit",
                          "result": "exceptions", "exceptions": "Two stale admins"}]
     control(root, tested)
     findings = found(root, "finding")
-    assert any("a quarterly control tested on 2026-09-30 is due again by 2026-12-30" in m for m in findings)
+    assert any("tested quarterly and last tested on 2026-09-30 is due again by 2026-12-30" in m for m in findings)
     assert any("found exceptions; add an open action" in m for m in findings)
 
 
@@ -72,3 +72,30 @@ def test_a_readiness_report_must_cite_controls_that_exist(root):
                     "controls": ["CTL-0004"], "evidence": [], "gap": "none"}]
     path.write_text(yamlio.dumps(data), encoding="utf-8")
     assert any("refers to CTL-0004, which doesn't exist" in m for m in found(root, "error"))
+
+
+def test_planned_controls_requested_evidence_and_stale_evidence(root):
+    ids.next_id(root, "EV")
+    def stale(d):
+        d.update(operating="evidenced", lifecycle="in-use", test_frequency="annual", next_test="2026-12-31",
+                 evidence=[dict(evidence("EV-0001"), stale_after="2026-09-30")])
+    path = control(root, stale)
+    assert any("every operating evidence item went stale by 2026-10-22" in m for m in found(root, "finding"))
+    data = yamlio.load(path)
+    data["evidence"][0].update(status="requested", stale_after="2027-06-30")
+    path.write_text(yamlio.dumps(data), encoding="utf-8")
+    assert any("no evidence on file shows it operating" in m for m in found(root, "finding"))
+    planned = control(root, lambda d: d.update(lifecycle="planned", operating="planned"), slug="red-team")
+    assert any("a planned control covers nothing yet" in m for m in found(root, "finding"))
+    data = yamlio.load(planned)
+    data["objectives"][0]["coverage"] = "none-yet"
+    planned.write_text(yamlio.dumps(data), encoding="utf-8")
+    render_tree(root)
+    assert "**CCO-15:** no coverage yet." in planned.with_suffix(".md").read_text()
+
+
+def test_the_skeleton_placeholder_objective_is_a_finding(root):
+    new_record(root, "ctl", "blank", "Blank control", "2026-10-22", "Claude")
+    findings = found(root, "finding")
+    assert found(root, "error") == []
+    assert any("replace the TBC placeholder" in m for m in findings)

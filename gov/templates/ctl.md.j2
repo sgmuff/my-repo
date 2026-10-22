@@ -13,19 +13,21 @@ generated_from: {{ source_file }}
 
 # {{ r.id }}: {{ r.title }}
 
-| Status | Lifecycle | Owner | Design | Operating | Frequency | Last tested | Next test |
-|---|---|---|---|---|---|---|---|
-| {{ r.status }} | {{ r.lifecycle | label }} | {{ r.owner | cell }} | {{ r.design | label }} | {{ r.operating | label }} | {{ r.frequency | label }} | {{ r.last_tested | label }} | {{ r.next_test }} |
+| Status | Lifecycle | Owner | Design | Operating | Operates | Tested | Last tested | Next test |
+|---|---|---|---|---|---|---|---|---|
+| {{ r.status }} | {{ r.lifecycle | label }} | {{ r.owner | cell }} | {{ r.design | label }} | {{ r.operating | label }} | {{ r.frequency | label }} | {{ r.test_frequency | label }} | {{ r.last_tested | label }} | {{ r.next_test }} |
 
 {{ r.description }}
 
-**Source:** {{ r.source | cell }}
+**Systems in scope:** {{ r.systems | cell }}
+
+**Source:** {{ r.source | cell }}{% if r.criteria %} · **Criteria:** {{ r.criteria | join(", ") }}{% endif %}
 
 A control is only as good as its evidence. This entry records what the company does and how it proves it; a reviewer judges whether it works.
 
 ## 1. Objectives and framework coverage
 
-Framework requirements follow from each objective through `crosswalk.md`. The mapping shows overlap, not equivalence; auditors decide what satisfies their framework.
+Framework requirements follow from each objective through `crosswalk.md`. They show where frameworks overlap, not what this control satisfies: the control meets them only as far as its coverage, its evidence, and the exclusions below allow, and auditors decide what satisfies their framework.
 
 | Objective | How this control supports it | Coverage | Partly or not satisfied |
 |---|---|---|---|
@@ -33,18 +35,23 @@ Framework requirements follow from each objective through `crosswalk.md`. The ma
 | {{ o.cco }}: {{ crosswalk.get(o.cco, {}).get("objective", "") | cell }} | {{ o.how | cell }} | {{ o.coverage | label }} | {{ o.not_satisfied | cell }} |
 {% endfor %}
 
-{% for o in r.objectives %}
-{% set fw = crosswalk.get(o.cco, {}).get("frameworks", {}) %}
-**{{ o.cco }}:** {% for name, reqs in fw.items() %}{{ name }} {{ reqs | cell }}{{ "; " if not loop.last }}{% endfor %}
+{% for o in r.objectives if o.cco in crosswalk %}
+{% set fw = crosswalk[o.cco]["frameworks"] %}
+{% if o.coverage == "none-yet" %}
+**{{ o.cco }}:** no coverage yet.
+{% else %}
+**{{ o.cco }} ({{ o.coverage | label | lower }} coverage) maps to:** {% for name, reqs in fw.items() %}{{ name }} {{ reqs | cell }}{{ "; " if not loop.last }}{% endfor %}
+{% endif %}
 
 {% endfor %}
+
 ## 2. Evidence
 
 {% if r.evidence %}
-| ID | Type | Shows | What it shows | Location | Date | Period | Owner | Stale after |
-|---|---|---|---|---|---|---|---|---|
+| ID | Status | Type | Shows | What it shows | Location | Date | Period | Owner | Stale after |
+|---|---|---|---|---|---|---|---|---|---|
 {% for e in r.evidence %}
-| {{ e.id }} | {{ e.type | label }} | {{ e.shows | label }} | {{ e.what | cell }} | {{ e.location | cell }} | {{ e.date }} | {{ e.period | cell }} | {{ e.owner | cell }} | {{ e.stale_after }} |
+| {{ e.id }} | {{ e.status | label }} | {{ e.type | label }} | {{ e.shows | label }} | {{ e.what | cell }} | {{ e.location | cell }} | {{ e.date }} | {{ e.period | cell }} | {{ e.owner | cell }} | {{ e.stale_after }} |
 {% endfor %}
 {% else %}
 None recorded yet.
@@ -53,10 +60,10 @@ None recorded yet.
 ## 3. Testing
 
 {% if r.testing %}
-| Date | Method | Sample or scope | Tested by | Result | Exceptions |
-|---|---|---|---|---|---|
+| Date | Method | Sample or scope | Period | Tested by | Result | Exceptions |
+|---|---|---|---|---|---|---|
 {% for t in r.testing | sort(attribute="date") %}
-| {{ t.date }} | {{ t.method | label }} | {{ t.scope | cell }} | {{ t.tested_by | cell }} | {{ t.result | label }} | {{ t.exceptions | cell }} |
+| {{ t.date }} | {{ t.method | label }} | {{ t.scope | cell }} | {{ t.get("period", "") | cell }} | {{ t.tested_by | cell }} | {{ t.result | label }} | {{ t.exceptions | cell }} |
 {% endfor %}
 {% else %}
 Not tested yet.

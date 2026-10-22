@@ -1,9 +1,9 @@
 ---
-id: RDY-YYYY-NNN
-type: readiness
-title: <AIUC-1 | ISO/IEC 42001> readiness: <agent or scope>
-framework: <AIUC-1 | ISO/IEC 42001>
-framework_version: <Oct 15, 2026 release | ISO/IEC 42001:2023 (public checklist)>
+id: ISO-YYYY-NNN       # from `gov next-id ISO --year <YYYY>`; AIUC-1 readiness is a gov rdy record
+type: iso-readiness
+title: <ISO/IEC 42001 readiness: scope, or audit evidence pack: request>
+framework: <ISO/IEC 42001 | audit evidence pack>
+framework_version: <ISO/IEC 42001:2023 (public checklist)>
 status: Draft
 stage: Draft complete
 scope: <product, agent, capabilities>

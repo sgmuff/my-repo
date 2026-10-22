@@ -48,7 +48,7 @@ for n, (recv, resp, status) in enumerate([("2026-07-03", "2026-07-28", "Closed")
                                           ("2026-08-25", "2026-09-20", "Closed"), ("2026-09-10", None, "In progress"),
                                           ("2026-10-05", None, "Awaiting verification")], start=1):
     def dsr(d, resp=resp, status=status):
-        d.update(status=status, request_types=["access"], company_role=C("controller"), regimes=["gdpr", "ccpa"],
+        d.update(status=status, request_types=["access"], roles=[{"data": "Customer account", "role": C("controller")}], regimes=["gdpr", "ccpa"],
                  requester_type="data-subject", requester_words="Please send me a copy of my data.",
                  responded=resp, closed=resp if status == "Closed" else None,
                  laws=[{"law": "GDPR", "applies": P(True)}, {"law": "CCPA", "applies": P(True)}],
@@ -57,7 +57,7 @@ for n, (recv, resp, status) in enumerate([("2026-07-03", "2026-07-28", "Closed")
         d["verification"].update(method="Email on file", why="Matches the account", status="verified" if resp else "requested",
                                  by="Support lead" if resp else None, date=resp)
         if resp:
-            d["messages"] = [{"message": "response", "text": "Your data is attached.", "approved_by": "Privacy lead", "sent": resp, "sent_by": "Support lead"}]
+            d["messages"] = [{"message": "response", "to": "Requester", "text": "Your data is attached.", "approved_by": "Privacy lead", "sent": resp, "sent_by": "Support lead"}]
     make("dsr", "DSR-2026", n, f"access-{n}", "Access, customer", recv, dsr)
 
 # AI inventory
@@ -75,13 +75,13 @@ set_counter("EV", 1)
 def ctl(operating, next_test, cco, evidence=None):
     def f(d):
         d.update(status="Draft", operating=operating, next_test=next_test, design="implemented" if operating != "planned" else "designed",
-                 frequency="quarterly", owner="Control owner", description="Fixture control for the leadership report eval.", source="Team notes")
-        d["objectives"] = [{"cco": cco, "how": "Fixture mapping", "coverage": "partial", "not_satisfied": "none"}]
+                 frequency="quarterly", test_frequency="annual", owner="Control owner", systems="Production", description="Fixture control for the leadership report eval.", source="Team notes")
+        d["objectives"] = [{"cco": cco, "how": "Fixture mapping", "coverage": "none-yet" if operating == "planned" else "partial", "not_satisfied": "none"}]
         if evidence:
             d["evidence"] = [evidence]
     return f
 make("ctl", "CTL", 1, "admin-access-review", "Quarterly admin access review", "2026-03-01",
-     ctl("evidenced", "2026-12-31", "CCO-15", {"id": "EV-0001", "type": "record", "shows": "operation", "what": "Q3 review ticket",
+     ctl("evidenced", "2026-12-31", "CCO-15", {"id": "EV-0001", "status": "on-file", "type": "record", "shows": "operation", "what": "Q3 review ticket",
                                               "location": "https://tickets.example/IT-1", "date": "2026-09-30", "period": "Q3 2026", "owner": "IT lead", "stale_after": "2027-01-01"}))
 make("ctl", "CTL", 2, "dsr-intake-form", "DSR intake form", "2026-03-01", ctl("unverified", "2026-09-30", "CCO-09"))
 make("ctl", "CTL", 3, "ai-red-team", "AI red-team testing every 3 months", "2026-03-01", ctl("planned", "2026-11-15", "CCO-30"))

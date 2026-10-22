@@ -9,13 +9,16 @@ kind: request
 title: {{ title | tojson }}
 status: Draft  # Draft | Awaiting verification | In progress | Forwarded | Responded | Closed
 version: "0.1"
-received: {date: "{{ date }}", time: TBC, channel: TBC}  # the date the request reached the company, not today
+received: {date: "{{ date }}", time: TBC, channel: TBC}  # when it reached the company's inbox or channel, in the company's zone, even if read later; not today
 requester_type: TBC  # data-subject | parent-or-guardian | authorized-agent
-requester_words: TBC  # quoted
+requester_ref: TBC  # the ticket or inbox reference that holds the identity; never the name
+requester_words: TBC  # the request's words, without quotation marks or names
 earlier_requests: []  # DSR IDs from the same person
-request_types: [TBC]  # access | deletion | correction | portability | opt-out | limit | objection | restriction | automated-decision | appeal
-company_role: {value: TBC, status: Provisional, reason: How the account came to exist not yet known}  # controller | processor | school-official
-regimes: []  # gdpr | uk | fadp | ccpa | ccpa-optout | state | iowa | ferpa: every regime that could apply
+request_types: [TBC]  # access | deletion | correction | portability | opt-out | limit | objection | restriction | consent-withdrawal | automated-decision | appeal
+roles:  # one row per account or data set
+  - {data: TBC, role: {value: TBC, status: Provisional, reason: How the account came to exist not yet known}}  # controller | processor | school-official
+regimes: []  # gdpr | uk | fadp | ccpa | ccpa-optout | state | iowa | ferpa: each regime a known fact points to
+contract_deadlines: []  # {due, step, basis}: deadlines in the customer's or district's agreement
 laws: []  # {law, applies: {value: true | false | TBC, status: Provisional, reason}}
 internal_target: null
 extended_deadline: null  # only once an extension notice went out before the first deadline
@@ -35,8 +38,9 @@ verification:
 
 locations: []  # {system, ropa: ROPA-NNNN or none, data, owner, searched: TBC, result}
 processors: []  # {processor, instruction: delete | correct | export | stop-processing, sent: TBC, confirmed: TBC}
+holds: []  # {scope, reason, ends}
 positions: []  # {request, action, exception: provision or none, status: Provisional, redactions}
-messages: []  # {message: acknowledgment | verification-request | extension-notice | response | referral | clarification, text: |-, approved_by: null, sent: null, sent_by: null}
+messages: []  # {message: acknowledgment | verification-request | extension-notice | response | referral | clarification, to: the requester or the institution by role, text: |-, approved_by: null, sent: null, sent_by: null}; use <requester name>, not the name
 follow_ons: []
 
 facts: []

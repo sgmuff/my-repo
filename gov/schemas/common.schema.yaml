@@ -114,7 +114,7 @@ $defs:
       properties:
         id: {type: string, pattern: "^F\\d+$"}
         fact: {$ref: "#/$defs/text", x-max-words: 25}
-        status: {enum: [confirmed, stated-by-requester, stated-by-vendor, assumption, TBC]}
+        status: {enum: [confirmed, stated-by-requester, stated-by-staff, stated-by-vendor, assumption, TBC]}
         source: {$ref: "#/$defs/source"}
   open_questions:
     type: array

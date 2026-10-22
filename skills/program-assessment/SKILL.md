@@ -60,7 +60,7 @@ Follow §4 and §5. Rank each gap on legal exposure, risk to individuals, depend
 
 ### 6. Write and route
 
-Fill in `assets/program-assessment-template.md`. Save it to `<output root>/assessments/program/YYYY-MM-DD-<framework>-assessment.md`, ID `PA-YYYY-NNN`.
+Fill in `assets/program-assessment-template.md`. Save it to `<output root>/assessments/program/YYYY-MM-DD-<framework>-assessment.md`, ID `PRG-YYYY-NNN` from `gov next-id PRG --year <YYYY>`.
 
 Route three separate approvals (`approvals.md`), and don't let one stand in for another: **assessment acceptance** (the privacy lead, with someone other than the preparer reviewing when the preparer is also the main evidence source), **legal validation** of applicability and interpretations (counsel), and **remediation approval** of priorities, resources, and dates (leadership). Approving an assessment never certifies that the company complies. The `leadership-report` skill, when built, summarizes it for the board.
 

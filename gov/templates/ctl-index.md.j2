@@ -2,13 +2,13 @@
 
 # Control library: index
 
-Controls: {{ rows | length }} · In use: {{ rows | selectattr("r.lifecycle", "equalto", "in-use") | list | length }} · Evidenced: {{ rows | selectattr("r.operating", "equalto", "evidenced") | list | length }}
+Controls: {{ rows | length }} · In use: {{ rows | selectattr("r.lifecycle", "equalto", "in-use") | list | length }} · Planned: {{ rows | selectattr("r.lifecycle", "equalto", "planned") | list | length }} · Evidenced: {{ rows | selectattr("r.operating", "equalto", "evidenced") | list | length }} · Last test with exceptions or failed: {{ rows | selectattr("d.last_result", "in", ["exceptions", "fail"]) | list | length }}
 
 {% if rows %}
-| ID | Control | Objectives | Owner | Design | Operating | Last tested | Next test | Status |
-|---|---|---|---|---|---|---|---|---|
+| ID | Control | Objectives | Owner | Design | Operating | Last tested | Last result | Next test | Status |
+|---|---|---|---|---|---|---|---|---|---|
 {% for row in rows %}
-| {{ row.r.id }} | [{{ row.r.title | cell }}]({{ row.file }}) | {{ row.d.objectives | join(", ") }} | {{ row.r.owner | cell }} | {{ row.r.design | label }} | {{ row.r.operating | label }} | {{ row.r.last_tested | label }} | {{ row.r.next_test }} | {{ row.r.status }}{{ " (retired)" if row.r.lifecycle == "retired" else "" }} |
+| {{ row.r.id }} | [{{ row.r.title | cell }}]({{ row.file }}) | {{ row.d.objectives | join(", ") }} | {{ row.r.owner | cell }} | {{ row.r.design | label }} | {{ row.r.operating | label }} | {{ row.r.last_tested | label }} | {{ row.d.last_result | label }} | {{ row.r.next_test }} | {{ row.r.status }}{{ " (" ~ row.r.lifecycle ~ ")" if row.r.lifecycle != "in-use" else "" }} |
 {% endfor %}
 {% else %}
 No controls recorded yet.

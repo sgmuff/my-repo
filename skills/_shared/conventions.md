@@ -216,14 +216,16 @@ compliance/
       screening/       SCR-YYYY-NNN-<slug>.yaml and .md, plus index.md (generated)
       assistance-packs/ PA-YYYY-NNN-<slug>.md   (processor assistance packs, Markdown)
     ai-impact/         AIIA-YYYY-NNN-<slug>.yaml and .md, plus index.md (generated): assessments, FRIAs, and input packs
-    program/           YYYY-MM-DD-<framework>-assessment.md
+    program/           YYYY-MM-DD-<framework>-assessment.md   (PRG-YYYY-NNN)
     aiuc-readiness/    RDY-YYYY-NNN-<slug>.yaml and .md, plus index.md (generated)
+    iso-readiness/     ISO-YYYY-NNN-<slug>.md   (ISO/IEC 42001 readiness and evidence packs, Markdown)
   vendors/           VR-YYYY-NNN-<slug>.yaml and .md, plus index.md (generated)
     requests/        VR-YYYY-NNN-<slug>-requests.md (generated draft request lists)
   registers/
     ropa/              ROPA-NNNN-<slug>.yaml (record) and .md (generated), plus index.md (generated)
     ai-inventory/      AIS-NNNN-<slug>.yaml and .md, plus index.md (generated)
     risk-register.md
+    control-gaps-YYYY-MM-DD.md   (gap lists from controls-and-evidence)
     controls/          CTL-NNNN-<slug>.yaml and .md, plus index.md (generated): the control library, with evidence
   dsr/                DSR-YYYY-NNN-<slug>.yaml and .md, plus index.md (generated)
     drafts/           DSR-YYYY-NNN-<slug>-drafts.md (generated message drafts)
@@ -242,7 +244,7 @@ Before creating a record, check whether one already exists for the same activity
 
 ## 9. IDs and document control
 
-**Document IDs** use a prefix, the year, and a three-digit sequence: `DPIA-2026-004`, `SCR-2026-011`, `VR-2026-007`, `ROPA-0042`, `AIS-0013`, `AIIA-2026-002`, `DSR-2026-118`, `INC-2026-003`, `CTL-0021` (control), `EV-0140` (evidence item), `RDY-2026-001` (readiness report), `PA-2026-001` (program assessment), `NR-2026-001` (notice review), `POL-0003` (policy), `RC-2026-002` (regulatory change), `LIA-2026-001` (legitimate interests or compatibility), `TIA-2026-001` (transfer impact), `TSR-2026-001` (transfer screen), `AIP-2026-001` (AI Act provider file), `AID-2026-001` (AI Act deployer check), `LR-2026-Q3` (leadership report). Get the next number from `gov next-id <PREFIX>` (add `--year YYYY` for yearly prefixes), or let `gov new` allocate it. Never count files or pick a number yourself: `gov` keeps a counter, never reuses a number, and `gov validate` rejects an ID it didn't issue. Within a document, number risks `R1`, `R2`, actions `A1`, `A2`, and open questions `Q1`, `Q2`, and cross-reference them in both directions.
+**Document IDs** use a prefix, the year, and a three-digit sequence: `DPIA-2026-004`, `SCR-2026-011`, `VR-2026-007`, `ROPA-0042`, `AIS-0013`, `AIIA-2026-002`, `DSR-2026-118`, `INC-2026-003`, `CTL-0021` (control), `EV-0140` (evidence item), `RDY-2026-001` (readiness report), `PA-2026-001` (processor assistance pack), `PRG-2026-001` (program assessment), `ISO-2026-001` (ISO/IEC 42001 readiness report), `NR-2026-001` (notice review), `POL-0003` (policy), `RC-2026-002` (regulatory change), `LIA-2026-001` (legitimate interests or compatibility), `TIA-2026-001` (transfer impact), `TSR-2026-001` (transfer screen), `AIP-2026-001` (AI Act provider file), `AID-2026-001` (AI Act deployer check), `LR-2026-Q3` (leadership report). Get the next number from `gov next-id <PREFIX>` (add `--year YYYY` for yearly prefixes), or let `gov new` allocate it. Never count files or pick a number yourself: `gov` keeps a counter, never reuses a number, and `gov validate` rejects an ID it didn't issue. Within a document, number risks `R1`, `R2`, actions `A1`, `A2`, and open questions `Q1`, `Q2`, and cross-reference them in both directions.
 
 **Metadata.** A `gov` record holds its metadata as fields, and its rendered Markdown starts with a flat metadata block for older scripts. Every other deliverable starts with a YAML metadata block, which GitHub, Confluence importers, and scripts can all read:
 
@@ -286,7 +288,7 @@ Before replying:
 2. Check that every conclusion has a citation and a status, every action has an owner, due date, dependency, and acceptance criterion (owner and date marked *proposed* if the user didn't give them), every verify flag has a matching action, and every decision a person must make has a `Decision needed` block.
 3. Check the action dates for sequencing: nothing is due before the thing it depends on, and every launch blocker and legality-affecting verification is due before launch.
 
-Skills that answer first and record in `gov` (`dpia`, `lia`, `tia`, `ai-act-provider`, `ai-act-deployer`, `vendor-review`, `ai-impact-assessment`, `incident-assessment`, `ai-intake`) follow their own reply step instead: the full answer in plain English, with the record named only in one closing line and no counts of findings or flags. Every other skill replies in **no more than about 150 words**:
+Skills that answer first and record in `gov` (`dpia`, `lia`, `tia`, `ai-act-provider`, `ai-act-deployer`, `vendor-review`, `ai-impact-assessment`, `incident-assessment`, `ai-intake`, `dsr-response`, `controls-and-evidence`) follow their own reply step instead: the full answer in plain English, with the record named only in one closing line and no counts of findings or flags. Every other skill replies in **no more than about 150 words**:
 
 - The file path
 - The outcome in one or two lines, with statuses (for example, "DPIA warranted (provisional); residual risk not yet confirmed, target Medium")

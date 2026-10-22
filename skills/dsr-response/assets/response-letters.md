@@ -1,6 +1,6 @@
 # Response letter drafts
 
-Use only the drafts the request needs now. Each one starts with "DRAFT: not sent." Write to the requester in plain language: no internal system names, no risk ratings, no notes to colleagues. Fill each `<placeholder>` and delete any section that doesn't apply. Keep the company's name, contact route, and the DPO's details (where appointed) in every message.
+Use only the drafts the request needs now. Each one starts with "DRAFT: not sent." Write to the requester in plain language: no internal system names, no risk ratings, no notes to colleagues. Fill each `<placeholder>` and delete any section that doesn't apply. Keep the company's name, contact route, and the DPO's details (where appointed) in every message. Drafts are stored in the repository, so use `<requester name>` and the ticket reference rather than the person's name, contact details, or a child's details; the ticketing system holds those.
 
 ---
 
@@ -130,4 +130,6 @@ We received the request below on <date> from someone who appears to be one of yo
 
 <Request text, and the requester's contact details, sent only through a secure channel.>
 
-<If the DPA allows telling the requester:> Message to the requester: "We provide <service> for <customer>, who decides how your information is used. We've passed your request to them, and they'll respond."
+<If the DPA allows telling the requester, and only after verification:> Message to the requester: "We provide <service> for <customer>, who decides how your information is used. We've passed your request to them, and they'll respond." Before verification, say only how requests about an organization's accounts are handled ("When a school or employer provides our service, it decides how the information is used, and we pass requests to it"), without confirming that an account exists.
+
+**When one request covers both kinds of account** (for example, a school-rostered student account and a family account the parent created): send one acknowledgment that says the parts are handled differently, without confirming either account; answer the directly created account yourself; and forward the rest with this note.

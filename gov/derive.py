@@ -392,7 +392,8 @@ def ais(data: dict) -> dict:
 def ctl(data: dict) -> dict:
     return {
         "objectives": [o["cco"] for o in data["objectives"]],
-        "operation_evidence": sum(1 for e in data["evidence"] if e["shows"] == "operation"),
+        "operation_evidence": sum(1 for e in data["evidence"] if e["shows"] == "operation" and e["status"] == "on-file"),
+        "last_result": max(data["testing"], key=lambda t: t["date"])["result"] if data["testing"] else "none",
         "approval_questions": sum(1 for q in data["open_questions"] if q["blocks"] == "approval"),
     }
 
@@ -404,6 +405,8 @@ def dsr_deadlines(data: dict) -> list:
     table = deadlines.rules(dt.date.fromisoformat(str(data["received"]["date"])))
     rows = [{"due": due.isoformat(), "regime": regime, "step": step, "substantive": "Respond" in step or "Apply" in step}
             for regime in data["regimes"] for step, due in table[regime]]
+    rows += [{"due": str(c["due"]), "regime": "contract", "step": f"{c['step']} ({c['basis']})", "substantive": True}
+             for c in data["contract_deadlines"]]
     return sorted(rows, key=lambda r: (r["due"], r["regime"]))
 
 
@@ -416,6 +419,8 @@ def dsr(data: dict) -> dict:
     due = data["extended_deadline"] or (earliest["due"] if earliest else None)
     return {
         "deadlines": rows,
+        "gate": "Response",
+        "role_values": sorted({r["role"]["value"] for r in data["roles"]}),
         "earliest": earliest,
         "due": str(due) if due else None,
         "open": data["status"] not in ("Responded", "Closed"),

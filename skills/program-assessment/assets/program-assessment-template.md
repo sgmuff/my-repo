@@ -1,5 +1,5 @@
 ---
-id: PA-YYYY-NNN
+id: PRG-YYYY-NNN
 type: program-assessment
 title: <NIST Privacy Framework | NIST AI RMF | ISO/IEC 42001> program assessment
 framework: <framework and version>

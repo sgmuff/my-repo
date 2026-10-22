@@ -4,7 +4,8 @@ description: "One control: what the company does, the common control objectives 
 type: object
 additionalProperties: false
 required: [id, type, schema_version, format_version, kind, title, status, version, lifecycle, owner, prepared_by,
-  date_prepared, description, source, objectives, design, operating, frequency, last_tested, next_test, evidence,
+  date_prepared, description, systems, source, criteria, objectives, design, operating, frequency, test_frequency, last_tested,
+  next_test, evidence,
   testing, actions, open_questions, verify, finding_responses, references, version_history, signoff]
 properties:
   id: {type: string, pattern: "^CTL-\\d{4}$"}
@@ -15,12 +16,17 @@ properties:
   title: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 10}
   status: {$ref: "common.schema.yaml#/$defs/doc_status"}
   version: {$ref: "common.schema.yaml#/$defs/version"}
-  lifecycle: {enum: [in-use, retired], description: "Retire a control that no longer operates; keep its record and evidence"}
+  lifecycle: {enum: [planned, in-use, retired], description: "Retire a control that no longer operates; keep its record and evidence"}
   owner: {$ref: "common.schema.yaml#/$defs/short"}
   prepared_by: {$ref: "common.schema.yaml#/$defs/short"}
   date_prepared: {$ref: "common.schema.yaml#/$defs/date"}
   description: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 60, description: "What the company does: who, what, how often, on which systems"}
+  systems: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 25, description: "The systems and environments in scope; evidence counts only for these"}
   source: {$ref: "common.schema.yaml#/$defs/short", description: "Where the description came from: SOC 2 report, policy, interview"}
+  criteria:
+    description: "External criteria the control is reported or tested against, such as SOC 2 CC6.1 or ISO/IEC 27001 A.5.15"
+    type: array
+    items: {$ref: "common.schema.yaml#/$defs/short"}
   objectives:
     type: array
     minItems: 1
@@ -29,13 +35,14 @@ properties:
       additionalProperties: false
       required: [cco, how, coverage, not_satisfied]
       properties:
-        cco: {type: string, pattern: "^CCO-\\d{2}$"}
+        cco: {type: string, pattern: "^(CCO-\\d{2}|TBC)$"}
         how: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 20}
-        coverage: {enum: [full, partial]}
+        coverage: {enum: [full, partial, none-yet], description: "none-yet for a planned control or one with no operating evidence"}
         not_satisfied: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 25, description: "Framework requirements the control satisfies only partly or not at all, and why; or none"}
   design: {enum: [designed, implemented, not-in-place, TBC]}
   operating: {enum: [evidenced, unverified, planned, absent, TBC], description: "risk-method.md section 1: implemented and evidenced, implemented but unverified, planned, or absent"}
-  frequency: {enum: [continuous, daily, weekly, monthly, quarterly, annual, per-event, TBC]}
+  frequency: {enum: [continuous, daily, weekly, monthly, quarterly, annual, per-event, TBC], description: "How often the control operates"}
+  test_frequency: {enum: [monthly, quarterly, semiannual, annual, TBC], description: "How often it's tested; sets the next test date"}
   last_tested: {anyOf: [{$ref: "common.schema.yaml#/$defs/date"}, {enum: [TBC, never]}]}
   next_test: {$ref: "common.schema.yaml#/$defs/date_or_tbc"}
   evidence:
@@ -43,9 +50,10 @@ properties:
     items:
       type: object
       additionalProperties: false
-      required: [id, type, shows, what, location, date, period, owner, stale_after]
+      required: [id, status, type, shows, what, location, date, period, owner, stale_after]
       properties:
         id: {type: string, pattern: "^EV-\\d{4}$"}
+        status: {enum: [on-file, requested], description: "requested: described but not yet supplied; it counts for nothing until it's on file"}
         type: {enum: [policy, configuration, record, test-result, report, attestation]}
         shows: {enum: [design, operation]}
         what: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 20}
@@ -64,6 +72,7 @@ properties:
         date: {$ref: "common.schema.yaml#/$defs/date"}
         method: {enum: [inspection, sample, re-performance, third-party-evaluation]}
         scope: {$ref: "common.schema.yaml#/$defs/short", description: "Sample or scope"}
+        period: {$ref: "common.schema.yaml#/$defs/short", description: "The period the test covered, such as a SOC 2 Type II period"}
         tested_by: {$ref: "common.schema.yaml#/$defs/short"}
         result: {enum: [pass, exceptions, fail]}
         exceptions: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 25, description: "What failed, with the follow-up action ID; or none"}

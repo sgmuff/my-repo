@@ -13,30 +13,32 @@ generated_from: CTL-0001-admin-access-review.yaml
 
 # CTL-0001: Quarterly admin access review
 
-| Status | Lifecycle | Owner | Design | Operating | Frequency | Last tested | Next test |
-|---|---|---|---|---|---|---|---|
-| Draft | In use | Control owner | Implemented | Implemented and evidenced | Quarterly | Never | 2026-12-31 |
+| Status | Lifecycle | Owner | Design | Operating | Operates | Tested | Last tested | Next test |
+|---|---|---|---|---|---|---|---|---|
+| Draft | In use | Control owner | Implemented | Implemented and evidenced | Quarterly | Annual | Never | 2026-12-31 |
 
 Fixture control for the leadership report eval.
 
-**Source:** Team notes
+**Systems in scope:** Production
 
+**Source:** Team notes
 A control is only as good as its evidence. This entry records what the company does and how it proves it; a reviewer judges whether it works.
 
 ## 1. Objectives and framework coverage
 
-Framework requirements follow from each objective through `crosswalk.md`. The mapping shows overlap, not equivalence; auditors decide what satisfies their framework.
+Framework requirements follow from each objective through `crosswalk.md`. They show where frameworks overlap, not what this control satisfies: the control meets them only as far as its coverage, its evidence, and the exclusions below allow, and auditors decide what satisfies their framework.
 
 | Objective | How this control supports it | Coverage | Partly or not satisfied |
 |---|---|---|---|
 | CCO-15: Access control and least privilege, including agent permissions and customer isolation | Fixture mapping | Partial | none |
 
-**CCO-15:** NIST PF PR.AC-P1 to PR.AC-P6; AIUC-1 A003, A005, B006, B007, D003; NIST AI RMF MS 2.7, MP 2.1; GDPR Art. 32(1)(b), 32(4); EU AI Act Art. 15; US states Reasonable security; FERPA § 99.31(a)(1)(ii)
+**CCO-15 (partial coverage) maps to:** NIST PF PR.AC-P1 to PR.AC-P6; AIUC-1 A003, A005, B006, B007, D003; NIST AI RMF MS 2.7, MP 2.1; GDPR Art. 32(1)(b), 32(4); EU AI Act Art. 15; US states Reasonable security; FERPA § 99.31(a)(1)(ii)
+
 ## 2. Evidence
 
-| ID | Type | Shows | What it shows | Location | Date | Period | Owner | Stale after |
-|---|---|---|---|---|---|---|---|---|
-| EV-0001 | Record | Operation | Q3 review ticket | https://tickets.example/IT-1 | 2026-09-30 | Q3 2026 | IT lead | 2027-01-01 |
+| ID | Status | Type | Shows | What it shows | Location | Date | Period | Owner | Stale after |
+|---|---|---|---|---|---|---|---|---|---|
+| EV-0001 | On file | Record | Operation | Q3 review ticket | https://tickets.example/IT-1 | 2026-09-30 | Q3 2026 | IT lead | 2027-01-01 |
 
 ## 3. Testing
 
@@ -53,6 +55,7 @@ None.
 | Decision | Approver | Name | Date | Outcome |
 |---|---|---|---|---|
 | Description and evidence confirmed | Control owner | — | — | — |
+| Coverage claims confirmed | Privacy lead | — | — | — |
 
 ## Appendix
 

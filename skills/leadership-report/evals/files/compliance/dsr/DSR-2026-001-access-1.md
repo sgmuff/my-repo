@@ -13,9 +13,13 @@ generated_from: DSR-2026-001-access-1.yaml
 # DSR-2026-001: Access, customer
 
 **Earliest deadline: 2026-08-03** (gdpr: Respond (one month, Art. 12(3)))
-| Status | Received | Channel | Requester | Request types | Company role | Verification |
+| Status | Received | Channel | Reference | Requester | Request types | Verification |
 |---|---|---|---|---|---|---|
-| Closed | 2026-07-03 10:00 ET | Privacy inbox | Data subject | Access | Controller. Confirmed: Recorded for the eval fixture | Verified |
+| Closed | 2026-07-03 10:00 ET | Privacy inbox | TBC | Data subject | Access | Verified |
+
+| Account or data | Company role |
+|---|---|
+| Customer account | Controller. Confirmed: Recorded for the eval fixture |
 
 Access request from a customer.
 
@@ -65,9 +69,9 @@ None drafted yet.
 
 ## 6. Messages
 
-| Message | Approved by | Sent | Sent by |
-|---|---|---|---|
-| Response | Privacy lead | 2026-07-28 | Support lead |
+| Message | To | Approved by | Sent | Sent by |
+|---|---|---|---|---|
+| Response | Requester | Privacy lead | 2026-07-28 | Support lead |
 
 Drafts: [drafts/DSR-2026-001-access-1-drafts.md](drafts/DSR-2026-001-access-1-drafts.md)
 
@@ -101,7 +105,9 @@ None.
 
 ### Validation findings
 
-None.
+| About | Finding | Response | By |
+|---|---|---|---|
+| signoff | the case is closed out, but no approval of its positions and messages is recorded | Open | — |
 
 ### References
 

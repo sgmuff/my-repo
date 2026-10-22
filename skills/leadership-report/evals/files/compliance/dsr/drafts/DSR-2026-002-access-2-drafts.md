@@ -11,6 +11,6 @@ DRAFT: not sent. The privacy lead approves each message before anyone sends it (
 
 # Message drafts: Access, customer
 
-## 1. Response (sent 2026-09-02)
+## 1. Response to Requester (sent 2026-09-02)
 
 Your data is attached.

@@ -109,6 +109,7 @@ def validate_record(root: Path, rec: Record, as_of: str | None = None) -> list:
         problems.extend(_readiness(root, where, rec.data))
     if rec.data.get("type") == "ctl":
         problems.extend(_objectives(root, where, rec.data))
+        problems.extend(_stale_evidence(where, rec.data, as_of))
     problems.extend(_gates(where, rec.data))
     problems.extend(_law_citations(where, rec.data))
     problems.extend(_issue_ids(where, rec.data))
@@ -223,7 +224,17 @@ def _objectives(root: Path, where: str, data: dict) -> list:
     if not known:
         return [Problem(where, "error", f"objectives: can't read the control objectives from {crosswalk.REFERENCE}")]
     return [Problem(where, "error", f"objectives/{n}: {o['cco']} isn't an objective in {crosswalk.REFERENCE.name}")
-            for n, o in enumerate(data["objectives"]) if o["cco"] not in known]
+            for n, o in enumerate(data["objectives"]) if o["cco"] not in known and o["cco"] != "TBC"]
+
+
+def _stale_evidence(where: str, data: dict, as_of: str | None) -> list:
+    """A control marked evidenced whose operating evidence has all gone stale, as of the given date or its preparation."""
+    on = as_of or str(data["date_prepared"])
+    items = [e for e in data["evidence"] if e["shows"] == "operation" and e["status"] == "on-file"]
+    dated = [str(e["stale_after"]) for e in items if e["stale_after"] != "TBC"]
+    if data["operating"] == "evidenced" and items and len(dated) == len(items) and max(dated) < on:
+        return [Problem(where, "finding", f"evidence: every operating evidence item went stale by {on}; get current evidence or mark the control unverified")]
+    return []
 
 
 def _evidence_ids(root: Path, records: list) -> list:

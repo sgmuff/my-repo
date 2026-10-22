@@ -507,9 +507,9 @@ def dsr(data: dict) -> list:
     out = []
     if not data["regimes"]:
         out.append(("regimes", "no deadline regime recorded; include every regime that could apply and work to the earliest date"))
-    role = data["company_role"]["value"]
+    roles = set(d["role_values"])
     sent = {m["message"]: m for m in data["messages"] if m["sent"]}
-    if role in ("processor", "school-official") and not any(m["message"] == "referral" for m in data["messages"]):
+    if roles & {"processor", "school-official"} and not any(m["message"] == "referral" for m in data["messages"]):
         out.append(("messages", "the company answers this person's data as processor or school official; draft the referral to the controller or institution and the help it needs"))
     if "response" in sent and data["verification"]["status"] not in ("verified", "not-needed"):
         out.append(("verification", "a response went out before verification succeeded; confirm nothing was disclosed to an unverified requester"))
@@ -520,31 +520,41 @@ def dsr(data: dict) -> list:
         out.append(("extended_deadline", "an extended deadline needs an extension notice sent before the first deadline"))
     if data["responded"] and d["due"] and str(data["responded"]) > d["due"]:
         out.append(("responded", f"the response went out on {data['responded']}, after the deadline of {d['due']}"))
-    if data["status"] in ("Responded", "Closed") and not data["responded"] and role == "controller":
+    if data["status"] in ("Responded", "Closed") and not data["responded"] and "controller" in roles:
         out.append(("responded", "record the date the response went out; leadership reports time requests from received to responded"))
     if data["status"] == "Closed" and not data["closed"]:
         out.append(("closed", "record the date the case closed"))
-    if set(data["request_types"]) & {"deletion", "correction"} and role == "controller" and not data["processors"]:
+    if set(data["request_types"]) & {"deletion", "correction"} and "controller" in roles and not data["processors"]:
         out.append(("processors", "deletion and correction reach processors; list each processor that must act, with the instruction"))
     if any(l["ropa"] == "none" for l in data["locations"]) and not data["follow_ons"]:
         out.append(("follow_ons", "a system holding this data isn't in the RoPA; record it as a follow-on for ropa"))
+    if "response" in sent and any(l["searched"] == TBC for l in data["locations"]):
+        out.append(("locations", "a response went out before every location was searched; record each search or why it wasn't needed"))
+    if data["status"] in ("Responded", "Closed") and not any(s["outcome"] for s in data["signoff"]):
+        out.append(("signoff", "the case is closed out, but no approval of its positions and messages is recorded"))
     for n, m in enumerate(data["messages"]):
         if m["sent"] and not m["approved_by"]:
             out.append((f"messages/{n}", f"the {m['message']} was sent with no approver recorded"))
     return out
 
 
-INTERVALS = {"daily": 1, "weekly": 1, "monthly": 1, "quarterly": 3, "annual": 12}
+INTERVALS = {"monthly": 1, "quarterly": 3, "semiannual": 6, "annual": 12}
 
 
 def ctl(data: dict) -> list:
     from gov.skeleton import add_months
     out = []
+    if any(o["cco"] == TBC for o in data["objectives"]):
+        out.append(("objectives", "map the control to the crosswalk objectives it supports; replace the TBC placeholder"))
+    if is_tbc(data["description"]):
+        out.append(("description", "describe what the company does: who, what, how often, on which systems"))
+    if data["operating"] == "planned" and any(o["coverage"] != "none-yet" for o in data["objectives"]):
+        out.append(("objectives", "a planned control covers nothing yet; set each objective's coverage to none-yet"))
     for n, e in enumerate(data["evidence"]):
         if e["type"] == "policy" and e["shows"] == "operation":
             out.append((f"evidence/{n}/shows", f"{e['id']}: a policy shows design; a record or a test shows operation"))
-    if data["operating"] == "evidenced" and not any(e["shows"] == "operation" for e in data["evidence"]):
-        out.append(("operating", "the control is marked evidenced, but no evidence item shows it operating"))
+    if data["operating"] == "evidenced" and not any(e["shows"] == "operation" and e["status"] == "on-file" for e in data["evidence"]):
+        out.append(("operating", "the control is marked evidenced, but no evidence on file shows it operating"))
     if data["lifecycle"] == "retired":
         return out
     if data["testing"]:
@@ -553,12 +563,14 @@ def ctl(data: dict) -> list:
             out.append(("last_tested", f"the latest test in the testing log is {latest['date']}; last_tested should match it"))
         if latest["result"] != "pass" and not any(a["status"] == "open" for a in data["actions"]):
             out.append(("testing", f"the {latest['date']} test found {latest['result']}; add an open action to fix it and retest"))
+    if data["lifecycle"] == "in-use" and data["operating"] in ("evidenced", "unverified") and is_tbc(data["test_frequency"]):
+        out.append(("test_frequency", "set how often the control is tested; it decides the next test date"))
     if data["operating"] in ("evidenced", "unverified") and is_tbc(data["next_test"]):
         out.append(("next_test", "an implemented control needs a next test date; it's an action, not a calendar event"))
-    months = INTERVALS.get(data["frequency"])
+    months = INTERVALS.get(data["test_frequency"])
     if months and re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(data["last_tested"])) and not is_tbc(data["next_test"]):
         if str(data["next_test"]) > add_months(str(data["last_tested"]), months):
-            out.append(("next_test", f"a {data['frequency']} control tested on {data['last_tested']} is due again by {add_months(str(data['last_tested']), months)}"))
+            out.append(("next_test", f"a control tested {data['test_frequency']} and last tested on {data['last_tested']} is due again by {add_months(str(data['last_tested']), months)}"))
     return out
 
 

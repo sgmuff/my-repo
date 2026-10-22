@@ -9,24 +9,27 @@ kind: control
 title: {{ title | tojson }}
 status: Draft
 version: "0.1"
-lifecycle: in-use  # in-use | retired
+lifecycle: in-use  # planned | in-use | retired
 owner: TBC
 prepared_by: {{ prepared_by | tojson }}
 date_prepared: "{{ date }}"
 description: TBC  # 60 words at most: who does what, how often, on which systems
+systems: TBC  # the systems in scope; evidence counts only for these
 source: TBC  # SOC 2 report, policy, interview
+criteria: []  # external criteria it's tested against, such as SOC 2 CC6.1
 
 objectives:  # one or more, from crosswalk.md
-  - {cco: CCO-01, how: TBC, coverage: partial, not_satisfied: TBC}
+  - {cco: TBC, how: TBC, coverage: none-yet, not_satisfied: TBC}  # coverage: full | partial | none-yet
 
 design: TBC  # designed | implemented | not-in-place
 operating: TBC  # evidenced | unverified | planned | absent
-frequency: TBC  # continuous | daily | weekly | monthly | quarterly | annual | per-event
+frequency: TBC  # how often it operates: continuous | daily | weekly | monthly | quarterly | annual | per-event
+test_frequency: TBC  # how often it's tested: monthly | quarterly | semiannual | annual
 last_tested: never  # a date, never, or TBC
 next_test: TBC  # an action, never a calendar event
 
-evidence: []  # {id: EV-NNNN, type: policy | configuration | record | test-result | report | attestation, shows: design | operation, what, location, date, period, owner, stale_after}
-testing: []  # {date, method: inspection | sample | re-performance | third-party-evaluation, scope, tested_by, result: pass | exceptions | fail, exceptions}
+evidence: []  # one item per report criterion; get each ID from `gov next-id EV` as you add it. {id: EV-NNNN, status: on-file | requested, type: policy | configuration | record | test-result | report | attestation, shows: design | operation, what, location, date, period, owner, stale_after}
+testing: []  # {date, method: inspection | sample | re-performance | third-party-evaluation, scope, period, tested_by, result: pass | exceptions | fail, exceptions}
 
 actions: []
 open_questions: []
@@ -43,6 +46,11 @@ version_history:
 signoff:
   - decision: Description and evidence confirmed
     approver_role: Control owner
+    name: null
+    date: null
+    outcome: null
+  - decision: Coverage claims confirmed
+    approver_role: Privacy lead
     name: null
     date: null
     outcome: null

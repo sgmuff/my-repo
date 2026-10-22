@@ -57,6 +57,10 @@ def record_items(path):
         d = DATE.fullmatch(str(a.get("due", "")))
         if d and a.get("status") == "open":
             rows.append((d.group(1), f"action {a['id']}", a["action"]))
+    for q in data.get("open_questions") or []:
+        d = DATE.fullmatch(str(q.get("needed_by", "")))
+        if d:
+            rows.append((d.group(1), f"question {q['id']}", q["question"]))
     for e in data.get("evidence") or [] if data["type"] == "ctl" else []:
         d = DATE.fullmatch(str(e.get("stale_after", "")))
         if d:

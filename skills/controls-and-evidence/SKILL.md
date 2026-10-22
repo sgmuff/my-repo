@@ -20,7 +20,7 @@ It drafts mappings, Statements of Applicability, evidence packs, and gap lists. 
 | [`../_shared/references/crosswalk.md`](../_shared/references/crosswalk.md) | Always: the common control objectives (CCO-01 to CCO-32) and their framework mappings |
 | [`../_shared/references/aiuc-1.md`](../_shared/references/aiuc-1.md) | AIUC-1 readiness: requirements, capability tags, certification, testing cadence |
 | [`../_shared/references/iso-42001.md`](../_shared/references/iso-42001.md) | ISO/IEC 42001 readiness |
-| [`../_shared/references/risk-method.md`](../_shared/references/risk-method.md) | Control statuses and evidence standards (§1, §3) |
+| [`../_shared/references/risk-method.md`](../_shared/references/risk-method.md) | Control statuses (§1) |
 | [`assets/readiness-report-template.md`](assets/readiness-report-template.md) | ISO/IEC 42001 readiness or an audit evidence pack (AIUC-1 readiness is a `gov` record) |
 | [`../_shared/scripts/make_checklist.py`](../_shared/scripts/make_checklist.py) | Generating a blank Statement of Applicability |
 | `gov schedule` | After changing any test or review date |
@@ -55,7 +55,7 @@ Record each control as a `ctl` record: `gov new ctl --slug <slug> --title "<cont
 - **Evidence:** each item with an ID from `gov next-id EV`, listed in one control and cited by ID elsewhere; its type, whether it shows design or operation, a link (never a copy of confidential material), the period it covers, and when it goes stale.
 - **Testing:** each test with its method, scope, tester, result, and exceptions; `last_tested` (or `never`) and the `next_test` date its frequency requires.
 
-Run `gov validate` and `gov render`, which rebuilds the library index.
+Record the SOC 2 or ISO criteria a control is tested against in `criteria`, and give each report criterion its own evidence item, so the library answers a questionnaire by criterion. Take evidence IDs one at a time as you add items; an ID once issued is never reused. A planned control has `lifecycle: planned` and coverage `none-yet`, and evidence described but not yet supplied is `status: requested`. Run `gov validate --as-of <today>`, which flags evidence gone stale behind an evidenced control, and `gov render`, which rebuilds the library index. Save a gap list as `compliance/registers/control-gaps-YYYY-MM-DD.md`, outside the controls folder.
 
 When building from documents (a SOC 2 report, policies, an ISO Statement of Applicability), propose the control list first and get it confirmed, then draft. If nobody can confirm it now, draft the entries as Draft and ask for confirmation in the reply. Record each control's source. A SOC 2 control description is evidence of design. Its test results are evidence of operation for the report period only.
 
@@ -84,7 +84,7 @@ When the company is preparing its own agent (readiness mode, `aiuc-1.md` §2):
 7. **Milestones are gates, not commitments.** Work back from the target, and keep the audit start separate from the certificate date. Each milestone (testing arrangements confirmed, critical gaps fixed, baseline tests done, evidence pack complete, audit start) has an entry condition. If critical findings are open when a gate arrives, escalate the schedule risk rather than proceeding.
 8. **Optional requirements are a recorded business decision:** for each, opt in or out on the agent's actual risks and on what customers require, with the rationale and the decision-maker.
 
-Production risks from §4a are actions that block audit start, and the reply says they need fixing now, not at the audit. Fill in the record's `testing` and `milestones`, run `gov validate`, resolve what it raises, and run `gov render`; the report lands in `compliance/assessments/aiuc-readiness/`. For ISO/IEC 42001 readiness, write it up with `assets/readiness-report-template.md` instead, with `make_checklist.py iso-42001 soa` and the caution that the checklist is a public paraphrase, not the standard (`iso-42001.md`).
+Production risks from §4a are actions that block audit start, and the reply says they need fixing now, not at the audit. Fill in the record's `testing` and `milestones`, run `gov validate`, resolve what it raises, and run `gov render`; the report lands in `compliance/assessments/aiuc-readiness/`. For ISO/IEC 42001 readiness, write it up with `assets/readiness-report-template.md` instead, saved as `compliance/assessments/iso-readiness/ISO-YYYY-NNN-<slug>.md`, with `make_checklist.py iso-42001 soa` and the caution that the checklist is a public paraphrase, not the standard (`iso-42001.md`).
 
 AIUC-1 certification is issued by AIUC through accredited auditors. The skill prepares for the audit. It doesn't certify, and it doesn't claim that the company meets the standard.
 
@@ -110,7 +110,7 @@ When an auditor, customer, or regulator asks for evidence:
 
 Run `gov schedule <output root> --as-of <today>` to rebuild `schedule.md` from every deliverable's review, test, and deadline dates. Overdue items go in the reply.
 
-Reply in about 150 words: what changed (controls added or updated, requirements now covered), the coverage summary, the top gaps, overdue tests, and the decisions needed.
+Reply in plain English: the answer to the question asked first (often where the company is weak), then what changed, the coverage summary, the top gaps, overdue tests, the decisions needed, and up to five questions. If the company profile's security baseline is TODO, offer to save the facts you were given there. Close with one line naming the index and its path.
 
 ## Keeping the library current
 

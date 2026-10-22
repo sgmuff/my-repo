@@ -13,25 +13,27 @@ generated_from: CTL-0003-ai-red-team.yaml
 
 # CTL-0003: AI red-team testing every 3 months
 
-| Status | Lifecycle | Owner | Design | Operating | Frequency | Last tested | Next test |
-|---|---|---|---|---|---|---|---|
-| Draft | In use | Control owner | Designed | Planned | Quarterly | Never | 2026-11-15 |
+| Status | Lifecycle | Owner | Design | Operating | Operates | Tested | Last tested | Next test |
+|---|---|---|---|---|---|---|---|---|
+| Draft | In use | Control owner | Designed | Planned | Quarterly | Annual | Never | 2026-11-15 |
 
 Fixture control for the leadership report eval.
 
-**Source:** Team notes
+**Systems in scope:** Production
 
+**Source:** Team notes
 A control is only as good as its evidence. This entry records what the company does and how it proves it; a reviewer judges whether it works.
 
 ## 1. Objectives and framework coverage
 
-Framework requirements follow from each objective through `crosswalk.md`. The mapping shows overlap, not equivalence; auditors decide what satisfies their framework.
+Framework requirements follow from each objective through `crosswalk.md`. They show where frameworks overlap, not what this control satisfies: the control meets them only as far as its coverage, its evidence, and the exclusions below allow, and auditors decide what satisfies their framework.
 
 | Objective | How this control supports it | Coverage | Partly or not satisfied |
 |---|---|---|---|
-| CCO-30: Independent and third-party testing | Fixture mapping | Partial | none |
+| CCO-30: Independent and third-party testing | Fixture mapping | None yet | none |
 
-**CCO-30:** NIST PF CT.DM-P9; AIUC-1 A009, B001, C010, D004, E018; NIST AI RMF MS 1.3, MS 2.1, MS 4.1, MS 4.2; ISO/IEC 42001 A.6.2.4; EU AI Act Art. 43; US states NYC LL 144 bias audits
+**CCO-30:** no coverage yet.
+
 ## 2. Evidence
 
 None recorded yet.
@@ -51,6 +53,7 @@ None.
 | Decision | Approver | Name | Date | Outcome |
 |---|---|---|---|---|
 | Description and evidence confirmed | Control owner | — | — | — |
+| Coverage claims confirmed | Privacy lead | — | — | — |
 
 ## Appendix
 

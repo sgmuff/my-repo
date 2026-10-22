@@ -8,7 +8,7 @@ Requests: {{ rows | length }} · Open: {{ rows | selectattr("d.open") | list | l
 | ID | Request | Received | Role | Deadline | Status | Responded | Days |
 |---|---|---|---|---|---|---|---|
 {% for row in rows %}
-| {{ row.r.id }} | [{{ row.r.title | cell }}]({{ row.file }}) | {{ row.r.received.date }} | {{ row.r.company_role.value | label }} | {{ row.d.due or "TBC" }} | {{ row.r.status }} | {{ row.r.responded or "" }} | {{ row.d.days_to_respond if row.d.days_to_respond is not none else "" }} |
+| {{ row.r.id }} | [{{ row.r.title | cell }}]({{ row.file }}) | {{ row.r.received.date }} | {{ row.d.role_values | map("label") | join(", ") }} | {{ row.d.due or "TBC" }} | {{ row.r.status }} | {{ row.r.responded or "" }} | {{ row.d.days_to_respond if row.d.days_to_respond is not none else "" }} |
 {% endfor %}
 {% else %}
 No requests yet.

@@ -16,21 +16,26 @@ generated_from: {{ source_file }}
 # {{ r.id }}: {{ r.title }}
 
 {% if d.earliest %}
-**{{ "Deadline" if r.extended_deadline else "Earliest deadline" }}: {{ d.due }}** ({{ "extended" if r.extended_deadline else d.earliest.regime ~ ": " ~ d.earliest.step }}){% if r.internal_target %} · internal target {{ r.internal_target }}{% endif %}
-
+**{{ "Deadline" if r.extended_deadline else "Earliest deadline" }}: {{ d.due }}** ({{ "extended" if r.extended_deadline else d.earliest.regime ~ ": " ~ d.earliest.step }}){% if r.internal_target %} · the company's internal target: {{ r.internal_target }}{% endif %}
 {% else %}
 **Earliest deadline:** not computed; no regime recorded yet.
-
 {% endif %}
-| Status | Received | Channel | Requester | Request types | Company role | Verification |
+
+| Status | Received | Channel | Reference | Requester | Request types | Verification |
 |---|---|---|---|---|---|---|
-| {{ r.status }} | {{ r.received.date }} {{ r.received.time if r.received.time != "TBC" else "" }} | {{ r.received.channel | cell }} | {{ r.requester_type | label }} | {{ r.request_types | map("label") | join(", ") }} | {{ r.company_role | call }} | {{ r.verification.status | label }} |
+| {{ r.status }} | {{ r.received.date }} {{ r.received.time if r.received.time != "TBC" else "" }} | {{ r.received.channel | cell }} | {{ r.requester_ref | cell }} | {{ r.requester_type | label }} | {{ r.request_types | map("label") | join(", ") }} | {{ r.verification.status | label }} |
+
+| Account or data | Company role |
+|---|---|
+{% for x in r.roles %}
+| {{ x.data | cell }} | {{ x.role | call }} |
+{% endfor %}
 
 {{ r.summary }}
 
 This case file proposes positions and drafts messages. A person verifies the requester, approves each message, and sends it; a refusal, exception, or fee is the privacy lead's decision.
 
-**Requester's words:** "{{ r.requester_words | cell }}"
+**Requester's words:** "{{ r.requester_words | cell | trim('"') }}"
 {% if r.earlier_requests %}
 
 **Earlier requests:** {{ r.earlier_requests | join(", ") }}
@@ -93,6 +98,15 @@ Not mapped yet.
 {% endfor %}
 {% endif %}
 
+{% if r.holds %}
+
+| Hold | Why | Ends |
+|---|---|---|
+{% for h in r.holds %}
+| {{ h.scope | cell }} | {{ h.reason | cell }} | {{ h.ends | cell }} |
+{% endfor %}
+{% endif %}
+
 ## 5. Positions
 
 {% if r.positions %}
@@ -108,10 +122,10 @@ None drafted yet.
 ## 6. Messages
 
 {% if r.messages %}
-| Message | Approved by | Sent | Sent by |
-|---|---|---|---|
+| Message | To | Approved by | Sent | Sent by |
+|---|---|---|---|---|
 {% for m in r.messages %}
-| {{ m.message | label }} | {{ m.approved_by | cell }} | {{ m.sent | cell }} | {{ m.sent_by | cell }} |
+| {{ m.message | label }} | {{ m.to | cell }} | {{ m.approved_by | cell }} | {{ m.sent | cell }} | {{ m.sent_by | cell }} |
 {% endfor %}
 
 Drafts: [drafts/{{ source_file | replace(".yaml", "-drafts.md") }}](drafts/{{ source_file | replace(".yaml", "-drafts.md") }})

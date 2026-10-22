@@ -12,7 +12,7 @@ DRAFT: not sent. The privacy lead approves each message before anyone sends it (
 # Message drafts: {{ r.title }}
 {% for m in r.messages %}
 
-## {{ loop.index }}. {{ m.message | label }}{{ " (sent " ~ m.sent ~ ")" if m.sent else "" }}
+## {{ loop.index }}. {{ m.message | label }} to {{ m.to }}{{ " (sent " ~ m.sent ~ ")" if m.sent else "" }}
 
 {{ m.text }}
 {% endfor %}

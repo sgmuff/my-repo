@@ -42,7 +42,7 @@ Answer it fully, then check it against `dsr-matrix.md` and add what you missed. 
 
 ### 3. Record it
 
-Run `gov new dsr --slug <request-types> --title "<request types>, <requester kind>" --date <received date>`; the date is when the request arrived, not today. Never put the person's name in the title or slug. Fill in the record from your answer: the request quoted, `regimes` with every regime that could apply until residency and role are settled (gov computes the deadlines and works to the earliest), the laws as Provisional calls, the verification method, where the data is (with RoPA IDs, or `none` for a gap), the processors that must act, and one position per request. An exception, refusal, partial refusal, or fee is a Provisional position with an open question for the privacy lead.
+Run `gov new dsr --slug <request-types> --title "<request types>, <requester kind>" --date <today>`, then set `received.date` to the date the request reached the company's inbox or channel, in the company's time zone, even if nobody read it until later. Keep the person's name, contact details, and any child's details out of the record and the drafts: use `requester_ref` for the ticket or inbox reference, and placeholders in drafts. Fill in the record from your answer: the request in the requester's words (without quotation marks), one `roles` row per account or data set with its role, `regimes` with each regime a known fact points to until residency and role are settled (gov computes the deadlines and works to the earliest; a regime the facts rule out is a Provisional false row in `laws`), any deadline in the customer's or district's agreement in `contract_deadlines`, the laws as Provisional calls, the verification method, where the data is (with RoPA IDs, or `none` for a gap), the processors that must act, any preservation hold with its scope and end, and one position per request and account. An exception, refusal, partial refusal, or fee is a Provisional position with an open question for the privacy lead.
 
 ### 4. Draft the messages
 
@@ -52,7 +52,7 @@ Add only the messages this request needs now to `messages`, usually the acknowle
 
 Run `gov validate`, fix errors, and resolve findings by changing the record; a finding that names a real gap stays open with an action. Don't add a `finding_responses` entry yourself. Run `gov render`, which writes the case, the drafts under `compliance/dsr/drafts/`, and the index. If Jira or ServiceNow is connected and the company tracks requests there, offer to update the ticket.
 
-Reply in about 150 words: the earliest deadline first, then the request types, who answers, the laws (with statuses), the next message to send (a draft awaiting approval), and any decision needed. Close with one line naming the case and its path.
+Reply in plain English: the earliest deadline first, then the request types, who answers, the laws (with statuses), the next message to send (a draft awaiting approval), the decisions needed, and up to five questions. If the company profile lacks the contact details the messages need, ask for them. Close with one line naming the case and its path.
 
 ## Keeping the record
 

@@ -2,10 +2,10 @@
 
 # Control library: index
 
-Controls: 3 · In use: 3 · Evidenced: 1
+Controls: 3 · In use: 3 · Planned: 0 · Evidenced: 1 · Last test with exceptions or failed: 0
 
-| ID | Control | Objectives | Owner | Design | Operating | Last tested | Next test | Status |
-|---|---|---|---|---|---|---|---|---|
-| CTL-0001 | [Quarterly admin access review](CTL-0001-admin-access-review.md) | CCO-15 | Control owner | Implemented | Implemented and evidenced | Never | 2026-12-31 | Draft |
-| CTL-0002 | [DSR intake form](CTL-0002-dsr-intake-form.md) | CCO-09 | Control owner | Implemented | Implemented but unverified | Never | 2026-09-30 | Draft |
-| CTL-0003 | [AI red-team testing every 3 months](CTL-0003-ai-red-team.md) | CCO-30 | Control owner | Designed | Planned | Never | 2026-11-15 | Draft |
+| ID | Control | Objectives | Owner | Design | Operating | Last tested | Last result | Next test | Status |
+|---|---|---|---|---|---|---|---|---|---|
+| CTL-0001 | [Quarterly admin access review](CTL-0001-admin-access-review.md) | CCO-15 | Control owner | Implemented | Implemented and evidenced | Never | None | 2026-12-31 | Draft |
+| CTL-0002 | [DSR intake form](CTL-0002-dsr-intake-form.md) | CCO-09 | Control owner | Implemented | Implemented but unverified | Never | None | 2026-09-30 | Draft |
+| CTL-0003 | [AI red-team testing every 3 months](CTL-0003-ai-red-team.md) | CCO-30 | Control owner | Designed | Planned | Never | None | 2026-11-15 | Draft |

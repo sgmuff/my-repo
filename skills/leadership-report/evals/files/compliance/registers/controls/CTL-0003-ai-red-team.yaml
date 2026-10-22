@@ -11,15 +11,18 @@ owner: Control owner
 prepared_by: Claude (privacy-governance suite)
 date_prepared: '2026-03-01'
 description: Fixture control for the leadership report eval.
+systems: Production
 source: Team notes
+criteria: []
 objectives:
 - cco: CCO-30
   how: Fixture mapping
-  coverage: partial
+  coverage: none-yet
   not_satisfied: none
 design: designed
 operating: planned
 frequency: quarterly
+test_frequency: annual
 last_tested: never
 next_test: '2026-11-15'
 evidence: []
@@ -37,6 +40,11 @@ version_history:
 signoff:
 - decision: Description and evidence confirmed
   approver_role: Control owner
+  name: null
+  date: null
+  outcome: null
+- decision: Coverage claims confirmed
+  approver_role: Privacy lead
   name: null
   date: null
   outcome: null

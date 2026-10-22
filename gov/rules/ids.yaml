@@ -15,7 +15,9 @@ prefixes:
   CTL: {digits: 4, yearly: false, type: ctl, folder: registers/controls}
   EV: {digits: 4, yearly: false}
   RDY: {digits: 3, yearly: true, type: rdy, folder: assessments/aiuc-readiness}
-  PA: {digits: 3, yearly: true}
+  PA: {digits: 3, yearly: true}  # processor assistance pack
+  PRG: {digits: 3, yearly: true}  # program assessment
+  ISO: {digits: 3, yearly: true}  # ISO/IEC 42001 readiness report
   NR: {digits: 3, yearly: true}
   POL: {digits: 4, yearly: false}
   RC: {digits: 3, yearly: true}

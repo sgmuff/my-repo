@@ -59,9 +59,9 @@ def test_metrics_read_dsr_ai_and_control_records(ropa_root):
         path.write_text(yamlio.dumps(data), encoding="utf-8")
     call = lambda v: {"value": v, "status": "Provisional", "reason": "Test"}
     put(new_record(ropa_root, "dsr", "late", "Access, customer", "2026-10-01", "Claude"),
-        lambda d: d.update(request_types=["access"], company_role=call("controller"), regimes=["gdpr"], status="Responded", responded="2026-11-10"))
+        lambda d: d.update(request_types=["access"], roles=[{"data": "Customer account", "role": call("controller")}], regimes=["gdpr"], status="Responded", responded="2026-11-10"))
     put(new_record(ropa_root, "dsr", "open", "Deletion, customer", "2026-10-05", "Claude"),
-        lambda d: d.update(request_types=["deletion"], company_role=call("controller"), regimes=["ccpa"]))
+        lambda d: d.update(request_types=["deletion"], roles=[{"data": "Customer account", "role": call("controller")}], regimes=["ccpa"]))
     put(new_record(ropa_root, "ais", "screener", "Resume screener", "2026-10-01", "Claude"),
         lambda d: d.update(lifecycle="live", tier=call("1")))
     put(new_record(ropa_root, "ctl", "mfa", "Okta MFA", "2026-10-01", "Claude"), lambda d: d.update(operating="unverified"))

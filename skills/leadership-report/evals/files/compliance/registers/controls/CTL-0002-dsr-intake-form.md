@@ -13,25 +13,27 @@ generated_from: CTL-0002-dsr-intake-form.yaml
 
 # CTL-0002: DSR intake form
 
-| Status | Lifecycle | Owner | Design | Operating | Frequency | Last tested | Next test |
-|---|---|---|---|---|---|---|---|
-| Draft | In use | Control owner | Implemented | Implemented but unverified | Quarterly | Never | 2026-09-30 |
+| Status | Lifecycle | Owner | Design | Operating | Operates | Tested | Last tested | Next test |
+|---|---|---|---|---|---|---|---|---|
+| Draft | In use | Control owner | Implemented | Implemented but unverified | Quarterly | Annual | Never | 2026-09-30 |
 
 Fixture control for the leadership report eval.
 
-**Source:** Team notes
+**Systems in scope:** Production
 
+**Source:** Team notes
 A control is only as good as its evidence. This entry records what the company does and how it proves it; a reviewer judges whether it works.
 
 ## 1. Objectives and framework coverage
 
-Framework requirements follow from each objective through `crosswalk.md`. The mapping shows overlap, not equivalence; auditors decide what satisfies their framework.
+Framework requirements follow from each objective through `crosswalk.md`. They show where frameworks overlap, not what this control satisfies: the control meets them only as far as its coverage, its evidence, and the exclusions below allow, and auditors decide what satisfies their framework.
 
 | Objective | How this control supports it | Coverage | Partly or not satisfied |
 |---|---|---|---|
 | CCO-09: Individual rights handled on time | Fixture mapping | Partial | none |
 
-**CCO-09:** NIST PF CT.PO-P3, CT.DM-P1 to CT.DM-P4, CM.AW-P5; NIST AI RMF MS 3.3; ISO/IEC 42001 A.8.3; GDPR Arts. 12, 15–22; EU AI Act Art. 86; US states Consumer rights and appeals; FERPA §§ 99.10, 99.20
+**CCO-09 (partial coverage) maps to:** NIST PF CT.PO-P3, CT.DM-P1 to CT.DM-P4, CM.AW-P5; NIST AI RMF MS 3.3; ISO/IEC 42001 A.8.3; GDPR Arts. 12, 15–22; EU AI Act Art. 86; US states Consumer rights and appeals; FERPA §§ 99.10, 99.20
+
 ## 2. Evidence
 
 None recorded yet.
@@ -51,6 +53,7 @@ None.
 | Decision | Approver | Name | Date | Outcome |
 |---|---|---|---|---|
 | Description and evidence confirmed | Control owner | — | — | — |
+| Coverage claims confirmed | Privacy lead | — | — | — |
 
 ## Appendix
 

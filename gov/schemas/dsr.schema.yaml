@@ -4,9 +4,9 @@ description: "One privacy request from receipt to closure: who answers, the laws
 type: object
 additionalProperties: false
 required: [id, type, schema_version, format_version, kind, title, status, version, received, requester_type,
-  requester_words, earlier_requests, request_types, company_role, regimes, laws, internal_target, extended_deadline,
-  responded, closed, prepared_by, date_prepared, summary, analysis, verification, locations, processors, positions,
-  messages, follow_ons, facts, actions, open_questions, verify, finding_responses, references, version_history, signoff]
+  requester_ref, requester_words, earlier_requests, request_types, roles, regimes, contract_deadlines, laws, internal_target,
+  extended_deadline, responded, closed, prepared_by, date_prepared, summary, analysis, verification, locations, processors,
+  holds, positions, messages, follow_ons, facts, actions, open_questions, verify, finding_responses, references, version_history, signoff]
 properties:
   id: {type: string, pattern: "^DSR-\\d{4}-\\d{3}$"}
   type: {const: dsr}
@@ -25,23 +25,44 @@ properties:
       time: {$ref: "common.schema.yaml#/$defs/short", description: "With the zone, or TBC"}
       channel: {$ref: "common.schema.yaml#/$defs/short"}
   requester_type: {enum: [data-subject, parent-or-guardian, authorized-agent, TBC]}
-  requester_words: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 80, description: "The request quoted, keeping only what's needed"}
+  requester_ref: {$ref: "common.schema.yaml#/$defs/short", description: "The ticket or inbox reference that holds the requester's identity; never the name or contact details"}
+  requester_words: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 80, description: "The request in the requester's words, without quotation marks, keeping only what's needed and no names"}
   earlier_requests: {type: array, items: {type: string, pattern: "^DSR-\\d{4}-\\d{3}$"}}
   request_types:
     type: array
     minItems: 1
     uniqueItems: true
-    items: {enum: [access, deletion, correction, portability, opt-out, limit, objection, restriction, automated-decision, appeal, TBC]}
-  company_role:
-    description: "For this person's data: the company answers as controller, or refers and assists as processor or school official"
-    $ref: "common.schema.yaml#/$defs/call"
-    properties:
-      value: {enum: [controller, processor, school-official, TBC]}
+    items: {enum: [access, deletion, correction, portability, opt-out, limit, objection, restriction, consent-withdrawal, automated-decision, appeal, TBC]}
+  roles:
+    description: "One row per account or data set: the company answers as controller, or refers and assists as processor or school official"
+    type: array
+    minItems: 1
+    items:
+      type: object
+      additionalProperties: false
+      required: [data, role]
+      properties:
+        data: {$ref: "common.schema.yaml#/$defs/short", description: "Such as the district-rostered student account, or the family account the parent created"}
+        role:
+          $ref: "common.schema.yaml#/$defs/call"
+          properties:
+            value: {enum: [controller, processor, school-official, TBC]}
   regimes:
     description: "The deadline regimes gov deadlines computes; include every regime that could apply until it's settled"
     type: array
     uniqueItems: true
     items: {enum: [gdpr, uk, fadp, ccpa, ccpa-optout, state, iowa, ferpa]}
+  contract_deadlines:
+    description: "Deadlines in the customer's or institution's agreement, which gov deadlines can't know"
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [due, step, basis]
+      properties:
+        due: {$ref: "common.schema.yaml#/$defs/date"}
+        step: {$ref: "common.schema.yaml#/$defs/short", description: "Such as Refer the request to the district"}
+        basis: {$ref: "common.schema.yaml#/$defs/short", description: "The agreement and clause"}
   laws:
     type: array
     items:
@@ -64,7 +85,7 @@ properties:
     additionalProperties: false
     required: [method, why, status, by, date]
     properties:
-      method: {$ref: "common.schema.yaml#/$defs/short"}
+      method: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 20}
       why: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 25, description: "Why the method is proportionate"}
       status: {enum: [not-started, requested, verified, failed, not-needed]}
       by: {type: [string, "null"], description: "The person who checked the evidence; never Claude"}
@@ -93,6 +114,17 @@ properties:
         instruction: {enum: [delete, correct, export, stop-processing]}
         sent: {$ref: "common.schema.yaml#/$defs/date_or_tbc"}
         confirmed: {$ref: "common.schema.yaml#/$defs/date_or_tbc"}
+  holds:
+    description: "Preservation holds: each with a scope and an end"
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [scope, reason, ends]
+      properties:
+        scope: {$ref: "common.schema.yaml#/$defs/short"}
+        reason: {$ref: "common.schema.yaml#/$defs/short"}
+        ends: {$ref: "common.schema.yaml#/$defs/short", description: "A date or the event that ends it"}
   positions:
     description: "One per request type. A refusal, partial refusal, exception, or fee is the privacy lead's decision."
     type: array
@@ -112,9 +144,10 @@ properties:
     items:
       type: object
       additionalProperties: false
-      required: [message, text, approved_by, sent, sent_by]
+      required: [message, to, text, approved_by, sent, sent_by]
       properties:
         message: {enum: [acknowledgment, verification-request, extension-notice, response, referral, clarification]}
+        to: {$ref: "common.schema.yaml#/$defs/short", description: "The requester, or the customer or institution, by role; never a personal address"}
         text: {type: string, minLength: 1}
         approved_by: {type: [string, "null"]}
         sent: {$ref: "common.schema.yaml#/$defs/date_or_null"}

@@ -5,8 +5,12 @@ Usage:
 
 Regimes: gdpr, uk, fadp, ccpa, ccpa-optout, state, iowa, ferpa
 
-Prints each deadline in YYYY-MM-DD form. Weekends are handled; public
-holidays are not, so check them by hand (the output says so). The rules
+Prints each deadline in YYYY-MM-DD form. GDPR and UK GDPR dates that fall
+on a weekend move to the next working day; other regimes count calendar or
+business days as their rules say. Public holidays aren't applied, so check
+them by hand (the output says so). The FERPA row is the institution's
+deadline, from its own receipt; a school official's deadline comes from its
+agreement. The rules
 come from _shared/references/dsr-matrix.md, section 3.
 """
 import calendar
@@ -67,7 +71,7 @@ def rules(received):
             ("Respond (90 days, verify)", r + dt.timedelta(days=90)),
         ],
         "ferpa": [
-            ("Respond (45 days, 34 CFR § 99.10(b))", r + dt.timedelta(days=45)),
+            ("Institution responds (45 days from its own receipt, 34 CFR § 99.10(b)); a school official's deadline is in its agreement", r + dt.timedelta(days=45)),
         ],
     }
 

@@ -11,17 +11,21 @@ received:
   time: 10:00 ET
   channel: Privacy inbox
 requester_type: data-subject
+requester_ref: TBC
 requester_words: Please send me a copy of my data.
 earlier_requests: []
 request_types:
 - access
-company_role:
-  value: controller
-  status: Confirmed
-  reason: Recorded for the eval fixture
+roles:
+- data: Customer account
+  role:
+    value: controller
+    status: Confirmed
+    reason: Recorded for the eval fixture
 regimes:
 - gdpr
 - ccpa
+contract_deadlines: []
 laws:
 - law: GDPR
   applies:
@@ -49,9 +53,11 @@ verification:
   date: '2026-07-28'
 locations: []
 processors: []
+holds: []
 positions: []
 messages:
 - message: response
+  to: Requester
   text: Your data is attached.
   approved_by: Privacy lead
   sent: '2026-07-28'
