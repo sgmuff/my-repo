@@ -319,4 +319,18 @@ def inc(data: dict) -> dict:
     }
 
 
-DERIVE = {"inc": inc, "aiia": aiia, "vr": vr, "dpia": dpia, "ropa": ropa, "lia": lia, "tia": tia, "tsr": tsr, "aip": ai_act, "aid": ai_act, "scr": scr}
+def rdy(data: dict) -> dict:
+    scope = [x for x in data["soa"] if x["applicability"] in ("in-scope", "opted-in")]
+    return {
+        "decision": data["decision"]["value"],
+        "in_scope": len(scope),
+        "excluded": sum(1 for x in data["soa"] if x["applicability"] == "excluded"),
+        "gaps": sum(1 for x in scope if x["gap"] != "none"),
+        "launch_blockers": _blockers(data),
+        "launch_groups": _blocker_groups(data),
+        "launch_questions": sum(1 for q in data["open_questions"] if q["blocks"] == "launch"),
+        "approval_questions": sum(1 for q in data["open_questions"] if q["blocks"] == "approval"),
+    }
+
+
+DERIVE = {"rdy": rdy, "inc": inc, "aiia": aiia, "vr": vr, "dpia": dpia, "ropa": ropa, "lia": lia, "tia": tia, "tsr": tsr, "aip": ai_act, "aid": ai_act, "scr": scr}

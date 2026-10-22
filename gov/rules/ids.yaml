@@ -14,7 +14,7 @@ prefixes:
   INC: {digits: 3, yearly: true, type: inc, folder: incidents}
   CTL: {digits: 4, yearly: false}
   EV: {digits: 4, yearly: false}
-  RDY: {digits: 3, yearly: true}
+  RDY: {digits: 3, yearly: true, type: rdy, folder: assessments/aiuc-readiness}
   PA: {digits: 3, yearly: true}
   NR: {digits: 3, yearly: true}
   POL: {digits: 4, yearly: false}

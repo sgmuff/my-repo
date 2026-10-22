@@ -104,6 +104,8 @@ def validate_record(root: Path, rec: Record, as_of: str | None = None) -> list:
 
     problems.extend(_local_ids(where, rec.data))
     problems.extend(_structure(where, rec.data))
+    if rec.data.get("type") == "rdy":
+        problems.extend(_readiness(root, where, rec.data))
     problems.extend(_gates(where, rec.data))
     problems.extend(_law_citations(where, rec.data))
     problems.extend(_issue_ids(where, rec.data))
@@ -203,6 +205,26 @@ AI_ACT_REQUIRED = {
     },
     "aid": {"deployer": ["art4", "art26-1", "art26-2", "art26-4", "art26-5", "art26-6", "art26-7", "art26-9", "art26-11", "art50", "art86"]},
 }
+
+
+def _readiness(root: Path, where: str, data: dict) -> list:
+    """An AIUC-1 Statement of Applicability against the requirements in aiuc-1.md for the agent's capabilities."""
+    from gov import aiuc
+    reqs = aiuc.requirements(root)
+    if not reqs:
+        return [Problem(where, "error", f"soa: can't read the AIUC-1 requirements from {aiuc.REFERENCE}")]
+    listed = [s["requirement"] for s in data["soa"]]
+    problems = [Problem(where, "error", f"soa: {i} isn't a requirement in the release in {aiuc.REFERENCE.name}; it may have been retired") for i in listed if i not in reqs]
+    problems += [Problem(where, "error", f"soa: list {i} once") for i in sorted(set(listed)) if listed.count(i) > 1]
+    missing = [i for i in aiuc.triggered(reqs, data["capabilities"]) if i not in listed]
+    if missing:
+        problems.append(Problem(where, "finding", f"soa: these mandatory requirements apply to the agent's capabilities and need a row: {', '.join(missing)}"))
+    caps = set(data["capabilities"]) | {"Universal"}
+    for n, s in enumerate(data["soa"]):
+        r = reqs.get(s["requirement"])
+        if r and s["applicability"] == "excluded" and r["status"] == "Mandatory" and caps & set(r["tags"]):
+            problems.append(Problem(where, "finding", f"soa/{n}: {s['requirement']} is mandatory and tagged {', '.join(r['tags'])}, which the agent has; exclude it only if the agent genuinely lacks the capability, never to reduce effort"))
+    return problems
 
 
 def _structure(where: str, data: dict) -> list:

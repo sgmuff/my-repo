@@ -13,6 +13,14 @@ from gov.records import load, record_files
 from gov.validate import Problem, _rel, validate_tree
 
 LABELS = {
+    "readiness": "AIUC-1 readiness",
+    "not-ready": "Not ready",
+    "in-scope": "In scope",
+    "excluded": "Excluded",
+    "opted-in": "Opted in",
+    "model-provider": "Model provider",
+    "shared": "Shared",
+    "met": "Met",
     "incident": "Incident",
     "notify": "Notify",
     "notify-some": "Notify some recipients",
@@ -367,6 +375,9 @@ def render_record(rec, root=None) -> str:
     from gov import references
     extra = {"findings": finding_rows(rec, root), "method": method, "ref_notes": references.notes(root, rec.data),
              "issue_rows": issues.rows(rec.data) if rec.type != "ropa" else []}
+    if rec.type == "rdy":
+        from gov import aiuc
+        extra["aiuc"] = aiuc.requirements(root)
     if rec.type == "inc":
         entry = references.index(root).get("us-breach-notification.md") if root else None
         counsel = (entry or {}).get("front", {}).get("counsel_review", {})

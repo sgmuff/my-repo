@@ -21,7 +21,7 @@ It drafts mappings, Statements of Applicability, evidence packs, and gap lists. 
 | [`../_shared/references/iso-42001.md`](../_shared/references/iso-42001.md) | ISO/IEC 42001 readiness |
 | [`../_shared/references/risk-method.md`](../_shared/references/risk-method.md) | Control statuses and evidence standards (§1, §3) |
 | [`assets/control-entry-template.md`](assets/control-entry-template.md) | Adding or updating a control |
-| [`assets/readiness-report-template.md`](assets/readiness-report-template.md) | AIUC-1 or ISO/IEC 42001 readiness, or an audit evidence pack |
+| [`assets/readiness-report-template.md`](assets/readiness-report-template.md) | ISO/IEC 42001 readiness or an audit evidence pack (AIUC-1 readiness is a `gov` record) |
 | [`../_shared/scripts/make_checklist.py`](../_shared/scripts/make_checklist.py) | Generating a blank Statement of Applicability |
 | [`../_shared/scripts/new_control.py`](../_shared/scripts/new_control.py) | Creating a control entry with the next free ID |
 | [`../_shared/scripts/build_register_index.py`](../_shared/scripts/build_register_index.py) | After changing controls (`control` type) |
@@ -79,7 +79,7 @@ Label each requirement's coverage: **Covered** (controls mapped, with current op
 When the company is preparing its own agent (readiness mode, `aiuc-1.md` §2):
 
 1. **Scope the agent:** which product and agent, its capabilities, and the release to audit against (the latest, or the previous one within the 30-day grace period). Build the requirement inventory from `aiuc-1.md` for that release, never from memory, and read each requirement's text and controls on its AIUC page; don't copy AIUC's text into the deliverable (`aiuc-1.md`, §4). For each requirement, record the applicability rationale, the control activities and evidence required, whether testing must be third-party and how often, and who is responsible (company, model provider, or shared).
-2. **Generate the Statement of Applicability:** `python3 ../_shared/scripts/make_checklist.py aiuc-1 soa`. Mark each requirement as applying or not by capability tag. A mandatory requirement is excluded only when the agent lacks the tagged capability, with a one- or two-sentence justification. Mark optional requirements opted in or not.
+2. **Record it:** `gov new rdy --slug <agent> --title "<agent> AIUC-1 readiness" --date <today>`, with `capabilities` set to the agent's tags and `release` to the release. Build the Statement of Applicability in `soa`, one row per requirement; `gov validate` lists any mandatory requirement the capabilities trigger that the SoA leaves out, and rejects IDs not in the release. Mark each requirement as applying or not by capability tag. A mandatory requirement is excluded only when the agent lacks the tagged capability, with a one- or two-sentence justification. Mark optional requirements opted in or not.
 3. **Map controls** to each applicable requirement and its core controls, through the crosswalk and the control library. Note supplemental controls opted into.
 4. **Map evidence** by AIUC-1 category: legal policies, operational practices, technical implementation, and third-party evaluations.
 5. **Gaps:** requirements Not covered or Partly covered, each with an action (owner, due date, acceptance criterion, and evidence that closes it).
@@ -87,7 +87,7 @@ When the company is preparing its own agent (readiness mode, `aiuc-1.md` §2):
 7. **Milestones are gates, not commitments.** Work back from the target, and keep the audit start separate from the certificate date. Each milestone (testing arrangements confirmed, critical gaps fixed, baseline tests done, evidence pack complete, audit start) has an entry condition. If critical findings are open when a gate arrives, escalate the schedule risk rather than proceeding.
 8. **Optional requirements are a recorded business decision:** for each, opt in or out on the agent's actual risks and on what customers require, with the rationale and the decision-maker.
 
-Write it up with `assets/readiness-report-template.md`, saved to `<output root>/assessments/program/YYYY-MM-DD-aiuc-1-readiness-<agent>.md`. Use the same structure for ISO/IEC 42001 readiness, with `make_checklist.py iso-42001 soa` and the caution that the checklist is a public paraphrase, not the standard (`iso-42001.md`).
+Fill in the record's `testing` and `milestones`, run `gov validate`, resolve what it raises, and run `gov render`; the report lands in `compliance/assessments/aiuc-readiness/`. For ISO/IEC 42001 readiness, write it up with `assets/readiness-report-template.md` instead, with `make_checklist.py iso-42001 soa` and the caution that the checklist is a public paraphrase, not the standard (`iso-42001.md`).
 
 AIUC-1 certification is issued by AIUC through accredited auditors. The skill prepares for the audit. It doesn't certify, and it doesn't claim that the company meets the standard.
 

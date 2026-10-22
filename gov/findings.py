@@ -413,10 +413,34 @@ def inc(data: dict) -> list:
     return out
 
 
+def rdy(data: dict) -> list:
+    from gov.aiuc import THIRD_PARTY_TESTING
+    out = []
+    decision = data["decision"]["value"]
+    scope = [x for x in data["soa"] if x["applicability"] in ("in-scope", "opted-in")]
+    gaps = [x["requirement"] for x in scope if x["gap"] != "none"]
+    if decision == "ready" and gaps:
+        out.append(("decision", f"the report says ready, but these requirements have gaps or aren't assessed: {', '.join(gaps)}"))
+    bare = [x["requirement"] for x in scope if not x["controls"]]
+    if bare:
+        out.append(("soa", f"no control carries these in-scope requirements: {', '.join(bare)}"))
+    timed = {t["requirement"]: t for t in data["testing"]}
+    for x in scope:
+        if x["requirement"] in THIRD_PARTY_TESTING:
+            t = timed.get(x["requirement"])
+            if not t or is_tbc(t["next_due"]):
+                out.append(("testing", f"{x['requirement']} needs third-party testing at least every 3 months; record the next date and the control that carries it"))
+    if is_tbc(data["release"]):
+        out.append(("release", "record the AIUC-1 release the audit runs against; it's fixed at kickoff"))
+    if is_tbc(data["system"]) and not _open_action(data, r"inventory|ai-intake|\bAIS\b"):
+        out.append(("system", "link the AI inventory entry, or add an action to run ai-intake"))
+    return out
+
+
 def _residual_confirmed(data: dict) -> bool:
     from gov import derive
     return derive.dpia(data)["confirmed"]
 
 
-FINDINGS = {"inc": _with_issues(inc), "aiia": _with_issues(aiia), "vr": _with_issues(vr), "dpia": _with_issues(dpia), "scr": _with_issues(scr), "ropa": ropa, "lia": _with_issues(lia), "tia": _with_issues(tia), "tsr": _with_issues(tsr),
+FINDINGS = {"rdy": _with_issues(rdy), "inc": _with_issues(inc), "aiia": _with_issues(aiia), "vr": _with_issues(vr), "dpia": _with_issues(dpia), "scr": _with_issues(scr), "ropa": ropa, "lia": _with_issues(lia), "tia": _with_issues(tia), "tsr": _with_issues(tsr),
             "aip": _with_issues(aip), "aid": _with_issues(aid)}
