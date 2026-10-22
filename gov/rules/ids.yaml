@@ -5,7 +5,7 @@
 version: 1
 prefixes:
   ROPA: {digits: 4, yearly: false, type: ropa, folder: registers/ropa}
-  DPIA: {digits: 3, yearly: true}
+  DPIA: {digits: 3, yearly: true, type: dpia, folder: assessments/dpia}
   SCR: {digits: 3, yearly: true, type: scr, folder: assessments/dpia/screening}
   VR: {digits: 3, yearly: true}
   AIS: {digits: 4, yearly: false}

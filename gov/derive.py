@@ -202,4 +202,31 @@ def scr(data: dict) -> dict:
     }
 
 
-DERIVE = {"ropa": ropa, "lia": lia, "tia": tia, "tsr": tsr, "aip": ai_act, "aid": ai_act, "scr": scr}
+APPROVER = {"Low": "Privacy lead", "Medium": "Privacy lead and business owner", "High": "Executive risk approver",
+            "TBC": "Not yet known (the current rating is TBC)"}
+
+
+def dpia(data: dict) -> dict:
+    from gov import risk
+    measures = [m for k in data["risks"] for m in k["measures"]]
+    current, target = risk.overall(data["risks"], "current"), risk.overall(data["risks"], "target")
+    rows = [{"id": k["id"], "risk": k["risk"], "owner": k["owner"],
+             "inherent": risk.rate(k["inherent"]), "current": risk.rate(k["current"]), "target": risk.rate(k["target"]),
+             "measures": "; ".join(f"{m['measure']} ({m['status']})" for m in k["measures"]) or "None"}
+            for k in data["risks"]]
+    return {
+        "decision": data["decision"]["value"],
+        "inherent": risk.overall(data["risks"], "inherent"),
+        "current": current,
+        "target": target,
+        "confirmed": bool(data["risks"]) and current == target and all(m["status"] == "verified" for m in measures),
+        "approver": APPROVER[current],
+        "risk_rows": rows,
+        "launch_blockers": _blockers(data),
+        "launch_groups": _blocker_groups(data),
+        "launch_questions": sum(1 for q in data["open_questions"] if q["blocks"] == "launch"),
+        "approval_questions": sum(1 for q in data["open_questions"] if q["blocks"] == "approval"),
+    }
+
+
+DERIVE = {"dpia": dpia, "ropa": ropa, "lia": lia, "tia": tia, "tsr": tsr, "aip": ai_act, "aid": ai_act, "scr": scr}

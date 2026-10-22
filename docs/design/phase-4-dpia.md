@@ -1,6 +1,6 @@
 # Phase 4: the DPIA in the record format
 
-Status: in progress, 2026-10-21. Slices 1 (`gov screen`) and 2 (the `scr` screening record) are built and tested;
+Status: in progress, 2026-10-21. Slices 1 (`gov screen`), 2 (the `scr` screening record), and 3 (the `dpia` record) are built and tested;
 the screening findings and indicator rules are drafts until counsel decides the items marked **Counsel**.
 
 ## Why
@@ -22,7 +22,7 @@ Each slice is usable on its own and ships with tests.
    Not present, or Unclear with fact references, then the outcome: warranted, recommended, or not indicated. Findings:
    two or more criteria present with "not indicated" and no reasoning; an Art. 35(3) case not marked warranted; a
    state trigger present with no state assessment linked.
-3. **DPIA record (`dpia`, prefix DPIA).** The sections in the plan's example table: header, decision, processing,
+3. **DPIA record (`dpia`, prefix DPIA).** Ratings are computed from likelihood and severity by the `risk-method.md` matrix, never typed, and the approver follows the current rating. The sections in the plan's example table: header, decision, processing,
    necessity and proportionality, risks and measures with the three ratings (inherent, current, target), consultation,
    other regimes, sign-off. Findings: a current High with no prior-consultation call; a target rating below the current
    with no verified control; a legitimate-interests basis with no linked LIA; an Art. 9 category with no condition;

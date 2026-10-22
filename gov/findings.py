@@ -250,5 +250,46 @@ def scr(data: dict) -> list:
     return out
 
 
-FINDINGS = {"scr": _with_issues(scr), "ropa": ropa, "lia": _with_issues(lia), "tia": _with_issues(tia), "tsr": _with_issues(tsr),
+LEGITIMATE_INTERESTS = re.compile(r"6\(1\)\(f\)|legitimate interest", re.IGNORECASE)
+
+
+def dpia(data: dict) -> list:
+    from gov import risk
+    out = []
+    decision = data["decision"]["value"]
+    risks = data["risks"]
+    current = risk.overall(risks, "current")
+    if len(risks) < 4:
+        out.append(("risks", f"{len(risks)} {'risk' if len(risks) == 1 else 'risks'} recorded; a typical activity has 5 to 12, and fewer than 4 usually means one was missed (risk-method.md)"))
+    for n, k in enumerate(risks):
+        statuses = {m["status"] for m in k["measures"]}
+        if risk.lower(risk.rate(k["current"]), risk.rate(k["inherent"])) and "verified" not in statuses:
+            out.append((f"risks/{n}/current", f"{k['id']}: the current rating is below the inherent one, but no measure is verified; only verified measures lower the current rating"))
+        if risk.lower(risk.rate(k["target"]), risk.rate(k["current"])) and not statuses & {"planned", "unverified", "verified"}:
+            out.append((f"risks/{n}/target", f"{k['id']}: the target rating is below the current one, but no measure is planned"))
+    if current == "High" and data["consultation"]["prior_consultation"]["value"] is not True:
+        out.append(("consultation/prior_consultation", "the current residual rating is High, so Art. 36 prior consultation is required unless verified measures bring it down"))
+    if current == "High" and decision in ("proceed", "proceed-with-conditions"):
+        out.append(("decision", "the decision lets processing go ahead while the current residual rating is High; processing waits for prior consultation or verified measures"))
+    if risks and data["decision"]["status"] == "Confirmed" and not _residual_confirmed(data):
+        out.append(("decision", "the decision is confirmed while residual risk isn't: some measures are unverified or the target differs from the current rating"))
+    for n, row in enumerate(data["necessity"]):
+        if row["principle"] == "lawful-basis" and LEGITIMATE_INTERESTS.search(row["basis"]) and not str(row["link"]).startswith("LIA-"):
+            out.append((f"necessity/{n}/link", "the lawful basis is legitimate interests; link the LIA, or run lia"))
+    if data["processing"]["special_category"]["value"] is not False and not any(
+            r["principle"] == "art9-condition" and r["position"] in ("adequate", "not-applicable") for r in data["necessity"]):
+        out.append(("necessity", "special category data is or may be processed; add an art9-condition row with the Art. 9(2) condition relied on"))
+    if is_tbc(data["screening"]):
+        out.append(("screening", "link the screening record that found this DPIA warranted or recommended"))
+    if is_tbc(data["activity"]):
+        out.append(("activity", "link the RoPA entry this DPIA covers"))
+    return out
+
+
+def _residual_confirmed(data: dict) -> bool:
+    from gov import derive
+    return derive.dpia(data)["confirmed"]
+
+
+FINDINGS = {"dpia": _with_issues(dpia), "scr": _with_issues(scr), "ropa": ropa, "lia": _with_issues(lia), "tia": _with_issues(tia), "tsr": _with_issues(tsr),
             "aip": _with_issues(aip), "aid": _with_issues(aid)}
