@@ -206,7 +206,7 @@ Don't present a future obligation as one already in force. Readiness blockers ca
 
 Deliverables are files in the repository, under the output root from the company profile (default `compliance/`). Keep this layout so other skills, and any publishing target the company profile names, can find things by path.
 
-**Records managed by `gov`** are YAML files, and `gov render` writes their Markdown. Never write or edit those `.md` files by hand; edit the YAML and re-render. CI fails on a hand edit. `gov` manages the RoPA, DPIA screenings (`scr`), DPIAs (`dpia`), LIAs, TIAs, transfer screens (`tsr`), and AI Act provider and deployer files (`aip`, `aid`), and vendor reviews (`vr`); `gov/rules/ids.yaml` lists each type's folder. Other deliverables move to `gov` one type at a time; until then they stay Markdown written from their templates, in a folder `gov` doesn't manage.
+**Records managed by `gov`** are YAML files, and `gov render` writes their Markdown. Never write or edit those `.md` files by hand; edit the YAML and re-render. CI fails on a hand edit. `gov` manages the RoPA, DPIA screenings (`scr`), DPIAs (`dpia`), LIAs, TIAs, transfer screens (`tsr`), and AI Act provider and deployer files (`aip`, `aid`), vendor reviews (`vr`), and AI impact assessments and FRIAs (`aiia`); `gov/rules/ids.yaml` lists each type's folder. Other deliverables move to `gov` one type at a time; until then they stay Markdown written from their templates, in a folder `gov` doesn't manage.
 
 ```
 compliance/
@@ -215,7 +215,7 @@ compliance/
     dpia/              DPIA-YYYY-NNN-<slug>.yaml and .md, plus index.md (generated)
       screening/       SCR-YYYY-NNN-<slug>.yaml and .md, plus index.md (generated)
       assistance-packs/ PA-YYYY-NNN-<slug>.md   (processor assistance packs, Markdown)
-    ai-impact/         YYYY-MM-DD-<slug>.md
+    ai-impact/         AIIA-YYYY-NNN-<slug>.yaml and .md, plus index.md (generated): assessments, FRIAs, and input packs
     program/           YYYY-MM-DD-<framework>-assessment.md
   vendors/           VR-YYYY-NNN-<slug>.yaml and .md, plus index.md (generated)
     requests/        VR-YYYY-NNN-<slug>-requests.md (generated draft request lists)
@@ -283,7 +283,7 @@ Before replying:
 2. Check that every conclusion has a citation and a status, every action has an owner, due date, dependency, and acceptance criterion (owner and date marked *proposed* if the user didn't give them), every verify flag has a matching action, and every decision a person must make has a `Decision needed` block.
 3. Check the action dates for sequencing: nothing is due before the thing it depends on, and every launch blocker and legality-affecting verification is due before launch.
 
-Skills that answer first and record in `gov` (`dpia`, `lia`, `tia`, `ai-act-provider`, `ai-act-deployer`, `vendor-review`) follow their own reply step instead: the full answer in plain English, with the record named only in one closing line and no counts of findings or flags. Every other skill replies in **no more than about 150 words**:
+Skills that answer first and record in `gov` (`dpia`, `lia`, `tia`, `ai-act-provider`, `ai-act-deployer`, `vendor-review`, `ai-impact-assessment`) follow their own reply step instead: the full answer in plain English, with the record named only in one closing line and no counts of findings or flags. Every other skill replies in **no more than about 150 words**:
 
 - The file path
 - The outcome in one or two lines, with statuses (for example, "DPIA warranted (provisional); residual risk not yet confirmed, target Medium")

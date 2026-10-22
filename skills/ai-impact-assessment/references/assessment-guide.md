@@ -89,9 +89,9 @@ Use the AI risk catalog (`risk-method.md`, §2a) and the three ratings (inherent
 
 Record the FRIA determination with its reasoning: whether the deployer falls within Art. 27's categories, and why. Record separately whether a GDPR DPIA is required and who owns it, and any worker consultation duties. "No FRIA" never means "no impact assessment needed."
 
-When a deployer must carry out a FRIA (`eu-ai-act.md`, §7), produce it with `assets/fria-template.md`, as a separate document linked from the AIIA and the DPIA. Art. 27(1) requires (a) the deployer's processes in which the system is used, (b) the period and frequency of use, (c) the categories of people and groups likely to be affected, (d) the specific risks of harm to them, (e) the human oversight measures, and (f) the measures if risks materialize, including internal governance and complaint mechanisms. The deployer notifies the market surveillance authority using the AI Office's template (Art. 27(3)). Where a DPIA covers an element, the FRIA complements it (Art. 27(4)).
+When a deployer must carry out a FRIA (`eu-ai-act.md`, §7), record it as its own `aiia` record of kind `fria`, linked from the assessment and the DPIA. Art. 27(1) requires (a) the deployer's processes in which the system is used, (b) the period and frequency of use, (c) the categories of people and groups likely to be affected, (d) the specific risks of harm to them, (e) the human oversight measures, and (f) the measures if risks materialize, including internal governance and complaint mechanisms. The deployer notifies the market surveillance authority using the AI Office's template (Art. 27(3)). Where a DPIA covers an element, the FRIA complements it (Art. 27(4)).
 
-When the company is the **provider** and a customer is the deployer, produce a **FRIA input pack** instead: the facts the customer needs for (a)–(f), without deciding whether the customer owes a FRIA. That's the customer's determination.
+When the company is the **provider** and a customer is the deployer, produce a **FRIA input pack** instead (kind `fria-input-pack`): the facts the customer needs for (a)–(f), without deciding whether the customer owes a FRIA. That's the customer's determination.
 
 ## ISO/IEC 42005
 

@@ -206,6 +206,23 @@ AI_ACT_REQUIRED = {
 
 
 def _structure(where: str, data: dict) -> list:
+    if data.get("type") == "aiia":
+        problems = []
+        domains = [g["domain"] for g in data["domains"]]
+        if data["kind"] == "aiia":
+            wanted = ["fairness", "transparency", "human-oversight", "data-provenance", "reliability", "safety", "security", "accountability", "society"]
+            if sorted(domains) != sorted(wanted):
+                problems.append(Problem(where, "error", "domains: an AI impact assessment has one row for each of the nine domains; mark a domain not-applicable with the reason"))
+            if data["fria"]["applicable"]:
+                problems.append(Problem(where, "error", "fria: set applicable: false for kind aiia, and record a FRIA as its own aiia record of kind fria"))
+        else:
+            if domains:
+                problems.append(Problem(where, "error", "domains: a FRIA or input pack records Art. 27 content in fria, not domains; set domains: []"))
+            needed = ["deployer_status", "processes", "period", "people", "rights_risks", "oversight", "remedies", "dpia_overlap", "notification"]
+            missing = [k for k in needed if k not in data["fria"]]
+            if not data["fria"]["applicable"] or missing:
+                problems.append(Problem(where, "error", f"fria: set applicable: true and fill in {', '.join(missing) or 'every field'}"))
+        return problems
     if data.get("type") == "vr":
         from gov.vendor_items import SECTIONS, required_clauses
         have = [c["item"] for c in data["clauses"]]

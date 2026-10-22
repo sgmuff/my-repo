@@ -9,7 +9,7 @@ prefixes:
   SCR: {digits: 3, yearly: true, type: scr, folder: assessments/dpia/screening}
   VR: {digits: 3, yearly: true, type: vr, folder: vendors}
   AIS: {digits: 4, yearly: false}
-  AIIA: {digits: 3, yearly: true}
+  AIIA: {digits: 3, yearly: true, type: aiia, folder: assessments/ai-impact}
   DSR: {digits: 3, yearly: true}
   INC: {digits: 3, yearly: true}
   CTL: {digits: 4, yearly: false}

@@ -346,10 +346,44 @@ def vr(data: dict) -> list:
     return out
 
 
+def aiia(data: dict) -> list:
+    from gov import risk
+    out = []
+    decision = data["decision"]["value"]
+    ids = {k["id"] for k in data["risks"]}
+    if data["ai_act"]["prohibited"]["value"] is not False and decision in ("proceed", "proceed-with-conditions"):
+        out.append(("ai_act/prohibited", "a possible Art. 5 prohibited practice isn't ruled out; prohibitions already apply, so the use can't go ahead until it is"))
+    if data["kind"] == "aiia":
+        open_domains = [g["domain"] for g in data["domains"] if g["position"] == "TBC"]
+        if data["tier"] == "1" and open_domains and decision in ("proceed", "proceed-with-conditions"):
+            out.append(("domains", f"a Tier 1 assessment proposes going ahead with domains not yet assessed: {', '.join(open_domains)}"))
+        if not data["risks"]:
+            out.append(("risks", "no risks recorded; rate the harms to people and groups that the domains raise"))
+    elif all(k in data["fria"] for k in ("deployer_status", "rights_risks", "notification")):  # else validate reports the gap
+        fr = data["fria"]
+        if data["kind"] == "fria" and fr["deployer_status"] == "not-owed":
+            out.append(("fria/deployer_status", "the record is a FRIA, but says the deployer doesn't owe one; record the reason in analysis, or change the kind"))
+        if not fr["rights_risks"]:
+            out.append(("fria/rights_risks", "Art. 27(1)(d) needs the specific risks of harm to the people and groups affected"))
+        for n, k in enumerate(fr["rights_risks"]):
+            if k["risk_id"] not in ids and k["risk_id"] != "none":
+                out.append((f"fria/rights_risks/{n}/risk_id", f"{k['right']}: risk row {k['risk_id']} doesn't exist in this record"))
+        if data["kind"] == "fria" and fr["notification"] in ("TBC", "not-required") and decision in ("proceed", "proceed-with-conditions"):
+            out.append(("fria/notification", "a deployer notifies the market surveillance authority of the FRIA's results (Art. 27(3)) unless an exemption applies; record which"))
+        if is_tbc(data["related"]["aiia"]) or data["related"]["aiia"] == "none":
+            out.append(("related/aiia", "link the AI impact assessment the FRIA draws on, or add an action to produce one"))
+    if risk.overall(data["risks"], "current") == "High" and decision == "proceed":
+        out.append(("decision", "the current residual rating is High, but the decision is to proceed without conditions"))
+    out += _risk_levels(data["risks"])
+    if is_tbc(data["system"]) and not _open_action(data, r"inventory|ai-intake|\\bAIS\\b"):
+        out.append(("system", "link the AI inventory entry, or add an action to run ai-intake"))
+    return out
+
+
 def _residual_confirmed(data: dict) -> bool:
     from gov import derive
     return derive.dpia(data)["confirmed"]
 
 
-FINDINGS = {"vr": _with_issues(vr), "dpia": _with_issues(dpia), "scr": _with_issues(scr), "ropa": ropa, "lia": _with_issues(lia), "tia": _with_issues(tia), "tsr": _with_issues(tsr),
+FINDINGS = {"aiia": _with_issues(aiia), "vr": _with_issues(vr), "dpia": _with_issues(dpia), "scr": _with_issues(scr), "ropa": ropa, "lia": _with_issues(lia), "tia": _with_issues(tia), "tsr": _with_issues(tsr),
             "aip": _with_issues(aip), "aid": _with_issues(aid)}

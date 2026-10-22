@@ -1,78 +1,56 @@
 ---
 name: ai-impact-assessment
-description: Assess an AI system or agent's impact on people, groups, and society, covering fairness, transparency, human oversight, data provenance, model limitations, reliability, safety, and accountability, aligned to AIUC-1's Safety, Reliability, and Accountability domains, NIST AI RMF, ISO/IEC 42001, and the EU AI Act. Also produces Article 27 fundamental rights impact assessments (FRIAs) and FRIA input packs for customers. The draft is separate from the DPIA, with evidence-backed findings, three-level risk ratings, and approval routing. Use it whenever someone needs an AI impact, algorithmic impact, or AI risk assessment, a bias or fairness review, a human oversight review, a FRIA, or a pre-launch AI review, or when ai-intake tiers a system High or Elevated, even if they don't name the assessment. Not for AI intake and tiering (ai-intake), personal data risks to individuals (dpia), or AI vendor contracts (vendor-review).
+description: Assess an AI system or agent's impact on people, groups, and society, covering fairness, transparency, human oversight, data provenance, model limitations, reliability, safety, and accountability, aligned to AIUC-1's Safety, Reliability, and Accountability domains, NIST AI RMF, ISO/IEC 42001, and the EU AI Act. Also produces Article 27 fundamental rights impact assessments (FRIAs) and FRIA input packs for customers. Records each as a gov record, separate from the DPIA, with evidence-backed findings, computed risk ratings, and approval routing. Use it whenever someone needs an AI impact, algorithmic impact, or AI risk assessment, a bias or fairness review, a human oversight review, a FRIA, or a pre-launch AI review, or when ai-intake tiers a system High or Elevated, even if they don't name the assessment. Not for AI intake and tiering (ai-intake), personal data risks to individuals (dpia), or AI vendor contracts (vendor-review).
+compatibility: Requires the gov command from this repository (skills/install.sh installs it), with Python 3.10+, PyYAML, jsonschema, and Jinja2.
 ---
 
 # AI impact assessment
 
-This skill assesses what an AI system does to the people it touches, and whether the safeguards around it work. It produces an AI impact assessment (AIIA), a separate document from the DPIA. The two cross-reference each other, but don't merge. Where a FRIA is required, the skill produces that too, as its own document.
+This skill assesses what an AI system does to the people it touches and whether the safeguards work, and records it as an `aiia` record: kind `aiia` for the assessment, `fria` for an AI Act Art. 27 assessment the company owes as deployer, or `fria-input-pack` for customers' own FRIAs. Each is its own record, separate from the DPIA; they link, but don't merge. Never write or edit a record's `.md` file; `gov` writes it.
 
-The assessment rests on evidence: evaluation results, oversight records, documentation, and configurations. Where evidence is missing, the finding says so and stays Provisional. The skill rates risk and drafts conclusions. The approvers in `approvals.md` decide.
+**Evidence decides, not labels.** "Suspicious behavior" or "engagement score" doesn't say what a model infers; ask for the inputs, outputs, and how they're used. Where evidence is missing, the finding says so and stays Provisional. The approvers in `approvals.md` decide.
 
 ## Files
 
 | File | Read it when |
 |---|---|
-| [`../_shared/conventions.md`](../_shared/conventions.md) | At the start of every run |
-| [`../_shared/company-profile.md`](../_shared/company-profile.md) | At the start |
-| [`../_shared/approvals.md`](../_shared/approvals.md) | Step 7 |
-| [`references/assessment-guide.md`](references/assessment-guide.md) | Steps 3–5: what each section covers, its evidence, and its mappings; FRIA |
-| [`../_shared/references/risk-method.md`](../_shared/references/risk-method.md) | Step 5: the AI risk catalog (§2a), three ratings, control statuses |
-| [`../_shared/references/eu-ai-act.md`](../_shared/references/eu-ai-act.md) | Steps 2 and 6: classification, roles, deployer duties, FRIA |
-| [`../_shared/references/aiuc-1.md`](../_shared/references/aiuc-1.md) | Steps 3–4: requirements and testing cadence |
-| [`../_shared/references/nist-ai-rmf.md`](../_shared/references/nist-ai-rmf.md) | Mapping, and the Generative AI Profile risks |
-| [`../_shared/references/iso-42001.md`](../_shared/references/iso-42001.md) | Mapping to cl. 6.1.4 and A.5 |
-| [`assets/aiia-template.md`](assets/aiia-template.md) | Step 6 |
-| [`assets/fria-template.md`](assets/fria-template.md) | Step 6, when a FRIA or FRIA input pack is needed |
+| [`references/assessment-guide.md`](references/assessment-guide.md) | Steps 2-4: what each domain covers, its evidence, its mappings, and the FRIA |
+| [`../_shared/references/risk-method.md`](../_shared/references/risk-method.md) | Step 3: the AI risk catalog (§2a) and the three ratings |
+| [`../_shared/references/eu-ai-act.md`](../_shared/references/eu-ai-act.md) | Steps 1-3: classification, roles, deployer duties, the FRIA |
+| [`../_shared/references/aiuc-1.md`](../_shared/references/aiuc-1.md), [`nist-ai-rmf.md`](../_shared/references/nist-ai-rmf.md), [`iso-42001.md`](../_shared/references/iso-42001.md) | Step 3: the citations for each domain |
+| [`../_shared/approvals.md`](../_shared/approvals.md) | Step 5 |
 
 ## Workflow
 
-### 1. Load context and the intake
+### 1. Check the tool, the intake, and the scope
 
-Read `conventions.md` and `company-profile.md`. Find the system's inventory entry under `<output root>/registers/ai-inventory/`, plus any DPIA, vendor review, or earlier AIIA. If there is no inventory entry, run the `ai-intake` steps first (or ask the user to). The assessment needs the tier, the classification, and the facts.
+Run `gov --version`; if it fails, stop and tell the user to run `skills/install.sh`. Find the system's inventory entry under `compliance/registers/ai-inventory/`, and any DPIA, vendor review, or earlier assessment. Without an inventory entry, run `ai-intake` first, or record the tier as TBC with an action. If the system is live, ask what it has already done; containment comes first.
 
-If the system is already live, say so, and ask what it has already done. Containment comes before the assessment (`conventions.md`, §6).
+Set the scope: the system, the uses assessed, and the deployment context. Re-check any Art. 5 prohibition against the documented function now, since prohibitions already apply. Decide whether a FRIA is in play: the company as a deployer that owes one under Art. 27(1), or as a provider whose customers may owe one (an input pack).
 
-### 2. Confirm scope and roles
+### 2. Get the evidence
 
-Set the scope: the system, the use or uses being assessed, and the deployment context. Confirm the EU AI Act roles and classification from the intake, marked Provisional, and re-check any prohibition against the documented function now (`eu-ai-act.md`, §4). Decide which sections the tier requires: Tier 1 gets every section; Tier 2 gets the sections its factors call for, with the reasons recorded.
+Ask in Round 1, usually under 12 questions, for what the domains need most: evaluation and bias test results, sample outputs, the oversight workflow and override statistics, the provider's instructions for use, training data documentation, failure plans, and logs. `references/assessment-guide.md` lists the evidence per domain. A vendor's claim is `stated-by-vendor` until the document arrives.
 
-Decide whether a FRIA is in play (`eu-ai-act.md`, §7): is the company a deployer that owes one (decided case by case), or a provider whose customers may owe one (then a FRIA input pack)?
+### 3. Answer the assessment
 
-### 3. Gather the evidence
+Answer it fully, then check each domain against `references/assessment-guide.md` and add what you missed. Points answers often miss:
 
-Round 1 (short, usually under 12 questions, with an "Evidence requested" group) asks for what the sections need most: evaluation and bias test results, sample outputs, oversight workflow and override statistics, the provider's instructions for use, training data documentation, failure plans, and logs. `references/assessment-guide.md` lists the evidence for each section.
+- **Severity counts reach, reversibility, and autonomy**, and harms to groups and society as well as individuals.
+- **Personal data risks to individuals belong in the DPIA**; link it rather than duplicating them.
+- **Tier 1 assesses all nine domains**; Tier 2 marks a domain not-applicable only with the reason.
+- **A FRIA follows Art. 27(1)(a)-(f)** and draws its risks of harm from the assessment's risk rows. Whether a deployer owes one turns on its status (a public body, a private entity providing public services, or a deployer of an Annex III point 5(b) or 5(c) system); for an input pack, that's the deployer's determination, not the company's.
 
-Record each item in the fact register with its status. A vendor's claim is "Stated by vendor" until the document arrives.
+### 4. Record it
 
-### 4. Assess each section
+Run `gov new aiia --slug <slug> --title "<system and use>" --date <today>`, set `kind`, and fill in the record from your answer: each domain's position, evidence, and citations (AIUC-1 ID with release, AI Act article, NIST AI RMF subcategory, ISO/IEC 42001 control); risks with likelihood and severity at three points, which `gov` rates; and the fact register. For a FRIA or input pack, start a second record, set `domains: []`, fill in `fria`, and link the assessment in `related.aiia`. Each call stays Provisional; a point that doesn't fit a field goes in `analysis` (400 words at most).
 
-Work through `references/assessment-guide.md`, sections 1–10. For each:
+### 5. Validate, render, and reply
 
-- State what the evidence shows, with citations to the documents and to the provisions or requirements that apply (AIUC-1 ID and release, AI Act article, NIST AI RMF subcategory, ISO/IEC 42001 control)
-- Give each finding a status: Confirmed finding, Unverified concern, or Recommended control
-- End on Adequate, Gap, or Not met, with the status of that conclusion
+Run `gov validate`, fix errors, and resolve findings by changing the record; a finding that names a real gap stays open with an action. Don't add a `finding_responses` entry yourself. Run `gov render`, then add the record to the inventory entry's `related` field. A FRIA notification to the market surveillance authority and an input pack for customers are external communications: drafts the privacy lead approves.
 
-Be specific about function. A label ("suspicious behavior," "engagement score") is not evidence of what a model infers. Ask for inputs, outputs, and how they're used.
-
-### 5. Rate the risks
-
-Use the AI risk catalog (`risk-method.md`, §2a) and the register template, with inherent, current residual, and target residual ratings and control statuses. Add reach, reversibility, and autonomy to severity, and rate harms to groups and society as well as to individuals. Personal data risks to individuals belong in the DPIA; link them rather than duplicating them.
-
-### 6. Write the documents
-
-Fill in `assets/aiia-template.md`. Save it to `<output root>/assessments/ai-impact/YYYY-MM-DD-<slug>.md`, ID `AIIA-YYYY-NNN`. Open the executive summary with the status block, including **"Launch decision: Not authorized by this draft"** (`conventions.md`, §7).
-
-If a FRIA is needed, fill in `assets/fria-template.md` and save it beside the AIIA as `…-fria.md` (or `…-fria-input-pack.md` for customers). A FRIA notification to the market surveillance authority and a FRIA input pack for customers are both external communications: drafts that the privacy lead approves.
-
-Every action has a dependency, an acceptance criterion, and evidence. The AIUC-1 quarterly testing duties, for readiness mode, go in the action plan as recurring actions. Never put them on a calendar.
-
-### 7. Route and hand back
-
-Route sign-off by the current residual rating (`approvals.md`), with the business owner and system owner. Update the inventory entry's `related` field with the AIIA ID, and rebuild the index.
-
-Reply in about 150 words: the document paths, the status block in two lines, any prohibition concern, the decisions needed, the Round 1 evidence still outstanding, and the count of verify flags.
+Reply in plain English: the outcome and any prohibition concern first, then what has to happen before launch, grouped as legal requirements, risks, and internal policy, who approves, and the Round 1 evidence still outstanding, five questions at most. Close with one line naming the records and their paths. The AIUC-1 quarterly testing duties are recurring actions, never calendar events.
 
 ## Reassessment
 
-Reassess when the model, data, use, autonomy, or affected population changes; after an incident; when a new AIUC-1 release changes an applicable requirement; and at least every 12 months for Tier 1 systems. Carry forward what still holds, re-rate the risks (closed actions with evidence move into the current rating), and add a version history row.
+Reassess when the model, data, use, autonomy, or affected population changes; after an incident; when a new AIUC-1 release changes an applicable requirement; and at least every 12 months for Tier 1 systems. Update the record: closed actions with evidence move measures to verified, and add a version history row.
