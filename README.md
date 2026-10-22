@@ -67,7 +67,7 @@ right.
 Built and tested: all 17 skills and `gov`. Still open:
 
 - `us-breach-notification.md` needs counsel's review before `incident-assessment` is used live.
-- The DPIA is moving into the record format ([design](docs/design/phase-4-dpia.md)).
+- The DPIA is in the record format; its holdout evals wait on counsel's keys.
 - The plan, with progress and the backlog, is in [`docs/design/governance-suite-plan.md`](docs/design/governance-suite-plan.md).
 
 ## Contributing

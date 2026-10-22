@@ -1,7 +1,7 @@
 # DPIA screening indicators that `gov screen` can see in a RoPA record. Each is an EDPB criterion (WP248 rev.01). A
 # criterion with `raised_by` is suggested when any of its tests matches; one without is printed as "Ask". The screen
 # never concludes: the screening record decides Present, Not present, or Unclear, and the outcome.
-# Counsel owns this file. Status: approved by counsel 2026-10-22 (docs/design/phase-4-dpia.md, decisions 1 and 2).
+# Counsel owns this file. Status: approved by counsel 2026-10-22 (docs/design/governance-suite-plan.md, Decisions and assumptions).
 #
 # Tests:
 #   us_flag: <name>        us_flags.<name> is true or TBC

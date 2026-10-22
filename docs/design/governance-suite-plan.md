@@ -350,6 +350,7 @@ Each phase closes with skill evals, trigger evals, and a description optimizer r
 - **Colorado has no entry,** and `regulatory-change` watches the attorney general's ADMT rules.
 - **Local Law 144 is partly covered,** since the law requires an independent auditor.
 - **Counsel approved the legal content on 2026-10-19:** the `law` block rules, the UK, DPF, US, and India points in `steps.md`, the LIA test, `methods.yaml`, and the five conditional reference files. `us-breach-notification.md` is still unreviewed.
+- **Counsel decided the DPIA design on 2026-10-22:** `gov screen` raises criteria only from the RoPA fields in `gov/rules/screening.yaml` and prints the rest as questions; it counts suggested criteria but never concludes (WP248: two or more "in most cases, not always"); Art. 35(4) lists go in a reference file per authority, starting with the lead authority, and a list not yet checked makes the row Unclear with a verify flag; screening keeps three outcomes (warranted, recommended, not indicated), explaining a non-GDPR high risk in `analysis`; issue rules for `scr` and `dpia` are drafted for counsel's approval; and an assistance pack's own residual risk is approved under `approvals.md`, separately from its release gate. Art. 36 is decided on its test, not on an internal High rating. The privacy lead kept the 1,500-word DPIA budget and left pre-record DPIAs as they are.
 
 ## Risks
 
