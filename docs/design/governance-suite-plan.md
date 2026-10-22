@@ -405,16 +405,20 @@ From an outside review of the repository (Lumo, via Proton), checked against the
    `skills/_shared/references/README.md`. Original note: Document the header format, the review-date procedure, and the test to run,
    so updating a reference file doesn't need knowledge of `assessments.yaml`.
 
-## Where to pick up (stopped 2026-10-21)
+## Remaining roadmap (agreed 2026-10-22)
 
-Work done this session is on main, with CI's three checks passing locally (`pytest`, `gov validate`,
-`gov render --check`). Next, in order:
+Five milestones to finish the buildout. Each ends tested and pushed. Order: 1, 2, 3, 4, 5; milestones 2 and 4 need nothing
+from counsel and can run while counsel reviews.
 
-1. **Phase 7:** YAML front matter on reference files, replacing the index table that `gov/references.py` parses.
-2. **Phase 5:** vendor reviews, the AI inventory, incidents, and controls as `gov` records.
-3. **After counsel's input:** run the DPIA holdout (`docs/evals/dpia-*`) and the router holdout (`docs/evals/router-*`)
-   blind; extend `issues.yaml` to `scr` and `dpia`; rerun trigger evals once the old claude.ai copies are removed.
+| # | Milestone | Work | Needs from counsel | Done when |
+|---|---|---|---|---|
+| 1 | Close out the DPIA (phase 4) | Verify the DPIA keys' `verify` points; draft issue rules for `scr` and `dpia`; run the DPIA and router holdouts blind and fix what they show | Router key review; DPIA key sign-off; approval of the issue rules | Both holdouts scored and recorded, as for the AI Act |
+| 2 | Reference files as data (phase 7) | YAML front matter on every reference file (version, last verified, review by, source quality, counsel review); gov reads it and generates the README table; `regulatory-change` reads it | Nothing | The staleness and source-quality checks read front matter; the table parser is gone |
+| 3 | Remaining assessments as records | Record type, answer-first rewrite, development run, and fixes for `vendor-review`, `ai-impact-assessment` (with the FRIA), `incident-assessment`, and the AIUC-1 readiness report | The rest of `us-breach-notification.md` before live incident use; keys for any holdout | Every catalog assessment is a `gov` record |
+| 4 | Remaining registers (phase 5) | AI inventory, controls, incidents, and DSR cases as records; retire `build_register_index.py`; `gov metrics` reads records | Nothing | No script scrapes Markdown tables |
+| 5 | Release | Trigger evals for every skill and description tuning; security entries in `controls-and-evidence` (phase 3); a 1.0 tag, a changelog, a check that the plugin install reaches `gov`, and an accurate README status | Removing the old claude.ai skill copies | Every skill triggers reliably; the README matches what ships |
 
-Waiting on counsel: the DPIA and router answer keys; the three screening decisions in `phase-4-dpia.md`; the
-`ai-public-transition` rule; the seven unreached states and California's SB 446 text in
-`docs/legal-review/us-breach-verification.md` (approved 2026-10-22); the AIUC-1 history (rewritten 2026-10-22).
+Estimate: eight to nine working sessions, with elapsed time set mostly by counsel's reviews.
+
+Open with counsel now: the router key review (`docs/evals/router-answer-keys.yaml`), the DPIA keys' `verify` points
+(`docs/evals/dpia-answer-keys.yaml`), the `ai-public-transition` rule, and the rest of `us-breach-notification.md`.
