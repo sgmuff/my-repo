@@ -1,13 +1,21 @@
-# NIST Privacy Framework
+---
+title: NIST Privacy Framework
+summary: NIST Privacy Framework
+version_summary: 1.0 (2020); 1.1 still a draft
+last_verified: '2026-10-16'
+review_by: '2027-01-16'
+review_interval: Quarterly until 1.1 is final, then annually
+index_interval: Quarterly until 1.1 is final
+source_quality: primary
+counsel_review:
+  status: not-recorded
+covers: 'NIST Privacy Framework: A Tool for Improving Privacy through Enterprise Risk Management, Version 1.0 (NIST CSWP 01162020)'
+version: 1.0 (January 16, 2020), the current final version. Version 1.1 exists only as an Initial Public Draft (April 14, 2025).
+sources: nist.gov/privacy-framework; nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.01162020.pdf (Core text in §4 extracted from this PDF on 2026-10-16)
+volatile_points: §1 (1.1 finalization changes the Core's structure and IDs)
+---
 
-| Field | Value |
-|---|---|
-| Covers | NIST Privacy Framework: A Tool for Improving Privacy through Enterprise Risk Management, Version 1.0 (NIST CSWP 01162020) |
-| Version covered | 1.0 (January 16, 2020), the current final version. Version 1.1 exists only as an Initial Public Draft (April 14, 2025). |
-| Sources | nist.gov/privacy-framework; nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.01162020.pdf (Core text in §4 extracted from this PDF on 2026-10-16) |
-| Last verified | 2026-10-16 |
-| Review interval | Quarterly until 1.1 is final, then annually |
-| Volatile points | §1 (1.1 finalization changes the Core's structure and IDs) |
+# NIST Privacy Framework
 
 The privacy workflows are organized around this framework's five functions. Each deliverable tags its findings with Core subcategory IDs, so a program assessment can roll up evidence from DPIAs, vendor reviews, and RoPA entries without redoing them.
 

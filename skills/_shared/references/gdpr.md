@@ -1,14 +1,22 @@
-# GDPR, UK GDPR, and Swiss FADP
+---
+title: GDPR, UK GDPR, and Swiss FADP
+summary: EU GDPR, UK GDPR and DUAA, Swiss FADP
+version_summary: EU GDPR unamended (Omnibus pending); DUAA commenced in stages
+last_verified: '2026-10-16'
+review_by: '2027-01-16'
+review_interval: Quarterly while the EU Digital Omnibus is pending and DUAA commencement continues; otherwise every six months
+index_interval: Quarterly
+source_quality: primary
+counsel_review:
+  status: not-recorded
+covers: EU GDPR (Regulation (EU) 2016/679); UK GDPR and DPA 2018 as amended by the Data (Use and Access) Act 2025; Swiss Federal Act on Data Protection (revised FADP, in force September 1, 2023)
+version: EU GDPR as in force on 2026-10-16, with no amendments adopted. UK GDPR with DUAA amendments commenced in stages from June 19, 2025. FADP and its Ordinance (DPO) as in force since September 1, 2023.
+sources: EUR-Lex (eur-lex.europa.eu/eli/reg/2016/679/oj); legislation.gov.uk (DUAA 2025 and commencement regulations SI 2025/904, SI 2025/996, SI 2026/82); fedlex.admin.ch (FADP SR 235.1); EDPB guidelines
+verification_scope: Status items (Omnibus procedure, DUAA commencement) checked against sources on 2026-10-16. Article content reflects the stable text of the three laws and was not re-read line by line. Quote from EUR-Lex, legislation.gov.uk, or fedlex rather than from this summary.
+volatile_points: §1 (pending EU Digital Omnibus; DUAA commencement); §9 (breach deadlines if the Omnibus passes); §11 (EU-US DPF litigation)
+---
 
-| Field | Value |
-|---|---|
-| Covers | EU GDPR (Regulation (EU) 2016/679); UK GDPR and DPA 2018 as amended by the Data (Use and Access) Act 2025; Swiss Federal Act on Data Protection (revised FADP, in force September 1, 2023) |
-| Version covered | EU GDPR as in force on 2026-10-16, with no amendments adopted. UK GDPR with DUAA amendments commenced in stages from June 19, 2025. FADP and its Ordinance (DPO) as in force since September 1, 2023. |
-| Sources | EUR-Lex (eur-lex.europa.eu/eli/reg/2016/679/oj); legislation.gov.uk (DUAA 2025 and commencement regulations SI 2025/904, SI 2025/996, SI 2026/82); fedlex.admin.ch (FADP SR 235.1); EDPB guidelines |
-| Last verified | 2026-10-16 |
-| Verification scope | Status items (Omnibus procedure, DUAA commencement) checked against sources on 2026-10-16. Article content reflects the stable text of the three laws and was not re-read line by line. Quote from EUR-Lex, legislation.gov.uk, or fedlex rather than from this summary. |
-| Review interval | Quarterly while the EU Digital Omnibus is pending and DUAA commencement continues; otherwise every six months |
-| Volatile points | §1 (pending EU Digital Omnibus; DUAA commencement); §9 (breach deadlines if the Omnibus passes); §11 (EU-US DPF litigation) |
+# GDPR, UK GDPR, and Swiss FADP
 
 ## Contents
 

@@ -1,13 +1,24 @@
-# GLBA Safeguards Rule
+---
+title: GLBA Safeguards Rule
+summary: GLBA Safeguards Rule, including higher education and service providers
+version_summary: 16 CFR Part 314 as amended 2021 and 2023
+last_verified: '2026-10-18'
+review_by: '2027-04-19'
+review_interval: Every six months
+index_interval: Six months
+source_quality: secondary
+counsel_review:
+  status: approved
+  date: '2026-10-19'
+  scope: Whole file
+covers: The FTC Safeguards Rule (16 CFR Part 314) under the Gramm-Leach-Bliley Act, and its application to higher education institutions and their service providers
+version: The rule as amended in 2021 (most provisions effective June 9, 2023) and 2023 (breach notification to the FTC, effective May 13, 2024)
+sources: ecfr.gov (16 CFR Part 314); FTC business guidance on the Safeguards Rule; Department of Education Federal Student Aid electronic announcements on GLBA
+last_verified_note: 2026-10-18, against secondary sources (law-firm, regulator-guide, and tracker summaries); primary texts not yet read line by line. Reviewed and approved by counsel on 2026-10-19.
+volatile_points: §4 (Department of Education audit and enforcement practice for institutions)
+---
 
-| Field | Value |
-|---|---|
-| Covers | The FTC Safeguards Rule (16 CFR Part 314) under the Gramm-Leach-Bliley Act, and its application to higher education institutions and their service providers |
-| Version covered | The rule as amended in 2021 (most provisions effective June 9, 2023) and 2023 (breach notification to the FTC, effective May 13, 2024) |
-| Sources | ecfr.gov (16 CFR Part 314); FTC business guidance on the Safeguards Rule; Department of Education Federal Student Aid electronic announcements on GLBA |
-| Last verified | 2026-10-18, against secondary sources (law-firm, regulator-guide, and tracker summaries); primary texts not yet read line by line. Reviewed and approved by counsel on 2026-10-19. |
-| Review interval | Every six months |
-| Volatile points | §4 (Department of Education audit and enforcement practice for institutions) |
+# GLBA Safeguards Rule
 
 ## Contents
 

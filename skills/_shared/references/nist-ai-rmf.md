@@ -1,14 +1,22 @@
-# NIST AI Risk Management Framework
+---
+title: NIST AI Risk Management Framework
+summary: NIST AI RMF and Generative AI Profile
+version_summary: AI RMF 1.0; AI 600-1
+last_verified: '2026-10-16'
+review_by: '2027-04-16'
+review_interval: Every six months
+index_interval: Six months
+source_quality: primary
+counsel_review:
+  status: not-recorded
+covers: NIST AI 100-1, Artificial Intelligence Risk Management Framework (AI RMF 1.0); NIST AI 600-1, Generative AI Profile
+version: AI RMF 1.0 (January 26, 2023); Generative AI Profile (July 26, 2024)
+sources: nist.gov/itl/ai-risk-management-framework; nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf; subcategory text as reproduced in AIUC's AI RMF crosswalk (standard.aiuc-1.com/crosswalks/nist-ai-rmf), retrieved 2026-10-16
+verification_scope: No AI RMF 2.0 or other formal revision was found as of 2026-10-16. Secondary sources report that a revision is under way following the July 2025 White House AI Action Plan. The outcome text in §4 comes from AIUC's reproduction and was spot-checked against NIST AI 100-1 for several subcategories.
+volatile_points: §1 (revision in progress)
+---
 
-| Field | Value |
-|---|---|
-| Covers | NIST AI 100-1, Artificial Intelligence Risk Management Framework (AI RMF 1.0); NIST AI 600-1, Generative AI Profile |
-| Version covered | AI RMF 1.0 (January 26, 2023); Generative AI Profile (July 26, 2024) |
-| Sources | nist.gov/itl/ai-risk-management-framework; nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf; subcategory text as reproduced in AIUC's AI RMF crosswalk (standard.aiuc-1.com/crosswalks/nist-ai-rmf), retrieved 2026-10-16 |
-| Last verified | 2026-10-16 |
-| Verification scope | No AI RMF 2.0 or other formal revision was found as of 2026-10-16. Secondary sources report that a revision is under way following the July 2025 White House AI Action Plan. The outcome text in §4 comes from AIUC's reproduction and was spot-checked against NIST AI 100-1 for several subcategories. |
-| Review interval | Every six months |
-| Volatile points | §1 (revision in progress) |
+# NIST AI Risk Management Framework
 
 ## Contents
 

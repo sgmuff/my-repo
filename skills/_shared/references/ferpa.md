@@ -1,14 +1,22 @@
-# FERPA
+---
+title: FERPA
+summary: FERPA, COPPA, and state student privacy laws
+version_summary: eCFR current to 2026-07-10; COPPA as amended 2025
+last_verified: '2026-10-16'
+review_by: '2027-04-16'
+review_interval: Every six months, or when the Department publishes a FERPA notice of proposed rulemaking
+index_interval: Six months
+source_quality: primary
+counsel_review:
+  status: not-recorded
+covers: Family Educational Rights and Privacy Act, 20 U.S.C. § 1232g, and 34 CFR Part 99; COPPA (16 CFR Part 312) as amended in 2025; state student privacy laws in California, New York, Illinois, and Texas
+version: 34 CFR Part 99 as shown on eCFR, current to July 10, 2026
+sources: ecfr.gov (Title 34, Part 99); studentprivacy.ed.gov (Student Privacy Policy Office and PTAC guidance); Federal Register, April 22, 2025, FR Doc. 2025-05904 (COPPA amendments); NYSED and NY OGS guidance on Education Law § 2-d; secondary summaries of SOPIPA and SOPPA
+verification_scope: Confirmed that no FERPA rule was proposed or finalized in 2026. The Department of Education's semiannual regulatory agenda (July 2026) lists FERPA as a rulemaking priority. Section content reflects the stable regulation text.
+volatile_points: §1 (possible rulemaking on the 2026 agenda); §10 (COPPA 2.0 pending; school authorization treatment); §11 (state laws checked against secondary sources only)
+---
 
-| Field | Value |
-|---|---|
-| Covers | Family Educational Rights and Privacy Act, 20 U.S.C. § 1232g, and 34 CFR Part 99; COPPA (16 CFR Part 312) as amended in 2025; state student privacy laws in California, New York, Illinois, and Texas |
-| Version covered | 34 CFR Part 99 as shown on eCFR, current to July 10, 2026 |
-| Sources | ecfr.gov (Title 34, Part 99); studentprivacy.ed.gov (Student Privacy Policy Office and PTAC guidance); Federal Register, April 22, 2025, FR Doc. 2025-05904 (COPPA amendments); NYSED and NY OGS guidance on Education Law § 2-d; secondary summaries of SOPIPA and SOPPA |
-| Last verified | 2026-10-16 |
-| Verification scope | Confirmed that no FERPA rule was proposed or finalized in 2026. The Department of Education's semiannual regulatory agenda (July 2026) lists FERPA as a rulemaking priority. Section content reflects the stable regulation text. |
-| Review interval | Every six months, or when the Department publishes a FERPA notice of proposed rulemaking |
-| Volatile points | §1 (possible rulemaking on the 2026 agenda); §10 (COPPA 2.0 pending; school authorization treatment); §11 (state laws checked against secondary sources only) |
+# FERPA
 
 ## Contents
 

@@ -1,15 +1,23 @@
-# US state comprehensive privacy laws
+---
+title: US state comprehensive privacy laws
+summary: 24 comprehensive state privacy laws, CCPA regulations, state AI laws
+version_summary: Status as of 2026-10-16
+last_verified: '2026-10-16'
+review_by: '2027-01-16'
+review_interval: Quarterly. State legislatures amend these laws every session.
+index_interval: Quarterly
+source_quality: primary
+counsel_review:
+  status: not-recorded
+covers: The 24 enacted comprehensive state consumer privacy laws (20 in effect, 4 effective 2027–2028); CCPA regulations on risk assessments, ADMT, and cybersecurity audits; state AI laws that affect assessments
+version: Status as of 2026-10-16
+sources: Statute texts on each legislature's site; CPPA regulations (cppa.ca.gov); Colorado Privacy Act Rules (4 CCR 904-3); IAPP US State Privacy Legislation Tracker; law firm summaries listed under "Checked" below
+verification_scope: 2026 developments (new laws, Colorado SB 26-189, CCPA regulation dates) checked against the sources below. Statute section numbers and pre-2026 thresholds come from the earlier DPIA reference and were not re-read against each statute. Spot-check a citation before quoting it to a regulator or customer.
+volatile_points: §2 thresholds for Alabama, Louisiana, Oklahoma, and Vermont (secondary sources conflict); §6 Colorado ADMT rules (rulemaking open); §6 AI laws generally
+checked: Venable 2026 mid-year update (July 2026); Morgan Lewis (July 2026); Lewis Rice on Oklahoma and Alabama; Privacy World (August 2026); Seyfarth and Eckert Seamans on Colorado SB 26-189 (May 2026); MoFo and Hunton on CCPA regulations (September–October 2025)
+---
 
-| Field | Value |
-|---|---|
-| Covers | The 24 enacted comprehensive state consumer privacy laws (20 in effect, 4 effective 2027–2028); CCPA regulations on risk assessments, ADMT, and cybersecurity audits; state AI laws that affect assessments |
-| Version covered | Status as of 2026-10-16 |
-| Sources | Statute texts on each legislature's site; CPPA regulations (cppa.ca.gov); Colorado Privacy Act Rules (4 CCR 904-3); IAPP US State Privacy Legislation Tracker; law firm summaries listed under "Checked" below |
-| Last verified | 2026-10-16 |
-| Verification scope | 2026 developments (new laws, Colorado SB 26-189, CCPA regulation dates) checked against the sources below. Statute section numbers and pre-2026 thresholds come from the earlier DPIA reference and were not re-read against each statute. Spot-check a citation before quoting it to a regulator or customer. |
-| Review interval | Quarterly. State legislatures amend these laws every session. |
-| Volatile points | §2 thresholds for Alabama, Louisiana, Oklahoma, and Vermont (secondary sources conflict); §6 Colorado ADMT rules (rulemaking open); §6 AI laws generally |
-| Checked | Venable 2026 mid-year update (July 2026); Morgan Lewis (July 2026); Lewis Rice on Oklahoma and Alabama; Privacy World (August 2026); Seyfarth and Eckert Seamans on Colorado SB 26-189 (May 2026); MoFo and Hunton on CCPA regulations (September–October 2025) |
+# US state comprehensive privacy laws
 
 Use this file to decide which state laws apply to an activity, which assessments it triggers, and what processor contracts must say. Breach notification laws are separate and arrive with the `incident-assessment` skill (Wave 3). Consumer rights and deadlines will be detailed in the `dsr-response` skill's matrix (Wave 2).
 

@@ -345,6 +345,10 @@ def render_tree(root: Path, check: bool = False) -> RenderResult:
         folder = output_root(root) / spec["folder"]
         if folder.is_dir() or by_type.get(record_type):
             outputs[folder / "index.md"] = render_index(record_type, by_type.get(record_type, []))
+    from gov import references
+    readme = references.readme(root)
+    if readme is not None:
+        outputs[root / references.INDEX] = readme
 
     written, stale = [], []
     for path, text in sorted(outputs.items()):

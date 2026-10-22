@@ -1,14 +1,22 @@
-# Data subject request matrix
+---
+title: Data subject request matrix
+summary: Data subject request rights, deadlines, verification, exceptions
+version_summary: As of 2026-10-16
+last_verified: '2026-10-16'
+review_by: '2027-01-16'
+review_interval: Quarterly
+index_interval: Quarterly
+source_quality: primary
+counsel_review:
+  status: not-recorded
+covers: Rights, deadlines, verification, exceptions, and response content for data subject and consumer requests under EU GDPR, UK GDPR, Swiss FADP, US comprehensive state privacy laws, FERPA, and COPPA
+version: As of 2026-10-16
+sources: '`gdpr.md`, `us-state-privacy.md`, `ferpa.md`; CCPA Regs. 11 CCR §§ 7020–7028, 7060–7063, 7101; EDPB Guidelines 01/2022 on the right of access (v2.0, March 28, 2023); secondary summaries of state deadlines (Osano, ComplyFine, Byte Back, retrieved 2026-10-16)'
+verification_scope: CCPA timelines and state response and appeal windows checked against secondary sources. Appeal windows, Iowa's 90-day period, and free-request limits rest on secondary sources and carry verify flags. Read the statute before quoting a deadline to a requester.
+volatile_points: §3 (state appeal windows; laws effective 2027–2028); UK "stop the clock" commencement
+---
 
-| Field | Value |
-|---|---|
-| Covers | Rights, deadlines, verification, exceptions, and response content for data subject and consumer requests under EU GDPR, UK GDPR, Swiss FADP, US comprehensive state privacy laws, FERPA, and COPPA |
-| Version covered | As of 2026-10-16 |
-| Sources | `gdpr.md`, `us-state-privacy.md`, `ferpa.md`; CCPA Regs. 11 CCR §§ 7020–7028, 7060–7063, 7101; EDPB Guidelines 01/2022 on the right of access (v2.0, March 28, 2023); secondary summaries of state deadlines (Osano, ComplyFine, Byte Back, retrieved 2026-10-16) |
-| Last verified | 2026-10-16 |
-| Verification scope | CCPA timelines and state response and appeal windows checked against secondary sources. Appeal windows, Iowa's 90-day period, and free-request limits rest on secondary sources and carry verify flags. Read the statute before quoting a deadline to a requester. |
-| Review interval | Quarterly |
-| Volatile points | §3 (state appeal windows; laws effective 2027–2028); UK "stop the clock" commencement |
+# Data subject request matrix
 
 The `dsr-response` skill uses this file to decide which law applies, when the response is due, how to verify identity, and what the response must contain.
 

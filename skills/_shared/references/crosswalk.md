@@ -1,13 +1,21 @@
-# Control crosswalk
+---
+title: Control crosswalk
+summary: 32 common control objectives mapped across all frameworks
+version_summary: Built 2026-10-16
+last_verified: '2026-10-16'
+review_by: '2027-01-29'
+review_interval: Quarterly, after each AIUC-1 release, and when any mapped framework changes
+index_interval: Quarterly
+source_quality: internal
+counsel_review:
+  status: not-recorded
+covers: 32 common control objectives (CCO-01 to CCO-32), each mapped to the NIST Privacy Framework 1.0, AIUC-1 (Oct 15, 2026 release), NIST AI RMF 1.0, ISO/IEC 42001:2023 (public checklist), the EU GDPR, the EU AI Act as amended, US state privacy and breach laws, and FERPA
+version: Built 2026-10-16 from the reference files listed in each column
+sources: AIUC-1 ↔ AI Act, AI RMF, and ISO/IEC 42001 mappings come from AIUC's published crosswalks (`aiuc-1.md`, §5). Every other mapping, including all NIST Privacy Framework, GDPR, state, and FERPA links, is **this suite's proposal**, drawn from `nist-privacy-framework.md` §3 and the legal reference files.
+volatile_points: AIUC-1 columns (quarterly releases); NIST Privacy Framework IDs (1.1 will renumber them)
+---
 
-| Field | Value |
-|---|---|
-| Covers | 32 common control objectives (CCO-01 to CCO-32), each mapped to the NIST Privacy Framework 1.0, AIUC-1 (Oct 15, 2026 release), NIST AI RMF 1.0, ISO/IEC 42001:2023 (public checklist), the EU GDPR, the EU AI Act as amended, US state privacy and breach laws, and FERPA |
-| Version covered | Built 2026-10-16 from the reference files listed in each column |
-| Sources | AIUC-1 ↔ AI Act, AI RMF, and ISO/IEC 42001 mappings come from AIUC's published crosswalks (`aiuc-1.md`, §5). Every other mapping, including all NIST Privacy Framework, GDPR, state, and FERPA links, is **this suite's proposal**, drawn from `nist-privacy-framework.md` §3 and the legal reference files. |
-| Last verified | 2026-10-16 |
-| Review interval | Quarterly, after each AIUC-1 release, and when any mapped framework changes |
-| Volatile points | AIUC-1 columns (quarterly releases); NIST Privacy Framework IDs (1.1 will renumber them) |
+# Control crosswalk
 
 A **control objective** is what a control has to achieve. A company **control** is the specific thing the company does to achieve it, such as "Okta enforces MFA for all workforce accounts." Map each company control to one or more objectives in the control library (`controls-and-evidence` skill). Its framework coverage then follows from this table, so one control, tested once, can satisfy several frameworks.
 

@@ -1,14 +1,22 @@
-# EU AI Act
+---
+title: EU AI Act
+summary: EU AI Act as amended by Reg. (EU) 2026/1744
+version_summary: In force from 2026-07-27
+last_verified: '2026-10-16'
+review_by: '2027-01-16'
+review_interval: Quarterly. Implementing acts, guidelines, harmonized standards, and codes of practice continue to appear.
+index_interval: Quarterly
+source_quality: primary
+counsel_review:
+  status: not-recorded
+covers: Regulation (EU) 2024/1689 (the AI Act), as amended by Regulation (EU) 2026/1744 (the Digital Omnibus on AI)
+version: AI Act as amended, in force from July 27, 2026
+sources: EUR-Lex (eur-lex.europa.eu/eli/reg/2024/1689/oj); artificialintelligenceact.eu summary of Regulation (EU) 2026/1744 (retrieved 2026-10-16); Orrick, Cooley, and Jones Walker summaries (July 2026)
+verification_scope: Amended dates and the main Omnibus changes checked against the sources above. The Official Journal publication date (reported as July 24, 2026) and the new wording of Art. 4 come from secondary sources. Article content otherwise reflects the 2024 text.
+volatile_points: §2 dates (confirm on EUR-Lex); §3 Art. 4 wording; Commission guidelines on high-risk classification and Art. 50
+---
 
-| Field | Value |
-|---|---|
-| Covers | Regulation (EU) 2024/1689 (the AI Act), as amended by Regulation (EU) 2026/1744 (the Digital Omnibus on AI) |
-| Version covered | AI Act as amended, in force from July 27, 2026 |
-| Sources | EUR-Lex (eur-lex.europa.eu/eli/reg/2024/1689/oj); artificialintelligenceact.eu summary of Regulation (EU) 2026/1744 (retrieved 2026-10-16); Orrick, Cooley, and Jones Walker summaries (July 2026) |
-| Last verified | 2026-10-16 |
-| Verification scope | Amended dates and the main Omnibus changes checked against the sources above. The Official Journal publication date (reported as July 24, 2026) and the new wording of Art. 4 come from secondary sources. Article content otherwise reflects the 2024 text. |
-| Review interval | Quarterly. Implementing acts, guidelines, harmonized standards, and codes of practice continue to appear. |
-| Volatile points | §2 dates (confirm on EUR-Lex); §3 Art. 4 wording; Commission guidelines on high-risk classification and Art. 50 |
+# EU AI Act
 
 ## Contents
 

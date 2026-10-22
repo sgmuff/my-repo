@@ -1,13 +1,24 @@
-# HIPAA
+---
+title: HIPAA
+summary: HIPAA Privacy, Security, and Breach Notification Rules for covered entities and business associates
+version_summary: Rules through the 2013 Omnibus Rule; 2025 Security Rule proposal noted
+last_verified: '2026-10-18'
+review_by: '2027-04-19'
+review_interval: Every six months, or when HHS finalizes Security Rule changes
+index_interval: Six months
+source_quality: secondary
+counsel_review:
+  status: approved
+  date: '2026-10-19'
+  scope: Whole file
+covers: HIPAA Privacy, Security, and Breach Notification Rules (45 CFR Parts 160 and 164), as they apply to a covered entity or business associate
+version: The rules as amended through the 2013 Omnibus Rule; the January 2025 Security Rule proposal is noted, not applied
+sources: ecfr.gov (45 CFR Parts 160, 164); HHS OCR guidance on risk analysis and on HIPAA and FERPA
+last_verified_note: 2026-10-18, against secondary sources (law-firm, regulator-guide, and tracker summaries); primary texts not yet read line by line. Reviewed and approved by counsel on 2026-10-19.
+volatile_points: §1 (Security Rule proposal status); §2 (business associate status depends on the contract and the service)
+---
 
-| Field | Value |
-|---|---|
-| Covers | HIPAA Privacy, Security, and Breach Notification Rules (45 CFR Parts 160 and 164), as they apply to a covered entity or business associate |
-| Version covered | The rules as amended through the 2013 Omnibus Rule; the January 2025 Security Rule proposal is noted, not applied |
-| Sources | ecfr.gov (45 CFR Parts 160, 164); HHS OCR guidance on risk analysis and on HIPAA and FERPA |
-| Last verified | 2026-10-18, against secondary sources (law-firm, regulator-guide, and tracker summaries); primary texts not yet read line by line. Reviewed and approved by counsel on 2026-10-19. |
-| Review interval | Every six months, or when HHS finalizes Security Rule changes |
-| Volatile points | §1 (Security Rule proposal status); §2 (business associate status depends on the contract and the service) |
+# HIPAA
 
 ## Contents
 

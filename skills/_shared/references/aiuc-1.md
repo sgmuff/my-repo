@@ -1,15 +1,23 @@
-# AIUC-1
+---
+title: AIUC-1
+summary: AIUC-1
+version_summary: October 15, 2026 release
+last_verified: '2026-10-16'
+review_by: '2027-01-29'
+review_interval: '**Quarterly**, within two weeks of each release (January 15, April 15, July 15, October 15)'
+index_interval: Quarterly
+source_quality: primary
+counsel_review:
+  status: not-recorded
+covers: AIUC-1, the AI agent standard published by the Artificial Intelligence Underwriting Company (AIUC)
+version: '**October 15, 2026 release** (the Q4 2026 update). AIUC labels releases by date, not by number.'
+next_scheduled_release: January 15, 2027
+sources: 'standard.aiuc-1.com: requirement pages for domains A–F, changelog, certification, re-certification, and auditor scoping pages, and crosswalks to the EU AI Act, ISO/IEC 42001, and NIST AI RMF. All retrieved 2026-10-16.'
+volatile_points: The whole file. Requirements are added, renamed, and retired each quarter.
+reuse_terms: © AIUC, all rights reserved. AIUC's terms of use (standard.aiuc-1.com/legal/terms, checked 2026-10-21) grant a personal, noncommercial licence to use the site and bar copying, distributing, or creating derivative works from its content. This file holds IDs, titles, status, tags, and AIUC's published mappings, not requirement text.
+---
 
-| Field | Value |
-|---|---|
-| Covers | AIUC-1, the AI agent standard published by the Artificial Intelligence Underwriting Company (AIUC) |
-| Version covered | **October 15, 2026 release** (the Q4 2026 update). AIUC labels releases by date, not by number. |
-| Next scheduled release | January 15, 2027 |
-| Sources | standard.aiuc-1.com: requirement pages for domains A–F, changelog, certification, re-certification, and auditor scoping pages, and crosswalks to the EU AI Act, ISO/IEC 42001, and NIST AI RMF. All retrieved 2026-10-16. |
-| Last verified | 2026-10-16 |
-| Review interval | **Quarterly**, within two weeks of each release (January 15, April 15, July 15, October 15) |
-| Volatile points | The whole file. Requirements are added, renamed, and retired each quarter. |
-| Reuse terms | © AIUC, all rights reserved. AIUC's terms of use (standard.aiuc-1.com/legal/terms, checked 2026-10-21) grant a personal, noncommercial licence to use the site and bar copying, distributing, or creating derivative works from its content. This file holds IDs, titles, status, tags, and AIUC's published mappings, not requirement text. |
+# AIUC-1
 
 Every deliverable that cites AIUC-1 names the release it used, for example "AIUC-1 E004 (Oct 15, 2026 release)."
 

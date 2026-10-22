@@ -77,7 +77,7 @@ Give each law, bill, or release its own change entry, so each can be approved, r
 Route to the privacy lead (`approvals.md`), with counsel for close applicability calls. The privacy lead approves each change entry on its own, not the memo as a batch. Verified changes can go ahead while unverified ones wait. When the privacy lead approves:
 
 1. Apply the edits to the reference files.
-2. Update each file's header (version, sources, last verified, volatile points) and `_shared/references/README.md`.
+2. Update each file's front matter (`version`, `sources`, `last_verified`, `review_by`, `volatile_points`, and `source_quality`), then run `gov render` to rebuild the table in `_shared/references/README.md`.
 3. Add the reassessment actions to the affected deliverables' action plans, and rebuild `schedule.md`.
 4. Suggest a commit message that says what changed and why. Don't commit unless the user asks.
 
@@ -93,4 +93,4 @@ When asked what's changed, or on a quarterly review:
 4. Check the release calendar: AIUC-1 quarterly releases, state legislative sessions, EU procedures.
 5. Write one memo with a change entry for each change found (stage, sources, applicability, impact), the files confirmed unchanged with the date checked, and what wasn't checked and why. Proposed edits follow the same approval route.
 
-A file's header being reviewed isn't the same as every claim in it being checked again. Record which sections were checked. A sweep that finds nothing still updates each checked file's last-verified date once the privacy lead approves.
+A file's front matter being updated isn't the same as every claim in it being checked again. Record which sections were checked. A sweep that finds nothing still updates each checked file's last-verified date once the privacy lead approves.

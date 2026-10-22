@@ -1,12 +1,20 @@
-# DPA and vendor contract checklist
+---
+title: DPA and vendor contract checklist
+summary: DPA and vendor contract checklist, with AI terms
+version_summary: Built from the files above, as of 2026-10-16
+last_verified: '2026-10-16'
+review_by: '2027-01-16'
+review_interval: Quarterly, alongside the files it draws on
+index_interval: Quarterly
+source_quality: internal
+counsel_review:
+  status: not-recorded
+covers: 'The contract terms a vendor review checks: GDPR Art. 28, UK GDPR, Swiss FADP, US state processor and service provider terms, FERPA and state student privacy terms, international transfers, and AI-specific terms, benchmarked to AIUC-1'
+version: Built from `gdpr.md`, `us-state-privacy.md`, `ferpa.md`, `eu-ai-act.md`, and `aiuc-1.md` as verified 2026-10-16; AIUC-1 certification facts from standard.aiuc-1.com (FAQ and certification pages, retrieved 2026-10-16)
+volatile_points: §6 (AI terms track AIUC-1's quarterly releases); §4 (state laws enacted in 2026)
+---
 
-| Field | Value |
-|---|---|
-| Covers | The contract terms a vendor review checks: GDPR Art. 28, UK GDPR, Swiss FADP, US state processor and service provider terms, FERPA and state student privacy terms, international transfers, and AI-specific terms, benchmarked to AIUC-1 |
-| Version covered | Built from `gdpr.md`, `us-state-privacy.md`, `ferpa.md`, `eu-ai-act.md`, and `aiuc-1.md` as verified 2026-10-16; AIUC-1 certification facts from standard.aiuc-1.com (FAQ and certification pages, retrieved 2026-10-16) |
-| Last verified | 2026-10-16 |
-| Review interval | Quarterly, alongside the files it draws on |
-| Volatile points | §6 (AI terms track AIUC-1's quarterly releases); §4 (state laws enacted in 2026) |
+# DPA and vendor contract checklist
 
 This is a checklist, not a contract template. For each item, the vendor review records what the contract says, with the clause reference, and rates it **Present**, **Partial**, **Missing**, **Conflicts** (the contract says the opposite, or a later term overrides it), or **Not provided** (the document that would answer it hasn't been supplied; ask for it in Round 1). Rate the documents actually provided. A trust center summary or a sales answer isn't a contract term.
 

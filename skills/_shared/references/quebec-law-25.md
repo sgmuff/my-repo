@@ -1,13 +1,24 @@
-# Quebec Law 25
+---
+title: Quebec Law 25
+summary: Quebec private-sector privacy act as amended by Law 25
+version_summary: All phases in force
+last_verified: '2026-10-18'
+review_by: '2027-04-19'
+review_interval: Every six months
+index_interval: Six months
+source_quality: secondary
+counsel_review:
+  status: approved
+  date: '2026-10-19'
+  scope: Whole file
+covers: The Act respecting the protection of personal information in the private sector (CQLR c P-39.1), as amended by Law 25 (2021, c. 25)
+version: All three phases in force (September 22 of 2022, 2023, and 2024)
+sources: LégisQuébec (CQLR c P-39.1); Commission d'accès à l'information (CAI) guidance on privacy impact assessments
+last_verified_note: 2026-10-18, against secondary sources (law-firm, regulator-guide, and tracker summaries); primary texts not yet read line by line. Reviewed and approved by counsel on 2026-10-19.
+volatile_points: §3 (CAI guidance on assessment content); interaction with federal PIPEDA and any successor federal law
+---
 
-| Field | Value |
-|---|---|
-| Covers | The Act respecting the protection of personal information in the private sector (CQLR c P-39.1), as amended by Law 25 (2021, c. 25) |
-| Version covered | All three phases in force (September 22 of 2022, 2023, and 2024) |
-| Sources | LégisQuébec (CQLR c P-39.1); Commission d'accès à l'information (CAI) guidance on privacy impact assessments |
-| Last verified | 2026-10-18, against secondary sources (law-firm, regulator-guide, and tracker summaries); primary texts not yet read line by line. Reviewed and approved by counsel on 2026-10-19. |
-| Review interval | Every six months |
-| Volatile points | §3 (CAI guidance on assessment content); interaction with federal PIPEDA and any successor federal law |
+# Quebec Law 25
 
 ## Contents
 

@@ -1,12 +1,20 @@
-# Risk method
+---
+title: Risk method
+summary: Shared scoring method, catalog, and mitigations
+version_summary: Suite method
+last_verified: '2026-10-16'
+review_by: '2027-10-16'
+review_interval: Annual, or when the company's risk appetite changes
+index_interval: Annual
+source_quality: internal
+counsel_review:
+  status: not-recorded
+covers: The suite's shared scoring method, risk catalog, and mitigation library
+basis: ICO-style 3x3 matrix; GDPR Recitals 75–76 and Art. 35(7)(c); NIST PF ID.RA-P; NIST AI RMF MAP 5.1
+owner: Privacy lead
+---
 
-| Field | Value |
-|---|---|
-| Covers | The suite's shared scoring method, risk catalog, and mitigation library |
-| Basis | ICO-style 3x3 matrix; GDPR Recitals 75–76 and Art. 35(7)(c); NIST PF ID.RA-P; NIST AI RMF MAP 5.1 |
-| Last verified | 2026-10-16 |
-| Review interval | Annual, or when the company's risk appetite changes |
-| Owner | Privacy lead |
+# Risk method
 
 Every skill that rates risk uses this method, so a Medium in a DPIA means the same as a Medium in a vendor review or an AI impact assessment. Section 2 holds the privacy risk catalog. The AI risk catalog arrives with the `ai-impact-assessment` skill.
 

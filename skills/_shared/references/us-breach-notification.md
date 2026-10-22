@@ -1,15 +1,24 @@
-# US breach notification laws
+---
+title: US breach notification laws
+summary: US state, territory, and federal breach notification laws
+version_summary: As of 2026-10-21; deadlines and thresholds counsel-approved, the rest pending
+last_verified: '2026-10-21'
+review_by: '2027-01-21'
+review_interval: Quarterly. States amend these laws every session.
+index_interval: Quarterly
+source_quality: mixed
+counsel_review:
+  status: partial
+  date: '2026-10-22'
+  scope: Fixed deadlines and thresholds only; other rows and sections 3 to 5 not yet reviewed
+covers: The breach notification statutes of the 50 states, the District of Columbia, Puerto Rico, Guam, and the US Virgin Islands; federal and sector laws to flag
+version: As of 2026-10-16
+sources: 'Fixed deadlines and thresholds for 19 jurisdictions checked against statute text or official AG pages on 2026-10-21 (`docs/legal-review/us-breach-verification.md`). 2025–2026 changes checked against: Ashurst Perkins Coie, *2025 breach notification law update* (October 15, 2025); Covington Inside Privacy on Oklahoma SB 626 (August 2025) and on New York''s GBL § 899-aa amendment (January 2025); Troutman Pepper and Hunton on California SB 446 (October–November 2025). Other rows are compiled from the statutes'' known text and secondary matrices, and were **not** re-read against each statute.'
+last_verified_note: 2026-10-21 for the rows with dates or thresholds listed in `docs/legal-review/us-breach-verification.md`; 2026-10-16 (changes only) for the rest
+volatile_points: 'Every row. The most recent changes: California (30-day individual deadline and AG deadline, from January 1, 2026); New York (30-day deadline, December 24, 2024); Oklahoma (AG notice and expanded definitions, from January 1, 2026); North Dakota (financial institutions notify the commissioner within 45 days, 2025).'
+---
 
-| Field | Value |
-|---|---|
-| Status | **Draft reference. Counsel must review this file once before `incident-assessment` is used on a live incident.** Record the review in the row below. |
-| Counsel review | Counsel approved on 2026-10-22 the fixed deadlines and thresholds: the rows checked in `docs/legal-review/us-breach-verification.md`, and as written Alabama, Indiana, New Mexico, Rhode Island, Tennessee, Utah, Pennsylvania, and California. Not yet reviewed: rows with no fixed deadline, risk-of-harm availability, definitions, and §3 to §5. |
-| Covers | The breach notification statutes of the 50 states, the District of Columbia, Puerto Rico, Guam, and the US Virgin Islands; federal and sector laws to flag |
-| Version covered | As of 2026-10-16 |
-| Sources | Fixed deadlines and thresholds for 19 jurisdictions checked against statute text or official AG pages on 2026-10-21 (`docs/legal-review/us-breach-verification.md`). 2025–2026 changes checked against: Ashurst Perkins Coie, *2025 breach notification law update* (October 15, 2025); Covington Inside Privacy on Oklahoma SB 626 (August 2025) and on New York's GBL § 899-aa amendment (January 2025); Troutman Pepper and Hunton on California SB 446 (October–November 2025). Other rows are compiled from the statutes' known text and secondary matrices, and were **not** re-read against each statute. |
-| Last verified | 2026-10-21 for the rows with dates or thresholds listed in `docs/legal-review/us-breach-verification.md`; 2026-10-16 (changes only) for the rest |
-| Review interval | Quarterly. States amend these laws every session. |
-| Volatile points | Every row. The most recent changes: California (30-day individual deadline and AG deadline, from January 1, 2026); New York (30-day deadline, December 24, 2024); Oklahoma (AG notice and expanded definitions, from January 1, 2026); North Dakota (financial institutions notify the commissioner within 45 days, 2025). |
+# US breach notification laws
 
 This file supports triage, not a final legal conclusion. For every jurisdiction where affected people live, the `incident-assessment` skill states the obligation as Provisional, with a verify flag pointing to the statute, until counsel confirms it.
 

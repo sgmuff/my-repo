@@ -1,13 +1,24 @@
-# NIS2
+---
+title: NIS2
+summary: NIS2 risk-management and reporting duties
+version_summary: Directive 2022/2555; Implementing Regulation 2024/2690
+last_verified: '2026-10-18'
+review_by: '2027-01-19'
+review_interval: Quarterly while member states complete transposition
+index_interval: Quarterly
+source_quality: secondary
+counsel_review:
+  status: approved
+  date: '2026-10-19'
+  scope: Whole file
+covers: Directive (EU) 2022/2555 (NIS2) on cybersecurity risk management and incident reporting, and Implementing Regulation (EU) 2024/2690 for digital infrastructure and digital providers
+version: The directive as adopted; national transposition status not tracked here
+sources: EUR-Lex (Directive 2022/2555; Implementing Regulation 2024/2690); European Commission NIS2 pages; ENISA guidance
+last_verified_note: 2026-10-18, against secondary sources (law-firm, regulator-guide, and tracker summaries); primary texts not yet read line by line. Reviewed and approved by counsel on 2026-10-19.
+volatile_points: §1 (national transposition, including in the member states where the company operates); §2 (entity classification under national lists)
+---
 
-| Field | Value |
-|---|---|
-| Covers | Directive (EU) 2022/2555 (NIS2) on cybersecurity risk management and incident reporting, and Implementing Regulation (EU) 2024/2690 for digital infrastructure and digital providers |
-| Version covered | The directive as adopted; national transposition status not tracked here |
-| Sources | EUR-Lex (Directive 2022/2555; Implementing Regulation 2024/2690); European Commission NIS2 pages; ENISA guidance |
-| Last verified | 2026-10-18, against secondary sources (law-firm, regulator-guide, and tracker summaries); primary texts not yet read line by line. Reviewed and approved by counsel on 2026-10-19. |
-| Review interval | Quarterly while member states complete transposition |
-| Volatile points | §1 (national transposition, including in the member states where the company operates); §2 (entity classification under national lists) |
+# NIS2
 
 ## Contents
 

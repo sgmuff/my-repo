@@ -23,36 +23,46 @@ def edit(root, change):
     return path
 
 
-def test_the_index_gives_each_files_dates(root):
+def test_the_index_reads_front_matter(root):
     known = references.index(root)
-    assert known["gdpr.md"] == {"verified": "2026-10-16", "review_by": "2027-01-16", "secondary": False, "unreviewed": False}
-    assert known["hipaa.md"]["secondary"] and not known["hipaa.md"]["unreviewed"]
-    assert known["us-breach-notification.md"]["unreviewed"]
+    assert (known["gdpr.md"]["verified"], known["gdpr.md"]["review_by"]) == ("2026-10-16", "2027-01-16")
+    assert not known["gdpr.md"]["secondary"] and not known["gdpr.md"]["unreviewed"]
+    assert known["hipaa.md"]["secondary"] and not known["hipaa.md"]["partial"]
+    assert known["us-breach-notification.md"]["partial"]
 
 
-def test_the_index_accounts_for_every_shared_file(root):
+def test_every_shared_file_has_complete_front_matter(root):
     files = {p.name for p in (root / references.FOLDER).glob("*.md") if p.name != "README.md"}
     assert set(references.index(root)) == files and len(files) >= 18
     assert references.index_problems(root) == []
 
 
-def test_a_broken_index_fails_closed(assess_root):
-    index = assess_root / references.INDEX
-    index.write_text(index.read_text().replace("| `gdpr.md` |", "| gdpr.md |"))
-    assert any("gdpr.md isn't in the reference index" in m for m in found(assess_root, "error"))
-    index.write_text("# Reference files\n\nThe table moved.\n")
-    assert len([m for m in found(assess_root, "error") if "isn't in the reference index" in m]) >= 18
+def test_broken_front_matter_fails_closed(assess_root):
+    gdpr = assess_root / references.FOLDER / "gdpr.md"
+    text = gdpr.read_text()
+    gdpr.write_text(text.replace("review_by: '2027-01-16'", "review_by: next January"))
+    assert any("gdpr.md: review_by must be YYYY-MM-DD" in m for m in found(assess_root, "error"))
+    gdpr.write_text(text.split("---\n", 2)[2])
+    assert any("gdpr.md: no front matter" in m for m in found(assess_root, "error"))
 
 
-def test_an_unreviewed_reference_is_a_finding_and_its_caveat_renders(assess_root):
+def test_partial_counsel_review_is_a_finding_and_caveats_render(assess_root):
     path = edit(assess_root, lambda d: d.update(references=[
-        {"file": "us-breach-notification.md", "version": "As of 2026-10-16", "verified": "2026-10-16"},
+        {"file": "us-breach-notification.md", "version": "As of 2026-10-21", "verified": "2026-10-21"},
         {"file": "hipaa.md", "version": "Rules through 2013", "verified": "2026-10-18"}]))
-    assert any("us-breach-notification.md hasn't been reviewed by counsel" in m for m in found(assess_root, "finding"))
+    assert any("counsel has reviewed only part of us-breach-notification.md" in m for m in found(assess_root, "finding"))
     assert render_tree(assess_root).problems == []
     text = path.with_suffix(".md").read_text()
-    assert "verified 2026-10-16 (not yet reviewed by counsel)" in text
+    assert "verified 2026-10-21 (partly checked against secondary sources; partly reviewed by counsel)" in text
     assert "verified 2026-10-18 (checked against secondary sources only)" in text
+
+
+def test_the_readme_table_is_generated_and_checked(root):
+    readme = root / references.INDEX
+    render_tree(root)
+    assert "| `gdpr.md` | EU GDPR, UK GDPR and DUAA, Swiss FADP |" in readme.read_text()
+    readme.write_text(readme.read_text().replace("| `gdpr.md` | EU GDPR", "| `gdpr.md` | Edited by hand"))
+    assert render_tree(root, check=True).stale == [str(references.INDEX)]
 
 
 def test_a_current_reference_raises_nothing(assess_root):

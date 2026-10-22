@@ -331,7 +331,7 @@ Each phase closes with skill evals, trigger evals, and a description optimizer r
 4. **Existing assessments in the new format,** starting with the DPIA, plus `gov screen`.
 5. **Remaining registers.**
 6. ~~**Dates and metrics** moved into `gov`.~~ Done 2026-10-21: `gov clock`, `gov deadlines`, `gov schedule`, and `gov metrics` replace the four scripts. `schedule` and `metrics` take a required `--as-of`, since gov never reads the clock. `build_register_index.py` stays until phase 5 moves the remaining registers.
-7. **Reference files** with YAML front matter, so `regulatory-change` reads data.
+7. ~~**Reference files** with YAML front matter, so `regulatory-change` reads data.~~ Done 2026-10-22: every shared reference file carries front matter (dates, source quality, counsel review); `gov` checks it, fails closed on gaps, and generates the README index table.
 
 ## Decisions and assumptions
 
@@ -414,7 +414,7 @@ from counsel and can run while counsel reviews.
 | # | Milestone | Work | Needs from counsel | Done when |
 |---|---|---|---|---|
 | 1 | Close out the DPIA (phase 4) | Verify the DPIA keys' `verify` points; draft issue rules for `scr` and `dpia`; run the DPIA and router holdouts blind and fix what they show | Router key review; DPIA key sign-off; approval of the issue rules | Both holdouts scored and recorded, as for the AI Act |
-| 2 | Reference files as data (phase 7) | YAML front matter on every reference file (version, last verified, review by, source quality, counsel review); gov reads it and generates the README table; `regulatory-change` reads it | Nothing | The staleness and source-quality checks read front matter; the table parser is gone |
+| 2 | ~~Reference files as data (phase 7)~~ Done 2026-10-22 | YAML front matter on every reference file (version, last verified, review by, source quality, counsel review); gov reads it and generates the README table; `regulatory-change` reads it | Nothing | The staleness and source-quality checks read front matter; the table parser is gone |
 | 3 | Remaining assessments as records | Record type, answer-first rewrite, development run, and fixes for `vendor-review`, `ai-impact-assessment` (with the FRIA), `incident-assessment`, and the AIUC-1 readiness report | The rest of `us-breach-notification.md` before live incident use; keys for any holdout | Every catalog assessment is a `gov` record |
 | 4 | Remaining registers (phase 5) | AI inventory, controls, incidents, and DSR cases as records; retire `build_register_index.py`; `gov metrics` reads records | Nothing | No script scrapes Markdown tables |
 | 5 | Release | Trigger evals for every skill and description tuning; security entries in `controls-and-evidence` (phase 3); a 1.0 tag, a changelog, a check that the plugin install reaches `gov`, and an accurate README status | Removing the old claude.ai skill copies | Every skill triggers reliably; the README matches what ships |
