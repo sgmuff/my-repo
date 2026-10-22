@@ -17,6 +17,10 @@ generated_from: {{ source_file }}
 | {{ r.kind | label }} | {{ r.status }} | {{ r.version }} | {{ r.vendor.name | cell }} | {{ r.vendor.entity | cell }} | {{ r.depth.value | label }} | {{ r.business_owner | cell }} | {{ r.next_review }} |
 
 **Recommendation:** {{ r.decision | call }}
+{% if r.kind == "notice" %}
+
+**Objection deadline:** {{ r.get("objection_deadline", "TBC") }}
+{% endif %}
 
 **Residual risk:** Inherent: {{ d.inherent }} · Current: {{ d.current }} · Target: {{ d.target }}. **Approver:** {{ d.approver }}, by the current rating (`approvals.md`).
 
@@ -68,7 +72,7 @@ None recorded.
 ## 4. AI terms
 
 {% if r.ai.applicable %}
-**EU AI Act roles:** vendor {{ r.ai.vendor_role | label }}, company {{ r.ai.company_role | label }} · **AIUC-1 certified for this product:** {{ r.ai.aiuc_certified | call }}
+**EU AI Act roles:** vendor {{ r.ai.vendor_role | label }}, company {{ r.ai.company_role | label }} · **AIUC-1 certified for this product:** {{ r.ai.aiuc_certified | call }}{{ " (" ~ r.ai.aiuc_scope ~ ")" if r.ai.get("aiuc_scope") else "" }}
 
 | Item | Requirement | Rating | What the documents say | Fix |
 |---|---|---|---|---|

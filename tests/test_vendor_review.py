@@ -71,7 +71,7 @@ def test_approving_with_gaps_and_missing_art28_terms_are_findings(root):
     findings = found(root, "finding")
     assert any("approve without conditions, but these items are gaps or weren't provided: 2.7, 3.3" in m for m in findings)
     assert any("Art. 28(3) terms are missing or overridden (2.7)" in m for m in findings)
-    assert any("no request covers these gaps: 2.7, 3.3" in m for m in findings)
+    assert any("these gaps have no request and no fix: 2.7, 3.3" in m for m in findings)
 
 
 def test_requests_answer_the_gap_finding_and_render_as_a_draft_letter(root):
@@ -81,7 +81,7 @@ def test_requests_answer_the_gap_finding_and_render_as_a_draft_letter(root):
         d["requests"] = [{"kind": "contract-change", "request": "Add deletion of all personal data, including backups, within 30 days of termination.", "item": "2.7"},
                          {"kind": "document", "request": "Your current subprocessor list.", "item": "none"}]
     path = review(root, asked)
-    assert not any("no request covers" in m for m in found(root, "finding"))
+    assert not any("have no request and no fix" in m for m in found(root, "finding"))
     render_tree(root)
     letter = (path.parent / "requests" / f"{path.stem}-requests.md").read_text()
     assert "DRAFT: not sent." in letter and "## Contract changes we request" in letter
@@ -101,3 +101,29 @@ def test_transfers_need_their_linked_record(root):
 
 def test_section_6_has_thirteen_items():
     assert len(SECTIONS["6"]) == 13 and "6.3a" in SECTIONS["6"]
+
+
+def test_a_recorded_fix_or_a_multi_item_request_answers_a_gap(root):
+    def handled(d):
+        rate(d, "2.7", "missing")
+        rate(d, "2.8", "partial")
+        rate(d, "3.3", "not-provided")
+        next(c for c in d["clauses"] if c["item"] == "3.3")["fix"] = "Retrieve the signed DPA from Legal (A3)"
+        d["requests"] = [{"kind": "contract-change", "request": "Amend the DPA to add deletion and audit terms.", "item": "2.7, 2.8"}]
+    review(root, handled)
+    assert not any("have no request and no fix" in m for m in found(root, "finding"))
+
+
+def test_a_notice_needs_only_section_3_and_an_objection_deadline(root):
+    def notice(d):
+        d["kind"] = "notice"
+        d["clauses"] = [c for c in d["clauses"] if c["item"].startswith("3.")]
+    path = review(root, notice)
+    assert found(root, "error") == []
+    assert any("record the last day to object" in m for m in found(root, "finding"))
+    data = yamlio.load(path)
+    data["objection_deadline"] = "2026-11-09"
+    path.write_text(yamlio.dumps(data), encoding="utf-8")
+    assert not any("last day to object" in m for m in found(root, "finding"))
+    render_tree(root)
+    assert "**Objection deadline:** 2026-11-09" in path.with_suffix(".md").read_text()

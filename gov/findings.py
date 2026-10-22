@@ -314,16 +314,19 @@ def vr(data: dict) -> list:
     out = []
     decision = data["decision"]["value"]
     rows = data["clauses"] + (data["ai"]["items"] if data["ai"]["applicable"] else [])
-    asked = {r["item"] for r in data["requests"]}
+    asked = {i.strip() for r in data["requests"] for i in str(r["item"]).split(",")}
     gaps = [r["item"] for r in rows if r["rating"] in GAPS]
+    fixed = {r["item"] for r in rows if str(r["fix"]).strip().lower() not in ("", "none", "tbc")}
     if decision == "approve" and gaps:
         out.append(("decision", f"the recommendation is approve without conditions, but these items are gaps or weren't provided: {', '.join(gaps)}"))
     core = [r["item"] for r in data["clauses"] if r["item"].startswith("2.") and r["rating"] in ("missing", "conflicts")]
     if core and decision in ("approve", "approve-with-conditions"):
         out.append(("clauses", f"Art. 28(3) terms are missing or overridden ({', '.join(core)}); a signed fix is a condition before personal data flows"))
-    unasked = [i for i in gaps if i not in asked]
+    unasked = [i for i in gaps if i not in asked and i not in fixed]
     if unasked:
-        out.append(("requests", f"no request covers these gaps: {', '.join(unasked)}; add a request, or record the compensating control in the item's fix"))
+        out.append(("requests", f"these gaps have no request and no fix: {', '.join(unasked)}; add a request to the vendor, or record the fix or compensating control in the item"))
+    if data["kind"] == "notice" and is_tbc(data.get("objection_deadline", "TBC")):
+        out.append(("objection_deadline", "record the last day to object under the DPA; the objection decision comes first"))
     if data["ai"]["applicable"]:
         training = next((r for r in data["ai"]["items"] if r["item"] == "6.1"), None)
         if training and training["rating"] != "present" and decision in ("approve", "approve-with-conditions") and "6.1" not in asked:
@@ -333,8 +336,8 @@ def vr(data: dict) -> list:
             out.append((f"transfers/{n}/link", f"{t['flow']} relies on {t['mechanism']}; link the TIA, or add an action to run tia"))
         elif t["mechanism"] in SCREEN_ROUTES and not str(t["link"]).startswith(("TSR-", "TIA-")) and not _open_action(data, r"\bTSR\b|transfer screen"):
             out.append((f"transfers/{n}/link", f"{t['flow']} relies on {t['mechanism']}; link the transfer screen (TSR), or add an action to run tia"))
-        elif t["mechanism"] == "TBC":
-            out.append((f"transfers/{n}/mechanism", f"{t['flow']}: the transfer mechanism isn't known yet"))
+        elif t["mechanism"] == "TBC" and not _open_action(data, r"transfer|\\bTIA\\b|\\bTSR\\b|mechanism"):
+            out.append((f"transfers/{n}/mechanism", f"{t['flow']}: the transfer mechanism isn't known yet; add an action to establish it"))
     if data["depth"]["value"] == "deep" and data["security"]["covers_service"]["value"] is not True and decision in ("approve", "approve-with-conditions"):
         out.append(("security", "a deep review recommends approval without a security report shown to cover the service"))
     out += _risk_levels(data["risks"])

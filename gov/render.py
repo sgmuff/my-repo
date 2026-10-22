@@ -174,6 +174,7 @@ LABELS = {
     "state-student-privacy": "State student privacy laws",
     "confirmed": "Confirmed",
     "stated-by-requester": "Stated by requester",
+    "stated-by-vendor": "Stated by vendor",
     "assumption": "Assumption",
     "not-indicated": "DPIA not indicated",
     "present": "Present",

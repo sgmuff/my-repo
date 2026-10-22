@@ -214,7 +214,7 @@ def _structure(where: str, data: dict) -> list:
         if missing:
             problems.append(Problem(where, "error", f"clauses: a {data['depth']['value']} review covers dpa-checklist.md items {', '.join(missing)}"))
         ai_have = [c["item"] for c in data["ai"]["items"]]
-        if data["ai"]["applicable"] and sorted(ai_have) != sorted(SECTIONS["6"]):
+        if data["ai"]["applicable"] and data["kind"] != "notice" and sorted(ai_have) != sorted(SECTIONS["6"]):
             gap = [i for i in SECTIONS["6"] if i not in ai_have]
             problems.append(Problem(where, "error", f"ai/items: list each section 6 item once{' (missing ' + ', '.join(gap) + ')' if gap else ''}"))
         if not data["ai"]["applicable"] and ai_have:

@@ -1,0 +1,99 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+title: AI impact assessment
+description: "An AI impact assessment of one system and use (kind aiia), an AI Act Art. 27 fundamental rights impact assessment by the company as deployer (fria), or the information customers need for their own FRIAs (fria-input-pack)."
+type: object
+additionalProperties: false
+required: [id, type, schema_version, format_version, kind, title, status, version, system, related, business_owner,
+  system_owner, prepared_by, date_prepared, last_reviewed, next_review, summary, decision, analysis, tier, ai_act,
+  domains, risks, fria, facts, context, issues, actions, open_questions, verify, finding_responses, references,
+  version_history, signoff]
+properties:
+  id: {type: string, pattern: "^AIIA-\\d{4}-\\d{3}$"}
+  type: {const: aiia}
+  schema_version: {const: 1}
+  format_version: {const: 1}
+  kind: {enum: [aiia, fria, fria-input-pack]}
+  title: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 10}
+  status: {$ref: "common.schema.yaml#/$defs/doc_status"}
+  version: {$ref: "common.schema.yaml#/$defs/version"}
+  system: {type: string, description: "The AI inventory entry, AIS-NNNN, or TBC"}
+  related:
+    type: object
+    additionalProperties: false
+    required: [dpia, vendor_review, aiia]
+    properties:
+      dpia: {type: string, description: "DPIA-YYYY-NNN, or none"}
+      vendor_review: {type: string, description: "VR-YYYY-NNN, or none"}
+      aiia: {type: string, description: "For a FRIA, the AI impact assessment it draws on, or none"}
+  business_owner: {$ref: "common.schema.yaml#/$defs/short"}
+  system_owner: {$ref: "common.schema.yaml#/$defs/short"}
+  prepared_by: {$ref: "common.schema.yaml#/$defs/short"}
+  date_prepared: {$ref: "common.schema.yaml#/$defs/date"}
+  last_reviewed: {$ref: "common.schema.yaml#/$defs/date_or_null"}
+  next_review: {$ref: "common.schema.yaml#/$defs/date"}
+  summary: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 50}
+  analysis: {$ref: "common.schema.yaml#/$defs/analysis"}
+  decision:
+    description: "The proposed outcome. Only the approver set by the current residual rating decides."
+    $ref: "common.schema.yaml#/$defs/call"
+    properties:
+      value: {enum: [proceed, proceed-with-conditions, do-not-proceed, open]}
+  tier: {enum: ["1", "2", TBC], description: "The ai-intake tier: 1 assesses every domain; 2 the domains its factors call for"}
+  ai_act:
+    type: object
+    additionalProperties: false
+    required: [company_role, classification, prohibited]
+    properties:
+      company_role: {enum: [provider, deployer, both, not-applicable, TBC]}
+      classification: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 25, description: "Prohibited, high-risk (with the Annex point), transparency only, or minimal, by documented function"}
+      prohibited: {$ref: "common.schema.yaml#/$defs/call_tristate", description: "Could the documented function be an Art. 5 prohibited practice?"}
+  domains:
+    description: "For kind aiia: one row per domain in assessment-guide.md sections 2-10"
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [domain, position, evidence, citations]
+      properties:
+        domain: {enum: [fairness, transparency, human-oversight, data-provenance, reliability, safety, security, accountability, society]}
+        position: {enum: [adequate, gap, not-met, not-applicable, TBC]}
+        evidence: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 40, description: "What the evidence shows, or why the domain doesn't apply"}
+        citations: {$ref: "common.schema.yaml#/$defs/short", description: "AIUC-1 IDs with the release, AI Act articles, NIST AI RMF subcategories, ISO/IEC 42001 controls"}
+  risks: {$ref: "common.schema.yaml#/$defs/risks"}
+  fria:
+    description: "For kinds fria and fria-input-pack: AI Act Art. 27(1)(a)-(f). For kind aiia, applicable: false."
+    type: object
+    additionalProperties: false
+    required: [applicable]
+    properties:
+      applicable: {type: boolean}
+      deployer_status: {enum: [public-body, public-service, annex-iii-5b, annex-iii-5c, not-owed, TBC], description: "Why the deployer owes a FRIA under Art. 27(1), or not-owed"}
+      processes: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 40, description: "(a) The deployer's processes in which the system is used"}
+      period: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 25, description: "(b) Period and frequency of use"}
+      people: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 40, description: "(c) Categories of people and groups likely to be affected, including vulnerable groups"}
+      rights_risks:
+        description: "(d) Specific risks of harm to fundamental rights, linked to the risks above"
+        type: array
+        items:
+          type: object
+          additionalProperties: false
+          required: [right, risk, who, risk_id]
+          properties:
+            right: {$ref: "common.schema.yaml#/$defs/short", description: "Such as non-discrimination, privacy, good administration, effective remedy"}
+            risk: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 30}
+            who: {$ref: "common.schema.yaml#/$defs/short"}
+            risk_id: {type: string, description: "The risk row it draws on, R1, or none"}
+      oversight: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 40, description: "(e) Human oversight measures, following the provider's instructions for use"}
+      remedies: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 40, description: "(f) Measures if the risks materialize: governance, complaints, remedies"}
+      dpia_overlap: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 30, description: "What the DPIA already covers (Art. 27(4))"}
+      notification: {enum: [drafted, sent, not-required, TBC], description: "Notice of the results to the market surveillance authority (Art. 27(3))"}
+  facts: {$ref: "common.schema.yaml#/$defs/facts"}
+  context: {$ref: "common.schema.yaml#/$defs/context"}
+  issues: {$ref: "common.schema.yaml#/$defs/issues"}
+  actions: {$ref: "common.schema.yaml#/$defs/actions"}
+  open_questions: {$ref: "common.schema.yaml#/$defs/open_questions"}
+  verify: {$ref: "common.schema.yaml#/$defs/verify"}
+  finding_responses: {$ref: "common.schema.yaml#/$defs/finding_responses"}
+  references: {$ref: "common.schema.yaml#/$defs/references"}
+  version_history: {$ref: "common.schema.yaml#/$defs/version_history"}
+  signoff: {$ref: "common.schema.yaml#/$defs/signoff"}

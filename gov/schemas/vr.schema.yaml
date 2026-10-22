@@ -39,6 +39,7 @@ properties:
     $ref: "common.schema.yaml#/$defs/call"
     properties:
       value: {enum: [approve, approve-with-conditions, do-not-approve, open]}
+  objection_deadline: {$ref: "common.schema.yaml#/$defs/date_or_tbc", description: "For a notice: the last day to object under the DPA"}
   depth:
     type: object
     additionalProperties: false
@@ -82,6 +83,7 @@ properties:
       applicable: {type: boolean}
       items: {type: array, items: {$ref: "#/$defs/clause"}}
       aiuc_certified: {$ref: "common.schema.yaml#/$defs/call_tristate", description: "Holds an AIUC-1 certificate covering this product, from the certificate and report"}
+      aiuc_scope: {$ref: "common.schema.yaml#/$defs/short", description: "The certificate's product, release, report date, and expiry, or none"}
       vendor_role: {enum: [provider, deployer, distributor, not-applicable, TBC], description: "The vendor's EU AI Act role"}
       company_role: {enum: [provider, deployer, not-applicable, TBC], description: "The company's EU AI Act role for its use"}
   transfers:
@@ -119,7 +121,7 @@ properties:
       properties:
         kind: {enum: [document, contract-change, configuration, question, objection]}
         request: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 60, description: "The request as it would read to the vendor, with suggested wording for a contract change"}
-        item: {type: string, description: "The checklist item it answers, such as 2.7, or none"}
+        item: {type: string, description: "The checklist items it answers, comma-separated, such as \"2.1, 2.7\", or none"}
   facts: {$ref: "common.schema.yaml#/$defs/facts"}
   context: {$ref: "common.schema.yaml#/$defs/context"}
   issues: {$ref: "common.schema.yaml#/$defs/issues"}

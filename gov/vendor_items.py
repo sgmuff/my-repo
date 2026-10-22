@@ -12,12 +12,15 @@ SECTIONS = {
     "6": ["6.1", "6.2", "6.3", "6.3a"] + [f"6.{i}" for i in range(4, 13)],
     "7": [f"7.{i}" for i in range(1, 7)],
 }
+# 4.3 records a conclusion (no service provider terms means a third party), not a term, so it isn't required.
 DEPTH = {"light": SECTIONS["1"] + SECTIONS["2"] + ["7.1"],
-         "standard": SECTIONS["1"] + SECTIONS["2"] + SECTIONS["3"] + SECTIONS["4"] + SECTIONS["7"]}
+         "standard": SECTIONS["1"] + SECTIONS["2"] + SECTIONS["3"] + [i for i in SECTIONS["4"] if i != "4.3"] + SECTIONS["7"]}
 DEPTH["deep"] = DEPTH["standard"]
 
 
 def required_clauses(data: dict) -> list:
+    if data.get("kind") == "notice":
+        return list(SECTIONS["3"])  # a notice reviews the subprocessor and transfer terms it changes
     wanted = list(DEPTH[data["depth"]["value"]])
     if "school-data" in data.get("context", []) or "children" in data.get("context", []):
         wanted += SECTIONS["5"]

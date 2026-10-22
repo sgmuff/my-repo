@@ -57,14 +57,15 @@ Run `gov new vr --slug <vendor-slug> --title "<vendor and service>" --date <toda
 - One `clauses` row per required item, rated `present`, `partial`, `missing`, `conflicts`, `not-provided` (the document wasn't supplied; ask, don't guess), or `not-applicable` with the reason as evidence. Quote briefly, with the document and clause.
 - The AI module in `ai`, or `applicable: false`.
 - Risks to individuals with likelihood and severity at three points (inherent, current with verified measures only, target); `gov` computes the ratings. Contract and commercial risks to the company go in `company_findings`, kept out of the privacy rating.
-- One `requests` entry for each gap you want closed: documents, contract changes with suggested wording, configuration to confirm, and questions.
-- The fact register in `facts`, with what the requester or vendor said but didn't evidence marked `stated-by-requester`.
+- A `requests` entry for each gap the vendor must close: documents, contract changes with suggested wording, configuration to confirm, and questions. One request can cover several items (`item: "2.1, 2.7"`). A gap the company closes itself, such as retrieving its own signed DPA, needs a fix and an action instead of a request.
+- For an AIUC-1 certificate, record its product, release, report date, and expiry in `ai.aiuc_scope`; a certificate for another product leaves `aiuc_certified` false.
+- The fact register in `facts`: a trust center page, questionnaire answer, or sales email is `stated-by-vendor`; what the requester says without evidence is `stated-by-requester`.
 
 Each call stays Provisional. A point that doesn't fit a field goes in `analysis` (400 words at most); the record never changes your conclusion.
 
 ### 5. Validate and render
 
-Run `gov validate`, fix errors, and resolve findings by changing the record. A finding that names a real gap stays open with an action. Don't add a `finding_responses` entry yourself. Run `gov render`, then add the review to each RoPA entry's `related` vendor reviews, and rerun both. Recommend, but don't run, the follow-ons the findings call for: `dpia`, `ropa`, `tia`, and `ai-impact-assessment` for a possibly high-risk AI use.
+Run `gov validate`, fix errors, and resolve findings by changing the record. A finding that names a real gap stays open with an action. Don't add a `finding_responses` entry yourself. Run `gov render`, then add the review to each RoPA entry's `related` vendor reviews, or, if there's no entry yet, add an action to create one; rerun both. Recommend, but don't run, the follow-ons the findings call for: `dpia`, `ropa`, `tia`, and `ai-impact-assessment` for a possibly high-risk AI use.
 
 ### 6. Reply
 
@@ -72,6 +73,6 @@ Lead with the recommendation and what has to happen before signing or switching 
 
 ## Renewals, reassessments, and notices
 
-For new terms or a subprocessor notice, set `kind` to `renewal`, `reassessment`, or `notice`, and update only the affected items and risks, with a version history row. A notice's objection deadline is an action that comes first, with a decision date well ahead of it; put the draft objection, conditional and withdrawable once evidence arrives, in `requests` as `objection`. If the company is itself a processor for customers whose data reaches the vendor, its own customer DPAs may require earlier notice of the new sub-processor; add that as an action.
+For new terms or a subprocessor notice, set `kind` to `renewal`, `reassessment`, or `notice`. With an earlier review, update its record: only the affected items and risks, with a version history row. With none, start a new record; a `notice` needs only the section 3 items it changes, plus `objection_deadline`. The decision to object is an external communication the privacy lead approves; accepting the new subprocessor follows the residual rating (`approvals.md`). A notice's objection deadline is an action that comes first, with a decision date well ahead of it; put the draft objection, conditional and withdrawable once evidence arrives, in `requests` as `objection`. If the company is itself a processor for customers whose data reaches the vendor, its own customer DPAs may require earlier notice of the new sub-processor; add that as an action.
 
 Reassess each vendor at least every 12 months, sooner for Deep reviews, after a material AI model change, or before an AIUC-1 certificate expires. When the facts touch a law the reference files don't cover, such as call recording, biometrics, or background checks, raise it from `dpa-checklist.md` section 9 as a verify flag for counsel.
