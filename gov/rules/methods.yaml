@@ -14,6 +14,7 @@ tsr:
     uk-gdpr: "UK GDPR adequacy regulations, including the UK Extension to the EU-US DPF; a transfer risk assessment applies only to Art. 46 safeguards"
     ch-fadp: "Swiss FADP Art. 16(1) and Annex 1 of the Data Protection Ordinance, including the Swiss-U.S. DPF; a transfer assessment applies only to Art. 16(2) safeguards"
 dpia:
+  us-assessment: "US state data protection assessments and the CPPA risk assessment (11 CCR § 7150), with FERPA, COPPA, and state student privacy laws where they apply; GDPR Art. 35 doesn't apply. Risk ratings from risk-method.md, with current counting verified measures only"
   controller: "GDPR Art. 35(7) and 36; risk ratings from risk-method.md, with current counting verified measures only (Regulation (EU) 2016/679)"
 scr:
   screening: "GDPR Art. 35(1), 35(3), 35(4); WP29 Guidelines on DPIA (WP248 rev.01), endorsed by the EDPB: the criteria are indicators of likely high risk, not triggers"

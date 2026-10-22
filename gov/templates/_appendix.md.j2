@@ -1,4 +1,18 @@
 ## Appendix
+{% if r.facts is defined %}
+
+### Fact register
+
+{% if r.facts %}
+| # | Fact | Status | Source |
+|---|---|---|---|
+{% for f in r.facts %}
+| {{ f.id }} | {{ f.fact | cell }} | {{ f.status | label }} | {{ f.source | src }} |
+{% endfor %}
+{% else %}
+None recorded.
+{% endif %}
+{% endif %}
 
 ### Open questions
 

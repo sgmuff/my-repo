@@ -5,7 +5,7 @@ id: {{ id }}
 type: dpia
 schema_version: 1
 format_version: 1
-kind: controller
+kind: controller  # controller (GDPR Art. 35) | us-assessment (the GDPR doesn't apply)
 title: {{ title | tojson }}
 status: Draft
 version: "0.1"
@@ -46,6 +46,7 @@ consultation:
 
 other_regimes: []  # {regime: uk-gdpr|ch-fadp|us-states|cppa|ferpa|coppa|eu-ai-act, applies: {value, status, reason}, elements}
 
+facts: []  # the fact register: {id: F1, fact, status: confirmed|stated-by-requester|assumption|TBC, source: {kind, ref}}
 context: []  # tags from gov/rules/issues.yaml context_tags
 issues: []
 actions: []

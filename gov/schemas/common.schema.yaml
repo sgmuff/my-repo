@@ -73,6 +73,18 @@ $defs:
         status: {enum: [open, done]}
       if: {properties: {launch_blocking: {const: true}}}
       then: {required: [block_reason]}
+  facts:
+    description: "The fact register: each fact the assessment relies on, with its status and source"
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [id, fact, status, source]
+      properties:
+        id: {type: string, pattern: "^F\\d+$"}
+        fact: {$ref: "#/$defs/text", x-max-words: 25}
+        status: {enum: [confirmed, stated-by-requester, assumption, TBC]}
+        source: {$ref: "#/$defs/source"}
   open_questions:
     type: array
     items:

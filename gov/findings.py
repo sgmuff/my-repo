@@ -245,8 +245,8 @@ def scr(data: dict) -> list:
         out.append(("national_list", "the processing is on the authority's Art. 35(4) list, so a DPIA is required; set the decision to warranted"))
     if data["state_assessment"]["required"]["value"] is not False and not data["actions"]:
         out.append(("state_assessment", "a US state assessment is or may be owed whatever the GDPR outcome; add an action to produce it, or record why it isn't owed"))
-    if is_tbc(data["activity"]):
-        out.append(("activity", "link the RoPA entry this screening covers"))
+    if is_tbc(data["activity"]) and not _ropa_action(data):
+        out.append(("activity", "link the RoPA entry this screening covers, or add an action to create it"))
     return out
 
 
@@ -267,23 +267,35 @@ def dpia(data: dict) -> list:
             out.append((f"risks/{n}/current", f"{k['id']}: the current rating is below the inherent one, but no measure is verified; only verified measures lower the current rating"))
         if risk.lower(risk.rate(k["target"]), risk.rate(k["current"])) and not statuses & {"planned", "unverified", "verified"}:
             out.append((f"risks/{n}/target", f"{k['id']}: the target rating is below the current one, but no measure is planned"))
-    if current == "High" and data["consultation"]["prior_consultation"]["value"] is not True:
+    if current == "High" and data["kind"] == "controller" and data["consultation"]["prior_consultation"]["value"] is not True:
         out.append(("consultation/prior_consultation", "the current residual rating is High, so Art. 36 prior consultation is required unless verified measures bring it down"))
     if current == "High" and decision in ("proceed", "proceed-with-conditions"):
         out.append(("decision", "the decision lets processing go ahead while the current residual rating is High; processing waits for prior consultation or verified measures"))
     if risks and data["decision"]["status"] == "Confirmed" and not _residual_confirmed(data):
         out.append(("decision", "the decision is confirmed while residual risk isn't: some measures are unverified or the target differs from the current rating"))
     for n, row in enumerate(data["necessity"]):
-        if row["principle"] == "lawful-basis" and LEGITIMATE_INTERESTS.search(row["basis"]) and not str(row["link"]).startswith("LIA-"):
-            out.append((f"necessity/{n}/link", "the lawful basis is legitimate interests; link the LIA, or run lia"))
-    if data["processing"]["special_category"]["value"] is not False and not any(
-            r["principle"] == "art9-condition" and r["position"] in ("adequate", "not-applicable") for r in data["necessity"]):
-        out.append(("necessity", "special category data is or may be processed; add an art9-condition row with the Art. 9(2) condition relied on"))
+        if row["principle"] == "lawful-basis" and LEGITIMATE_INTERESTS.search(row["basis"]) and not str(row["link"]).startswith("LIA-") \
+                and not _open_action(data, r"\bLIA\b|legitimate interests assessment"):
+            out.append((f"necessity/{n}/link", "the lawful basis is legitimate interests; link the LIA, or add an action to run lia"))
+    art9 = [r for r in data["necessity"] if r["principle"] == "art9-condition"]
+    if data["kind"] == "controller" and data["processing"]["special_category"]["value"] is not False:
+        if not art9:
+            out.append(("necessity", "special category data is or may be processed; add an art9-condition row with the Art. 9(2) condition relied on"))
+        elif not any(r["position"] in ("adequate", "not-applicable") for r in art9):
+            out.append(("necessity", "special category data is or may be processed, and no Art. 9(2) condition is in place yet; processing it waits until one is, or the design keeps the data out"))
     if is_tbc(data["screening"]):
         out.append(("screening", "link the screening record that found this DPIA warranted or recommended"))
-    if is_tbc(data["activity"]):
-        out.append(("activity", "link the RoPA entry this DPIA covers"))
+    if is_tbc(data["activity"]) and not _ropa_action(data):
+        out.append(("activity", "link the RoPA entry this DPIA covers, or add an action to create it"))
     return out
+
+
+def _open_action(data: dict, pattern: str) -> bool:
+    return any(re.search(pattern, a["action"], re.IGNORECASE) and a["status"] != "done" for a in data.get("actions", []))
+
+
+def _ropa_action(data: dict) -> bool:
+    return _open_action(data, r"\bRoPA\b|record of processing")
 
 
 def _residual_confirmed(data: dict) -> bool:

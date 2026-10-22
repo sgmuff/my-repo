@@ -47,26 +47,31 @@ If a RoPA entry exists, run `gov screen <RoPA record>` for the criteria its fact
 
 ### 3. Answer the screening question
 
-Answer as a careful privacy lawyer would, before you open any template: territorial scope first, since where the data subjects live doesn't settle whether the GDPR applies (`gdpr.md`, §1a); any Art. 35(3) case; each EDPB criterion as an indicator, with the facts behind it and whether they're confirmed; the lead authority's Art. 35(4) list; the UK, Swiss, US state, FERPA, and AI Act screens that apply; and your provisional outcome (warranted, recommended, or not indicated) with what would change it. Two or more criteria will need a DPIA in most cases, not always; one severe criterion can be enough. Then read `references/screening.md` and add anything your answer missed. If the activity uses an AI system, screen any Art. 5 prohibition now, since prohibitions already apply, and say whether a separate AI impact assessment or FRIA is needed (`ai-impact-assessment`).
+Answer it fully before you open a template, then check your answer against `references/screening.md` and add what you missed. Points answers often miss:
 
-Record it: `gov new scr --slug <slug> --title "<activity>" --date <today>`. Fill in each regime, the Art. 35(3) cases, all nine criteria, the national list, and the state assessment, from your answer; put the reasoning in `analysis`, condensed to 400 words. A state assessment can be owed even when the GDPR outcome is "not indicated."
+- Where the data subjects live doesn't settle whether the GDPR applies; check establishment and targeting first (`gdpr.md`, §1a).
+- The EDPB criteria are indicators, not triggers: two or more need a DPIA in most cases, not always, and one severe criterion can be enough. Say which facts behind each are confirmed.
+- Check the lead authority's Art. 35(4) list, not only the criteria.
+- A US state assessment can be owed when the GDPR outcome is "not indicated."
+- For an AI system, screen Art. 5 prohibitions now, since they already apply, and name any separate AI impact assessment or FRIA (`ai-impact-assessment`).
 
-If the outcome is not indicated, go to step 5.
+Record it with `gov new scr --slug <slug> --title "<activity>" --date <today>`, filling in all nine criteria from your answer and the reasoning in `analysis` (400 words at most). List each fact the screening relies on in `facts` (F1, F2), with its status and source, and cite the fact IDs in the criteria. If the outcome is not indicated, go to step 5.
 
 ### 4. Answer the assessment
 
-Answer as a careful privacy lawyer would, then check against the references and add what you missed:
+Answer it fully, then check against `gdpr.md` (§3-6, §10), `risk-method.md`, and the regime files, and add what you missed. The suite's rules on top of the law:
 
-- **Necessity and proportionality** (`gdpr.md`, §3-6), principle by principle: the lawful basis, with an Art. 9 condition where needed (for legitimate interests, link the LIA or run `lia`; don't write the test inline); minimization, element by element; each secondary use as its own purpose under Art. 6(4); transparency; rights, including in backups, logs, and model weights; profiling and Art. 22 as two separate analyses; retention justified by purpose, not a vendor default; transfers (link the TIA or screen from `tia`).
-- **Risks to individuals** (`risk-method.md`): typically 5 to 12. For each, likelihood and severity at three points: inherent; current, counting verified measures only; and target, adding the planned ones. A planned measure never lowers the current level. Name the evidence that would verify each planned measure.
-- **Prior consultation** (`gdpr.md`, §10) on the current rating: a current High means Art. 36 consultation, unless verified measures bring it down. If only the target drops, consultation isn't required *if* the target is achieved and verified; keep the question open until then.
-- **Other regimes**, each separately: whether the law applies to the company, and whether this activity triggers it (US state assessments and California's required elements, FERPA and COPPA kept apart from consumer privacy, the AI Act role and Art. 50 duties).
+- **Linked records, not inline tests.** For legitimate interests, link the LIA or run `lia`; for transfers, link the TIA or transfer screen (TSR) from `tia`. If the linked record doesn't exist yet, add an open action to produce it.
+- **Profiling and Art. 22 are two analyses.** Retention needs a purpose, not a vendor default. Rights reach backups, logs, and model weights.
+- **Three levels per risk** (typically 5 to 12 risks): inherent; current, counting verified measures only; and target, adding the planned ones. A planned measure never lowers the current level. Name the evidence that would verify each planned measure.
+- **Prior consultation follows the current rating.** If only the target falls below High, consultation is ruled out only once the target is verified.
+- **Other regimes separately:** whether the law applies to the company, then whether this activity triggers it.
 
-Record it: `gov new dpia --slug <slug> --title "<activity>" --date <today>`, with `screening` set to the screening record's ID. Fill in the record from your answer. Give likelihood and severity, never ratings: `gov` computes every rating from the matrix and names the approver from the current one. Each call stays Provisional. If a point doesn't fit a field, it goes in `analysis`; the record never changes your conclusion. Add a verify flag for each point to verify.
+Record it with `gov new dpia --slug <slug> --title "<activity>" --date <today>`, with `screening` set to the screening record's ID and the same fact register. Use `kind: us-assessment` when the GDPR doesn't apply and the record is a US state or CPPA assessment. Give likelihood and severity, never ratings: `gov` computes every rating and names the approver from the current one. Each call stays Provisional. A point that doesn't fit a field goes in `analysis`; the record never changes your conclusion. Add a verify flag for each point you can't check against a source.
 
 ### 5. Validate and render
 
-Mark an action `block_reason: law` only when a provision requires that action before processing, and cite it in `scope`. Gathering facts, verifying a point, or getting counsel's view is `risk` or `policy`. Run `gov validate`, fix errors, and resolve findings by changing the record. For each issue it raises, record in `issues` how your answer deals with it. If `gov` raises a point your answer missed, deal with it in the answer too. Don't add a `finding_responses` entry yourself; only a person decides a finding doesn't apply. Run `gov render`, add the records to the RoPA entry's `assessments` if one exists, and rerun both.
+Mark an action `block_reason: law` only when a provision requires that action before processing, and cite it in `scope`. Gathering facts, verifying a point, or getting counsel's view is `risk` or `policy`. Run `gov validate`, fix errors, and resolve findings by changing the record. A finding that names a real gap, such as no Art. 9 condition yet, stays open with a launch-blocking action; that's the record telling the truth, not a failure. For each issue it raises, if any, record in `issues` how your answer deals with it. If `gov` raises a point your answer missed, deal with it in the answer too. Don't add a `finding_responses` entry yourself; only a person decides a finding doesn't apply. Run `gov render`, add the records to the RoPA entry's `assessments` if one exists, and rerun both.
 
 ### 6. Offer follow-through
 

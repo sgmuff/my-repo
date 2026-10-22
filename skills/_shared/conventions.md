@@ -77,7 +77,7 @@ Every deliverable lists the reference files it relied on, with each file's versi
 
 Laws, regulations, and standards change. The suite handles this in three ways.
 
-**Reference files carry their own dates.** Each file in `references/` opens with a table giving the version covered, the sources, the date last verified, and a review interval. Before relying on a file, check its last-verified date against the interval. If the file is overdue, say so in the deliverable's document control section, and flag each conclusion that depends on it. For a `gov` record, list the file in `references` with the version and the date you verified it: `gov validate` raises a finding when a cited file is past its "Review by" date in `references/README.md`, or has been re-verified since the record cited it, and only a person can answer that finding.
+**Reference files carry their own dates.** Each file in `references/` opens with a table giving the version covered, the sources, the date last verified, and a review interval. Before relying on a file, check its last-verified date against the interval. If the file is overdue, say so in the deliverable's document control section, and flag each conclusion that depends on it. For a `gov` record, list the file in `references` with its version and its last-verified date from the file's header (or a later date only if you re-checked the points you rely on against primary sources): `gov validate` raises a finding when a cited file is past its "Review by" date in `references/README.md`, or has been re-verified since the record cited it, and only a person can answer that finding.
 
 **Volatile points are marked in the reference files.** A point marked *Volatile* in a reference file is one known to be changing: a pending amendment, a delayed effective date, a contested adequacy decision. A conclusion that rests on a volatile point gets a verify flag.
 
@@ -99,7 +99,7 @@ Every verify flag also goes in the deliverable's **verification register**, and 
 |---|---|---|---|---|---|---|
 | V1 | Annex III obligations apply from 2027-12-02 | Decides which provider duties are due before the pack is released | EUR-Lex consolidated AI Act | Privacy lead *(proposed)* | No | A12 |
 
-**Anything that could change the legality of the processing, or the controls required before launch, must be verified before launch.** Never schedule it for after. If a reference file's review date falls after the launch date and the deliverable relies on it, add an action to check it before launch.
+**Anything that could change the legality of the processing, or the controls required before launch, must be verified before launch.** Never schedule it for after. If a reference file's review date falls before the launch date and the deliverable relies on it, add an action to re-check it before launch.
 
 When you can search the web, check a volatile point before flagging it, and record what you found and when. A flag is still needed if the source was secondary.
 
@@ -204,15 +204,17 @@ Don't present a future obligation as one already in force. Readiness blockers ca
 
 ## 8. Where deliverables go
 
-Deliverables are files in the repository, under the output root from the company profile (default `compliance/`). Keep this layout so other skills, and later Confluence publishing or Azure Blob Storage, can find things by path.
+Deliverables are files in the repository, under the output root from the company profile (default `compliance/`). Keep this layout so other skills, and any publishing target the company profile names, can find things by path.
 
-**Records managed by `gov`** are YAML files, and `gov render` writes their Markdown. Never write or edit those `.md` files by hand; edit the YAML and re-render. CI fails on a hand edit. So far this covers the RoPA. Other deliverables move to `gov` one type at a time; until then they stay Markdown written from their templates.
+**Records managed by `gov`** are YAML files, and `gov render` writes their Markdown. Never write or edit those `.md` files by hand; edit the YAML and re-render. CI fails on a hand edit. `gov` manages the RoPA, DPIA screenings (`scr`), DPIAs (`dpia`), LIAs, TIAs, transfer screens (`tsr`), and AI Act provider and deployer files (`aip`, `aid`); `gov/rules/ids.yaml` lists each type's folder. Other deliverables move to `gov` one type at a time; until then they stay Markdown written from their templates, in a folder `gov` doesn't manage.
 
 ```
 compliance/
   approvals/approval-log.md
   assessments/
-    dpia/              YYYY-MM-DD-<slug>.md        (DPIAs and screening records)
+    dpia/              DPIA-YYYY-NNN-<slug>.yaml and .md, plus index.md (generated)
+      screening/       SCR-YYYY-NNN-<slug>.yaml and .md, plus index.md (generated)
+      assistance-packs/ PA-YYYY-NNN-<slug>.md   (processor assistance packs, Markdown)
     ai-impact/         YYYY-MM-DD-<slug>.md
     program/           YYYY-MM-DD-<framework>-assessment.md
   vendors/<vendor-slug>/YYYY-MM-DD-review.md
@@ -280,7 +282,7 @@ Before replying:
 2. Check that every conclusion has a citation and a status, every action has an owner, due date, dependency, and acceptance criterion (owner and date marked *proposed* if the user didn't give them), every verify flag has a matching action, and every decision a person must make has a `Decision needed` block.
 3. Check the action dates for sequencing: nothing is due before the thing it depends on, and every launch blocker and legality-affecting verification is due before launch.
 
-Then reply in **no more than about 150 words**:
+Skills that answer first and record in `gov` (`dpia`, `lia`, `tia`, `ai-act-provider`, `ai-act-deployer`) follow their own reply step instead: the full answer in plain English, with the record named only in one closing line and no counts of findings or flags. Every other skill replies in **no more than about 150 words**:
 
 - The file path
 - The outcome in one or two lines, with statuses (for example, "DPIA warranted (provisional); residual risk not yet confirmed, target Medium")

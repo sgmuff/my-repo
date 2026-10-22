@@ -30,6 +30,7 @@ criteria:  # the nine EDPB criteria; result: present | not-present | unclear; fa
 {% endfor %}national_list: {authority: TBC, result: unclear, item: TBC}  # the lead authority's Art. 35(4) list; result: listed | not-listed | unclear | not-applicable
 state_assessment: {required: {value: TBC, status: Provisional, reason: State thresholds not yet checked}, states: TBC}
 
+facts: []  # the fact register: {id: F1, fact, status: confirmed|stated-by-requester|assumption|TBC, source: {kind, ref}}
 context: []  # tags from gov/rules/issues.yaml context_tags
 issues: []
 actions: []

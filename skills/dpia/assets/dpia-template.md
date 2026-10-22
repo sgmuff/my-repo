@@ -1,6 +1,6 @@
 ---
-id: DPIA-YYYY-NNN
-type: dpia            # or dpia-assistance-pack (see references/assistance-pack.md)
+id: PA-YYYY-NNN       # the template now serves only processor assistance packs; DPIAs are gov records
+type: dpia-assistance-pack   # see references/assistance-pack.md
 title: <Activity name>
 status: Draft
 stage: Draft complete   # Screening complete | Draft complete | Ready for sign-off | Authorized to launch
