@@ -380,8 +380,8 @@ From an outside review of the repository (Lumo, via Proton), checked against the
    2026-10-21) bar copying, distributing, or creating derivative works from its content. Done: `aiuc-1.md` §4 no longer
    quotes AIUC's requirement summaries (IDs, titles, status, and tags remain, with links to AIUC's pages), and
    `controls-and-evidence` reads requirement text from AIUC's site. Open for counsel:
-   - The quoted summaries remain in git history from commit `e69d73a`, and the repository is public. Removing them from
-     history needs a rewrite and a force push. The alternative is to ask AIUC for permission.
+   - Done 2026-10-22, on counsel's decision not to ask AIUC: git history was rewritten so no commit contains AIUC's
+     quoted summaries, and main was force-pushed. Copies already cached or forked elsewhere aren't affected.
    - §5 of `aiuc-1.md` and the "AIUC coverage" column in `iso-42001.md` reproduce AIUC's published crosswalk mappings.
      These are closer to facts than to expression, but the terms reach all site content. Keep with attribution, or ask.
    - `regulatory-change` downloads AIUC's `llms.txt`, which AIUC publishes for machine reading. One fetch per release
@@ -417,4 +417,4 @@ Work done this session is on main, with CI's three checks passing locally (`pyte
 
 Waiting on counsel: the DPIA and router answer keys; the three screening decisions in `phase-4-dpia.md`; the
 `ai-public-transition` rule; the seven unreached states and California's SB 446 text in
-`docs/legal-review/us-breach-verification.md`; and the AIUC-1 permission request or history decision.
+`docs/legal-review/us-breach-verification.md` (approved 2026-10-22); the AIUC-1 history (rewritten 2026-10-22).

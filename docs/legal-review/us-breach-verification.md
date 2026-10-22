@@ -19,7 +19,7 @@ supported only by secondary sources. **Not checked**: no source reached.
 | Jurisdiction | Row says | Source checked | Result |
 |---|---|---|---|
 | Arizona | 45 days; >1,000: AG and homeland security director (*verify*), CRAs | A.R.S. § 18-552(B), azleg.gov | **Matches.** "within forty-five days after the determination"; >1,000 notify CRAs and "the attorney general and the director of the Arizona department of homeland security". The *verify* can go. |
-| California | 30 calendar days; >500: sample to AG within 15 days of individual notice (SB 446, from Jan. 1, 2026) | Cal. Civ. Code § 1798.82; leginfo blocked automated access. AG page (oag.ca.gov) confirms the >500 sample notice | **Secondary** for the 30- and 15-day rules (law-firm alerts on SB 446, signed October 3, 2025). Sources differ on whether the 15 days run from individual notice; check the chaptered text. |
+| California | 30 calendar days; >500: sample to AG within 15 days of individual notice (SB 446, from Jan. 1, 2026) | Cal. Civ. Code § 1798.82; leginfo blocked automated access. AG page (oag.ca.gov) confirms the >500 sample notice | **Secondary** for the 30- and 15-day rules, **approved by counsel as written on 2026-10-22** (law-firm alerts on SB 446, signed October 3, 2025). Sources differ on whether the 15 days run from individual notice; check the chaptered text. |
 | Connecticut | 60 days; AG not later than individual notice; 24 months of identity theft protection for SSN or TIN | Conn. Gen. Stat. § 36a-701b, cga.ct.gov | **Matches.** "not later than sixty days after the discovery"; AG "not later than the time when notice is provided to the resident". **Add:** P.A. 23-98 added precise geolocation data to "personal information". |
 | Delaware | 60 days; >500: AG not later than individual notice; 1 year of credit monitoring for SSN | 6 Del. C. § 12B-102(c)-(e), delcode.delaware.gov | **Matches.** |
 | Florida | 30 days; ≥500: AG within 30 days; CRAs >1,000 | Fla. Stat. § 501.171(3)-(5), leg.state.fl.us | **Matches.** **Add:** 15 more days for notice on written good cause to the department within the 30 days; a third-party agent notifies within 10 days. |
@@ -38,7 +38,7 @@ supported only by secondary sources. **Not checked**: no source reached.
 
 | Colorado | 30 days; ≥500: AG within 30 days; CRAs >1,000 | Colorado AG data breach page (coag.gov); C.R.S. § 6-1-716 text not reached | **Matches**, from the AG's official guidance: notice "within 30 days after the date of determination"; AG for "500 or more"; CRAs for "more than 1,000". |
 | South Dakota | 60 days; AG >250 | SDCL § 22-40-20, sdlegislature.gov | **Matches** on 60 days ("not later than sixty days from the discovery or notification"). The AG threshold (§ 22-40-23) wasn't isolated. |
-| Alabama, Indiana, New Mexico, Rhode Island, Tennessee, Utah, Pennsylvania | Fixed deadlines and thresholds as in the table | Official sites blocked automated access or rendered only in a browser | **Not checked.** Counsel to check, especially Utah's 2024 amendment and Pennsylvania's 2024 amendment, both marked *verify* in the file. |
+| Alabama, Indiana, New Mexico, Rhode Island, Tennessee, Utah, Pennsylvania | Fixed deadlines and thresholds as in the table | Official sites blocked automated access or rendered only in a browser | **Not checked by Claude; approved by counsel as written on 2026-10-22.** |
 
 ## Corrections applied to the reference file
 
