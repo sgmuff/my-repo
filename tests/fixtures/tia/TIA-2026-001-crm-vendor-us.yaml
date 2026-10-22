@@ -65,12 +65,13 @@ issues:
   - {issue: us-laws, status: open, note: "FISA 702 and CLOUD Act reach depend on vendor facts"}
 actions:
   - {id: A1, action: Sign SCCs Module 2 with the vendor, owner: Privacy lead, due: TBC, closure_evidence: Signed SCCs on file, launch_blocking: true, block_reason: law, scope: GDPR Art. 46(2)(c), status: open}
+  - {id: A2, action: Check the vendor on the Data Privacy Framework list, owner: Privacy lead, due: TBC, closure_evidence: Dated list check, launch_blocking: false, status: open}
 
 open_questions:
   - {id: Q1, question: "Has the vendor received government access requests, and does it publish a transparency report?", field: destination_law/practice, blocks: approval, owner: Privacy lead, needed_by: TBC}
 
 verify:
-  - {id: V1, claim: The vendor isn't DPF-certified, why: Certification would make this TIA unnecessary, check: dataprivacyframework.gov list, owner: Privacy lead, needed_by: TBC}
+  - {id: V1, claim: The vendor isn't DPF-certified, why: Certification would make this TIA unnecessary, check: dataprivacyframework.gov list, owner: Privacy lead, needed_by: TBC, action: A2}
 
 finding_responses: []
 

@@ -3,7 +3,7 @@ title: AI system inventory entry
 description: "One AI system, model, agent, or AI feature in the AI inventory: what it does, the proposed tier and EU AI Act classification, AIUC-1 mode, the tiering factors, top risks, and the follow-on reviews it needs."
 type: object
 additionalProperties: false
-required: [id, type, schema_version, format_version, kind, title, status, version, source, lifecycle, business_owner,
+required: [id, type, schema_version, format_version, kind, title, status, version, source, lifecycle, launch_date, business_owner,
   system_owner, prepared_by, date_prepared, last_reviewed, next_review, summary, decision, analysis, tier, ai_act,
   autonomy, decisions_about_people, personal_data, aiuc, use, data, tiering, top_risks, follow_ons, containment, related,
   facts, context, issues, actions, open_questions, verify, finding_responses, references, version_history, signoff]
@@ -17,7 +17,8 @@ properties:
   status: {$ref: "common.schema.yaml#/$defs/doc_status"}
   version: {$ref: "common.schema.yaml#/$defs/version"}
   source: {enum: [in-house, vendor-model, vendor-product, embedded-feature, TBC], description: "Built in-house, built on a vendor's model, a vendor's product, or an AI feature in a product the company already uses"}
-  lifecycle: {enum: [idea, pilot, live, retired]}
+  lifecycle: {enum: [idea, planned, pilot, live, retired]}
+  launch_date: {$ref: "common.schema.yaml#/$defs/date_or_tbc", description: "Planned or actual go-live; actions that block use are due before it"}
   business_owner: {$ref: "common.schema.yaml#/$defs/short"}
   system_owner: {$ref: "common.schema.yaml#/$defs/short"}
   prepared_by: {$ref: "common.schema.yaml#/$defs/short"}
@@ -39,7 +40,7 @@ properties:
   ai_act:
     type: object
     additionalProperties: false
-    required: [ai_system, company_role, category, annex_point, prohibited]
+    required: [ai_system, company_role, category, annex_point, prohibited, art50]
     properties:
       ai_system: {$ref: "common.schema.yaml#/$defs/call_tristate", description: "Is it an AI system under Art. 3(1)?"}
       company_role:
@@ -47,14 +48,15 @@ properties:
         properties:
           value: {enum: [provider, deployer, provider-and-deployer, not-applicable, TBC]}
       category:
-        description: "By documented function, not labels"
+        description: "The classification by documented function, apart from any possible Art. 5 practice, which prohibited records; the highest category among the system's functions"
         $ref: "common.schema.yaml#/$defs/call"
         properties:
-          value: {enum: [prohibited, high-risk, transparency, minimal, not-ai, TBC]}
+          value: {enum: [high-risk, transparency, minimal, not-ai, TBC]}
       annex_point: {$ref: "common.schema.yaml#/$defs/short", description: "Such as Annex III point 4(a), or none"}
-      prohibited: {$ref: "common.schema.yaml#/$defs/call_tristate", description: "Could the documented function be an Art. 5 prohibited practice?"}
+      prohibited: {$ref: "common.schema.yaml#/$defs/call_tristate", description: "Could a documented function be an Art. 5 prohibited practice?"}
+      art50: {$ref: "common.schema.yaml#/$defs/call_tristate", description: "Do Art. 50 transparency duties apply to any function, whatever the category?"}
   autonomy: {enum: [L0-suggest, L1-act-with-approval, L2-act-within-limits, L3-act-broadly, TBC]}
-  decisions_about_people: {enum: [none, informs, decides, TBC], description: "Does it inform, or make or materially influence, decisions about people?"}
+  decisions_about_people: {enum: [none, informs, decides, significant, TBC], description: "informs: a person decides, low stakes; decides: makes low-stakes decisions itself; significant: makes or materially influences decisions with legal or similarly significant effects"}
   personal_data: {enum: [none, personal, sensitive, TBC], description: "sensitive: special category, biometric, student, or children's data"}
   aiuc:
     type: object
@@ -62,7 +64,7 @@ properties:
     required: [mode, certification, capabilities]
     properties:
       mode: {enum: [readiness, benchmark, not-applicable], description: "readiness for the company's own agent; benchmark for a vendor's"}
-      certification: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 20, description: "For a vendor's agent: product in scope, release, report date, expiry; or none"}
+      certification: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 20, description: "For a vendor's agent: product in scope, release, report date, expiry; none once confirmed; TBC until then"}
       capabilities:
         type: array
         uniqueItems: true
@@ -100,7 +102,7 @@ properties:
       required: [factor, level, fact]
       properties:
         factor: {enum: [ai-act-use, decisions-about-people, people-affected, data, autonomy, reach-and-reversibility, source]}
-        level: {enum: ["0", "1", "2", "3", TBC]}
+        level: {enum: [stop, high, elevated, standard, TBC], description: "The column in tiering.md; stop only for a possible Art. 5 practice"}
         fact: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 25}
   top_risks:
     description: "Three to six risks from risk-method.md section 2a, one line each, with who is affected"
@@ -113,19 +115,20 @@ properties:
       additionalProperties: false
       required: [follow_on, why, status, record]
       properties:
-        follow_on: {enum: [ai-impact-assessment, dpia-screening, vendor-review, aup, ai-act-provider, ai-act-deployer, aiuc-readiness]}
+        follow_on: {enum: [ai-impact-assessment, dpia-screening, vendor-review, aup, ai-act-provider, ai-act-deployer, aiuc-readiness, art50-check, human-oversight, testing-plan, notice-update, ropa-update]}
         why: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 20}
         status: {enum: [recommended, in-progress, done, not-needed]}
         record: {type: string, description: "The follow-on's record ID once it exists (AIIA, SCR, DPIA, VR, AIP, AID, RDY), or none"}
   containment:
-    description: "A control applied before review, if any"
+    description: "Each control requested or applied before review"
     type: array
     items:
       type: object
       additionalProperties: false
-      required: [control, owner, applied, evidence, downstream_stopped, remaining_paths, reenable_when]
+      required: [control, status, owner, applied, evidence, downstream_stopped, remaining_paths, reenable_when]
       properties:
         control: {$ref: "common.schema.yaml#/$defs/short"}
+        status: {enum: [requested, applied, verified]}
         owner: {$ref: "common.schema.yaml#/$defs/short", description: "Owner and approver"}
         applied: {$ref: "common.schema.yaml#/$defs/short", description: "When requested and applied, with the time"}
         downstream_stopped: {$ref: "common.schema.yaml#/$defs/tristate", description: "Is the output no longer generated, shown, exported, or used downstream?"}

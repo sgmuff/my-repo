@@ -71,6 +71,11 @@ def _matches(when: dict, data: dict) -> bool:
     return True
 
 
+def covers(record_type: str) -> bool:
+    """Whether any issue rule can apply to this record type."""
+    return any(record_type in rule.get("when", {}).get("types", [record_type]) for rule in rules()["issues"].values())
+
+
 def triggered(data: dict) -> list:
     """(issue id, rule) pairs that apply to this record, in rules-file order."""
     return [(i, r) for i, r in rules()["issues"].items() if _matches(r["when"], data)]

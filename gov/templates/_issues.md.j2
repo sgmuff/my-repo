@@ -4,6 +4,8 @@
 {% for i in issue_rows %}
 | {{ i.label | cell }} | {{ i.status | label }} | {{ i.note | cell }} | {{ i.cite | cell }} |
 {% endfor %}
+{% elif not issue_rules_apply %}
+No issue rules cover this record type yet, so nothing was checked here.
 {% else %}
 None raised.
 {% endif %}

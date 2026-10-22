@@ -71,13 +71,14 @@ issues:
   - {issue: e-marketing, status: open, note: "Counsel to confirm email rules per country"}
 actions:
   - {id: A1, action: Write the Art. 14 notice for scored prospects, owner: Privacy lead, due: TBC, closure_evidence: Approved notice text, launch_blocking: true, block_reason: law, scope: GDPR Art. 14, status: open}
+  - {id: A2, action: Check LinkedIn's current terms on copying member data, owner: Counsel, due: TBC, closure_evidence: Note on the terms, launch_blocking: false, status: open}
 
 open_questions:
   - {id: Q1, question: "Is the LinkedIn data scraped, exported from Sales Navigator, or supplied by the vendor?", field: balancing/expectations, blocks: approval, owner: Marketing, needed_by: TBC}
   - {id: Q2, question: "Would account-level scoring without personal data meet the need?", field: necessity_test/necessary, blocks: approval, owner: Marketing, needed_by: TBC}
 
 verify:
-  - {id: V1, claim: LinkedIn's terms restrict copying member data into third-party tools, why: Affects whether the source is lawful to use, check: Current LinkedIn User Agreement, owner: Counsel, needed_by: TBC}
+  - {id: V1, claim: LinkedIn's terms restrict copying member data into third-party tools, why: Affects whether the source is lawful to use, check: Current LinkedIn User Agreement, owner: Counsel, needed_by: TBC, action: A2}
 
 finding_responses: []
 

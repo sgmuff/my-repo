@@ -20,7 +20,7 @@ None recorded.
 | # | Question | Field | Blocks | Owner | Needed by |
 |---|---|---|---|---|---|
 {% for q in r.open_questions %}
-| {{ q.id }} | {{ q.question | cell }} | {{ q.field | cell }} | {{ q.blocks | label }} | {{ q.owner | cell }} | {{ q.needed_by }} |
+| {{ q.id }} | {{ q.question | cell }} | {{ q.field | cell }} | {{ gate if q.blocks == "launch" else {"notice": "A notice"}.get(q.blocks, q.blocks | label) }} | {{ q.owner | cell }} | {{ q.needed_by }} |
 {% endfor %}
 {% else %}
 None.
@@ -29,10 +29,10 @@ None.
 ### Verify flags
 
 {% if r.verify %}
-| # | Claim | Why it matters | Check | Owner | Needed by |
-|---|---|---|---|---|---|
+| # | Claim | Why it matters | Check | Owner | Needed by | Action |
+|---|---|---|---|---|---|---|
 {% for v in r.verify %}
-| {{ v.id }} | {{ v.claim | cell }} | {{ v.why | cell }} | {{ v.check | cell }} | {{ v.owner | cell }} | {{ v.needed_by }} |
+| {{ v.id }} | {{ v.claim | cell }} | {{ v.why | cell }} | {{ v.check | cell }} | {{ v.owner | cell }} | {{ v.needed_by }} | {{ v.get("action", "") }} |
 {% endfor %}
 {% else %}
 None.

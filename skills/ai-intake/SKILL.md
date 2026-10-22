@@ -18,7 +18,9 @@ The skill proposes the tier and the classification; the privacy lead confirms th
 | [`../_shared/references/eu-ai-act.md`](../_shared/references/eu-ai-act.md) | Step 3: definition, roles, prohibited practices, Annex III, Art. 50 |
 | [`../_shared/references/aiuc-1.md`](../_shared/references/aiuc-1.md) | Step 3: mode and capability tags |
 | [`../_shared/references/risk-method.md`](../_shared/references/risk-method.md) | Step 3: the AI risk catalog (§2a) |
-| [`../_shared/references/us-state-privacy.md`](../_shared/references/us-state-privacy.md) | §9, state AI and ADMT laws |
+| [`../_shared/references/gdpr.md`](../_shared/references/gdpr.md) | Step 3: Art. 22 and profiling (§6), biometric data (§3) |
+| [`../_shared/references/us-state-privacy.md`](../_shared/references/us-state-privacy.md) | Step 3: CPPA risk assessments, which come before processing starts (§6), and state AI and ADMT laws (§9) |
+| [`../_shared/references/dpa-checklist.md`](../_shared/references/dpa-checklist.md) | Step 3, for a vendor's AI: what to ask about its model, training, and retention (§6) |
 | [`../_shared/approvals.md`](../_shared/approvals.md) | Step 5 |
 
 ## Workflow
@@ -31,7 +33,7 @@ If the AI is already in use, including a pilot or a feature switched on by defau
 
 ### 2. Get the facts
 
-Ask in one short Round 1 message, usually under 10 questions: inputs, outputs (with samples), what happens to the output, users, the people the outputs are about, data (including through retrieval and tools), autonomy and permissions, source, and lifecycle. Ask for product documentation and the vendor's AI terms where they exist. A label is not a function: "productivity assistant" or "engagement score" says nothing until you know the inputs, outputs, and use.
+Ask in one Round 1 message (`conventions.md`, §6): inputs, outputs (with samples), what happens to the output, users, the people the outputs are about, data (including through retrieval and tools), autonomy and permissions, source, and lifecycle. Ask for product documentation and the vendor's AI terms where they exist. A label is not a function: "productivity assistant" or "engagement score" says nothing until you know the inputs, outputs, and use.
 
 ### 3. Answer the intake
 
@@ -46,13 +48,13 @@ Answer it fully, then check it against `tiering.md` and `eu-ai-act.md` and add w
 
 ### 4. Record it
 
-Run `gov new ais --slug <system> --title "<system name>" --date <today>` and fill in the record from your answer: each tiering factor with its level and the fact behind it, the tier and AI Act calls (Provisional), the AIUC-1 mode and tags, three to six top risks, and the follow-ons with `status: recommended`; recommend them, don't run them. Record any containment with its evidence and whether the output is stopped downstream, including exports, reports, and integrations. Points that don't fit a field go in `analysis` (400 words at most). When a follow-on starts, set its `record` to the new record's ID.
+Run `gov new ais --slug <system> --title "<system name>" --date <today>` and fill in the record from your answer: each tiering factor with its level and the fact behind it, the tier and AI Act calls (Provisional), the AIUC-1 mode and tags, three to six top risks, and the follow-ons with `status: recommended`; recommend them, don't run them. Record each containment control as `requested` until someone applies it, with an action to apply it; once applied, record the evidence and whether the output is stopped downstream, including exports, reports, and integrations. Record a split classification by function: `prohibited` for a possible Art. 5 practice, `category` for the rest of the system, and `art50` for transparency duties, which apply whatever the category. Link each verify flag to its action. Points that don't fit a field go in `analysis` (400 words at most). When a follow-on starts, set its `record` to the new record's ID.
 
 ### 5. Validate, render, and reply
 
 Run `gov validate`, fix errors, and resolve findings by changing the record; a finding that names a real gap stays open with an action. Don't add a `finding_responses` entry yourself. Run `gov render`, which rebuilds the inventory index.
 
-Reply in about 150 words: any stop first, then the proposed tier (Provisional) and the deciding factor, the follow-ons, and the decisions needed. Tier 0 and Tier 1 go to the privacy lead now, not in a batch. Close with one line naming the record and its path.
+Reply in plain English: any stop first, with the containment to apply now; then the proposed tier (Provisional) and the deciding factor, what has to happen before use, the follow-ons, and the Round 1 questions. Tier 0 and Tier 1 go to the privacy lead now, not in a batch; if the company profile names no privacy lead, say the decision is theirs by role and ask who holds it, rather than saying it was sent. Close with one line naming the record and its path.
 
 ## Building or refreshing the whole inventory
 

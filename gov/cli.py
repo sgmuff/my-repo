@@ -128,7 +128,7 @@ def _required(root, args) -> int:
     if data.get("type") == "ropa":
         facts, as_of = req.facts_from_ropa(data), args.as_of or data["date_prepared"]
     elif data.get("type"):
-        raise RoutingError(f"gov required reads a RoPA record or a facts file, not a {data['type']} record; run it on the RoPA entry this record belongs to")
+        raise RoutingError(f"gov required reads a RoPA record or a facts file, not {'an' if data['type'][0] in 'aeiou' else 'a'} {data['type']} record; run it on the RoPA entry this record belongs to")
     else:
         if not args.as_of:
             raise RoutingError("pass --as-of YYYY-MM-DD with a facts file")

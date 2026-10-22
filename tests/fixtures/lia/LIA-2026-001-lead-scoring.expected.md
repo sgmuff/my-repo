@@ -108,6 +108,7 @@ No. Provisional: Professional profile fields only An LIA never supplies an Art. 
 | # | Action | Owner | Due | Closure evidence | Blocks launch | Status |
 |---|---|---|---|---|---|---|
 | A1 | Write the Art. 14 notice for scored prospects | Privacy lead | TBC | Approved notice text | Yes (law: GDPR Art. 14) | Open |
+| A2 | Check LinkedIn's current terms on copying member data | Counsel | TBC | Note on the terms | No | Open |
 
 ## 11. Sign-off
 
@@ -126,9 +127,9 @@ No. Provisional: Professional profile fields only An LIA never supplies an Art. 
 
 ### Verify flags
 
-| # | Claim | Why it matters | Check | Owner | Needed by |
-|---|---|---|---|---|---|
-| V1 | LinkedIn's terms restrict copying member data into third-party tools | Affects whether the source is lawful to use | Current LinkedIn User Agreement | Counsel | TBC |
+| # | Claim | Why it matters | Check | Owner | Needed by | Action |
+|---|---|---|---|---|---|---|
+| V1 | LinkedIn's terms restrict copying member data into third-party tools | Affects whether the source is lawful to use | Current LinkedIn User Agreement | Counsel | TBC | A2 |
 
 ### Validation findings
 

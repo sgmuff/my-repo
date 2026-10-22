@@ -74,7 +74,6 @@ LABELS = {
     "live": "Live",
     "retired": "Retired",
     "proceed-to-follow-ons": "Proceed to the follow-ons; not authorized for use by this intake",
-    "stop": "Stop",
     "prohibited": "Possibly prohibited (Art. 5)",
     "minimal": "Minimal risk",
     "not-ai": "Not an AI system",
@@ -82,10 +81,19 @@ LABELS = {
     "L1-act-with-approval": "L1: acts with approval",
     "L2-act-within-limits": "L2: acts within limits",
     "L3-act-broadly": "L3: acts broadly",
-    "informs": "Informs decisions",
-    "decides": "Makes or materially influences decisions",
+    "informs": "Informs a decision a person makes",
+    "decides": "Makes low-stakes decisions itself",
+    "significant": "Makes or materially influences significant decisions",
+    "stop": "Stop",
+    "high": "High",
+    "elevated": "Elevated",
+    "applied": "Applied",
+    "art50-check": "Art. 50 transparency check",
+    "testing-plan": "Quarterly testing plan",
+    "notice-update": "Notice update (notice-and-policy)",
+    "ropa-update": "RoPA entry (ropa)",
     "personal": "Personal",
-    "sensitive": "Sensitive, biometric, student, or children's",
+    "sensitive": "Sensitive",
     "benchmark": "Vendor benchmark",
     "ai-act-use": "Use under the EU AI Act",
     "decisions-about-people": "Decisions about people",
@@ -391,7 +399,7 @@ def _env() -> Environment:
         keep_trailing_newline=True,
         autoescape=False,
     )
-    env.filters.update(cell=cell, yn=yn, label=label, src=src, join_or_tbc=join_or_tbc, flags=flags, call=call)
+    env.filters.update(tier_name=lambda t: derive.TIER_NAMES.get(t, t), cell=cell, yn=yn, label=label, src=src, join_or_tbc=join_or_tbc, flags=flags, call=call)
     return env
 
 
@@ -465,7 +473,8 @@ def render_record(rec, root=None) -> str:
         method = method.get((rec.data.get("regimes") or ["eu-gdpr"])[0])
     from gov import references
     extra = {"findings": finding_rows(rec, root), "method": method, "ref_notes": references.notes(root, rec.data),
-             "issue_rows": issues.rows(rec.data) if rec.type != "ropa" else []}
+             "issue_rows": issues.rows(rec.data) if rec.type != "ropa" else [], "issue_rules_apply": issues.covers(rec.type),
+             "gate": derive.DERIVE[rec.type](rec.data).get("gate", "Launch")}
     if rec.type == "ctl":
         from gov import crosswalk
         extra["crosswalk"] = crosswalk.objectives(root)

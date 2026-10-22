@@ -286,7 +286,7 @@ Before replying:
 2. Check that every conclusion has a citation and a status, every action has an owner, due date, dependency, and acceptance criterion (owner and date marked *proposed* if the user didn't give them), every verify flag has a matching action, and every decision a person must make has a `Decision needed` block.
 3. Check the action dates for sequencing: nothing is due before the thing it depends on, and every launch blocker and legality-affecting verification is due before launch.
 
-Skills that answer first and record in `gov` (`dpia`, `lia`, `tia`, `ai-act-provider`, `ai-act-deployer`, `vendor-review`, `ai-impact-assessment`, `incident-assessment`) follow their own reply step instead: the full answer in plain English, with the record named only in one closing line and no counts of findings or flags. Every other skill replies in **no more than about 150 words**:
+Skills that answer first and record in `gov` (`dpia`, `lia`, `tia`, `ai-act-provider`, `ai-act-deployer`, `vendor-review`, `ai-impact-assessment`, `incident-assessment`, `ai-intake`) follow their own reply step instead: the full answer in plain English, with the record named only in one closing line and no counts of findings or flags. Every other skill replies in **no more than about 150 words**:
 
 - The file path
 - The outcome in one or two lines, with statuses (for example, "DPIA warranted (provisional); residual risk not yet confirmed, target Medium")

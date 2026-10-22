@@ -97,6 +97,7 @@ A change in US law, a DPF certification by the vendor, new sub-processors, or a 
 | # | Action | Owner | Due | Closure evidence | Blocks launch | Status |
 |---|---|---|---|---|---|---|
 | A1 | Sign SCCs Module 2 with the vendor | Privacy lead | TBC | Signed SCCs on file | Yes (law: GDPR Art. 46(2)(c)) | Open |
+| A2 | Check the vendor on the Data Privacy Framework list | Privacy lead | TBC | Dated list check | No | Open |
 
 ## 10. Sign-off
 
@@ -114,9 +115,9 @@ A change in US law, a DPF certification by the vendor, new sub-processors, or a 
 
 ### Verify flags
 
-| # | Claim | Why it matters | Check | Owner | Needed by |
-|---|---|---|---|---|---|
-| V1 | The vendor isn't DPF-certified | Certification would make this TIA unnecessary | dataprivacyframework.gov list | Privacy lead | TBC |
+| # | Claim | Why it matters | Check | Owner | Needed by | Action |
+|---|---|---|---|---|---|---|
+| V1 | The vendor isn't DPF-certified | Certification would make this TIA unnecessary | dataprivacyframework.gov list | Privacy lead | TBC | A2 |
 
 ### Validation findings
 

@@ -336,26 +336,32 @@ def rdy(data: dict) -> dict:
 
 
 TIER_NAMES = {"0": "Tier 0 (Stop)", "1": "Tier 1 (High)", "2": "Tier 2 (Elevated)", "3": "Tier 3 (Standard)", "TBC": "TBC"}
+LEVEL_TIER = {"stop": "0", "high": "1", "elevated": "2", "standard": "3"}
 
 
 def factor_tier(data: dict) -> str:
-    """The highest level any tiering factor reaches: the lowest number, or TBC when no factor is set."""
-    levels = [t["level"] for t in data["tiering"] if t["level"] != TBC]
-    return min(levels) if levels else TBC
+    """The tier the highest factor level sets, or TBC when no factor is set."""
+    tiers = [LEVEL_TIER[t["level"]] for t in data["tiering"] if t["level"] != TBC]
+    return min(tiers) if tiers else TBC
 
 
 def ais_follow_ons(data: dict) -> list:
-    """The follow-ons tiering.md requires for the record's tier, plus the AI Act files its classification calls for."""
+    """The follow-ons tiering.md requires for the record's tier, cumulative, plus those its classification calls for.
+    A TBC source or personal data counts as third-party and personal until it's known."""
     tier = data["tier"]["value"]
     third_party = data["source"] != "in-house"
-    personal = data["personal_data"] not in ("none",)
+    personal = data["personal_data"] != "none"
     need = []
     if tier in ("1", "2"):
         need.append("ai-impact-assessment")
-        if personal:
-            need.append("dpia-screening")
-    if tier in ("1", "2", "3") and third_party:
+    if tier in ("0", "1", "2") and personal:
+        need.append("dpia-screening")
+    if tier != TBC and third_party:
         need.append("vendor-review")
+    if tier == "1":
+        need += ["human-oversight", "testing-plan"]
+    if data["ai_act"]["art50"]["value"] is not False and tier != TBC:
+        need.append("art50-check")
     if data["ai_act"]["category"]["value"] == "high-risk":
         role = data["ai_act"]["company_role"]["value"]
         if role in ("provider", "provider-and-deployer"):
@@ -364,6 +370,8 @@ def ais_follow_ons(data: dict) -> list:
             need.append("ai-act-deployer")
     if tier == "1" and data["aiuc"]["mode"] == "readiness":
         need.append("aiuc-readiness")
+    if personal and data["related"]["ropa"] in ("none", TBC):
+        need.append("ropa-update")
     return need
 
 
@@ -376,6 +384,7 @@ def ais(data: dict) -> dict:
         "factor_tier": factor_tier(data),
         "follow_ons_open": sum(1 for f in data["follow_ons"] if f["status"] in ("recommended", "in-progress")),
         "follow_ons_needed": ais_follow_ons(data),
+        "gate": "Use" if data["lifecycle"] in ("pilot", "live") else "Launch",
         "approval_questions": sum(1 for q in data["open_questions"] if q["blocks"] == "approval"),
     }
 

@@ -172,7 +172,18 @@ def _analysis(data: dict) -> list:
 
 def _with_issues(check):
     from gov import issues
-    return lambda data: check(data) + _analysis(data) + issues.missing(data)
+    return lambda data: check(data) + _analysis(data) + _verify_links(data) + issues.missing(data)
+
+
+def _verify_links(data: dict) -> list:
+    """Every verify flag becomes an action (conventions.md section 4): linked by its action field, or named in an action."""
+    actions = {a["id"] for a in data.get("actions", [])}
+    out = []
+    for n, v in enumerate(data.get("verify", [])):
+        if v.get("action") in actions or _open_action(data, rf"\b{v['id']}\b") or any(re.search(rf"\b{v['id']}\b", a["action"]) for a in data.get("actions", [])):
+            continue
+        out.append((f"verify/{n}", f"{v['id']} has no action; set its action field to the action that resolves it"))
+    return out
 
 
 CERTIFICATION_ROUTES = {"eu-us-dpf", "uk-extension", "swiss-us-dpf", "TBC"}
@@ -449,33 +460,45 @@ def ais(data: dict) -> list:
     tier = data["tier"]["value"]
     floor = derive.factor_tier(data)
     if tier != TBC and floor != TBC and int(tier) > int(floor):
-        out.append(("tier", f"the tier is the highest level any factor reaches; a factor is at {floor}, so the tier can't be {tier}"))
+        out.append(("tier", f"the tier is the highest level any factor reaches; a factor sets Tier {floor}, so the tier can't be {tier}"))
     if data["ai_act"]["prohibited"]["value"] is True and tier != "0":
-        out.append(("tier", "the record says the function could be an Art. 5 prohibited practice; that makes it Tier 0 (Stop)"))
+        out.append(("tier", "the record says a function could be an Art. 5 prohibited practice; that makes it Tier 0 (Stop)"))
     if tier == "0" and data["decision"]["value"] != "stop":
         out.append(("decision", "a Tier 0 system is a stop until the privacy lead and counsel decide"))
     if tier == "0" and data["lifecycle"] in ("pilot", "live") and not data["containment"]:
-        out.append(("containment", "a Tier 0 function is in use; record the control that stops it, with evidence"))
+        out.append(("containment", "a Tier 0 function is in use; request the control that stops it and record it here"))
+    levels = {t["factor"]: t["level"] for t in data["tiering"]}
+    if data["decisions_about_people"] == "significant" and levels.get("decisions-about-people") not in ("high", "stop", TBC):
+        out.append(("tiering", "decisions with legal or similarly significant effects are a High factor"))
     for n, c in enumerate(data["containment"]):
-        if c["downstream_stopped"] is not True:
+        if c["status"] == "requested" and not _open_action(data, re.escape(c["control"][:30]) + r"|contain|disable|switch(ed)? off|turn(ed)? off"):
+            out.append((f"containment/{n}/status", f"{c['control']} is requested, not applied; add an action to apply it and record the evidence"))
+        if c["status"] != "requested" and c["downstream_stopped"] is not True:
             out.append((f"containment/{n}/downstream_stopped", "confirm the output is no longer generated, shown, exported, or used downstream"))
     if data["ai_act"]["category"]["value"] == "high-risk" and (is_tbc(data["ai_act"]["annex_point"]) or data["ai_act"]["annex_point"] == "none"):
         out.append(("ai_act/annex_point", "a high-risk classification needs the Annex III point or the Art. 6(1) basis"))
     listed = {f["follow_on"] for f in data["follow_ons"]}
     missing = [f for f in derive.ais_follow_ons(data) if f not in listed]
     if missing:
-        out.append(("follow_ons", f"the tier and classification call for these follow-ons, which the record doesn't list: {', '.join(missing)}"))
+        out.append(("follow_ons", f"the tier and classification call for these follow-ons, which the record doesn't list: {', '.join(missing)}; mark one not-needed with the reason if it doesn't apply"))
     for n, f in enumerate(data["follow_ons"]):
-        if f["status"] in ("in-progress", "done") and (is_tbc(f["record"]) or f["record"] == "none"):
+        if f["status"] in ("in-progress", "done") and (is_tbc(f["record"]) or f["record"] == "none") and f["follow_on"] not in RECORDLESS:
             out.append((f"follow_ons/{n}/record", f"{f['follow_on']} is {f['status']}; link its record"))
     if tier in ("1", "2") and len(data["top_risks"]) < 3:
         out.append(("top_risks", "name at least three risks from the AI risk catalog (risk-method.md section 2a)"))
+    if data["lifecycle"] in ("idea", "planned") and not is_tbc(data["launch_date"]):
+        late = [a["id"] for a in data["actions"] if a["launch_blocking"] and a["status"] == "open" and not is_tbc(a["due"]) and str(a["due"]) > str(data["launch_date"])]
+        if late:
+            out.append(("actions", f"these launch-blocking actions are due after the launch date ({data['launch_date']}): {', '.join(late)}"))
     months = {"1": 6, "2": 6, "3": 12}.get(tier)
     if months:
         start = dt.date.fromisoformat(str(data["last_reviewed"] or data["date_prepared"]))
         if dt.date.fromisoformat(str(data["next_review"])) > dt.date.fromisoformat(add_months(start.isoformat(), months)):
             out.append(("next_review", f"Tier {tier} entries are reviewed at least every {months} months"))
     return out
+
+
+RECORDLESS = {"human-oversight", "testing-plan", "art50-check", "notice-update", "aup"}
 
 
 def dsr(data: dict) -> list:

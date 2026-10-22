@@ -142,6 +142,7 @@ $defs:
         check: {$ref: "#/$defs/text", x-max-words: 15}
         owner: {$ref: "#/$defs/short"}
         needed_by: {$ref: "#/$defs/date_or_tbc"}
+        action: {type: string, pattern: "^A\\d+$", description: "The action that resolves the flag"}
   finding_responses:
     type: array
     items:
