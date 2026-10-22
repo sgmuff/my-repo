@@ -269,4 +269,35 @@ def aiia(data: dict) -> dict:
     }
 
 
-DERIVE = {"aiia": aiia, "vr": vr, "dpia": dpia, "ropa": ropa, "lia": lia, "tia": tia, "tsr": tsr, "aip": ai_act, "aid": ai_act, "scr": scr}
+def clock_rows(data: dict):
+    """(rows, note, error): the statutory clocks from the record's awareness time, as gov clock computes them."""
+    import datetime as dt
+    from gov import clock
+    aw = data["awareness"]
+    if is_tbc(aw["time"]):
+        return [], None, None
+    try:
+        aware, note = clock.parse(str(aw["time"]), aw["tz"])
+    except ValueError as exc:
+        return [], None, str(exc)
+    notice = None if is_tbc(data["individual_notice"]) else dt.date.fromisoformat(str(data["individual_notice"]))
+    rows = [{"due": due, "regime": regime, "duty": duty} for _, due, regime, duty in clock.compute(aware, data["regimes"], data["states"], notice)]
+    return rows, note, None
+
+
+def inc(data: dict) -> dict:
+    rows, note, error = clock_rows(data)
+    return {
+        "decision": data["decision"]["value"],
+        "clock": rows,
+        "clock_note": note,
+        "earliest": next((r for r in rows if r["due"] != "no fixed date"), None),
+        "open_rows": sum(1 for m in data["matrix"] if m["status"] not in ("sent", "delivered", "not-required")),
+        "launch_blockers": _blockers(data),
+        "launch_groups": _blocker_groups(data),
+        "launch_questions": sum(1 for q in data["open_questions"] if q["blocks"] == "launch"),
+        "approval_questions": sum(1 for q in data["open_questions"] if q["blocks"] == "approval"),
+    }
+
+
+DERIVE = {"inc": inc, "aiia": aiia, "vr": vr, "dpia": dpia, "ropa": ropa, "lia": lia, "tia": tia, "tsr": tsr, "aip": ai_act, "aid": ai_act, "scr": scr}

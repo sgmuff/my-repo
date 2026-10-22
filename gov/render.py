@@ -13,6 +13,21 @@ from gov.records import load, record_files
 from gov.validate import Problem, _rel, validate_tree
 
 LABELS = {
+    "incident": "Incident",
+    "notify": "Notify",
+    "notify-some": "Notify some recipients",
+    "no-notice-required": "No notice required",
+    "undetermined": "Undetermined pending review",
+    "maintainer": "Maintainer",
+    "school-official": "School official",
+    "statutory": "Statutory",
+    "not-started": "Not started",
+    "drafting": "Drafting",
+    "awaiting-approval": "Awaiting approval",
+    "delivered": "Delivered",
+    "done-verified": "Done and verified",
+    "done-unverified": "Done, not verified",
+    "in-progress": "In progress",
     "provider-and-deployer": "Provider and deployer",
     "not-yet-due": "Not yet due",
     "aiia": "AI impact assessment",
@@ -351,6 +366,12 @@ def render_record(rec, root=None) -> str:
     from gov import references
     extra = {"findings": finding_rows(rec, root), "method": method, "ref_notes": references.notes(root, rec.data),
              "issue_rows": issues.rows(rec.data) if rec.type != "ropa" else []}
+    if rec.type == "inc":
+        entry = references.index(root).get("us-breach-notification.md") if root else None
+        counsel = (entry or {}).get("front", {}).get("counsel_review", {})
+        if counsel.get("status") != "approved":
+            extra["breach_review"] = ("counsel has reviewed only part of us-breach-notification.md (" + counsel.get("scope", "") + "); confirm the state rules relied on here"
+                                      if counsel.get("status") == "partial" else "counsel hasn't reviewed us-breach-notification.md; confirm every state rule relied on here")
     if rec.type == "vr":
         from gov.vendor_items import item_text
         extra["item_text"] = item_text(root)
@@ -392,6 +413,9 @@ def render_tree(root: Path, check: bool = False) -> RenderResult:
     for path in record_files(root):
         rec = load(path)
         outputs[rec.markdown_path] = render_record(rec, root)
+        if rec.type == "inc" and rec.data.get("notices"):
+            outputs[rec.path.parent / "notices" / f"{rec.path.stem}-notices.md"] = _tidy(
+                _env().get_template("inc-notices.md.j2").render(r=rec.data, source_file=rec.path.name))
         if rec.type == "vr" and rec.data.get("requests"):
             outputs[rec.path.parent / "requests" / f"{rec.path.stem}-requests.md"] = _tidy(
                 _env().get_template("vr-requests.md.j2").render(r=rec.data, source_file=rec.path.name))

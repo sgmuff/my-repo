@@ -182,13 +182,15 @@ def main(argv=None):
             (sla_met if resp and resp <= target else sla_missed).append(rel)
 
     # Incidents
-    inc = [(rel, md) for rel, md, _ in docs if md.get("type") == "incident"]
+    inc = [(rel, md) for rel, md, _ in docs if md.get("type") in ("incident", "inc")]
     inc_breach = [rel for rel, md in inc if md.get("personal_data_breach", "").lower().startswith("yes")]
     inc_open = [rel for rel, md in inc if is_open(md.get("status"))]
 
     # Vendors
-    vr = [(rel, md) for rel, md, _ in docs if md.get("type") == "vendor-review"]
-    reviewed = {rel.split(os.sep)[1] for rel, _ in vr if rel.startswith("vendors" + os.sep) and rel.count(os.sep) >= 2}
+    vr = [(rel, md) for rel, md, _ in docs if md.get("type") in ("vendor-review", "vr")]
+    # Vendor reviews as gov records name their vendor in vendor_slug; older Markdown reviews sit in vendors/<slug>/.
+    reviewed = {md["vendor_slug"] for _, md in vr if md.get("vendor_slug")}
+    reviewed |= {rel.split(os.sep)[1] for rel, md in vr if not md.get("vendor_slug") and rel.startswith("vendors" + os.sep) and rel.count(os.sep) >= 2}
     used = set()
     for rel, md, _ in docs:
         if md.get("type") == "ropa":

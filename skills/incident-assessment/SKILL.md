@@ -1,117 +1,63 @@
 ---
 name: incident-assessment
 description: Assess a security or privacy incident for notification duties, fast. Start the notification clocks (GDPR's 72 hours, US state deadlines, contractual and regulator deadlines), decide whether it's a personal data breach and who must be told (supervisory authorities, attorneys general, individuals, customers as controllers, districts, credit bureaus, insurers), and draft every notice for counsel and the privacy lead to approve. Covers GDPR, UK GDPR, Swiss FADP, all US state breach laws, FERPA and student privacy contracts, and AI serious incidents under the EU AI Act. Use it whenever someone reports a breach, data leak, misdirected email or file, lost or stolen device, ransomware, unauthorized access, a vendor's security incident, an AI agent exposing data, or asks "do we have to notify," even if they don't call it a breach. Not for routine privacy requests (dsr-response) or vendor contract reviews (vendor-review).
+compatibility: Requires the gov command from this repository (skills/install.sh installs it), with Python 3.10+, PyYAML, jsonschema, and Jinja2.
 ---
 
 # Incident assessment
 
-This skill works the notification side of an incident: who must be told, by when, and what they must be told. Security incident response (containment, forensics, recovery) belongs to the security team. This skill runs alongside it, and its first job is to start the clocks.
+This skill works the notification side of an incident: who must be told, by when, and what. Containment, forensics, and recovery belong to the security team; this skill runs alongside, and its first job is to start the clocks. It records everything in one `inc` record. `gov render` computes the statutory clocks from the record's awareness time and writes the record and the notice drafts. Never write or edit either `.md` file.
 
-The decision to notify, or not, is a legal determination. The skill prepares the analysis and the drafts. Counsel and the privacy lead decide, and a person sends every notice (`approvals.md`). **Before first live use, counsel must review `us-breach-notification.md` and record the review in its header.** Until then, say so at the top of every incident record.
+**The decision to notify is a legal determination.** The skill analyzes and drafts; counsel and the privacy lead decide, and a person sends every notice (`approvals.md`). Only a person's decision goes in the decision log. Until counsel has fully reviewed `us-breach-notification.md`, the rendered record says so at the top.
 
 ## Files
 
 | File | Read it when |
 |---|---|
-| [`../_shared/conventions.md`](../_shared/conventions.md) | At the start, once the clock is running |
-| [`../_shared/company-profile.md`](../_shared/company-profile.md) | At the start, for counsel, the lead supervisory authority, and insurers |
-| [`../_shared/approvals.md`](../_shared/approvals.md) | Step 7 |
-| `gov clock` | Step 1, and whenever facts change |
-| [`references/risk-factors.md`](references/risk-factors.md) | Steps 3–5: the GDPR and US analyses, contracts, AI incidents |
-| [`../_shared/references/us-breach-notification.md`](../_shared/references/us-breach-notification.md) | Steps 4–6: each state's rules, notice content, federal and sector laws to flag |
-| [`../_shared/references/gdpr.md`](../_shared/references/gdpr.md) | §9 breach duties, §1a territorial scope |
-| [`../_shared/references/ferpa.md`](../_shared/references/ferpa.md) | Student data |
-| [`../_shared/references/eu-ai-act.md`](../_shared/references/eu-ai-act.md) | AI serious incidents |
-| [`assets/incident-record-template.md`](assets/incident-record-template.md) | Step 7 |
-| [`assets/notice-drafts.md`](assets/notice-drafts.md) | Step 6 |
-| [`../_shared/scripts/build_register_index.py`](../_shared/scripts/build_register_index.py) | Step 7, to rebuild the incident register |
+| [`references/risk-factors.md`](references/risk-factors.md) | Steps 3-4: the GDPR and US analyses, contracts, AI incidents |
+| [`../_shared/references/us-breach-notification.md`](../_shared/references/us-breach-notification.md) | Steps 4-5: each state's rules, notice content, federal and sector laws to flag |
+| [`../_shared/references/gdpr.md`](../_shared/references/gdpr.md), [`ferpa.md`](../_shared/references/ferpa.md), [`eu-ai-act.md`](../_shared/references/eu-ai-act.md) | §9 breach duties and §1a scope; student data; AI serious incidents |
+| [`assets/notice-drafts.md`](assets/notice-drafts.md) | Step 5: the content rules and model wording for each kind of notice |
+| [`../_shared/approvals.md`](../_shared/approvals.md) | Step 6 |
 
 ## Workflow
 
 ### 1. Start the clock, now
 
-Before anything else, record:
+Run `gov --version`; if it fails, stop and tell the user to run `skills/install.sh`, and meanwhile give the 72-hour and state deadlines by hand. Run `gov new inc --slug <slug> --title "<what happened>" --date <today>` and record at once: when the company became aware, with the zone and the reasoning ("security confirmed exfiltration at 14:20 ET"); when it started, if known; whether it's ongoing; and every regime and state that could apply. Where facts are missing, include the plausible ones and work to the earliest deadline. `gov clock --aware <time> --tz <zone> --regimes ... --states ...` shows the same clocks before the record exists.
 
-- **When the company became aware**, with the time zone and the reasoning ("Security confirmed exfiltration of the customer table at 14:20 ET")
-- **When the incident started**, if known
-- Whether it's **ongoing**
+Every date is a working deadline until the incident commander confirms the awareness time. Each recipient is its own decision with its own deadline, and a statutory deadline is an outer limit, not a target.
 
-Run `gov clock --aware <timestamp> --tz <zone> --regimes <…> --states <…>` with every regime and state that could apply. Where facts are missing, include the plausible ones and work to the earliest deadline. Put the earliest deadline at the top of the record and of the reply. Re-run it whenever facts change. Deadlines are actions, never calendar events.
+The first reply goes within minutes, short: the earliest deadline and what it's for; bring in counsel now (privilege may need communications to run through counsel); check the cyber insurance notice conditions, since late notice can void cover; preserve evidence; don't speculate in writing or send any unreviewed notice, but don't let that delay a required one; name one incident commander; containment runs in parallel, owned by security; and no one contacts an attacker except through counsel and the responders.
 
-**Every date is a working deadline until the awareness time is confirmed.** Write it as "working deadline: <date and time>, assuming awareness at <time>; confirm the awareness timestamp now." Each recipient is a separate decision with its own deadline. The authority, individuals, each state, each controller or district, and the insurer don't share one date. A statutory deadline is an outer limit, not a target: notify as soon as the facts and approvals allow. Set internal milestones before it: a decision review the day before, then filing with time to spare.
+### 2. Get the facts
 
-Then, in the first reply (short, within minutes):
+Ask in a short Round 1 (under about 12 questions, with an "Evidence requested" group) for what decides the duties: acquired or only accessed; encrypted with the key safe; the actual fields, by controlled inspection, not by circulating the file; counts by country and state, including people whose residence is unknown; the company's role for each data set; the recipient or attacker; any vendor involvement and what the vendor has said in writing; law enforcement; and contracts with deadlines (customer DPAs, district agreements, insurance, card brands). Facts change fast: record each in `facts` with when it was learned. Don't copy the exposed data or download leak-site samples beyond what forensics needs.
 
-- The earliest deadline, and what it's for
-- Bring in **counsel** now. In the US, communications may need to run through counsel to preserve privilege. Ask counsel how to mark drafts and notes.
-- Check the **cyber insurance** policy's notice conditions now, since late notice can void coverage
-- Preserve evidence. Don't delete logs or systems the security team needs.
-- Don't speculate about cause or blame in writing, and **don't send any unreviewed external notice**. Escalate the notification decisions to counsel and the privacy lead immediately, so there's time to meet every deadline. Don't let this be read as a reason to delay a required notice: districts and controllers often need initial notice before the investigation ends.
-- Name **one incident commander** who owns the timeline and escalations, with security, counsel, the privacy lead, and communications in their own roles
-- **Technical containment runs in parallel**, owned by security: isolate affected systems and accounts, revoke sessions and credentials, check privileged accounts, identity systems, backups, and connections to customer or district systems, and confirm what remains exposed. Preserving evidence never delays containment. Record what was done and how it was verified.
-- **Contact with attackers** (ransomware) is coordinated by counsel and the incident responders. No one negotiates, promises payment, or sends information on their own.
+### 3. Answer the assessment
 
-### 2. Gather the facts
+Answer it fully, then check against `references/risk-factors.md` and `us-breach-notification.md`, and add what you missed. Points answers often miss:
 
-In a short Round 1 (under about 12 questions, with an "Evidence requested" group), ask what decides the duties:
+- **Role decides who notifies whom.** A processor or maintainer notifies each controller or owner first, within any contractual hours; a school official notifies each institution under its agreement (New York: 7 days under Ed Law 2-d).
+- **Authority and individual notice are separate determinations** (GDPR Arts. 33 and 34). A recipient's deletion confirmation is evidence, not proof of no risk.
+- **The authority route is counsel's call.** Don't assume a filing destination from where the people live.
+- **The US position stays undetermined** until the fields, counts by state, each state's definition and exceptions, and contracts are checked. "Not covered anywhere" and "every state requires notice" are both too categorical.
+- **Flag federal and sector laws** (SEC, FTC, NYDFS, HIPAA) for counsel; for AI incidents, AI Act Art. 73 and any AIUC-1 failure plans.
 
-- What happened, to which systems, and whether data was **acquired** or only **accessed**, encrypted (with the key safe?), deleted, altered, or made unavailable
-- Which data elements, and for how many people, **by state and country of residence**
-- The company's **role** for each data set: controller or owner; processor, service provider, or maintainer; school official
-- Who the recipient or attacker is, and whether data was published or a ransom demanded
-- Whether a vendor caused it, and what the vendor has said in writing
-- Whether law enforcement is involved, or has asked for a delay
-- Contracts with deadlines: customer DPAs, district agreements, insurance, card brands
+### 4. Record it
 
-Facts in an incident change fast. Keep the fact register (`conventions.md`, §6) current, with the time each fact was learned and its source.
+Fill in the record from your answer: the data sets, with role, acquisition, and encryption; the breach call; one `matrix` row per recipient (authorities, attorneys general, individuals, controllers, institutions, credit bureaus, insurers, card brands, law enforcement), each with its basis, its deadline from the clock or the contract, and its status; and security's containment measures. Each call stays Provisional; a point that doesn't fit a field goes in `analysis` (400 words at most).
 
-Ask for the evidence that establishes the facts: the original message ID and headers, mail and access audit events, the time the incident was reported internally, the actual columns or fields of the exposed data (by controlled inspection, not by circulating the file), counts by country and state **including people whose residence is unknown**, and what containment has been completed and independently verified. Keep evidence copies restricted, integrity-protected, and logged. Don't make extra copies of the exposed data, and don't download or redistribute leak-site samples beyond what forensics needs.
+### 5. Draft the notices
 
-### 3. Decide whether it's a personal data breach, and the company's role
+Draft only what the matrix requires, as `notices` entries, following `assets/notice-drafts.md`: facts known at the time, without speculation, blame, or admissions; each recipient's content rules (GDPR Art. 33(3) and 34(2), California's format, Massachusetts's restrictions); and the regulator's own form where one exists. `gov render` writes them with "DRAFT: not sent."
 
-Use `references/risk-factors.md`. Mark each conclusion Provisional (`conventions.md`, §7).
+### 6. Validate, render, and reply
 
-- **Processor, service provider, or maintainer:** the main duty is to notify each affected **controller or owner** without undue delay, and within any contractual hours, with the facts they need (GDPR Art. 33(2); state maintainer duties). Draft those notices first. The controllers decide on regulators and individuals. Offer them help.
-- **School official:** notify each institution under its agreement (New York: within 7 days under Ed Law 2-d). The institutions notify parents and students.
-- **Controller or owner:** continue to steps 4 and 5.
+Run `gov validate`, fix errors, and resolve findings by changing the record; a finding that names a real gap stays open with an action. Run `gov render`. Route the decisions (`approvals.md`): whether to notify each recipient, each notice's content, and any credit monitoring offer. When a person decides, record it in `decisions` with the time, who, the evidence, and the rationale; when a notice goes, record it in the row's `sent`. A recipient's silence doesn't stop the clock. Art. 33(5) requires documenting every breach, notified or not.
 
-### 4. Assess notification under each regime
-
-For **GDPR, UK GDPR, and FADP**, apply the questions and factors in `references/risk-factors.md`: authority notice unless unlikely to result in a risk; individuals if likely high risk; exceptions. Record each factor and the conclusion.
-
-For **each US state** where affected people live, apply §1 of `us-breach-notification.md`: covered data, breach definition, safe harbors, risk-of-harm (only where allowed), deadlines, regulator, and credit bureaus. Until the actual fields, the counts by state, each state's definition and exceptions, and any contractual or sector duties are checked, the US position is **"undetermined pending review."** That applies in both directions: "these fields aren't covered anywhere" and "full card numbers mean every state requires notice" are both too categorical. Name the facts that would reopen the analysis.
-
-Assess **individual notice (GDPR Art. 34)** as its own determination, separate from authority notice. A recipient's deletion confirmation is evidence, but it neither proves nor rules out risk: also weigh whether the data was opened, copied, or forwarded, what the mail system shows independently, and the residual risk after containment.
-
-**The authority route is counsel's call.** Record the analysis (main establishment, whether the one-stop shop applies to this processing, representative, affected countries) and counsel's written conclusion. Don't assume a filing destination from where affected people live.
-
-For **AI incidents**, check AI Act Art. 73 (providers of high-risk systems, applying from December 2, 2027 for Annex III) and the company's AIUC-1 failure plans.
-
-**Flag federal and sector laws** from `us-breach-notification.md`, §4 when the facts point to them (SEC, FTC, NYDFS, HIPAA, and others). They're outside the suite's scope, so route them to counsel.
-
-### 5. Build the notification matrix
-
-One row per recipient: regime, required? (Provisional), threshold met?, deadline (from the script or the contract), content rules, method, owner, and status. Recipients include supervisory authorities, attorneys general and other state agencies, individuals, controllers or customers, institutions, credit bureaus, insurers, card brands, and law enforcement. Label each deadline statutory or contractual.
-
-### 6. Draft the notices
-
-Use `assets/notice-drafts.md`. Draft only what the matrix requires. Each draft:
-
-- Starts with "DRAFT: not sent," and carries whatever privilege marking counsel directs
-- States facts known at the time, without speculation, blame, or admissions
-- Meets the recipient's content rules: GDPR Art. 33(3) for authorities, Art. 34(2) for individuals; each state's requirements, including California's format and Massachusetts's restrictions
-- Uses the regulator's own form where one exists. The draft supplies the content to paste in.
-
-### 7. Write the record and route the decisions
-
-Fill in `assets/incident-record-template.md`. Save it to `<output root>/incidents/YYYY/YYYY-MM-DD-<incident-id>.md`, ID `INC-YYYY-NNN`, with the drafts beside it as `…-notices.md`. Rebuild the register with `python3 ../_shared/scripts/build_register_index.py <output root>/incidents/YYYY incident`. Art. 33(5) requires documenting every breach, notified or not.
-
-Route the decisions (`approvals.md`): whether to notify each recipient (counsel and the privacy lead), the content of each notice (privacy lead, with counsel for regulators), and any credit monitoring offer. Record each in the **decision log**: the conclusion, who decided, when, the evidence relied on, and the rationale. A prepared draft is contingency planning, not evidence that notice is required.
-
-Track each sent notice by delivery, not drafting: when it went, by what method, to whom, and whether delivery was confirmed. A recipient's silence doesn't stop the clock.
-
-Reply in about 150 words: the earliest deadline and what it's for, the decisions needed now, the Round 1 questions, and the record path. In an incident, the reply leads with time.
+The reply leads with time: the earliest deadline and what it's for, the decisions needed now and from whom, and the Round 1 questions. Close with one line naming the record and its path.
 
 ## As the incident develops
 
-Re-run the clock when facts change: new data types, more people, new states, confirmation of exfiltration. Update the matrix and drafts. Use phased notification to authorities where facts are still emerging (GDPR Art. 33(4)). After closure, record lessons learned and the follow-ons: a DPIA rescreen, a vendor reassessment, RoPA updates, notice changes, and AIUC-1 failure-plan updates.
+Update the record when facts change (new data types, more people, new states, confirmed exfiltration): the clocks re-render from it. Use phased reporting to authorities where facts are still emerging (GDPR Art. 33(4)). At closure, fill in `closure` with the root cause from security and the follow-ons: a DPIA rescreen, a vendor reassessment, RoPA updates, notice changes, and AIUC-1 failure-plan updates.

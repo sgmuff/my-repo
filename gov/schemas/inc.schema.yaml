@@ -1,0 +1,135 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+title: Incident assessment
+description: "The notification side of one security or privacy incident: when the company became aware, the data and people affected, the company's role, the assessment under each regime, one notification decision per recipient, the decision log, delivery, and the notice drafts. gov computes the statutory clocks from the awareness time."
+type: object
+additionalProperties: false
+required: [id, type, schema_version, format_version, kind, title, status, version, awareness, started, ongoing, regimes,
+  states, individual_notice, commander, prepared_by, date_prepared, last_reviewed, next_review, summary, decision,
+  analysis, datasets, breach, matrix, notices, decisions, containment, closure, facts, context, issues, actions,
+  open_questions, verify, finding_responses, references, version_history, signoff]
+properties:
+  id: {type: string, pattern: "^INC-\\d{4}-\\d{3}$"}
+  type: {const: inc}
+  schema_version: {const: 1}
+  format_version: {const: 1}
+  kind: {enum: [incident], description: "One incident; reassessments update the same record"}
+  title: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 10}
+  status: {$ref: "common.schema.yaml#/$defs/doc_status"}
+  version: {$ref: "common.schema.yaml#/$defs/version"}
+  awareness:
+    description: "When the company became aware: the clocks start here"
+    type: object
+    additionalProperties: false
+    required: [time, tz, reasoning, confirmed]
+    properties:
+      time: {type: string, description: "YYYY-MM-DDTHH:MM in tz, or with a UTC offset"}
+      tz: {$ref: "common.schema.yaml#/$defs/short", description: "An IANA time zone, such as America/New_York"}
+      reasoning: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 30, description: "Why this is the awareness time, such as when security confirmed exfiltration"}
+      confirmed: {type: boolean, description: "False until the incident commander confirms the timestamp; every deadline is a working deadline until then"}
+  started: {$ref: "common.schema.yaml#/$defs/short", description: "When the incident began, with zone, or TBC"}
+  ongoing: {$ref: "common.schema.yaml#/$defs/call_tristate"}
+  regimes:
+    type: array
+    uniqueItems: true
+    items: {enum: [gdpr, uk, fadp, nydfs, ny2d, sec, ftc-glba]}
+    description: "Regimes that could apply, for the clock; include the plausible ones while facts are missing"
+  states: {type: array, uniqueItems: true, items: {type: string, pattern: "^[A-Z]{2}$"}, description: "US states and territories where affected people live"}
+  individual_notice: {$ref: "common.schema.yaml#/$defs/date_or_tbc", description: "When individual notices went or will go, for regulator deadlines that run from it"}
+  commander: {$ref: "common.schema.yaml#/$defs/short", description: "The one incident commander who owns the timeline"}
+  prepared_by: {$ref: "common.schema.yaml#/$defs/short"}
+  date_prepared: {$ref: "common.schema.yaml#/$defs/date"}
+  last_reviewed: {$ref: "common.schema.yaml#/$defs/date_or_null"}
+  next_review: {$ref: "common.schema.yaml#/$defs/date"}
+  summary: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 50}
+  analysis: {$ref: "common.schema.yaml#/$defs/analysis"}
+  decision:
+    description: "The overall position on notification. Counsel and the privacy lead decide."
+    $ref: "common.schema.yaml#/$defs/call"
+    properties:
+      value: {enum: [notify, notify-some, no-notice-required, undetermined]}
+  datasets:
+    description: "Each affected data set: what it holds, for how many people, where they live, and the company's role"
+    type: array
+    minItems: 1
+    items:
+      type: object
+      additionalProperties: false
+      required: [dataset, elements, people, residence, role, acquired, encrypted]
+      properties:
+        dataset: {$ref: "common.schema.yaml#/$defs/short"}
+        elements: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 25, description: "The actual fields, from controlled inspection"}
+        people: {$ref: "common.schema.yaml#/$defs/short", description: "How many, or TBC"}
+        residence: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 25, description: "Counts by country and state, including people whose residence is unknown"}
+        role: {enum: [controller, processor, maintainer, school-official, TBC]}
+        acquired: {$ref: "common.schema.yaml#/$defs/call_tristate", description: "Acquired (copied or exfiltrated), not only accessed"}
+        encrypted: {$ref: "common.schema.yaml#/$defs/call_tristate", description: "Encrypted with the key kept safe"}
+  breach: {$ref: "common.schema.yaml#/$defs/call_tristate", description: "Is it a personal data breach (GDPR Art. 4(12)), or a breach under any US state statute?"}
+  matrix:
+    description: "One notification decision per recipient, each with its own deadline"
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [recipient, regime, required, basis, deadline, deadline_kind, owner, status]
+      properties:
+        recipient: {$ref: "common.schema.yaml#/$defs/short", description: "Such as the lead supervisory authority, California residents, the Texas AG, each district, the insurer"}
+        regime: {$ref: "common.schema.yaml#/$defs/short"}
+        required: {$ref: "common.schema.yaml#/$defs/call_tristate"}
+        basis: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 30, description: "The provision or clause, and the facts that decide it"}
+        deadline: {$ref: "common.schema.yaml#/$defs/short", description: "The working deadline, from gov clock or the contract, or none"}
+        deadline_kind: {enum: [statutory, contractual, none]}
+        owner: {$ref: "common.schema.yaml#/$defs/short"}
+        status: {enum: [not-started, drafting, awaiting-approval, sent, delivered, not-required]}
+        sent: {$ref: "common.schema.yaml#/$defs/short", description: "When, by what method, and to whom; and whether delivery was confirmed"}
+  notices:
+    description: "Draft notices, as they would be sent; gov renders them with DRAFT: not sent"
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [recipient, text]
+      properties:
+        recipient: {$ref: "common.schema.yaml#/$defs/short", description: "The matrix row it serves"}
+        text: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 400, description: "The notice body, meeting the recipient's content rules (notice-drafts.md)"}
+  decisions:
+    description: "The decision log: only a person decides"
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [time, decision, by, evidence, rationale]
+      properties:
+        time: {$ref: "common.schema.yaml#/$defs/short", description: "With zone"}
+        decision: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 25}
+        by: {$ref: "common.schema.yaml#/$defs/short"}
+        evidence: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 25}
+        rationale: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 30}
+  containment:
+    description: "Technical containment, owned by security"
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [measure, status, evidence]
+      properties:
+        measure: {$ref: "common.schema.yaml#/$defs/short"}
+        status: {enum: [done-verified, done-unverified, in-progress, not-started]}
+        evidence: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 20}
+  closure:
+    type: object
+    additionalProperties: false
+    required: [closed, root_cause, follow_ons]
+    properties:
+      closed: {$ref: "common.schema.yaml#/$defs/date_or_tbc"}
+      root_cause: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 30}
+      follow_ons: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 30}
+  facts: {$ref: "common.schema.yaml#/$defs/facts"}
+  context: {$ref: "common.schema.yaml#/$defs/context"}
+  issues: {$ref: "common.schema.yaml#/$defs/issues"}
+  actions: {$ref: "common.schema.yaml#/$defs/actions"}
+  open_questions: {$ref: "common.schema.yaml#/$defs/open_questions"}
+  verify: {$ref: "common.schema.yaml#/$defs/verify"}
+  finding_responses: {$ref: "common.schema.yaml#/$defs/finding_responses"}
+  references: {$ref: "common.schema.yaml#/$defs/references"}
+  version_history: {$ref: "common.schema.yaml#/$defs/version_history"}
+  signoff: {$ref: "common.schema.yaml#/$defs/signoff"}

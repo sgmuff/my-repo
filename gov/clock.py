@@ -62,28 +62,43 @@ STATE_REGULATOR_TEXT = {
 }
 
 
-def parse_aware(s, tz):
-    """The awareness time, and a note if the local time was ambiguous."""
+def parse(s, tz):
+    """The awareness time and a note if it was ambiguous; ValueError if it's malformed, unknown, or doesn't exist."""
     try:
         naive = dt.datetime.fromisoformat(s)
     except ValueError:
-        sys.exit("--aware must be YYYY-MM-DDTHH:MM")
+        raise ValueError("the awareness time must be YYYY-MM-DDTHH:MM") from None
     if naive.tzinfo:
         return naive, None
     if ZoneInfo is None:
         if tz != "UTC":
-            sys.exit("Time zones need Python 3.9 or later; pass --aware with a UTC offset instead")
+            raise ValueError("time zones need Python 3.9 or later; give the time with a UTC offset instead")
         return naive.replace(tzinfo=dt.timezone.utc), None
     try:
         zone = ZoneInfo(tz)
     except Exception:
-        sys.exit(f"Unknown time zone: {tz}")
+        raise ValueError(f"unknown time zone: {tz}") from None
     first, second = naive.replace(tzinfo=zone, fold=0), naive.replace(tzinfo=zone, fold=1)
     if first.astimezone(dt.timezone.utc).astimezone(zone).replace(tzinfo=None) != naive:
-        sys.exit(f"{s} doesn't exist in {tz} (the clocks went forward); check the time and pass it again")
+        raise ValueError(f"{s} doesn't exist in {tz} (the clocks went forward); check the time")
     if first.utcoffset() != second.utcoffset():
         return first, f"{s} happens twice in {tz} (the clocks went back); using the earlier one. Confirm which it was."
     return first, None
+
+
+def parse_aware(s, tz):
+    """parse(), exiting with the message on bad input, for the command line."""
+    try:
+        return parse(s, tz)
+    except ValueError as exc:
+        message = str(exc)
+        if message.startswith("the awareness time"):
+            message = "--aware must be YYYY-MM-DDTHH:MM"
+        elif message.startswith("unknown time zone"):
+            message = message[0].upper() + message[1:]
+        elif "doesn't exist" in message:
+            message += " and pass it again"
+        sys.exit(message)
 
 
 def add_business_days(d, n):
@@ -94,16 +109,8 @@ def add_business_days(d, n):
     return d
 
 
-def main(argv=None):
-    ap = argparse.ArgumentParser(prog="gov clock", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--aware", required=True)
-    ap.add_argument("--tz", default="UTC")
-    ap.add_argument("--regimes", nargs="*", default=[])
-    ap.add_argument("--states", nargs="*", default=[])
-    ap.add_argument("--individual-notice")
-    a = ap.parse_args(argv)
-
-    aware, note = parse_aware(a.aware, a.tz)
+def compute(aware, regimes, states, notice=None):
+    """Clock rows (sort key, due text, regime, duty) for an awareness time, sorted by deadline, open ones last."""
     day0 = aware.date()
     rows = []  # (sort_key, due_text, regime, duty)
 
@@ -118,7 +125,7 @@ def main(argv=None):
     def text(regime, duty):
         rows.append((dt.datetime.max.replace(tzinfo=aware.tzinfo), "no fixed date", regime, duty))
 
-    reg = {r.lower() for r in a.regimes}
+    reg = {r.lower() for r in regimes}
     if "gdpr" in reg:
         at(dt.timedelta(hours=72), "GDPR", "Notify the lead supervisory authority, unless unlikely to result in a risk (Art. 33(1)); phased reporting allowed (Art. 33(4))")
         text("GDPR", "Notify individuals without undue delay if likely high risk (Art. 34)")
@@ -135,14 +142,7 @@ def main(argv=None):
     if "ftc-glba" in reg:
         on(day0 + dt.timedelta(days=30), "FTC Safeguards Rule", "Notify the FTC if >=500 consumers' unencrypted data (16 CFR 314.4(j))")
 
-    notice = None
-    if a.individual_notice:
-        try:
-            notice = dt.date.fromisoformat(a.individual_notice)
-        except ValueError:
-            sys.exit("--individual-notice must be YYYY-MM-DD")
-
-    for s in [x.upper() for x in a.states]:
+    for s in [x.upper() for x in states]:
         if s in STATE_INDIVIDUAL_DAYS:
             on(day0 + dt.timedelta(days=STATE_INDIVIDUAL_DAYS[s]), s, f"Notify residents (outer limit {STATE_INDIVIDUAL_DAYS[s]} days; most expedient time possible applies first)")
         else:
@@ -160,9 +160,29 @@ def main(argv=None):
         elif s in STATE_REGULATOR_TEXT:
             text(s, "Regulator: " + STATE_REGULATOR_TEXT[s])
 
+    rows.sort(key=lambda r: r[0])
+    return rows
+
+
+def main(argv=None):
+    ap = argparse.ArgumentParser(prog="gov clock", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--aware", required=True)
+    ap.add_argument("--tz", default="UTC")
+    ap.add_argument("--regimes", nargs="*", default=[])
+    ap.add_argument("--states", nargs="*", default=[])
+    ap.add_argument("--individual-notice")
+    a = ap.parse_args(argv)
+
+    aware, note = parse_aware(a.aware, a.tz)
+    notice = None
+    if a.individual_notice:
+        try:
+            notice = dt.date.fromisoformat(a.individual_notice)
+        except ValueError:
+            sys.exit("--individual-notice must be YYYY-MM-DD")
+    rows = compute(aware, a.regimes, a.states, notice)
     if not rows:
         sys.exit("Nothing to compute: pass --regimes and/or --states")
-    rows.sort(key=lambda r: r[0])
     print(f"Aware or discovered: {aware.strftime('%Y-%m-%d %H:%M %Z')} (working deadlines until this time is confirmed)")
     if note:
         print(note)

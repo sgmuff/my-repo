@@ -380,10 +380,43 @@ def aiia(data: dict) -> list:
     return out
 
 
+def inc(data: dict) -> list:
+    out = []
+    aw = data["awareness"]
+    if is_tbc(aw["time"]):
+        out.append(("awareness/time", "record when the company became aware, with the zone; the clocks start there"))
+    elif not aw["confirmed"]:
+        out.append(("awareness/confirmed", "every deadline is a working deadline until the incident commander confirms the awareness time"))
+    if is_tbc(data["commander"]):
+        out.append(("commander", "name one incident commander who owns the timeline"))
+    roles = {d["role"] for d in data["datasets"]}
+    recipients = " ".join(m["recipient"].lower() for m in data["matrix"])
+    if roles & {"processor", "maintainer"} and not re.search(r"controller|customer|owner", recipients):
+        out.append(("matrix", "the company is a processor or maintainer for some data; notifying each controller or owner comes first"))
+    if "school-official" in roles and not re.search(r"district|institution|school|university|college", recipients):
+        out.append(("matrix", "the company is a school official for some data; each institution must be notified under its agreement"))
+    if "gdpr" in data["regimes"] and "controller" in roles:
+        if not re.search(r"authority|dpc|cnil|ico|regulator|commissioner", recipients):
+            out.append(("matrix", "add the supervisory authority as its own row (Art. 33), even if the decision is not to notify"))
+        if not re.search(r"individual|data subject|resident|customer|user|people", recipients):
+            out.append(("matrix", "add individuals as their own row (Art. 34), decided separately from the authority"))
+    drafted = {n["recipient"] for n in data["notices"]}
+    for n, m in enumerate(data["matrix"]):
+        if m["required"]["value"] is True and m["status"] in ("not-started", "drafting") and m["recipient"] not in drafted:
+            out.append((f"matrix/{n}", f"{m['recipient']}: notice is required but no draft exists yet"))
+        if m["status"] in ("sent", "delivered") and is_tbc(m.get("sent", "TBC")):
+            out.append((f"matrix/{n}/sent", f"{m['recipient']}: record when the notice went, how, to whom, and whether delivery was confirmed"))
+    if data["decision"]["value"] in ("notify", "notify-some", "no-notice-required") and not data["decisions"]:
+        out.append(("decisions", "the record states a notification position, but the decision log has no decision by counsel or the privacy lead"))
+    if data["ongoing"]["value"] is not False and not data["containment"]:
+        out.append(("containment", "the incident is or may be ongoing; record security's containment measures and their status"))
+    return out
+
+
 def _residual_confirmed(data: dict) -> bool:
     from gov import derive
     return derive.dpia(data)["confirmed"]
 
 
-FINDINGS = {"aiia": _with_issues(aiia), "vr": _with_issues(vr), "dpia": _with_issues(dpia), "scr": _with_issues(scr), "ropa": ropa, "lia": _with_issues(lia), "tia": _with_issues(tia), "tsr": _with_issues(tsr),
+FINDINGS = {"inc": _with_issues(inc), "aiia": _with_issues(aiia), "vr": _with_issues(vr), "dpia": _with_issues(dpia), "scr": _with_issues(scr), "ropa": ropa, "lia": _with_issues(lia), "tia": _with_issues(tia), "tsr": _with_issues(tsr),
             "aip": _with_issues(aip), "aid": _with_issues(aid)}

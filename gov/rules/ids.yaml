@@ -11,7 +11,7 @@ prefixes:
   AIS: {digits: 4, yearly: false}
   AIIA: {digits: 3, yearly: true, type: aiia, folder: assessments/ai-impact}
   DSR: {digits: 3, yearly: true}
-  INC: {digits: 3, yearly: true}
+  INC: {digits: 3, yearly: true, type: inc, folder: incidents}
   CTL: {digits: 4, yearly: false}
   EV: {digits: 4, yearly: false}
   RDY: {digits: 3, yearly: true}

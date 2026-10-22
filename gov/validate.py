@@ -206,6 +206,15 @@ AI_ACT_REQUIRED = {
 
 
 def _structure(where: str, data: dict) -> list:
+    if data.get("type") == "inc":
+        from gov.derive import clock_rows
+        problems = []
+        _, _, error = clock_rows(data)
+        if error:
+            problems.append(Problem(where, "error", f"awareness: {error}"))
+        problems += [Problem(where, "error", f"decisions/{n}: only a person decides; remove this, and route the decision instead")
+                     for n, d in enumerate(data["decisions"]) if "claude" in str(d["by"]).lower()]
+        return problems
     if data.get("type") == "aiia":
         problems = []
         domains = [g["domain"] for g in data["domains"]]

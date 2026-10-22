@@ -32,3 +32,19 @@ def test_metrics_need_an_as_of_date_and_name_it(ropa_root):
 def test_deadlines_run_through_gov(capsys, root):
     assert main(["--root", str(root), "deadlines", "2026-10-21", "fadp"]) == 0
     assert "2026-11-20" in capsys.readouterr().out
+
+
+def test_metrics_count_incident_and_vendor_records(ropa_root):
+    from gov import yamlio
+    from gov.skeleton import new_record
+    inc = new_record(ropa_root, "inc", "lost-laptop", "Lost laptop", "2026-10-22", "Claude")
+    data = yamlio.load(inc)
+    data["breach"] = {"value": True, "status": "Provisional", "reason": "Unencrypted disk"}
+    inc.write_text(yamlio.dumps(data), encoding="utf-8")
+    new_record(ropa_root, "vr", "aws", "AWS hosting", "2026-10-22", "Claude")
+    render_tree(ropa_root)
+    out = ropa_root / "compliance"
+    assert main(["--root", str(ropa_root), "metrics", str(out), "--as-of", "2026-12-31"]) == 0
+    report = (out / "reports" / "metrics-2026-12-31.md").read_text()
+    assert "INC-2026-001-lost-laptop.md" in report
+    assert "VR-2026-001-aws" in report or "aws" in report

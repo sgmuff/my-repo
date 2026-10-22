@@ -33,4 +33,4 @@
 - Builds a notification matrix with statutory and contractual deadlines, and flags sector laws for counsel.
 - Drafts only the required notices, each "DRAFT: not sent," factual, no blame, meeting content rules (Art. 33(3), California format, Massachusetts restrictions).
 - States the counsel-review blocker for the state reference.
-- Saves under `incidents/YYYY/`, rebuilds the register, no calendar, reply about 150 words led by time.
+- Records an `inc` record under `incidents/`, renders the clocks and notice drafts, no calendar, and a reply led by time.
