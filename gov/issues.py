@@ -49,7 +49,8 @@ def _country_matches(names: list, data: dict) -> bool:
 
 
 def _special_category(data: dict):
-    call = data.get("special_category") or (data.get("transfer_map") or {}).get("special_category")
+    call = (data.get("special_category") or (data.get("transfer_map") or {}).get("special_category")
+            or (data.get("processing") or {}).get("special_category"))
     return call["value"] if isinstance(call, dict) else None
 
 
