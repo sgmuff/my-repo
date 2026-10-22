@@ -6,8 +6,8 @@
 | Counsel review | Not yet reviewed (reviewer, date, scope: TODO) |
 | Covers | The breach notification statutes of the 50 states, the District of Columbia, Puerto Rico, Guam, and the US Virgin Islands; federal and sector laws to flag |
 | Version covered | As of 2026-10-16 |
-| Sources | 2025–2026 changes checked against: Ashurst Perkins Coie, *2025 breach notification law update* (October 15, 2025); Covington Inside Privacy on Oklahoma SB 626 (August 2025) and on New York's GBL § 899-aa amendment (January 2025); Troutman Pepper and Hunton on California SB 446 (October–November 2025). Other rows are compiled from the statutes' known text and secondary matrices, and were **not** re-read against each statute. |
-| Last verified | 2026-10-16 (changes only; see the Sources row) |
+| Sources | Fixed deadlines and thresholds for 19 jurisdictions checked against statute text or official AG pages on 2026-10-21 (`docs/legal-review/us-breach-verification.md`). 2025–2026 changes checked against: Ashurst Perkins Coie, *2025 breach notification law update* (October 15, 2025); Covington Inside Privacy on Oklahoma SB 626 (August 2025) and on New York's GBL § 899-aa amendment (January 2025); Troutman Pepper and Hunton on California SB 446 (October–November 2025). Other rows are compiled from the statutes' known text and secondary matrices, and were **not** re-read against each statute. |
+| Last verified | 2026-10-21 for the rows with dates or thresholds listed in `docs/legal-review/us-breach-verification.md`; 2026-10-16 (changes only) for the rest |
 | Review interval | Quarterly. States amend these laws every session. |
 | Volatile points | Every row. The most recent changes: California (30-day individual deadline and AG deadline, from January 1, 2026); New York (30-day deadline, December 24, 2024); Oklahoma (AG notice and expanded definitions, from January 1, 2026); North Dakota (financial institutions notify the commissioner within 45 days, 2025). |
 
@@ -47,14 +47,14 @@ Each law applies to the personal information of **its own residents**, wherever 
 |---|---|---|---|---|---|---|
 | Alabama | Ala. Code § 8-38-1 et seq. | 45 days | >1,000, within 45 days | >1,000 | Yes | |
 | Alaska | Alaska Stat. § 45.48.010 et seq. | Most expedient | Written no-harm determination to the AG | >1,000 | Yes, with AG notice | |
-| Arizona | A.R.S. § 18-551 to 18-552 | 45 days | >1,000, within 45 days (AG and director of homeland security, *verify*) | >1,000 | Yes | |
+| Arizona | A.R.S. § 18-551 to 18-552 | 45 days | >1,000, within 45 days: AG and the director of the Arizona Department of Homeland Security (§ 18-552(B)(2)) | >1,000 | Yes | |
 | Arkansas | Ark. Code § 4-110-101 et seq. | Most expedient | >1,000, at the same time as individuals or within 45 days | >1,000 | Yes | Biometric data in the definition |
 | California | Cal. Civ. Code § 1798.82 | **30 calendar days** from discovery or notification (SB 446, from Jan. 1, 2026), subject to law enforcement delay | **>500: sample notice to the AG within 15 calendar days of notifying individuals** (SB 446) | — | No | Prescribed headings and format. Private right of action for certain breaches under Cal. Civ. Code § 1798.150 (CCPA). |
 | Colorado | C.R.S. § 6-1-716 | 30 days | ≥500, within 30 days | >1,000 | Yes | |
-| Connecticut | Conn. Gen. Stat. § 36a-701b | 60 days | Not later than individual notice | — | Yes | 24 months of identity theft protection if SSN or TIN involved |
+| Connecticut | Conn. Gen. Stat. § 36a-701b | 60 days | Not later than individual notice | — | Yes | 24 months of identity theft protection if SSN or TIN involved. Precise geolocation data is personal information (P.A. 23-98). |
 | Delaware | 6 Del. C. § 12B-101 et seq. | 60 days | >500, not later than individual notice | — | Yes | 1 year of credit monitoring if SSN involved |
 | District of Columbia | D.C. Code § 28-3851 et seq. | Most expedient | ≥50, not later than individual notice | >1,000 | Yes | 18 months of identity theft protection if SSN or TIN involved |
-| Florida | Fla. Stat. § 501.171 | 30 days | ≥500, within 30 days | >1,000 | Yes (written, to the AG) | Covers unauthorized access |
+| Florida | Fla. Stat. § 501.171 | 30 days | ≥500, within 30 days | >1,000 | Yes (written, to the AG) | Covers unauthorized access. 15 more days on written good cause to the department within the 30 days; a third-party agent notifies the covered entity within 10 days. |
 | Georgia | O.C.G.A. § 10-1-910 et seq. | Most expedient | — | >10,000 | — | Applies mainly to information brokers and data collectors (*verify*) |
 | Hawaii | Haw. Rev. Stat. § 487N-1 et seq. | Without unreasonable delay | >1,000, Office of Consumer Protection | >1,000 | Yes | |
 | Idaho | Idaho Code § 28-51-104 et seq. | Most expedient | State agencies only | — | Yes | |
@@ -64,7 +64,7 @@ Each law applies to the personal information of **its own residents**, wherever 
 | Kansas | K.S.A. § 50-7a01 et seq. | Most expedient | — | >1,000 | Yes | |
 | Kentucky | KRS § 365.732 | Most expedient | — | >1,000 | Yes | |
 | Louisiana | La. R.S. 51:3071 et seq. | 60 days | Within 10 days of individual notice | — | Yes (written, keep 5 years) | |
-| Maine | 10 M.R.S. § 1346 et seq. | 30 days after becoming aware | Any breach (AG or the relevant regulator) | >1,000 | Yes | |
+| Maine | 10 M.R.S. § 1346 et seq. | 30 days after becoming aware of the breach and identifying its scope (§ 1348(1)) | Any breach (AG or the relevant regulator) | >1,000 | Yes | |
 | Maryland | Md. Code, Com. Law § 14-3501 et seq. | 45 days | Before individual notice | >1,000 | Yes (keep 3 years) | |
 | Massachusetts | M.G.L. c. 93H | As soon as practicable | Any breach: AG and Office of Consumer Affairs and Business Regulation | As the director directs (*verify*) | No | Resident notice must **not** describe the nature of the breach or the number affected. 18 months of credit monitoring if SSN involved. |
 | Michigan | MCL § 445.72 | Without unreasonable delay | — | >1,000 | Yes | |
@@ -82,19 +82,19 @@ Each law applies to the personal information of **its own residents**, wherever 
 | North Dakota | N.D.C.C. § 51-30 | Most expedient | >250 | — | Yes (*verify*) | Financial institutions: commissioner of financial institutions within 45 days if >500 consumers (HB 1127, 2025) |
 | Ohio | ORC § 1349.19 | 45 days | — | >1,000 | Yes | |
 | Oklahoma | 24 O.S. § 161 et seq., as amended by SB 626 | Without unreasonable delay | **≥500: within 60 days of individual notice** (from Jan. 1, 2026) | >1,000 | Yes | Government ID numbers, unique electronic identifiers, and biometric data added to the definition. Reasonable safeguards are an affirmative defense to civil penalties. |
-| Oregon | ORS 646A.600 et seq. | 45 days | >250 | >1,000 | Yes (written, keep 5 years) | |
+| Oregon | ORS 646A.600 et seq. | 45 days | >250 | >1,000 | Yes (written, keep 5 years) | A vendor notifies the AG itself for >250 consumers unless the covered entity has (ORS 646A.604(2)(c)). |
 | Pennsylvania | 73 P.S. § 2301 et seq., as amended in 2024 | Without unreasonable delay | >500, at the same time as individuals (*verify* threshold) | >1,000 | — | 12 months of credit monitoring where SSN, bank account, or driver's license or state ID number is involved (*verify*) |
 | Rhode Island | R.I. Gen. Laws § 11-49.3-1 et seq. | 45 days | >500 | >500 | Yes | |
 | South Carolina | S.C. Code § 39-1-90 | Most expedient | >1,000, Department of Consumer Affairs | >1,000 | Yes | |
 | South Dakota | SDCL § 22-40-19 et seq. | 60 days | >250 | Yes, any | Yes (with AG notice of the determination) | |
 | Tennessee | Tenn. Code § 47-18-2107 | 45 days | — | >1,000 | No (*verify*) | |
-| Texas | Tex. Bus. & Com. Code § 521.053 | 60 days | ≥250, within 30 days (*verify* threshold) | >10,000 | No | |
+| Texas | Tex. Bus. & Com. Code § 521.053 | 60 days | ≥250, within 30 days (Texas AG guidance) | >10,000 | No | |
 | Utah | Utah Code § 13-44-101 et seq. | Most expedient | ≥500: AG and the Utah Cyber Center (2024 amendment, *verify*) | >1,000 | Yes | |
 | Vermont | 9 V.S.A. § 2430, 2435 | 45 days | Preliminary notice within 14 business days of discovery | >1,000 | Yes (with notice to the AG) | |
 | Virginia | Va. Code § 18.2-186.6 | Without unreasonable delay | Any breach | >1,000 | Yes | |
 | Washington | RCW 19.255.010 | 30 days | >500, within 30 days | — | Yes | |
 | West Virginia | W. Va. Code § 46A-2A-101 et seq. | Most expedient | — | >1,000 | Yes | |
-| Wisconsin | Wis. Stat. § 134.98 | 45 days | — | >1,000 | Yes | |
+| Wisconsin | Wis. Stat. § 134.98 | 45 days after learning of the acquisition | — | ≥1,000 | Yes | |
 | Wyoming | Wyo. Stat. § 40-12-501 et seq. | Most expedient | — | — | Yes | |
 | Puerto Rico | 10 L.P.R.A. § 4051 et seq. | As expeditiously as possible | Department of Consumer Affairs within 10 days of detection | — | — (*verify*) | |
 | Guam | 9 GCA § 48-10 et seq. | Without unreasonable delay | — | — | Yes (*verify*) | |

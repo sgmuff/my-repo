@@ -14,7 +14,7 @@ Framework details live here, so they can be updated as laws and standards change
 | `iso-42001.md` | ISO/IEC 42001 checklist (public paraphrase) | ISO/IEC 42001:2023 | 2026-10-16 | 2027-10-16 | Annual |
 | `risk-method.md` | Shared scoring method, catalog, and mitigations | Suite method | 2026-10-16 | 2027-10-16 | Annual |
 | `dsr-matrix.md` | Data subject request rights, deadlines, verification, exceptions | As of 2026-10-16 | 2026-10-16 | 2027-01-16 | Quarterly |
-| `us-breach-notification.md` | US state, territory, and federal breach notification laws | As of 2026-10-16; **draft, needs counsel review** | 2026-10-16 | 2027-01-16 | Quarterly |
+| `us-breach-notification.md` | US state, territory, and federal breach notification laws | As of 2026-10-21; **draft, needs counsel review** | 2026-10-21 | 2027-01-21 | Quarterly |
 | `crosswalk.md` | 32 common control objectives mapped across all frameworks | Built 2026-10-16 | 2026-10-16 | 2027-01-29 (after the Jan 15 AIUC-1 release) | Quarterly |
 | `hipaa.md` | HIPAA Privacy, Security, and Breach Notification Rules for covered entities and business associates | Rules through the 2013 Omnibus Rule; 2025 Security Rule proposal noted | 2026-10-18, secondary sources; counsel-approved 2026-10-19 | 2027-04-19 | Six months |
 | `glba.md` | GLBA Safeguards Rule, including higher education and service providers | 16 CFR Part 314 as amended 2021 and 2023 | 2026-10-18, secondary sources; counsel-approved 2026-10-19 | 2027-04-19 | Six months |
