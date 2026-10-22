@@ -538,6 +538,30 @@ def dsr(data: dict) -> list:
     return out
 
 
+def sra(data: dict) -> list:
+    import datetime as dt
+    from gov import security
+    from gov.skeleton import add_months
+    out = []
+    gaps = [e["element"] for e in data["elements"] if e["applicability"] != "not-applicable" and e["status"] != "met"]
+    if data["decision"]["value"] == "adequate" and gaps:
+        out.append(("decision", f"the assessment says adequate, but these elements aren't met: {', '.join(gaps)}"))
+    for n, e in enumerate(data["elements"]):
+        if e["status"] in ("met", "partial") and not e["controls"]:
+            out.append((f"elements/{n}/controls", f"{e['element']} is marked {e['status']} with no control from the library behind it"))
+        if e["status"] == "met" and not e["evidence"]:
+            out.append((f"elements/{n}/evidence", f"{e['element']} is marked met with no evidence cited"))
+    if not data["risks"] and data["kind"] in ("gdpr-art32", "hipaa", "glba", "coppa-security"):
+        out.append(("risks", "a risk assessment needs the identified risks, each rated with its likelihood and severity"))
+    if security.kinds()[data["kind"]].get("annual"):
+        start = str(data["last_reviewed"] or data["date_prepared"])
+        if str(data["next_review"]) > add_months(start, 12):
+            out.append(("next_review", f"{data['kind']} requires the assessment and the program's evaluation at least annually"))
+    if data["kind"] == "ccpa-audit-prep" and data["status"] in ("Approved", "Approved with conditions"):
+        out.append(("status", "this record prepares for the cybersecurity audit; only an independent auditor's report meets § 7122-7123"))
+    return out
+
+
 INTERVALS = {"monthly": 1, "quarterly": 3, "semiannual": 6, "annual": 12}
 
 
@@ -579,5 +603,5 @@ def _residual_confirmed(data: dict) -> bool:
     return derive.dpia(data)["confirmed"]
 
 
-FINDINGS = {"dsr": _with_issues(dsr), "ctl": ctl, "ais": _with_issues(ais), "rdy": _with_issues(rdy), "inc": _with_issues(inc), "aiia": _with_issues(aiia), "vr": _with_issues(vr), "dpia": _with_issues(dpia), "scr": _with_issues(scr), "ropa": ropa, "lia": _with_issues(lia), "tia": _with_issues(tia), "tsr": _with_issues(tsr),
+FINDINGS = {"sra": _with_issues(sra), "dsr": _with_issues(dsr), "ctl": ctl, "ais": _with_issues(ais), "rdy": _with_issues(rdy), "inc": _with_issues(inc), "aiia": _with_issues(aiia), "vr": _with_issues(vr), "dpia": _with_issues(dpia), "scr": _with_issues(scr), "ropa": ropa, "lia": _with_issues(lia), "tia": _with_issues(tia), "tsr": _with_issues(tsr),
             "aip": _with_issues(aip), "aid": _with_issues(aid)}

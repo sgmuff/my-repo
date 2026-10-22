@@ -150,7 +150,7 @@ entries:
     reference: gdpr.md
   - id: ccpa-cybersecurity-audit
     name: CCPA cybersecurity audit preparation
-    citation: "CCPA Regs. (us-state-privacy.md section 6)"
+    citation: "11 CCR §§ 7120-7124 (us-state-privacy.md section 6)"
     owed_by: business
     gate: law
     when: {cppa_business: true, cppa_audit_threshold: true}

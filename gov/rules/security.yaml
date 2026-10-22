@@ -1,0 +1,83 @@
+# Elements each security assessment kind must address, from the law that requires it. gov validate lists any element a
+# record leaves out. Counsel owns this file; texts checked 2026-10-22 against the primary sources cited.
+version: 1
+kinds:
+  gdpr-art32:
+    name: Security risk assessment (GDPR Art. 32)
+    method: "GDPR Art. 32(1)-(2): measures appropriate to the risk, taking into account the state of the art, costs, and the nature, scope, context, and purposes of processing; risk ratings from risk-method.md"
+    elements:
+      - {id: 32-1-a, label: "Pseudonymisation and encryption of personal data", cite: "GDPR Art. 32(1)(a)"}
+      - {id: 32-1-b, label: "Ongoing confidentiality, integrity, availability, and resilience of systems and services", cite: "GDPR Art. 32(1)(b)"}
+      - {id: 32-1-c, label: "Restoring availability and access in a timely manner after an incident", cite: "GDPR Art. 32(1)(c)"}
+      - {id: 32-1-d, label: "Regularly testing, assessing, and evaluating the effectiveness of the measures", cite: "GDPR Art. 32(1)(d)"}
+      - {id: 32-2, label: "Risks from accidental or unlawful destruction, loss, alteration, unauthorized disclosure, or access", cite: "GDPR Art. 32(2)"}
+      - {id: 32-4, label: "People acting under the company's authority process data only on instructions", cite: "GDPR Art. 32(4)"}
+  ccpa-audit-prep:
+    name: CCPA cybersecurity audit preparation
+    method: "11 CCR § 7123(a)-(c): the cybersecurity program and each component the auditor deems applicable; first reports due April 1, 2028, 2029, or 2030 by revenue (§ 7121). This record prepares for the independent audit; it isn't the audit (§ 7122)"
+    elements:
+      - {id: program, label: "Written cybersecurity program appropriate to size, complexity, and processing", cite: "11 CCR § 7123(b)(1)"}
+      - {id: c1, label: "Authentication, including phishing-resistant MFA and strong unique passwords", cite: "11 CCR § 7123(c)(1)"}
+      - {id: c2, label: "Encryption of personal information at rest and in transit", cite: "11 CCR § 7123(c)(2)"}
+      - {id: c3, label: "Account management and access controls, including privileged and physical access", cite: "11 CCR § 7123(c)(3)"}
+      - {id: c4, label: "Inventory and management of personal information, hardware, and software", cite: "11 CCR § 7123(c)(4)"}
+      - {id: c5, label: "Secure configuration, masking, patch management, and change management", cite: "11 CCR § 7123(c)(5)"}
+      - {id: c6, label: "Vulnerability scans, penetration testing, and vulnerability disclosure", cite: "11 CCR § 7123(c)(6)"}
+      - {id: c7, label: "Audit-log management", cite: "11 CCR § 7123(c)(7)"}
+      - {id: c8, label: "Network monitoring and defenses, including data-loss prevention", cite: "11 CCR § 7123(c)(8)"}
+      - {id: c9, label: "Antivirus and antimalware protections", cite: "11 CCR § 7123(c)(9)"}
+      - {id: c10, label: "Segmentation of the information system", cite: "11 CCR § 7123(c)(10)"}
+      - {id: c11, label: "Limitation and control of ports, services, and protocols", cite: "11 CCR § 7123(c)(11)"}
+      - {id: c12, label: "Cybersecurity awareness of changing threats", cite: "11 CCR § 7123(c)(12)"}
+      - {id: c13, label: "Cybersecurity education and training for everyone with access", cite: "11 CCR § 7123(c)(13)"}
+      - {id: c14, label: "Secure development and coding practices", cite: "11 CCR § 7123(c)(14)"}
+      - {id: c15, label: "Oversight of service providers, contractors, and third parties", cite: "11 CCR § 7123(c)(15)"}
+      - {id: c16, label: "Retention schedules and proper disposal", cite: "11 CCR § 7123(c)(16)"}
+      - {id: c17, label: "Incident response management", cite: "11 CCR § 7123(c)(17)"}
+      - {id: c18, label: "Business-continuity and disaster-recovery plans, including backups", cite: "11 CCR § 7123(c)(18)"}
+  coppa-security:
+    name: COPPA written information security program
+    method: "16 CFR § 312.8(b)-(c), as amended effective June 23, 2025 (compliance by April 22, 2026): a written program appropriate to the sensitivity of children's data and the operator's size and activities"
+    annual: true
+    elements:
+      - {id: b1, label: "Employees designated to coordinate the program", cite: "16 CFR § 312.8(b)(1)"}
+      - {id: b2, label: "Risk assessment at least annually, including the sufficiency of safeguards", cite: "16 CFR § 312.8(b)(2)"}
+      - {id: b3, label: "Safeguards designed to the volume and sensitivity of the data and the likelihood of compromise", cite: "16 CFR § 312.8(b)(3)"}
+      - {id: b4, label: "Regular testing and monitoring of the safeguards", cite: "16 CFR § 312.8(b)(4)"}
+      - {id: b5, label: "Evaluation and modification of the program at least annually", cite: "16 CFR § 312.8(b)(5)"}
+      - {id: c, label: "Written assurances from service providers and third parties before they collect or receive children's data", cite: "16 CFR § 312.8(c)"}
+  hipaa:
+    name: HIPAA security risk analysis
+    method: "45 CFR § 164.308(a)(1)(ii)(A)-(B): an accurate and thorough analysis of risks to all ePHI, following HHS guidance, then risk management to a reasonable and appropriate level; keep documentation six years (§ 164.316(b)(2))"
+    elements:
+      - {id: scope, label: "Scope: every system and location holding ePHI", cite: "45 CFR § 164.308(a)(1)(ii)(A); HHS guidance"}
+      - {id: data, label: "Where ePHI is stored, received, maintained, or transmitted", cite: "HHS guidance on risk analysis"}
+      - {id: threats, label: "Threats and vulnerabilities identified", cite: "HHS guidance on risk analysis"}
+      - {id: measures, label: "Current security measures assessed", cite: "HHS guidance on risk analysis"}
+      - {id: likelihood, label: "Likelihood of each threat", cite: "HHS guidance on risk analysis"}
+      - {id: impact, label: "Potential impact of each threat", cite: "HHS guidance on risk analysis"}
+      - {id: level, label: "Level of risk determined", cite: "HHS guidance on risk analysis"}
+      - {id: management, label: "Risk management: measures that reduce risks to a reasonable and appropriate level", cite: "45 CFR § 164.308(a)(1)(ii)(B)"}
+      - {id: review, label: "Periodic review, and review when operations or technology change", cite: "45 CFR § 164.316(b)(2)(iii); HHS guidance"}
+  glba:
+    name: GLBA Safeguards Rule written risk assessment
+    method: "16 CFR § 314.4(b): a written risk assessment, repeated periodically; institutions with fewer than 5,000 consumers needn't write it down (§ 314.6)"
+    elements:
+      - {id: b1-i, label: "Criteria for evaluating and categorizing security risks and threats", cite: "16 CFR § 314.4(b)(1)(i)"}
+      - {id: b1-ii, label: "Criteria for assessing confidentiality, integrity, and availability, including the adequacy of existing controls", cite: "16 CFR § 314.4(b)(1)(ii)"}
+      - {id: b1-iii, label: "How each risk will be mitigated or accepted, and how the program addresses it", cite: "16 CFR § 314.4(b)(1)(iii)"}
+      - {id: b2, label: "Periodic reassessment of reasonably foreseeable internal and external risks", cite: "16 CFR § 314.4(b)(2)"}
+  nis2:
+    name: NIS2 cybersecurity risk-management measures
+    method: "NIS2 Directive Art. 21(1)-(2), as transposed, on an all-hazards basis; Implementing Regulation (EU) 2024/2690 for digital infrastructure and digital providers; management bodies approve and oversee the measures (Art. 20)"
+    elements:
+      - {id: 21-2-a, label: "Risk analysis and information system security policies", cite: "NIS2 Art. 21(2)(a)"}
+      - {id: 21-2-b, label: "Incident handling", cite: "NIS2 Art. 21(2)(b)"}
+      - {id: 21-2-c, label: "Business continuity, backup management, disaster recovery, and crisis management", cite: "NIS2 Art. 21(2)(c)"}
+      - {id: 21-2-d, label: "Supply chain security", cite: "NIS2 Art. 21(2)(d)"}
+      - {id: 21-2-e, label: "Security in acquisition, development, and maintenance, including vulnerability handling and disclosure", cite: "NIS2 Art. 21(2)(e)"}
+      - {id: 21-2-f, label: "Policies and procedures to assess the effectiveness of the measures", cite: "NIS2 Art. 21(2)(f)"}
+      - {id: 21-2-g, label: "Basic cyber hygiene and cybersecurity training", cite: "NIS2 Art. 21(2)(g)"}
+      - {id: 21-2-h, label: "Cryptography and, where appropriate, encryption", cite: "NIS2 Art. 21(2)(h)"}
+      - {id: 21-2-i, label: "Human resources security, access control, and asset management", cite: "NIS2 Art. 21(2)(i)"}
+      - {id: 21-2-j, label: "Multi-factor or continuous authentication, and secured communications", cite: "NIS2 Art. 21(2)(j)"}

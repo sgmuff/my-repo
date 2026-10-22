@@ -1,0 +1,66 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+title: Security assessment
+description: "A security risk assessment, written security program check, or audit preparation under one law: each element the law requires (gov/rules/security.yaml) with the controls that meet it, and risks rated from the shared matrix."
+type: object
+additionalProperties: false
+required: [id, type, schema_version, format_version, kind, title, status, version, activity, scope, period, business_owner,
+  system_owner, prepared_by, date_prepared, last_reviewed, next_review, summary, decision, analysis, criteria, elements,
+  risks, facts, context, issues, actions, open_questions, verify, finding_responses, references, version_history, signoff]
+properties:
+  id: {type: string, pattern: "^SRA-\\d{4}-\\d{3}$"}
+  type: {const: sra}
+  schema_version: {const: 1}
+  format_version: {const: 1}
+  kind: {enum: [gdpr-art32, ccpa-audit-prep, coppa-security, hipaa, glba, nis2]}
+  title: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 10}
+  status: {$ref: "common.schema.yaml#/$defs/doc_status"}
+  version: {$ref: "common.schema.yaml#/$defs/version"}
+  activity: {type: string, description: "The RoPA entry, ROPA-NNNN, not-applicable for a company-wide program, or TBC"}
+  scope:
+    type: object
+    additionalProperties: false
+    required: [systems, data, entities]
+    properties:
+      systems: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 40, description: "Every system and location in scope"}
+      data: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 30, description: "The protected data: ePHI, customer information, children's data, personal information"}
+      entities: {$ref: "common.schema.yaml#/$defs/short", description: "The legal entities and service providers covered"}
+  period: {$ref: "common.schema.yaml#/$defs/short", description: "The period assessed, such as a CCPA audit year; or none"}
+  business_owner: {$ref: "common.schema.yaml#/$defs/short"}
+  system_owner: {$ref: "common.schema.yaml#/$defs/short"}
+  prepared_by: {$ref: "common.schema.yaml#/$defs/short"}
+  date_prepared: {$ref: "common.schema.yaml#/$defs/date"}
+  last_reviewed: {$ref: "common.schema.yaml#/$defs/date_or_null"}
+  next_review: {$ref: "common.schema.yaml#/$defs/date"}
+  summary: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 50}
+  analysis: {$ref: "common.schema.yaml#/$defs/analysis"}
+  decision:
+    description: "Whether the program meets the law's elements. The privacy lead and the security owner confirm it."
+    $ref: "common.schema.yaml#/$defs/call"
+    properties:
+      value: {enum: [adequate, gaps, not-adequate, open]}
+  criteria: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 40, description: "How risks are evaluated and categorized; risk-method.md's matrix unless the company has its own"}
+  elements:
+    description: "One row per element in gov/rules/security.yaml for the kind"
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [element, applicability, reason, controls, evidence, status]
+      properties:
+        element: {type: string}
+        applicability: {enum: [applies, not-applicable, TBC], description: "For CCPA, the auditor decides which components apply; record the proposed view"}
+        reason: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 25, description: "How the company meets it, or why it doesn't apply"}
+        controls: {type: array, items: {type: string, pattern: "^CTL-\\d{4}$"}}
+        evidence: {type: array, items: {type: string, pattern: "^EV-\\d{4}$"}}
+        status: {enum: [met, partial, gap, TBC]}
+  risks: {$ref: "common.schema.yaml#/$defs/risks"}
+  facts: {$ref: "common.schema.yaml#/$defs/facts"}
+  context: {$ref: "common.schema.yaml#/$defs/context"}
+  issues: {$ref: "common.schema.yaml#/$defs/issues"}
+  actions: {$ref: "common.schema.yaml#/$defs/actions"}
+  open_questions: {$ref: "common.schema.yaml#/$defs/open_questions"}
+  verify: {$ref: "common.schema.yaml#/$defs/verify"}
+  finding_responses: {$ref: "common.schema.yaml#/$defs/finding_responses"}
+  references: {$ref: "common.schema.yaml#/$defs/references"}
+  version_history: {$ref: "common.schema.yaml#/$defs/version_history"}
+  signoff: {$ref: "common.schema.yaml#/$defs/signoff"}

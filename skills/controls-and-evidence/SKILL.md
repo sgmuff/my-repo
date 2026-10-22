@@ -35,6 +35,7 @@ Pick the mode from the request:
 | **Build or refresh the library** | "Build our control library from the SOC 2 report and policies" | Control entries, index, gap list |
 | **Find evidence** | "What evidence do we have for Art. 32 / AIUC-1 E015?" | Evidence list by requirement, with gaps |
 | **Certification readiness** | "Get us ready for AIUC-1 on the support agent" | Readiness report with Statement of Applicability |
+| **Security assessment** | "Do our GLBA risk assessment," "Are we ready for the CCPA cybersecurity audit?" | `sra` record mapped to the library |
 | **Audit or questionnaire pack** | "An auditor asked for evidence on access reviews" | Evidence pack, marked as an external draft |
 | **Schedule** | "What tests are due this quarter?" | Rebuilt `schedule.md` |
 
@@ -97,6 +98,14 @@ Some gaps are production risks now. When an agent can read customer data or take
 - **Evaluations as release gates.** For each risk area: a representative test set, pass and fail thresholds, regression tests for past failures, a review process for failures, a rule that blocks release below thresholds, and re-evaluation after any change to the model, prompts, tools, permissions, or retrieval sources. Measure outcomes (authorization failures, unauthorized actions, leakage, successful injections), not only that tests ran. Retrieval grounding reduces hallucination, but brings its own risks, such as injected instructions and stale content.
 - **Logs.** Check what the agent's logs contain (prompts, responses, identifiers, order details, credentials), who can read them, and for how long. Minimize and redact before ingestion where possible (AIUC-1 E015; GDPR Art. 5(1)(c)).
 - **Disclosure.** Record the decision on telling users they're talking to AI: whether people in the EU use the agent, the company's AI Act role, and whether AI involvement is obvious in context (Art. 50(1)). Assess other jurisdictions separately. "Hi, I'm Ava, an AI assistant" is a simple fix if the duty applies (AIUC-1 E016).
+
+### 4b. Security assessments the law requires
+
+When `gov required` or the request names one, record it as an `sra` record: `gov new sra --slug <scope> --title "<law>: <scope>" --date <today>`, with `kind` set to `gdpr-art32`, `ccpa-audit-prep`, `coppa-security`, `hipaa`, `glba`, or `nis2`. `gov/rules/security.yaml` lists each kind's elements with their citations, and `gov validate` names any the record leaves out. For each element, record whether it applies, how the company meets it, the library controls and evidence behind it, and its status; rate the risks with the shared matrix. Read the regime's reference file first (`hipaa.md`, `glba.md`, `nis2.md`, `us-state-privacy.md` §6, `ferpa.md` for COPPA), including its scope test: a company outside the regime doesn't owe the assessment.
+
+- **CCPA:** the record prepares for the annual audit; the audit itself needs a qualified, objective, independent auditor, who decides which components apply (11 CCR §§ 7122-7123). First reports are due April 1, 2028, 2029, or 2030 by revenue.
+- **COPPA and GLBA:** the risk assessment repeats at least annually (COPPA) or periodically (GLBA); set `next_review` to match.
+- **NIS2:** national transposition decides the details; management bodies approve the measures (Art. 20).
 
 ### 5. Audit and questionnaire packs
 

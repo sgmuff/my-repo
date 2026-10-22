@@ -13,6 +13,14 @@ from gov.records import load, record_files
 from gov.validate import Problem, _rel, validate_tree
 
 LABELS = {
+    "gdpr-art32": "Security risk assessment (GDPR Art. 32)",
+    "ccpa-audit-prep": "CCPA cybersecurity audit preparation",
+    "coppa-security": "COPPA written information security program",
+    "hipaa": "HIPAA security risk analysis",
+    "glba": "GLBA written risk assessment",
+    "nis2": "NIS2 risk-management measures",
+    "applies": "Applies",
+    "not-adequate": "Not adequate",
     "data-subject": "Data subject",
     "parent-or-guardian": "Parent or guardian",
     "authorized-agent": "Authorized agent",
@@ -474,12 +482,18 @@ def render_record(rec, root=None) -> str:
     template = _env().get_template(f"{rec.type}.md.j2")
     from gov import issues
     method = _methods().get(rec.type, {}).get(rec.data.get("kind"))
+    if rec.type == "sra":
+        from gov import security
+        method = security.kinds()[rec.data["kind"]]["method"]
+        extra_elements = security.elements(rec.data["kind"])
     if isinstance(method, dict):
         method = method.get((rec.data.get("regimes") or ["eu-gdpr"])[0])
     from gov import references
     extra = {"findings": finding_rows(rec, root), "method": method, "ref_notes": references.notes(root, rec.data),
              "issue_rows": issues.rows(rec.data) if rec.type != "ropa" else [], "issue_rules_apply": issues.covers(rec.type),
              "gate": derive.DERIVE[rec.type](rec.data).get("gate", "Launch")}
+    if rec.type == "sra":
+        extra["element_text"] = extra_elements
     if rec.type == "ctl":
         from gov import crosswalk
         extra["crosswalk"] = crosswalk.objectives(root)

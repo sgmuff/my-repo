@@ -107,6 +107,8 @@ def validate_record(root: Path, rec: Record, as_of: str | None = None) -> list:
     problems.extend(_structure(where, rec.data))
     if rec.data.get("type") == "rdy":
         problems.extend(_readiness(root, where, rec.data))
+    if rec.data.get("type") == "sra":
+        problems.extend(_security_elements(where, rec.data))
     if rec.data.get("type") == "ctl":
         problems.extend(_objectives(root, where, rec.data))
         problems.extend(_stale_evidence(where, rec.data, as_of))
@@ -225,6 +227,20 @@ def _objectives(root: Path, where: str, data: dict) -> list:
         return [Problem(where, "error", f"objectives: can't read the control objectives from {crosswalk.REFERENCE}")]
     return [Problem(where, "error", f"objectives/{n}: {o['cco']} isn't an objective in {crosswalk.REFERENCE.name}")
             for n, o in enumerate(data["objectives"]) if o["cco"] not in known and o["cco"] != "TBC"]
+
+
+def _security_elements(where: str, data: dict) -> list:
+    """Every element the kind's law requires, each once, and nothing that isn't one."""
+    from gov import security
+    known = security.elements(data["kind"])
+    listed = [e["element"] for e in data["elements"]]
+    problems = [Problem(where, "error", f"elements: {e} isn't an element for {data['kind']}; see gov/rules/security.yaml")
+                for e in listed if e not in known]
+    problems += [Problem(where, "error", f"elements: list {e} once") for e in sorted(set(listed)) if listed.count(e) > 1]
+    missing = [e for e in known if e not in listed]
+    if missing:
+        problems.append(Problem(where, "finding", f"elements: {data['kind']} requires these, which the record doesn't list: {', '.join(missing)}"))
+    return problems
 
 
 def _stale_evidence(where: str, data: dict, as_of: str | None) -> list:

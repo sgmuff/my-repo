@@ -431,4 +431,28 @@ def dsr(data: dict) -> dict:
     }
 
 
-DERIVE = {"dsr": dsr, "ctl": ctl, "ais": ais, "rdy": rdy, "inc": inc, "aiia": aiia, "vr": vr, "dpia": dpia, "ropa": ropa, "lia": lia, "tia": tia, "tsr": tsr, "aip": ai_act, "aid": ai_act, "scr": scr}
+def sra(data: dict) -> dict:
+    from gov import risk, security
+    current = risk.overall(data["risks"], "current")
+    applies = [e for e in data["elements"] if e["applicability"] != "not-applicable"]
+    return {
+        "decision": data["decision"]["value"],
+        "kind_name": security.kinds()[data["kind"]]["name"],
+        "met": sum(1 for e in applies if e["status"] == "met"),
+        "gaps": sum(1 for e in applies if e["status"] in ("partial", "gap", "TBC")),
+        "applies": len(applies),
+        "inherent": risk.overall(data["risks"], "inherent"),
+        "current": current,
+        "target": risk.overall(data["risks"], "target"),
+        "approver": APPROVER[current],
+        "risk_rows": [{"id": k["id"], "risk": k["risk"], "owner": k["owner"], "inherent": risk.rate(k["inherent"]),
+                       "current": risk.rate(k["current"]), "target": risk.rate(k["target"]),
+                       "measures": "; ".join(f"{m['measure']} ({m['status']})" for m in k["measures"]) or "None"} for k in data["risks"]],
+        "launch_blockers": _blockers(data),
+        "launch_groups": _blocker_groups(data),
+        "launch_questions": sum(1 for q in data["open_questions"] if q["blocks"] == "launch"),
+        "approval_questions": sum(1 for q in data["open_questions"] if q["blocks"] == "approval"),
+    }
+
+
+DERIVE = {"sra": sra, "dsr": dsr, "ctl": ctl, "ais": ais, "rdy": rdy, "inc": inc, "aiia": aiia, "vr": vr, "dpia": dpia, "ropa": ropa, "lia": lia, "tia": tia, "tsr": tsr, "aip": ai_act, "aid": ai_act, "scr": scr}
