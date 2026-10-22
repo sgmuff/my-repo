@@ -1,0 +1,133 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+title: Data subject request case
+description: "One privacy request from receipt to closure: who answers, the laws, the deadlines gov computes from the received date, verification, where the data is, the position on each request, and the message drafts."
+type: object
+additionalProperties: false
+required: [id, type, schema_version, format_version, kind, title, status, version, received, requester_type,
+  requester_words, earlier_requests, request_types, company_role, regimes, laws, internal_target, extended_deadline,
+  responded, closed, prepared_by, date_prepared, summary, analysis, verification, locations, processors, positions,
+  messages, follow_ons, facts, actions, open_questions, verify, finding_responses, references, version_history, signoff]
+properties:
+  id: {type: string, pattern: "^DSR-\\d{4}-\\d{3}$"}
+  type: {const: dsr}
+  schema_version: {const: 1}
+  format_version: {const: 1}
+  kind: {enum: [request]}
+  title: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 10, description: "Request types and requester kind, never the person's name"}
+  status: {enum: [Draft, Awaiting verification, In progress, Forwarded, Responded, Closed]}
+  version: {$ref: "common.schema.yaml#/$defs/version"}
+  received:
+    type: object
+    additionalProperties: false
+    required: [date, time, channel]
+    properties:
+      date: {$ref: "common.schema.yaml#/$defs/date", description: "When the request reached the company; the clocks start here"}
+      time: {$ref: "common.schema.yaml#/$defs/short", description: "With the zone, or TBC"}
+      channel: {$ref: "common.schema.yaml#/$defs/short"}
+  requester_type: {enum: [data-subject, parent-or-guardian, authorized-agent, TBC]}
+  requester_words: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 80, description: "The request quoted, keeping only what's needed"}
+  earlier_requests: {type: array, items: {type: string, pattern: "^DSR-\\d{4}-\\d{3}$"}}
+  request_types:
+    type: array
+    minItems: 1
+    uniqueItems: true
+    items: {enum: [access, deletion, correction, portability, opt-out, limit, objection, restriction, automated-decision, appeal, TBC]}
+  company_role:
+    description: "For this person's data: the company answers as controller, or refers and assists as processor or school official"
+    $ref: "common.schema.yaml#/$defs/call"
+    properties:
+      value: {enum: [controller, processor, school-official, TBC]}
+  regimes:
+    description: "The deadline regimes gov deadlines computes; include every regime that could apply until it's settled"
+    type: array
+    uniqueItems: true
+    items: {enum: [gdpr, uk, fadp, ccpa, ccpa-optout, state, iowa, ferpa]}
+  laws:
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [law, applies]
+      properties:
+        law: {$ref: "common.schema.yaml#/$defs/short"}
+        applies: {$ref: "common.schema.yaml#/$defs/call_tristate"}
+  internal_target: {$ref: "common.schema.yaml#/$defs/date_or_null"}
+  extended_deadline: {$ref: "common.schema.yaml#/$defs/date_or_null", description: "Only if an extension notice went out before the first deadline"}
+  responded: {$ref: "common.schema.yaml#/$defs/date_or_null", description: "When the response went out; leadership reports time requests from received to responded"}
+  closed: {$ref: "common.schema.yaml#/$defs/date_or_null"}
+  prepared_by: {$ref: "common.schema.yaml#/$defs/short"}
+  date_prepared: {$ref: "common.schema.yaml#/$defs/date"}
+  summary: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 50}
+  analysis: {$ref: "common.schema.yaml#/$defs/analysis"}
+  verification:
+    type: object
+    additionalProperties: false
+    required: [method, why, status, by, date]
+    properties:
+      method: {$ref: "common.schema.yaml#/$defs/short"}
+      why: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 25, description: "Why the method is proportionate"}
+      status: {enum: [not-started, requested, verified, failed, not-needed]}
+      by: {type: [string, "null"], description: "The person who checked the evidence; never Claude"}
+      date: {$ref: "common.schema.yaml#/$defs/date_or_null"}
+  locations:
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [system, ropa, data, owner, searched, result]
+      properties:
+        system: {$ref: "common.schema.yaml#/$defs/short"}
+        ropa: {type: string, description: "ROPA-NNNN, or none (a RoPA gap)"}
+        data: {$ref: "common.schema.yaml#/$defs/short"}
+        owner: {$ref: "common.schema.yaml#/$defs/short"}
+        searched: {$ref: "common.schema.yaml#/$defs/date_or_tbc"}
+        result: {$ref: "common.schema.yaml#/$defs/short"}
+  processors:
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [processor, instruction, sent, confirmed]
+      properties:
+        processor: {$ref: "common.schema.yaml#/$defs/short"}
+        instruction: {enum: [delete, correct, export, stop-processing]}
+        sent: {$ref: "common.schema.yaml#/$defs/date_or_tbc"}
+        confirmed: {$ref: "common.schema.yaml#/$defs/date_or_tbc"}
+  positions:
+    description: "One per request type. A refusal, partial refusal, exception, or fee is the privacy lead's decision."
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [request, action, exception, status, redactions]
+      properties:
+        request: {$ref: "common.schema.yaml#/$defs/short"}
+        action: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 25}
+        exception: {$ref: "common.schema.yaml#/$defs/short", description: "The provision relied on, or none"}
+        status: {$ref: "common.schema.yaml#/$defs/position_status"}
+        redactions: {$ref: "common.schema.yaml#/$defs/short", description: "Such as other people's data (Art. 15(4)), or none"}
+  messages:
+    description: "Drafts for a person to approve and send; gov renders the text to dsr/drafts/"
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [message, text, approved_by, sent, sent_by]
+      properties:
+        message: {enum: [acknowledgment, verification-request, extension-notice, response, referral, clarification]}
+        text: {type: string, minLength: 1}
+        approved_by: {type: [string, "null"]}
+        sent: {$ref: "common.schema.yaml#/$defs/date_or_null"}
+        sent_by: {type: [string, "null"]}
+  follow_ons:
+    description: "Gaps the request revealed, for the skill that fixes them: a system missing from the RoPA, a processor that can't delete, a notice gap"
+    type: array
+    items: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 25}
+  facts: {$ref: "common.schema.yaml#/$defs/facts"}
+  actions: {$ref: "common.schema.yaml#/$defs/actions"}
+  open_questions: {$ref: "common.schema.yaml#/$defs/open_questions"}
+  verify: {$ref: "common.schema.yaml#/$defs/verify"}
+  finding_responses: {$ref: "common.schema.yaml#/$defs/finding_responses"}
+  references: {$ref: "common.schema.yaml#/$defs/references"}
+  version_history: {$ref: "common.schema.yaml#/$defs/version_history"}
+  signoff: {$ref: "common.schema.yaml#/$defs/signoff"}

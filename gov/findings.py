@@ -478,6 +478,39 @@ def ais(data: dict) -> list:
     return out
 
 
+def dsr(data: dict) -> list:
+    from gov import derive
+    d = derive.dsr(data)
+    out = []
+    if not data["regimes"]:
+        out.append(("regimes", "no deadline regime recorded; include every regime that could apply and work to the earliest date"))
+    role = data["company_role"]["value"]
+    sent = {m["message"]: m for m in data["messages"] if m["sent"]}
+    if role in ("processor", "school-official") and not any(m["message"] == "referral" for m in data["messages"]):
+        out.append(("messages", "the company answers this person's data as processor or school official; draft the referral to the controller or institution and the help it needs"))
+    if "response" in sent and data["verification"]["status"] not in ("verified", "not-needed"):
+        out.append(("verification", "a response went out before verification succeeded; confirm nothing was disclosed to an unverified requester"))
+    ext = sent.get("extension-notice")
+    if ext and d["earliest"] and str(ext["sent"]) > d["earliest"]["due"]:
+        out.append(("messages", f"the extension notice went out on {ext['sent']}, after the first deadline ({d['earliest']['due']}); the extension may not hold"))
+    if data["extended_deadline"] and not ext:
+        out.append(("extended_deadline", "an extended deadline needs an extension notice sent before the first deadline"))
+    if data["responded"] and d["due"] and str(data["responded"]) > d["due"]:
+        out.append(("responded", f"the response went out on {data['responded']}, after the deadline of {d['due']}"))
+    if data["status"] in ("Responded", "Closed") and not data["responded"] and role == "controller":
+        out.append(("responded", "record the date the response went out; leadership reports time requests from received to responded"))
+    if data["status"] == "Closed" and not data["closed"]:
+        out.append(("closed", "record the date the case closed"))
+    if set(data["request_types"]) & {"deletion", "correction"} and role == "controller" and not data["processors"]:
+        out.append(("processors", "deletion and correction reach processors; list each processor that must act, with the instruction"))
+    if any(l["ropa"] == "none" for l in data["locations"]) and not data["follow_ons"]:
+        out.append(("follow_ons", "a system holding this data isn't in the RoPA; record it as a follow-on for ropa"))
+    for n, m in enumerate(data["messages"]):
+        if m["sent"] and not m["approved_by"]:
+            out.append((f"messages/{n}", f"the {m['message']} was sent with no approver recorded"))
+    return out
+
+
 INTERVALS = {"daily": 1, "weekly": 1, "monthly": 1, "quarterly": 3, "annual": 12}
 
 
@@ -511,5 +544,5 @@ def _residual_confirmed(data: dict) -> bool:
     return derive.dpia(data)["confirmed"]
 
 
-FINDINGS = {"ctl": ctl, "ais": _with_issues(ais), "rdy": _with_issues(rdy), "inc": _with_issues(inc), "aiia": _with_issues(aiia), "vr": _with_issues(vr), "dpia": _with_issues(dpia), "scr": _with_issues(scr), "ropa": ropa, "lia": _with_issues(lia), "tia": _with_issues(tia), "tsr": _with_issues(tsr),
+FINDINGS = {"dsr": _with_issues(dsr), "ctl": ctl, "ais": _with_issues(ais), "rdy": _with_issues(rdy), "inc": _with_issues(inc), "aiia": _with_issues(aiia), "vr": _with_issues(vr), "dpia": _with_issues(dpia), "scr": _with_issues(scr), "ropa": ropa, "lia": _with_issues(lia), "tia": _with_issues(tia), "tsr": _with_issues(tsr),
             "aip": _with_issues(aip), "aid": _with_issues(aid)}

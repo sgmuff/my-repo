@@ -10,7 +10,7 @@ prefixes:
   VR: {digits: 3, yearly: true, type: vr, folder: vendors}
   AIS: {digits: 4, yearly: false, type: ais, folder: registers/ai-inventory}
   AIIA: {digits: 3, yearly: true, type: aiia, folder: assessments/ai-impact}
-  DSR: {digits: 3, yearly: true}
+  DSR: {digits: 3, yearly: true, type: dsr, folder: dsr}
   INC: {digits: 3, yearly: true, type: inc, folder: incidents}
   CTL: {digits: 4, yearly: false, type: ctl, folder: registers/controls}
   EV: {digits: 4, yearly: false}

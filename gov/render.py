@@ -13,6 +13,30 @@ from gov.records import load, record_files
 from gov.validate import Problem, _rel, validate_tree
 
 LABELS = {
+    "data-subject": "Data subject",
+    "parent-or-guardian": "Parent or guardian",
+    "authorized-agent": "Authorized agent",
+    "access": "Access",
+    "deletion": "Deletion",
+    "correction": "Correction",
+    "portability": "Portability",
+    "opt-out": "Opt-out",
+    "limit": "Limit use of sensitive data",
+    "restriction": "Restriction",
+    "automated-decision": "Automated decision",
+    "appeal": "Appeal",
+    "verified": "Verified",
+    "failed": "Failed",
+    "delete": "Delete",
+    "correct": "Correct",
+    "export": "Export",
+    "stop-processing": "Stop processing",
+    "acknowledgment": "Acknowledgment",
+    "verification-request": "Verification request",
+    "extension-notice": "Extension notice",
+    "response": "Response",
+    "referral": "Referral to the controller or institution",
+    "clarification": "Clarification request",
     "in-use": "In use",
     "designed": "Designed",
     "implemented": "Implemented",
@@ -498,6 +522,9 @@ def render_tree(root: Path, check: bool = False) -> RenderResult:
         if rec.type == "inc" and rec.data.get("notices"):
             outputs[rec.path.parent / "notices" / f"{rec.path.stem}-notices.md"] = _tidy(
                 _env().get_template("inc-notices.md.j2").render(r=rec.data, source_file=rec.path.name))
+        if rec.type == "dsr" and rec.data.get("messages"):
+            outputs[rec.path.parent / "drafts" / f"{rec.path.stem}-drafts.md"] = _tidy(
+                _env().get_template("dsr-drafts.md.j2").render(r=rec.data, source_file=rec.path.name))
         if rec.type == "vr" and rec.data.get("requests"):
             outputs[rec.path.parent / "requests" / f"{rec.path.stem}-requests.md"] = _tidy(
                 _env().get_template("vr-requests.md.j2").render(r=rec.data, source_file=rec.path.name))

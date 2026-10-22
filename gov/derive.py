@@ -388,4 +388,33 @@ def ctl(data: dict) -> dict:
     }
 
 
-DERIVE = {"ctl": ctl, "ais": ais, "rdy": rdy, "inc": inc, "aiia": aiia, "vr": vr, "dpia": dpia, "ropa": ropa, "lia": lia, "tia": tia, "tsr": tsr, "aip": ai_act, "aid": ai_act, "scr": scr}
+def dsr_deadlines(data: dict) -> list:
+    """Every deadline gov deadlines computes for the record's regimes, earliest first."""
+    import datetime as dt
+    from gov import deadlines
+    table = deadlines.rules(dt.date.fromisoformat(str(data["received"]["date"])))
+    rows = [{"due": due.isoformat(), "regime": regime, "step": step, "substantive": "Respond" in step or "Apply" in step}
+            for regime in data["regimes"] for step, due in table[regime]]
+    return sorted(rows, key=lambda r: (r["due"], r["regime"]))
+
+
+def dsr(data: dict) -> dict:
+    import datetime as dt
+    from gov.skeleton import add_months
+    rows = dsr_deadlines(data)
+    substantive = [r for r in rows if r["substantive"] and "if extended" not in r["step"]]
+    earliest = substantive[0] if substantive else None
+    due = data["extended_deadline"] or (earliest["due"] if earliest else None)
+    return {
+        "deadlines": rows,
+        "earliest": earliest,
+        "due": str(due) if due else None,
+        "open": data["status"] not in ("Responded", "Closed"),
+        "days_to_respond": (dt.date.fromisoformat(str(data["responded"])) - dt.date.fromisoformat(str(data["received"]["date"]))).days
+        if data["responded"] else None,
+        "retain_until": add_months(str(data["closed"]), 24) if data["closed"] else None,
+        "approval_questions": sum(1 for q in data["open_questions"] if q["blocks"] == "approval"),
+    }
+
+
+DERIVE = {"dsr": dsr, "ctl": ctl, "ais": ais, "rdy": rdy, "inc": inc, "aiia": aiia, "vr": vr, "dpia": dpia, "ropa": ropa, "lia": lia, "tia": tia, "tsr": tsr, "aip": ai_act, "aid": ai_act, "scr": scr}

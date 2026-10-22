@@ -1,0 +1,60 @@
+# Data subject request case. gov computes every deadline from received.date and regimes; never type a deadline.
+# Messages are drafts a person approves and sends; gov renders them to dsr/drafts/. Keep personal data to what the
+# case needs. Run `gov validate` then `gov render`. Text with a comma inside {...} goes in quotes.
+id: {{ id }}
+type: dsr
+schema_version: 1
+format_version: 1
+kind: request
+title: {{ title | tojson }}
+status: Draft  # Draft | Awaiting verification | In progress | Forwarded | Responded | Closed
+version: "0.1"
+received: {date: "{{ date }}", time: TBC, channel: TBC}  # the date the request reached the company, not today
+requester_type: TBC  # data-subject | parent-or-guardian | authorized-agent
+requester_words: TBC  # quoted
+earlier_requests: []  # DSR IDs from the same person
+request_types: [TBC]  # access | deletion | correction | portability | opt-out | limit | objection | restriction | automated-decision | appeal
+company_role: {value: TBC, status: Provisional, reason: How the account came to exist not yet known}  # controller | processor | school-official
+regimes: []  # gdpr | uk | fadp | ccpa | ccpa-optout | state | iowa | ferpa: every regime that could apply
+laws: []  # {law, applies: {value: true | false | TBC, status: Provisional, reason}}
+internal_target: null
+extended_deadline: null  # only once an extension notice went out before the first deadline
+responded: null  # set when the response goes out
+closed: null
+prepared_by: {{ prepared_by | tojson }}
+date_prepared: "{{ date }}"
+summary: TBC  # 50 words at most
+analysis: TBC  # 400 words at most: role, each law, exceptions; use |- for paragraphs
+
+verification:
+  method: TBC  # start with what the company already holds: account login, email on file
+  why: TBC
+  status: not-started  # not-started | requested | verified | failed | not-needed
+  by: null  # the person who checked; never Claude
+  date: null
+
+locations: []  # {system, ropa: ROPA-NNNN or none, data, owner, searched: TBC, result}
+processors: []  # {processor, instruction: delete | correct | export | stop-processing, sent: TBC, confirmed: TBC}
+positions: []  # {request, action, exception: provision or none, status: Provisional, redactions}
+messages: []  # {message: acknowledgment | verification-request | extension-notice | response | referral | clarification, text: |-, approved_by: null, sent: null, sent_by: null}
+follow_ons: []
+
+facts: []
+actions: []
+open_questions: []
+verify: []
+finding_responses: []
+references: []
+
+version_history:
+  - version: "0.1"
+    date: "{{ date }}"
+    author: {{ prepared_by | tojson }}
+    change: First draft
+
+signoff:
+  - decision: Positions and messages approved
+    approver_role: Privacy lead
+    name: null
+    date: null
+    outcome: null

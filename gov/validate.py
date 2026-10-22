@@ -113,6 +113,12 @@ def validate_record(root: Path, rec: Record, as_of: str | None = None) -> list:
     problems.extend(_law_citations(where, rec.data))
     problems.extend(_issue_ids(where, rec.data))
     problems.extend(_required(root, where, rec.data))
+    if rec.data.get("type") == "dsr":
+        v = rec.data["verification"]
+        for field, who in (("verification", v["by"]), *((f"messages/{n}", m["approved_by"]) for n, m in enumerate(rec.data["messages"])),
+                           *((f"messages/{n}/sent_by", m["sent_by"]) for n, m in enumerate(rec.data["messages"]))):
+            if who and "claude" in str(who).lower():
+                problems.append(Problem(where, "error", f"{field}: only a person verifies a requester, approves a message, or sends it"))
     for n, r in enumerate(rec.data.get("finding_responses", [])):
         if "claude" in r["by"].lower():
             problems.append(Problem(where, "error", f"finding_responses/{n}: only a person answers a finding; remove this, and report the finding instead"))
