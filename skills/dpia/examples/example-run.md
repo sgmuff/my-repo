@@ -1,6 +1,6 @@
 # Example run: Support Copilot
 
-This is a calibration case. Paste the prompt below into a new session, then compare what the skill does against the checklist, and its output against the abbreviated reference output. The company and vendor names are made up.
+This is a calibration case. It was written for the earlier Markdown format: the substance checklist still applies, but the output is now an `scr` and a `dpia` record that `gov` renders, so ignore the document-format items. Paste the prompt below into a new session, then compare what the skill does against the checklist, and its output against the abbreviated reference output. The company and vendor names are made up.
 
 ## Test prompt
 

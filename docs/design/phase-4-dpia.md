@@ -1,6 +1,6 @@
 # Phase 4: the DPIA in the record format
 
-Status: in progress, 2026-10-21. Slices 1 (`gov screen`), 2 (the `scr` screening record), and 3 (the `dpia` record) are built and tested;
+Status: in progress, 2026-10-21. Slices 1 (`gov screen`), 2 (the `scr` screening record), and 3 (the `dpia` record) are built and tested, and the skill is rewritten answer-first (slice 4);
 the screening findings and indicator rules are drafts until counsel decides the items marked **Counsel**.
 
 ## Why
