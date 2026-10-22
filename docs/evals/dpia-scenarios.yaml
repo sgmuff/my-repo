@@ -1,0 +1,30 @@
+# Holdout scenarios for the dpia skill. None overlaps the development evals (Support Copilot, K-12 session replay,
+# proctoring assistance pack) or the earlier holdouts. Counsel edits the prompts, deletes any not worth scoring, and
+# writes keys in dpia-answer-keys.yaml before any run. Each tests both the screening call and, where a DPIA follows,
+# the assessment. Two are traps where a quick answer over-screens or under-screens.
+# Status: DRAFT prompts, prepared by Claude 2026-10-21. No keys, no runs.
+
+scenarios:
+  - id: dpia-01-gym-wearables-insurer
+    prompt: "We run a chain of gyms in Ireland and the Netherlands. A health insurer wants to give members premium discounts based on heart-rate and step data from our app's wearable sync, and we'd share a weekly activity score with the insurer if the member opts in. Do we need a DPIA, and what does it look like?"
+    tests: "Art. 9 health data, an Art. 9(2)(a) explicit-consent condition and whether consent is free when money depends on it, evaluation and scoring shared with a third party, and the Dutch and Irish Art. 35(4) lists. Warranted; current residual likely High until consent and minimization are designed."
+
+  - id: dpia-02-newsletter-ab-test
+    prompt: "Marketing wants to A/B test two subject lines on our monthly newsletter to existing customers in France and Germany, using the email platform's built-in tool. Product says anything new needs a DPIA. Does it?"
+    tests: "Over-screening trap: no EDPB criterion is plausibly present at this scale and nature; not indicated, with the reasoning recorded, plus the ePrivacy and soft opt-in point for existing customers. A full DPIA here is the wrong answer."
+
+  - id: dpia-03-delivery-driver-telematics
+    prompt: "We're a parcel delivery company in Spain and Italy. Ops wants in-van cameras that face the road and the driver, with AI that flags phone use and fatigue and scores each driver weekly. Rollout across 3,000 vans in March 2027. Write the DPIA."
+    tests: "Systematic monitoring of employees with scoring, vulnerable subjects (employees), innovative technology; Spanish LOPDGDD Art. 89 and the Italian Workers' Statute Art. 4 with union agreement or labour inspectorate authorization; AI Act Annex III 4(b) and whether fatigue detection is a physical state; Art. 22 if scores drive discipline. Warranted, likely prior consultation on current facts."
+
+  - id: dpia-04-library-ebook-recommendations
+    prompt: "Our public-library e-book app in Austria wants to switch on reading recommendations based on each patron's borrowing history. About 120,000 patrons, some under 14. Is a DPIA needed?"
+    tests: "Profiling of reading habits, which can reveal special category data by inference (religion, health, sexual orientation), children, a public-service context with no legitimate interests for a public body, and the Austrian DSB's DPIA list. Warranted or recommended, with the reasons; the lawful basis is the crux."
+
+  - id: dpia-05-b2b-crm-enrichment
+    prompt: "Sales wants to enrich our CRM of about 8,000 business contacts across the EU with job titles and company size from a data broker, to prioritise outreach. We're a 60-person software company. DPIA?"
+    tests: "Under-screening and over-screening both possible: matching datasets and evaluation are arguably present, but scale and impact are modest; a reasoned recommended or not-indicated call with Art. 14 notice and the broker's sourcing as the real issues. Penalise mechanical counting either way."
+
+  - id: dpia-06-hospital-ai-triage-update
+    prompt: "We already have an approved DPIA for our hospital group's AI triage tool in the emergency department. The vendor is now switching from its own model to a third-party foundation model hosted in the US. What do we have to do?"
+    tests: "An update under Art. 35(11), not a new DPIA: rescreen the change, transfers (TIA or DPF screen), the processor chain and sub-processor approval, health data, the AI Act (Annex III 5(d) emergency triage, high-risk, deployer duties and the FRIA for a public-service body), and re-rating risks with measures that are no longer verified."
