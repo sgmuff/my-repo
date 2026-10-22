@@ -17,7 +17,7 @@ Look at the tools available in the session. MCP tools appear with names like `mc
 | System | Look for | Command-line fallback |
 |---|---|---|
 | Jira | `atlassian`, `jira` | The `acli` or `jira` CLI, if installed and authenticated |
-| Confluence | `atlassian`, `confluence` | None. Publishing is not enabled yet. |
+| Confluence | `atlassian`, `confluence` | None. The suite doesn't publish (see Publishing below). |
 | ServiceNow | `servicenow`, `snow`, `now` | The REST API through `curl`, only if the user has set it up and says so |
 | Google Drive or Docs | `google_drive`, `drive` | None |
 | SharePoint or OneDrive | `sharepoint`, `onedrive`, `microsoft` | None |
@@ -61,7 +61,7 @@ Without a connected source, ask the user to paste the text or put the file in th
 
 ## Calendars: not used
 
-Don't connect to a calendar, don't create calendar events, and don't offer to, even when a calendar tool is connected. The user has asked for this explicitly.
+Don't connect to a calendar, don't create calendar events, and don't offer to, even when a calendar tool is connected. A date belongs to an owner in the action plan, not to someone's calendar, and an event created by a model is easy to miss and hard to audit. A company that wants calendar entries can change this rule here.
 
 Deadlines still matter: review dates, DSR response deadlines, breach notification clocks, and AIUC-1 quarterly testing. Record each one as an action in the deliverable's action plan, with a `YYYY-MM-DD` due date, so it reaches Jira or ServiceNow with the other actions.
 
@@ -69,6 +69,6 @@ Deadlines still matter: review dates, DSR response deadlines, breach notificatio
 
 When the deliverable includes outbound text, such as a reply to a data subject, a vendor follow-up, or a request for missing facts, offer to save it as an email draft if an email tool is connected. The draft's first line says "DRAFT: not sent," and the deliverable records that a draft exists. A person reviews and sends it.
 
-## Publishing (planned, not active)
+## Publishing (not active)
 
-Approved assessments will be published to Confluence, and storage may move to Azure Blob Storage. Neither is active. Until they are, keep deliverables in the repository as Markdown, and don't publish anything. The portable Markdown rules in `conventions.md`, section 2, keep documents ready for both.
+The suite doesn't publish. The company profile names any publishing target ("Connected systems"); until one is enabled there, keep deliverables in the repository as Markdown, and don't publish anything. The portable Markdown rules in `conventions.md`, section 2, keep documents ready for a wiki or document store.

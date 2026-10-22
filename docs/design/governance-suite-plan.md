@@ -248,7 +248,7 @@ Intake writes `facts.yaml`, then route, required assessments, screen, draft, val
 
 ### Skills
 
-Each SKILL.md shrinks to four steps: gather facts, run `gov new`, fill in the record, and run `gov`. Each also:
+*Target, not the shipped shape.* The plan proposed four steps per SKILL.md: gather facts, run `gov new`, fill in the record, and run `gov`. The record-based skills shipped with five, answer first (answer, check against the references, record, validate and render, reply), because the holdouts showed the record alone doesn't improve the analysis. Each also:
 
 - **Says why the record comes first.** A hand-written document fails CI and breaks the shared format.
 - **Declares `gov`** in a `compatibility` field, and stops with install steps if it's missing.
