@@ -206,6 +206,9 @@ AI_ACT_REQUIRED = {
 
 
 def _structure(where: str, data: dict) -> list:
+    if data.get("type") == "scr":
+        numbers = sorted(c["criterion"] for c in data["criteria"])
+        return [] if numbers == list(range(1, 10)) else [Problem(where, "error", "criteria: list each EDPB criterion 1 to 9 exactly once")]
     if data.get("type") == "lia":
         wanted = KIND_SECTIONS[data["kind"]]
         problems = []

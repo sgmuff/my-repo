@@ -230,5 +230,25 @@ def aid(data: dict) -> list:
     return out
 
 
-FINDINGS = {"ropa": ropa, "lia": _with_issues(lia), "tia": _with_issues(tia), "tsr": _with_issues(tsr),
+def scr(data: dict) -> list:
+    out = []
+    decision = data["decision"]["value"]
+    present = [c["criterion"] for c in data["criteria"] if c["result"] == "present"]
+    always = [k for k, v in data["art35_3"].items() if v["value"] is True]
+    if always and decision != "warranted":
+        out.append(("art35_3", f"an Art. 35(3) case applies ({', '.join(always)}), so a DPIA is required; set the decision to warranted"))
+    if len(present) >= 2 and decision == "not-indicated":
+        out.append(("criteria", f"{len(present)} criteria are present ({', '.join(map(str, present))}); WP248 says that will need a DPIA in most cases, so the analysis must say why high risk is still unlikely"))
+    if decision == "not-indicated" and any(c["result"] == "unclear" for c in data["criteria"]):
+        out.append(("decision", "the decision is not-indicated while some criteria are unclear; resolve them, or keep the decision open"))
+    if data["national_list"]["result"] == "listed" and decision != "warranted":
+        out.append(("national_list", "the processing is on the authority's Art. 35(4) list, so a DPIA is required; set the decision to warranted"))
+    if data["state_assessment"]["required"]["value"] is not False and not data["actions"]:
+        out.append(("state_assessment", "a US state assessment is or may be owed whatever the GDPR outcome; add an action to produce it, or record why it isn't owed"))
+    if is_tbc(data["activity"]):
+        out.append(("activity", "link the RoPA entry this screening covers"))
+    return out
+
+
+FINDINGS = {"scr": _with_issues(scr), "ropa": ropa, "lia": _with_issues(lia), "tia": _with_issues(tia), "tsr": _with_issues(tsr),
             "aip": _with_issues(aip), "aid": _with_issues(aid)}

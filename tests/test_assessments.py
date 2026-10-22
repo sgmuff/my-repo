@@ -36,7 +36,7 @@ def test_goldens(assess_root):
 
 
 def test_skeletons_are_valid(root):
-    for kind in ("lia", "tia", "tsr", "aip", "aid"):
+    for kind in ("lia", "tia", "tsr", "aip", "aid", "scr"):
         new_record(root, kind, "blank", "Blank", "2026-10-18", "Claude")
     assert found(root, "error") == []
     assert render_tree(root).problems == []
@@ -158,7 +158,7 @@ def test_unsigned_tool_needs_a_law_action(assess_root):
 def test_every_kind_has_a_method():
     from gov.paths import PACKAGE
     methods = yamlio.load(PACKAGE / "rules" / "methods.yaml")
-    for kind in ("lia", "tia", "tsr", "aip", "aid"):
+    for kind in ("lia", "tia", "tsr", "aip", "aid", "scr"):
         kinds = yamlio.load(PACKAGE / "schemas" / f"{kind}.schema.yaml")["properties"]["kind"]["enum"]
         assert set(kinds) == set(methods[kind]), kind
 

@@ -1,6 +1,7 @@
 # Phase 4: the DPIA in the record format
 
-Status: design, 2026-10-21. Counsel decides the items marked **Counsel**.
+Status: in progress, 2026-10-21. Slices 1 (`gov screen`) and 2 (the `scr` screening record) are built and tested;
+the screening findings and indicator rules are drafts until counsel decides the items marked **Counsel**.
 
 ## Why
 
@@ -16,7 +17,7 @@ Each slice is usable on its own and ships with tests.
 1. **`gov screen`.** Reads a RoPA record and reports which screening indicators its facts suggest, each Provisional and
    tied to the field that raised it. It never concludes that a DPIA is or isn't needed; that's the screening record's
    job. Rules live in `gov/rules/screening.yaml`, in the same shape as `issues.yaml`.
-2. **Screening record (`dps`, prefix DPS).** One row per regime screened (EU GDPR Art. 35(3) and the EDPB criteria,
+2. **Screening record (`scr`, prefix SCR, in `assessments/dpia/screening/`).** One row per regime screened (EU GDPR Art. 35(3) and the EDPB criteria,
    the lead authority's Art. 35(4) list, UK ICO list, FADP Art. 22, US state triggers, AI Act), each criterion Present,
    Not present, or Unclear with fact references, then the outcome: warranted, recommended, or not indicated. Findings:
    two or more criteria present with "not indicated" and no reasoning; an Art. 35(3) case not marked warranted; a

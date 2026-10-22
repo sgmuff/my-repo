@@ -1,0 +1,91 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+title: DPIA screening record
+description: "Whether a processing activity is likely to result in a high risk, screened regime by regime: Art. 35(3), the EDPB criteria, the national list, and US state triggers. Its outcome decides whether a full DPIA follows."
+type: object
+additionalProperties: false
+required: [id, type, schema_version, format_version, kind, title, status, version, activity, business_owner,
+  prepared_by, date_prepared, last_reviewed, next_review, summary, decision, analysis, regimes, art35_3, criteria,
+  national_list, state_assessment, context, issues, actions, open_questions, verify, finding_responses, references,
+  version_history, signoff]
+properties:
+  id: {type: string, pattern: "^SCR-\\d{4}-\\d{3}$"}
+  type: {const: scr}
+  schema_version: {const: 1}
+  format_version: {const: 1}
+  kind: {enum: [screening]}
+  title: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 10}
+  status: {$ref: "common.schema.yaml#/$defs/doc_status"}
+  version: {$ref: "common.schema.yaml#/$defs/version"}
+  activity: {type: string, description: "The RoPA entry, ROPA-NNNN, or TBC"}
+  business_owner: {$ref: "common.schema.yaml#/$defs/short"}
+  prepared_by: {$ref: "common.schema.yaml#/$defs/short"}
+  date_prepared: {$ref: "common.schema.yaml#/$defs/date"}
+  last_reviewed: {$ref: "common.schema.yaml#/$defs/date_or_null"}
+  next_review: {$ref: "common.schema.yaml#/$defs/date"}
+  summary: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 50}
+  analysis: {$ref: "common.schema.yaml#/$defs/analysis"}
+  decision:
+    description: "Whether a DPIA follows. Only the privacy lead confirms it."
+    $ref: "common.schema.yaml#/$defs/call"
+    properties:
+      value: {enum: [warranted, recommended, not-indicated, open]}
+  regimes:
+    description: "Each regime screened: whether it applies to the company for this activity, and the result under it"
+    type: array
+    minItems: 1
+    items:
+      type: object
+      additionalProperties: false
+      required: [regime, applies, result]
+      properties:
+        regime: {enum: [eu-gdpr, uk-gdpr, ch-fadp, us-states, ferpa, eu-ai-act]}
+        applies: {$ref: "common.schema.yaml#/$defs/call_tristate"}
+        result: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 30}
+  art35_3:
+    description: "GDPR Art. 35(3): the cases where a DPIA is always required"
+    type: object
+    additionalProperties: false
+    required: [a_systematic_evaluation, b_large_scale_special_category, c_public_monitoring]
+    properties:
+      a_systematic_evaluation: {$ref: "common.schema.yaml#/$defs/call_tristate"}
+      b_large_scale_special_category: {$ref: "common.schema.yaml#/$defs/call_tristate"}
+      c_public_monitoring: {$ref: "common.schema.yaml#/$defs/call_tristate"}
+  criteria:
+    description: "The nine EDPB criteria (WP248 rev.01), one row each, as indicators rather than triggers"
+    type: array
+    minItems: 9
+    maxItems: 9
+    items:
+      type: object
+      additionalProperties: false
+      required: [criterion, result, facts]
+      properties:
+        criterion: {type: integer, minimum: 1, maximum: 9}
+        result: {enum: [present, not-present, unclear]}
+        facts: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 30, description: "The specific facts, with their fact or question IDs, and whether they're confirmed"}
+  national_list:
+    description: "The lead supervisory authority's Art. 35(4) list"
+    type: object
+    additionalProperties: false
+    required: [authority, result, item]
+    properties:
+      authority: {$ref: "common.schema.yaml#/$defs/short"}
+      result: {enum: [listed, not-listed, unclear, not-applicable]}
+      item: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 30, description: "The list item matched, or why the list wasn't checked"}
+  state_assessment:
+    description: "Whether a US state data protection or CPPA risk assessment is owed, whatever the GDPR outcome"
+    type: object
+    additionalProperties: false
+    required: [required, states]
+    properties:
+      required: {$ref: "common.schema.yaml#/$defs/call_tristate"}
+      states: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 25}
+  context: {$ref: "common.schema.yaml#/$defs/context"}
+  issues: {$ref: "common.schema.yaml#/$defs/issues"}
+  actions: {$ref: "common.schema.yaml#/$defs/actions"}
+  open_questions: {$ref: "common.schema.yaml#/$defs/open_questions"}
+  verify: {$ref: "common.schema.yaml#/$defs/verify"}
+  finding_responses: {$ref: "common.schema.yaml#/$defs/finding_responses"}
+  references: {$ref: "common.schema.yaml#/$defs/references"}
+  version_history: {$ref: "common.schema.yaml#/$defs/version_history"}
+  signoff: {$ref: "common.schema.yaml#/$defs/signoff"}

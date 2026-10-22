@@ -187,4 +187,19 @@ def ai_act(data: dict) -> dict:
     }
 
 
-DERIVE = {"ropa": ropa, "lia": lia, "tia": tia, "tsr": tsr, "aip": ai_act, "aid": ai_act}
+def scr(data: dict) -> dict:
+    from gov.screen import rules
+    results = [c["result"] for c in data["criteria"]]
+    return {
+        "decision": data["decision"]["value"],
+        "present": results.count("present"),
+        "unclear": results.count("unclear"),
+        "criterion_labels": {c["id"]: c["label"] for c in rules()["criteria"]},
+        "launch_blockers": _blockers(data),
+        "launch_groups": _blocker_groups(data),
+        "launch_questions": sum(1 for q in data["open_questions"] if q["blocks"] == "launch"),
+        "approval_questions": sum(1 for q in data["open_questions"] if q["blocks"] == "approval"),
+    }
+
+
+DERIVE = {"ropa": ropa, "lia": lia, "tia": tia, "tsr": tsr, "aip": ai_act, "aid": ai_act, "scr": scr}
