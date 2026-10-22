@@ -28,7 +28,7 @@ The trigger lists are also in `trigger-evals.json`. The full-run cases are in `e
 
 - Captures the received date and the requester's words. Checks for earlier requests.
 - Classifies each request type, decides who answers (controller answers; processor forwards; school official forwards), and marks laws Provisional where residency or scope is unknown.
-- Runs `scripts/deadlines.py`, puts the **earliest deadline** at the top, and works to the shortest plausible deadline when residency is unknown. No calendar events.
+- Runs `gov deadlines`, puts the **earliest deadline** at the top, and works to the shortest plausible deadline when residency is unknown. No calendar events.
 - Proposes proportionate verification: existing account or email first, no ID documents by default, none for opt-outs beyond what's needed.
 - Lists where the data is from the RoPA, with search owners, and the processors that must act.
 - Drafts only the messages needed now, each starting "DRAFT: not sent," in plain language.

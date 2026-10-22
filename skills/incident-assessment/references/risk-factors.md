@@ -36,7 +36,7 @@ For each state where affected people live:
 3. **Does a safe harbor apply?** Encryption with the key uncompromised; redaction.
 4. **Does the state allow a risk-of-harm analysis, and does it support no notice?** Only where the state allows one, and only on a documented, reasonable investigation. Note when the determination must be in writing, kept, or sent to the AG.
 5. **Who notifies?** Owner or licensee notifies people. A maintainer notifies the owner.
-6. **Deadlines, regulators, credit bureaus, content, and method:** from §2 and §3, with `scripts/incident_clock.py` for the dates.
+6. **Deadlines, regulators, credit bureaus, content, and method:** from §2 and §3, with `gov clock` for the dates.
 
 ## Before concluding
 

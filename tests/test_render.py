@@ -81,8 +81,8 @@ def test_add_months_clamps_the_day():
     assert add_months("2026-10-31", 4) == "2027-02-28"
 
 
-def test_front_matter_feeds_the_legacy_scripts(ropa_root):
-    """compliance_schedule.py and program_metrics.py read flat front matter until phase 6."""
+def test_front_matter_feeds_schedule_and_metrics(ropa_root):
+    """gov schedule and gov metrics read the flat front matter that gov render writes."""
     import re
     render_tree(ropa_root)
     text = (ropa_root / FOLDER / "ROPA-0001-gradebook-sync.md").read_text()

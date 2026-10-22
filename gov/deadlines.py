@@ -1,8 +1,7 @@
-#!/usr/bin/env python3
 """Compute data subject request deadlines.
 
 Usage:
-  python3 deadlines.py <received YYYY-MM-DD> <regime> [<regime> ...]
+  gov deadlines <received YYYY-MM-DD> <regime> [<regime> ...]
 
 Regimes: gdpr, uk, fadp, ccpa, ccpa-optout, state, iowa, ferpa
 
@@ -73,7 +72,8 @@ def rules(received):
     }
 
 
-def main(argv):
+def main(argv=None):
+    argv = ["gov deadlines"] + list(sys.argv[1:] if argv is None else argv)
     if len(argv) < 3:
         sys.exit(__doc__)
     try:
@@ -95,6 +95,3 @@ def main(argv):
     print("Earliest substantive deadline:", min(d for d, _, l in rows if "Respond" in l or "Apply" in l).isoformat())
     print("Note: public holidays aren't applied. Check them for each date, and for GDPR move a deadline that falls on one to the next working day.")
 
-
-if __name__ == "__main__":
-    main(sys.argv)

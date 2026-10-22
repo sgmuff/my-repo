@@ -28,7 +28,7 @@ The suite has 14 skills, shared references, and nine workflow scripts. Records g
 1. The triage skill builds each plan from a prose list.
 2. The model assigns IDs by counting files (`conventions.md` section 9).
 3. Three copies of a hand-rolled parser drop YAML lists and misread nested values.
-4. `program_metrics.py` scrapes Markdown tables, so a format change breaks it silently.
+4. `gov metrics` scrapes Markdown tables, so a format change breaks it silently.
 5. No schema or cross-reference check exists. The model checks its own work.
 
 The date scripts already work the right way: the model supplies facts, and code computes the answer.
@@ -330,7 +330,7 @@ Each phase closes with skill evals, trigger evals, and a description optimizer r
 3. **Security entries** in `controls-and-evidence`. The first CCPA audit is due April 1, 2028 at the earliest.
 4. **Existing assessments in the new format,** starting with the DPIA, plus `gov screen`.
 5. **Remaining registers.**
-6. **Dates and metrics** moved into `gov`.
+6. ~~**Dates and metrics** moved into `gov`.~~ Done 2026-10-21: `gov clock`, `gov deadlines`, `gov schedule`, and `gov metrics` replace the four scripts. `schedule` and `metrics` take a required `--as-of`, since gov never reads the clock. `build_register_index.py` stays until phase 5 moves the remaining registers.
 7. **Reference files** with YAML front matter, so `regulatory-change` reads data.
 
 ## Decisions and assumptions
@@ -393,7 +393,7 @@ From an outside review of the repository (Lumo, via Proton), checked against the
 3. ~~**Missing company facts.**~~ Done 2026-10-21: scope fields left as `TODO` give a warning while records are drafts
    and an error on an approved record (`gov/profile.py`). Original note: `gov route` doesn't read `company-profile.md`; the skills read it and ask about each `TODO`
    they need. Add a `gov` check that fails when a field that sets scope (regimes, establishments) is still `TODO`.
-4. ~~**`incident_clock.py` has no unit tests.**~~ Done 2026-10-21: `tests/test_incident_clock.py` (12 cases). The tests
+4. ~~**`gov clock` has no unit tests.**~~ Done 2026-10-21: `tests/test_incident_clock.py` (12 cases). The tests
    found that hour-based clocks added wall-clock time, so a 72-hour deadline across the autumn DST change printed an
    hour late; the script now counts elapsed time, rejects a local time that doesn't exist, and flags one that happens
    twice. Still open: occurrence versus awareness is the user's input, not the script's, and isn't tested.

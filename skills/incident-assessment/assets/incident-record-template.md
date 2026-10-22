@@ -80,7 +80,7 @@ Risk factors (`references/risk-factors.md`): <each factor, one line>
 
 ## 6. Notification matrix
 
-Clock output from `scripts/incident_clock.py`, plus contractual deadlines. Deadlines are actions, not calendar events.
+Clock output from `gov clock`, plus contractual deadlines. Deadlines are actions, not calendar events.
 
 | Recipient | Regime or contract | Required? (status) | Deadline (statutory or contractual) | Content rules | Method or form | Draft | Approved by | Sent on, by |
 |---|---|---|---|---|---|---|---|---|

@@ -44,7 +44,7 @@ tickets: []
 
 ## 3. Deadlines
 
-Output of `scripts/deadlines.py`, with public holidays checked by hand. These are actions, not calendar events.
+Output of `gov deadlines`, with public holidays checked by hand. These are actions, not calendar events.
 
 | Due | Step | Law | Statutory or internal target |
 |---|---|---|---|

@@ -20,7 +20,7 @@ The skill classifies the request, applies the law, calculates the dates, and dra
 | [`../_shared/references/gdpr.md`](../_shared/references/gdpr.md) | Territorial scope (§1a), rights (§5), automated decisions (§6) |
 | [`../_shared/references/us-state-privacy.md`](../_shared/references/us-state-privacy.md) | State applicability (§2) and exemptions (§10) |
 | [`../_shared/references/ferpa.md`](../_shared/references/ferpa.md) | Requests about student data, and COPPA |
-| [`scripts/deadlines.py`](scripts/deadlines.py) | Step 3: compute every deadline |
+| `gov deadlines` | Step 3: compute every deadline |
 | [`assets/dsr-case-template.md`](assets/dsr-case-template.md) | Step 8: the case file |
 | [`assets/response-letters.md`](assets/response-letters.md) | Step 8: draft messages to the requester |
 
@@ -43,7 +43,7 @@ Using `dsr-matrix.md`, §1–2:
 
 ### 3. Calculate the deadlines
 
-Run `python3 scripts/deadlines.py <received date> <regimes…>` with every regime that may apply. Record each date in the case file's deadline table, and put the earliest substantive deadline at the top of the case file and the reply. Check public holidays by hand.
+Run `gov deadlines <received date> <regimes…>` with every regime that may apply. Record each date in the case file's deadline table, and put the earliest substantive deadline at the top of the case file and the reply. Check public holidays by hand.
 
 Where residency or role is unknown, include the regimes it could be, and work to the earliest date until the question is settled. Label each date as statutory or an internal target. Forwarding to a controller or district is immediate once the right contact is known, not scheduled for days later. Deadlines are actions in the case file, never calendar events (`connectors.md`).
 

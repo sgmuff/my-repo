@@ -25,7 +25,7 @@ It drafts mappings, Statements of Applicability, evidence packs, and gap lists. 
 | [`../_shared/scripts/make_checklist.py`](../_shared/scripts/make_checklist.py) | Generating a blank Statement of Applicability |
 | [`../_shared/scripts/new_control.py`](../_shared/scripts/new_control.py) | Creating a control entry with the next free ID |
 | [`../_shared/scripts/build_register_index.py`](../_shared/scripts/build_register_index.py) | After changing controls (`control` type) |
-| [`../_shared/scripts/compliance_schedule.py`](../_shared/scripts/compliance_schedule.py) | After changing any test or review date |
+| `gov schedule` | After changing any test or review date |
 
 ## What the skill does
 
@@ -111,7 +111,7 @@ When an auditor, customer, or regulator asks for evidence:
 
 ### 6. Rebuild the schedule and hand back
 
-Run `python3 ../_shared/scripts/compliance_schedule.py <output root>` to rebuild `schedule.md` from every deliverable's review, test, and deadline dates. Overdue items go in the reply.
+Run `gov schedule <output root> --as-of <today>` to rebuild `schedule.md` from every deliverable's review, test, and deadline dates. Overdue items go in the reply.
 
 Reply in about 150 words: what changed (controls added or updated, requirements now covered), the coverage summary, the top gaps, overdue tests, and the decisions needed.
 

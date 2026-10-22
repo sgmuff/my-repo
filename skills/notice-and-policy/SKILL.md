@@ -84,7 +84,7 @@ A published notice draft is external: metadata first, then "DRAFT: not sent" in 
 
 ### 6. Route and hand back
 
-Route per `approvals.md`: the privacy lead approves notice text and policies, with counsel for published notices; business owners confirm the practice facts and fix practices that don't match promises. Rebuild `schedule.md` with `../_shared/scripts/compliance_schedule.py` so the review date is tracked.
+Route per `approvals.md`: the privacy lead approves notice text and policies, with counsel for published notices; business owners confirm the practice facts and fix practices that don't match promises. Rebuild `schedule.md` with `../gov schedule` so the review date is tracked.
 
 Reply in about 150 words: the path, the counts of findings by kind, the most serious finding, the decisions needed, and the Round 1 facts still missing.
 

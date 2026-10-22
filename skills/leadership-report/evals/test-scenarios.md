@@ -19,7 +19,7 @@
 
 ## What a good run looks like
 
-- Runs `program_metrics.py` and uses its numbers, each traceable to a record.
+- Runs `gov metrics` and uses its numbers, each traceable to a record.
 - Compares with the previous report.
 - Describes top risks in business terms, with record IDs.
 - Never claims compliance, certification, or conformity, even when asked.

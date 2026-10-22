@@ -4,7 +4,7 @@ Prepared October 21, 2026, to speed counsel's review of
 [`skills/_shared/references/us-breach-notification.md`](../../skills/_shared/references/us-breach-notification.md), the
 one reference file `incident-assessment` needs reviewed before live use. Claude gathered the text; counsel verifies.
 
-**Scope.** The rows that set a date or a threshold, which drive `incident_clock.py`: every fixed individual-notice
+**Scope.** The rows that set a date or a threshold, which drive `gov clock`: every fixed individual-notice
 deadline, every regulator deadline, and the rows the file flags *verify*. Rows that say only "most expedient" or
 "without unreasonable delay" weren't re-read.
 

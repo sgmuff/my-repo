@@ -16,7 +16,7 @@ The decision to notify, or not, is a legal determination. The skill prepares the
 | [`../_shared/conventions.md`](../_shared/conventions.md) | At the start, once the clock is running |
 | [`../_shared/company-profile.md`](../_shared/company-profile.md) | At the start, for counsel, the lead supervisory authority, and insurers |
 | [`../_shared/approvals.md`](../_shared/approvals.md) | Step 7 |
-| [`scripts/incident_clock.py`](scripts/incident_clock.py) | Step 1, and whenever facts change |
+| `gov clock` | Step 1, and whenever facts change |
 | [`references/risk-factors.md`](references/risk-factors.md) | Steps 3–5: the GDPR and US analyses, contracts, AI incidents |
 | [`../_shared/references/us-breach-notification.md`](../_shared/references/us-breach-notification.md) | Steps 4–6: each state's rules, notice content, federal and sector laws to flag |
 | [`../_shared/references/gdpr.md`](../_shared/references/gdpr.md) | §9 breach duties, §1a territorial scope |
@@ -36,7 +36,7 @@ Before anything else, record:
 - **When the incident started**, if known
 - Whether it's **ongoing**
 
-Run `python3 scripts/incident_clock.py --aware <timestamp> --tz <zone> --regimes <…> --states <…>` with every regime and state that could apply. Where facts are missing, include the plausible ones and work to the earliest deadline. Put the earliest deadline at the top of the record and of the reply. Re-run it whenever facts change. Deadlines are actions, never calendar events.
+Run `gov clock --aware <timestamp> --tz <zone> --regimes <…> --states <…>` with every regime and state that could apply. Where facts are missing, include the plausible ones and work to the earliest deadline. Put the earliest deadline at the top of the record and of the reply. Re-run it whenever facts change. Deadlines are actions, never calendar events.
 
 **Every date is a working deadline until the awareness time is confirmed.** Write it as "working deadline: <date and time>, assuming awareness at <time>; confirm the awareness timestamp now." Each recipient is a separate decision with its own deadline. The authority, individuals, each state, each controller or district, and the insurer don't share one date. A statutory deadline is an outer limit, not a target: notify as soon as the facts and approvals allow. Set internal milestones before it: a decision review the day before, then filing with time to spare.
 

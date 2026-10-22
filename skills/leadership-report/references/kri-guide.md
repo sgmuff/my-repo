@@ -2,7 +2,7 @@
 
 Pick 6 to 8 that fit the program's stage and the audience. Thresholds below are starting points. Set the company's own with the privacy lead, record them in the report's appendix, and keep them stable across periods so the trend means something.
 
-| KRI | From `program_metrics.py` | Starting threshold (amber / red) | Why leadership cares |
+| KRI | From `gov metrics` | Starting threshold (amber / red) | Why leadership cares |
 |---|---|---|---|
 | Open High current residual risks | §2 | Any open past its action due date / any older than 90 days | Unmitigated exposure the company is carrying now |
 | Launch blockers past due | §3 | 1 / 3 or more | Product launches at risk, or launches going ahead without required controls |

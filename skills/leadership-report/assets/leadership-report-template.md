@@ -64,7 +64,7 @@ previous_report: <reports/… or none>
 
 ### C. Thresholds and method
 
-<KRI definitions and thresholds as agreed with the privacy lead (`references/kri-guide.md`); how counts were produced (`program_metrics.py`, date run, output root).>
+<KRI definitions and thresholds as agreed with the privacy lead (`references/kri-guide.md`); how counts were produced (`gov metrics`, date run, output root).>
 
 ## Review
 

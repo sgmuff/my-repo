@@ -82,7 +82,7 @@ Count from the date the request is received, not the date it's verified, unless 
 | Iowa | — | **90 days** (*verify*) | 45 days (*verify*) | — |
 | FERPA | — | **45 days** (34 CFR § 99.10(b)) | — | Hearing on amendment requests (§ 99.21) |
 
-**Counting one month (GDPR):** the period ends on the same date in the following month. If that date doesn't exist (for example, January 31 to February), it ends on the last day of that month. If it ends on a weekend or public holiday, it moves to the next working day (EDPB Guidelines 01/2022, section on timing; *verify* the paragraph before citing it). Use `dsr-response/scripts/deadlines.py`, and check public holidays by hand.
+**Counting one month (GDPR):** the period ends on the same date in the following month. If that date doesn't exist (for example, January 31 to February), it ends on the last day of that month. If it ends on a weekend or public holiday, it moves to the next working day (EDPB Guidelines 01/2022, section on timing; *verify* the paragraph before citing it). Use `dsr-response/gov deadlines`, and check public holidays by hand.
 
 > **Verify:** State appeal windows and Iowa's response period come from secondary sources. Check the statute for the requester's state before stating a deadline in a reply.
 

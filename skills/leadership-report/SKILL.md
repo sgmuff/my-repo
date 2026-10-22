@@ -14,8 +14,8 @@ This skill turns the program's records into a short report leadership can act on
 | [`../_shared/conventions.md`](../_shared/conventions.md) | At the start of every run |
 | [`../_shared/company-profile.md`](../_shared/company-profile.md) | Step 1, for business areas and regimes |
 | [`../_shared/approvals.md`](../_shared/approvals.md) | Step 6 |
-| [`scripts/program_metrics.py`](scripts/program_metrics.py) | Step 2: counts everything from the records |
-| [`../_shared/scripts/compliance_schedule.py`](../_shared/scripts/compliance_schedule.py) | Step 2: upcoming deadlines and reviews |
+| `gov metrics` | Step 2: counts everything from the records |
+| `gov schedule` | Step 2: upcoming deadlines and reviews |
 | [`references/kri-guide.md`](references/kri-guide.md) | Step 3: which KRIs to show, thresholds, and how to word risk for leadership |
 | [`assets/leadership-report-template.md`](assets/leadership-report-template.md) | Step 5 |
 
@@ -30,11 +30,11 @@ Ask, unless the request says: who the report is for (board, audit or risk commit
 Run, from the suite folder:
 
 ```
-python3 leadership-report/scripts/program_metrics.py <output root> --since <period start> --today <period end>
-python3 _shared/scripts/compliance_schedule.py <output root>
+gov metrics <output root> --since <period start> --as-of <period end>
+gov schedule <output root> --as-of <period end>
 ```
 
-`program_metrics.py` writes `reports/metrics-YYYY-MM-DD.md`, with each count followed by the files it came from. Use those numbers in the report. Don't recount by hand, and don't round in a way that changes the meaning (3 of 5 DSRs on time is not "most").
+`gov metrics` writes `reports/metrics-YYYY-MM-DD.md`, with each count followed by the files it came from. Use those numbers in the report. Don't recount by hand, and don't round in a way that changes the meaning (3 of 5 DSRs on time is not "most").
 
 **Escalate urgent items now, not in the report.** If the records show a running clock that may have passed or is close (a breach notice deadline, a DSR past its statutory date, a launch blocker on a live system), tell the privacy lead (and counsel for incidents) in the reply at once, as a separate item. The report can follow; the escalation can't wait for it.
 

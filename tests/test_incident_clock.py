@@ -1,13 +1,13 @@
-"""incident_clock.py: the one script that reasons about time. Every expected time here is worked out by hand in UTC."""
+"""gov clock: the one command that reasons about time zones. Every expected time here is worked out by hand in UTC."""
 import subprocess
 import sys
 from pathlib import Path
 
-SCRIPT = Path(__file__).resolve().parents[1] / "skills" / "incident-assessment" / "scripts" / "incident_clock.py"
+REPO = Path(__file__).resolve().parents[1]
 
 
 def clock(*args):
-    return subprocess.run([sys.executable, str(SCRIPT), *args], capture_output=True, text=True)
+    return subprocess.run([sys.executable, "-m", "gov", "clock", *args], capture_output=True, text=True, cwd=REPO)
 
 
 def rows(*args):

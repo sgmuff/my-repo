@@ -47,12 +47,29 @@ def main(argv=None) -> int:
     p.add_argument("record", help="a RoPA record YAML file")
     p.add_argument("--format", choices=["yaml", "markdown"], default="markdown")
 
+    for name, helptext in (("clock", "incident notification clocks from the awareness time"),
+                           ("deadlines", "data subject request deadlines from the received date"),
+                           ("schedule", "rebuild schedule.md from deliverable dates, as of a given date"),
+                           ("metrics", "count program metrics from the records, as of a given date")):
+        sub.add_parser(name, help=helptext, add_help=False)
+
     p = sub.add_parser("route", help="print the triage plan for a facts file")
     p.add_argument("facts", help="YAML file of deciding facts, or - for stdin")
     p.add_argument("--format", choices=["yaml", "markdown", "questions"], default="yaml",
                    help="markdown: the plan and decision register; questions: open facts ranked for asking")
 
-    args = parser.parse_args(argv)
+    argv = list(sys.argv[1:] if argv is None else argv)
+    for i, token in enumerate(argv):
+        if token in PASSTHROUGH and (i == 0 or argv[i - 1] != "--root"):
+            # These commands own their arguments, including ones that start with --.
+            args = parser.parse_args(argv[:i + 1])
+            args.rest = argv[i + 1:]
+            break
+        if not token.startswith("-") and (i == 0 or argv[i - 1] != "--root"):
+            args = parser.parse_args(argv)
+            break
+    else:
+        args = parser.parse_args(argv)
     try:
         root = Path(args.root).resolve() if args.root else find_root()
         return COMMANDS[args.command](root, args)
@@ -150,7 +167,19 @@ def _screen(root, args) -> int:
     return 0
 
 
-COMMANDS = {"screen": _screen, "required": _required, "next-id": _next_id, "new": _new, "validate": _validate, "render": _render, "index": _render, "route": _route}
+PASSTHROUGH = {"clock", "deadlines", "schedule", "metrics"}
+
+
+def _passthrough(module):
+    def run(root, args) -> int:
+        import importlib
+        result = importlib.import_module(f"gov.{module}").main(args.rest)
+        return result if isinstance(result, int) else 0
+    return run
+
+
+COMMANDS = {"clock": _passthrough("clock"), "deadlines": _passthrough("deadlines"), "schedule": _passthrough("schedule"),
+            "metrics": _passthrough("metrics"), "screen": _screen, "required": _required, "next-id": _next_id, "new": _new, "validate": _validate, "render": _render, "index": _render, "route": _route}
 
 if __name__ == "__main__":
     raise SystemExit(main())

@@ -1,8 +1,7 @@
-#!/usr/bin/env python3
 """Compute breach notification clocks.
 
 Usage:
-  python3 incident_clock.py --aware 2026-10-16T09:30 [--tz America/New_York]
+  gov clock --aware 2026-10-16T09:30 [--tz America/New_York]
                             [--regimes gdpr uk fadp nydfs ny2d sec ftc-glba]
                             [--states CA NY TX ...]
                             [--individual-notice YYYY-MM-DD]
@@ -95,14 +94,14 @@ def add_business_days(d, n):
     return d
 
 
-def main():
-    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+def main(argv=None):
+    ap = argparse.ArgumentParser(prog="gov clock", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--aware", required=True)
     ap.add_argument("--tz", default="UTC")
     ap.add_argument("--regimes", nargs="*", default=[])
     ap.add_argument("--states", nargs="*", default=[])
     ap.add_argument("--individual-notice")
-    a = ap.parse_args()
+    a = ap.parse_args(argv)
 
     aware, note = parse_aware(a.aware, a.tz)
     day0 = aware.date()
@@ -173,6 +172,3 @@ def main():
     print("Contractual deadlines (customer DPAs, district agreements, cyber insurance) aren't included. Add them from the contracts.")
     print("These are outer limits, not targets: set internal milestones (decision review, filing buffer) before each one.")
 
-
-if __name__ == "__main__":
-    main()

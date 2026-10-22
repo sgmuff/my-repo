@@ -22,7 +22,7 @@
 
 ## What a good run looks like
 
-- **Starts the clock first:** records the awareness time with zone and reasoning, runs `scripts/incident_clock.py`, and leads with the earliest **working** deadline, stated with the awareness time it assumes. Sets internal milestones ahead of outer limits.
+- **Starts the clock first:** records the awareness time with zone and reasoning, runs `gov clock`, and leads with the earliest **working** deadline, stated with the awareness time it assumes. Sets internal milestones ahead of outer limits.
 - Names an incident commander, runs technical containment in parallel with security, and never lets evidence preservation delay containment.
 - Says "don't send unreviewed external notices," never "don't contact anyone yet."
 - Keeps the US position "undetermined pending review" until fields, state counts (including unknown residence), definitions, and contracts are checked. Assesses Art. 34 separately. Leaves the EU authority route to counsel.
