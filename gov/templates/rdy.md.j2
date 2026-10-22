@@ -12,13 +12,13 @@ generated_from: {{ source_file }}
 
 # {{ r.id }}: {{ r.title }}
 
-| Status | Version | AI system | AIUC-1 release | Capabilities | Business owner | Next review |
-|---|---|---|---|---|---|---|
-| {{ r.status }} | {{ r.version }} | {{ r.system | cell }} | {{ r.release | cell }} | {{ (r.capabilities + ["Universal"]) | join(", ") }} | {{ r.business_owner | cell }} | {{ r.next_review }} |
+| Status | Version | AI system | Assessed against | Audit release | Capabilities | Business owner | Next review |
+|---|---|---|---|---|---|---|---|
+| {{ r.status }} | {{ r.version }} | {{ r.system | cell }} | {{ r.release | cell }} | {{ r.target_release | cell }} | {{ (r.capabilities + ["Universal"]) | join(", ") }} | {{ r.business_owner | cell }} | {{ r.next_review }} |
 
 **Readiness:** {{ r.decision | call }}
 
-**Statement of Applicability:** {{ d.in_scope }} in scope · {{ d.excluded }} excluded · {{ d.gaps }} with gaps
+**Statement of Applicability:** {{ d.in_scope }} in scope · {{ d.excluded }} excluded · {{ d.undecided }} undecided · {{ d.gaps }} with gaps
 
 **Method:** {{ method }}
 

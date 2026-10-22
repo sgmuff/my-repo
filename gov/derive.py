@@ -323,8 +323,10 @@ def rdy(data: dict) -> dict:
     scope = [x for x in data["soa"] if x["applicability"] in ("in-scope", "opted-in")]
     return {
         "decision": data["decision"]["value"],
+        "gate": "Audit start",
         "in_scope": len(scope),
         "excluded": sum(1 for x in data["soa"] if x["applicability"] == "excluded"),
+        "undecided": sum(1 for x in data["soa"] if x["applicability"] == "undecided"),
         "gaps": sum(1 for x in scope if x["gap"] != "none"),
         "launch_blockers": _blockers(data),
         "launch_groups": _blocker_groups(data),
@@ -333,4 +335,49 @@ def rdy(data: dict) -> dict:
     }
 
 
-DERIVE = {"rdy": rdy, "inc": inc, "aiia": aiia, "vr": vr, "dpia": dpia, "ropa": ropa, "lia": lia, "tia": tia, "tsr": tsr, "aip": ai_act, "aid": ai_act, "scr": scr}
+TIER_NAMES = {"0": "Tier 0 (Stop)", "1": "Tier 1 (High)", "2": "Tier 2 (Elevated)", "3": "Tier 3 (Standard)", "TBC": "TBC"}
+
+
+def factor_tier(data: dict) -> str:
+    """The highest level any tiering factor reaches: the lowest number, or TBC when no factor is set."""
+    levels = [t["level"] for t in data["tiering"] if t["level"] != TBC]
+    return min(levels) if levels else TBC
+
+
+def ais_follow_ons(data: dict) -> list:
+    """The follow-ons tiering.md requires for the record's tier, plus the AI Act files its classification calls for."""
+    tier = data["tier"]["value"]
+    third_party = data["source"] != "in-house"
+    personal = data["personal_data"] not in ("none",)
+    need = []
+    if tier in ("1", "2"):
+        need.append("ai-impact-assessment")
+        if personal:
+            need.append("dpia-screening")
+    if tier in ("1", "2", "3") and third_party:
+        need.append("vendor-review")
+    if data["ai_act"]["category"]["value"] == "high-risk":
+        role = data["ai_act"]["company_role"]["value"]
+        if role in ("provider", "provider-and-deployer"):
+            need.append("ai-act-provider")
+        if role in ("deployer", "provider-and-deployer"):
+            need.append("ai-act-deployer")
+    if tier == "1" and data["aiuc"]["mode"] == "readiness":
+        need.append("aiuc-readiness")
+    return need
+
+
+def ais(data: dict) -> dict:
+    tier = data["tier"]["value"]
+    return {
+        "decision": data["decision"]["value"],
+        "tier": tier,
+        "tier_name": TIER_NAMES[tier],
+        "factor_tier": factor_tier(data),
+        "follow_ons_open": sum(1 for f in data["follow_ons"] if f["status"] in ("recommended", "in-progress")),
+        "follow_ons_needed": ais_follow_ons(data),
+        "approval_questions": sum(1 for q in data["open_questions"] if q["blocks"] == "approval"),
+    }
+
+
+DERIVE = {"ais": ais, "rdy": rdy, "inc": inc, "aiia": aiia, "vr": vr, "dpia": dpia, "ropa": ropa, "lia": lia, "tia": tia, "tsr": tsr, "aip": ai_act, "aid": ai_act, "scr": scr}

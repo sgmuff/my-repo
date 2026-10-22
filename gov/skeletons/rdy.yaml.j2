@@ -10,7 +10,8 @@ title: {{ title | tojson }}
 status: Draft
 version: "0.1"
 system: TBC  # the AI inventory entry, AIS-NNNN
-release: TBC  # the AIUC-1 release audited against
+release: TBC  # the AIUC-1 release this report is assessed against, from aiuc-1.md
+target_release: TBC  # the release the audit will run against, fixed at kickoff
 capabilities: []  # External-facing | Automation | Code-generation | Text-generation | Voice-generation | Image-generation; Universal always applies
 out_of_scope: TBC
 business_owner: TBC
@@ -23,9 +24,9 @@ summary: TBC  # 50 words at most
 decision: {value: open, status: Provisional, reason: Statement of Applicability not yet built}  # ready | gaps | not-ready | open
 analysis: TBC  # 400 words at most; use |- for paragraphs
 
-soa: []  # {requirement: A001, applicability: in-scope | excluded | opted-in, rationale, responsible: company | model-provider | shared | TBC, controls: [CTL-NNNN], evidence: [EV-NNNN], gap: none | partial | missing | TBC}
+soa: []  # {requirement: A001, applicability: in-scope | excluded | opted-in | undecided, rationale, responsible: company | model-provider | shared | TBC, controls: [CTL-NNNN], evidence: [EV-NNNN], gap: none | partial | missing | TBC}
 
-testing:  # at least every 3 months for the third-party testing requirements in scope
+testing:  # at least every 3 months for the third-party testing requirements in scope; last_done: a date, never, or TBC
   - {duty: "Third-party testing, data and privacy", requirement: A009, frequency: At least every 3 months, last_done: TBC, next_due: TBC, control: TBC}
   - {duty: "Third-party testing, security", requirement: B001, frequency: At least every 3 months, last_done: TBC, next_due: TBC, control: TBC}
   - {duty: "Third-party testing, safety", requirement: C010, frequency: At least every 3 months, last_done: TBC, next_due: TBC, control: TBC}

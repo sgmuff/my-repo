@@ -421,9 +421,13 @@ def rdy(data: dict) -> list:
     gaps = [x["requirement"] for x in scope if x["gap"] != "none"]
     if decision == "ready" and gaps:
         out.append(("decision", f"the report says ready, but these requirements have gaps or aren't assessed: {', '.join(gaps)}"))
-    bare = [x["requirement"] for x in scope if not x["controls"]]
+    bare = [x["requirement"] for x in scope if not x["controls"]
+            and not (x["gap"] == "missing" and _open_action(data, rf"\b{x['requirement']}\b"))]
     if bare:
-        out.append(("soa", f"no control carries these in-scope requirements: {', '.join(bare)}"))
+        out.append(("soa", f"no control carries these in-scope requirements: {', '.join(bare)}; map a control, or record the gap as missing with an open action naming the requirement"))
+    undecided = [x["requirement"] for x in data["soa"] if x["applicability"] == "undecided"]
+    if undecided:
+        out.append(("soa", f"the business hasn't decided whether to opt in to these optional requirements: {', '.join(undecided)}"))
     timed = {t["requirement"]: t for t in data["testing"]}
     for x in scope:
         if x["requirement"] in THIRD_PARTY_TESTING:
@@ -437,10 +441,47 @@ def rdy(data: dict) -> list:
     return out
 
 
+def ais(data: dict) -> list:
+    import datetime as dt
+    from gov import derive
+    from gov.skeleton import add_months
+    out = []
+    tier = data["tier"]["value"]
+    floor = derive.factor_tier(data)
+    if tier != TBC and floor != TBC and int(tier) > int(floor):
+        out.append(("tier", f"the tier is the highest level any factor reaches; a factor is at {floor}, so the tier can't be {tier}"))
+    if data["ai_act"]["prohibited"]["value"] is True and tier != "0":
+        out.append(("tier", "the record says the function could be an Art. 5 prohibited practice; that makes it Tier 0 (Stop)"))
+    if tier == "0" and data["decision"]["value"] != "stop":
+        out.append(("decision", "a Tier 0 system is a stop until the privacy lead and counsel decide"))
+    if tier == "0" and data["lifecycle"] in ("pilot", "live") and not data["containment"]:
+        out.append(("containment", "a Tier 0 function is in use; record the control that stops it, with evidence"))
+    for n, c in enumerate(data["containment"]):
+        if c["downstream_stopped"] is not True:
+            out.append((f"containment/{n}/downstream_stopped", "confirm the output is no longer generated, shown, exported, or used downstream"))
+    if data["ai_act"]["category"]["value"] == "high-risk" and (is_tbc(data["ai_act"]["annex_point"]) or data["ai_act"]["annex_point"] == "none"):
+        out.append(("ai_act/annex_point", "a high-risk classification needs the Annex III point or the Art. 6(1) basis"))
+    listed = {f["follow_on"] for f in data["follow_ons"]}
+    missing = [f for f in derive.ais_follow_ons(data) if f not in listed]
+    if missing:
+        out.append(("follow_ons", f"the tier and classification call for these follow-ons, which the record doesn't list: {', '.join(missing)}"))
+    for n, f in enumerate(data["follow_ons"]):
+        if f["status"] in ("in-progress", "done") and (is_tbc(f["record"]) or f["record"] == "none"):
+            out.append((f"follow_ons/{n}/record", f"{f['follow_on']} is {f['status']}; link its record"))
+    if tier in ("1", "2") and len(data["top_risks"]) < 3:
+        out.append(("top_risks", "name at least three risks from the AI risk catalog (risk-method.md section 2a)"))
+    months = {"1": 6, "2": 6, "3": 12}.get(tier)
+    if months:
+        start = dt.date.fromisoformat(str(data["last_reviewed"] or data["date_prepared"]))
+        if dt.date.fromisoformat(str(data["next_review"])) > dt.date.fromisoformat(add_months(start.isoformat(), months)):
+            out.append(("next_review", f"Tier {tier} entries are reviewed at least every {months} months"))
+    return out
+
+
 def _residual_confirmed(data: dict) -> bool:
     from gov import derive
     return derive.dpia(data)["confirmed"]
 
 
-FINDINGS = {"rdy": _with_issues(rdy), "inc": _with_issues(inc), "aiia": _with_issues(aiia), "vr": _with_issues(vr), "dpia": _with_issues(dpia), "scr": _with_issues(scr), "ropa": ropa, "lia": _with_issues(lia), "tia": _with_issues(tia), "tsr": _with_issues(tsr),
+FINDINGS = {"ais": _with_issues(ais), "rdy": _with_issues(rdy), "inc": _with_issues(inc), "aiia": _with_issues(aiia), "vr": _with_issues(vr), "dpia": _with_issues(dpia), "scr": _with_issues(scr), "ropa": ropa, "lia": _with_issues(lia), "tia": _with_issues(tia), "tsr": _with_issues(tsr),
             "aip": _with_issues(aip), "aid": _with_issues(aid)}

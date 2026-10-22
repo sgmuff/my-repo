@@ -224,6 +224,8 @@ def _readiness(root: Path, where: str, data: dict) -> list:
         r = reqs.get(s["requirement"])
         if r and s["applicability"] == "excluded" and r["status"] == "Mandatory" and caps & set(r["tags"]):
             problems.append(Problem(where, "finding", f"soa/{n}: {s['requirement']} is mandatory and tagged {', '.join(r['tags'])}, which the agent has; exclude it only if the agent genuinely lacks the capability, never to reduce effort"))
+        if r and s["applicability"] == "undecided" and r["status"] == "Mandatory" and caps & set(r["tags"]):
+            problems.append(Problem(where, "error", f"soa/{n}: {s['requirement']} is mandatory for this agent, so it's in scope; undecided is only for optional requirements"))
     return problems
 
 

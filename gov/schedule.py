@@ -6,7 +6,9 @@ Usage:
 --as-of is required: gov never reads the clock, so the same files and date give the same schedule.
 
 Scans every *.md file under the output root (default compliance/) for the
-metadata keys next_review, next_test, earliest_deadline, and due, and writes
+metadata keys next_review, next_test, earliest_deadline, and due, and every
+gov record (*.yaml) for its open actions' due dates and, in readiness reports,
+the testing schedule's next due dates. It writes
 <output-root>/schedule.md: one table sorted by date, with overdue items and
 items due within the window flagged. Recurring duties (AIUC-1 quarterly
 testing, annual reviews) show up through each control's or document's own
@@ -41,6 +43,27 @@ def meta(path):
     return out
 
 
+def record_items(path):
+    """(date, what, title) rows from a gov record: open actions with a due date, and readiness testing rows."""
+    import yaml
+    try:
+        data = yaml.safe_load(open(path, encoding="utf-8"))
+    except (OSError, UnicodeDecodeError, yaml.YAMLError):
+        return None, []
+    if not isinstance(data, dict) or "id" not in data or "type" not in data:
+        return None, []
+    rows = []
+    for a in data.get("actions") or []:
+        d = DATE.fullmatch(str(a.get("due", "")))
+        if d and a.get("status") == "open":
+            rows.append((d.group(1), f"action {a['id']}", a["action"]))
+    for t in data.get("testing") or [] if data["type"] == "rdy" else []:
+        d = DATE.fullmatch(str(t.get("next_due", "")))
+        if d:
+            rows.append((d.group(1), "next test", f"{t['duty']} ({t['requirement']})"))
+    return data, rows
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(prog="gov schedule", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("root")
@@ -54,6 +77,14 @@ def main(argv=None):
     items = []
     for dirpath, _, names in os.walk(a.root):
         for n in names:
+            if n.endswith(".yaml") and ".gov" not in dirpath.split(os.sep):
+                data, rows = record_items(os.path.join(dirpath, n))
+                rel = os.path.relpath(os.path.join(dirpath, n[:-5] + ".md"), a.root)
+                for d, what, title in rows:
+                    date = dt.date.fromisoformat(d)
+                    status = "Overdue" if date < today else ("Due soon" if date <= horizon else "")
+                    items.append((date, status, str(data["id"]), data["type"], what, title, rel))
+                continue
             if not n.endswith(".md") or n in ("index.md", "schedule.md") or n.endswith(("-notices.md", "-drafts.md")):
                 continue
             p = os.path.join(dirpath, n)
