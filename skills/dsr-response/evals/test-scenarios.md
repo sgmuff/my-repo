@@ -33,4 +33,4 @@ The trigger lists are also in `trigger-evals.json`. The full-run cases are in `e
 - Lists where the data is from the RoPA, with search owners, and the processors that must act.
 - Drafts only the messages needed now, each starting "DRAFT: not sent," in plain language.
 - Routes any refusal, partial refusal, fee, or extension to the privacy lead as a decision.
-- Saves the case file under `dsr/YYYY/`, and replies in about 150 words with the earliest deadline.
+- Records the case with `gov new dsr` under `dsr/`, validates and renders it, and replies in about 150 words with the earliest deadline.

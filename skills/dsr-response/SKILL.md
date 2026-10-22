@@ -1,102 +1,59 @@
 ---
 name: dsr-response
-description: Handle a data subject or consumer privacy request end to end. Classify the request (access, deletion, correction, portability, opt-out, limit, objection, appeal), work out which laws apply and whether the company answers or forwards it as a processor, calculate every deadline, set proportionate identity verification, find the data, apply exceptions, and draft the acknowledgment, verification request, extension notice, and response for a person to send. Covers GDPR, UK GDPR, Swiss FADP, US state privacy laws including CCPA, FERPA, and COPPA. Use it whenever someone forwards a privacy request from a customer, user, employee, parent, or authorized agent, or asks about a DSAR, "right to be forgotten," "delete my data," "do not sell," opt-out, request deadline, or appeal, even if they don't call it a DSR. Not for breaches (incident-assessment), privacy notice changes (notice-and-policy), or documenting processing (ropa).
+description: Handle a data subject or consumer privacy request end to end and record it as a gov case. Classify the request (access, deletion, correction, portability, opt-out, limit, objection, appeal), work out which laws apply and whether the company answers or forwards it as a processor, compute every deadline, set proportionate identity verification, find the data, apply exceptions, and draft the acknowledgment, verification request, extension notice, and response for a person to send. Covers GDPR, UK GDPR, Swiss FADP, US state privacy laws including CCPA, FERPA, and COPPA. Use it whenever someone forwards a privacy request from a customer, user, employee, parent, or authorized agent, or asks about a DSAR, "right to be forgotten," "delete my data," "do not sell," opt-out, request deadline, or appeal, even if they don't call it a DSR. Not for breaches (incident-assessment), privacy notice changes (notice-and-policy), or documenting processing (ropa).
+compatibility: Requires the gov command from this repository (skills/install.sh installs it), with Python 3.10+, PyYAML, jsonschema, and Jinja2.
 ---
 
 # Data subject request response
 
-This skill handles one request at a time, from the moment it arrives to the drafted reply. Deadlines start running when the request is received, so the skill's first job is to find the clock and protect it.
+This skill handles one request at a time and records it as a `dsr` case. Deadlines run from receipt, so its first job is to find the clock and protect it. Never write or edit a record's `.md` file; `gov` writes it.
 
-The skill classifies the request, applies the law, calculates the dates, and drafts. It doesn't send anything, verify anyone's identity itself, delete data, or decide to refuse a request. A person does each of those (`approvals.md`). Every message to the requester is a draft that the privacy lead approves.
+The skill classifies, applies the law, and drafts. It doesn't send anything, verify anyone, delete data, or decide to refuse. A person does each of those (`approvals.md`), and `gov validate` rejects a record that says Claude did.
 
 ## Files
 
 | File | Read it when |
 |---|---|
-| [`../_shared/conventions.md`](../_shared/conventions.md) | At the start of every run |
-| [`../_shared/company-profile.md`](../_shared/company-profile.md) | At the start, for the controller identity and the regimes in scope |
-| [`../_shared/approvals.md`](../_shared/approvals.md) | Steps 6 and 8 |
-| [`../_shared/references/dsr-matrix.md`](../_shared/references/dsr-matrix.md) | Steps 2–7: which law applies, request types, deadlines, verification, exceptions, response content |
+| [`../_shared/references/dsr-matrix.md`](../_shared/references/dsr-matrix.md) | Steps 2-4: which law applies, deadlines, verification, exceptions, response content |
 | [`../_shared/references/gdpr.md`](../_shared/references/gdpr.md) | Territorial scope (§1a), rights (§5), automated decisions (§6) |
 | [`../_shared/references/us-state-privacy.md`](../_shared/references/us-state-privacy.md) | State applicability (§2) and exemptions (§10) |
-| [`../_shared/references/ferpa.md`](../_shared/references/ferpa.md) | Requests about student data, and COPPA |
-| `gov deadlines` | Step 3: compute every deadline |
-| [`assets/dsr-case-template.md`](assets/dsr-case-template.md) | Step 8: the case file |
-| [`assets/response-letters.md`](assets/response-letters.md) | Step 8: draft messages to the requester |
+| [`../_shared/references/ferpa.md`](../_shared/references/ferpa.md) | Student data, and COPPA |
+| [`assets/response-letters.md`](assets/response-letters.md) | Step 4: the message drafts |
+| [`../_shared/approvals.md`](../_shared/approvals.md) | Step 5 |
 
 ## Workflow
 
-### 1. Capture the request and check for urgency
+### 1. Check the tool, earlier requests, and urgency
 
-Record exactly what was received: the channel, the date and time received, the requester's words (quoted), and any attachments. Check `<output root>/dsr/` for earlier requests from the same person. Repeat requests affect fees and "manifestly excessive" judgments, and an open request may already have a clock running.
+Run `gov --version`; if it fails, stop and tell the user to run `skills/install.sh`. Read `compliance/dsr/index.md` for earlier requests from the same person: repeats affect fees and "manifestly excessive" judgments, and an open request may already have a clock running. If the request mentions a breach, a regulator, a lawsuit, or a complaint already filed, say so first and bring in the privacy lead; a breach also goes to `incident-assessment`.
 
-If the request mentions a breach, a regulator, a lawsuit, or a complaint already filed, say so at once and bring in the privacy lead. If it mentions a breach, also point to `incident-assessment` (or, until that skill exists, to counsel).
+### 2. Answer the request
 
-### 2. Classify and decide who answers
+Answer it fully, then check it against `dsr-matrix.md` and add what you missed. Points answers often miss:
 
-Using `dsr-matrix.md`, §1–2:
+- **One message often holds several requests**, such as "send me my data and then delete it." List each.
+- **Who answers depends on how the account came to exist.** An account the company provisions for a customer or district makes it a processor or school official: refer the request to the controller or institution at once, and help as the DPA and GDPR Art. 28(3)(e) require, rather than sending the person away. An account a person or parent created directly usually makes the company the controller (and, for children under 13, the COPPA operator). Check whether the company also uses the data for its own purposes, which brings direct duties.
+- **Employee, applicant, and B2B data** need each state's exemption checked, not assumed.
+- **Until the requester is verified, confirm nothing**, not even that an account exists. Start verification from what the company already holds; don't ask for ID documents by default, or verify opt-outs beyond what's needed to apply them. An agent needs the person's signed permission.
+- **Run access and deletion in parallel.** Preserve a controlled copy for the access response while the deletion review (Art. 17 exceptions, legal holds) runs. Pause purge jobs only as far as needed, check for upstream feeds that would recreate the data, and remember that deletion and correction reach processors.
+- **Under FERPA, parents can inspect and seek amendment, but there's no general right to delete accurate records.** Deletion may still follow from COPPA, a state student privacy law, or the contract.
+- **A hold has a scope and an end.** "Delete nothing until told otherwise" isn't a hold.
+- **Never send government ID or account numbers, passwords, or biometrics in a California response** (CCPA Regs. § 7024(d)), and redact other people's data (GDPR Art. 15(4)).
 
-- **Request types:** a single message often contains several, such as "send me my data and then delete it." List each one.
-- **Company role for this person's data:** controller or business (the company answers), processor or service provider (forward to the customer under the DPA), or FERPA school official (forward to the institution). If the company is a processor, refer the request promptly to the controller and **assist** it as the DPA and GDPR Art. 28(3)(e) require. The deliverable is the referral and the help, not a substantive answer, and the person isn't simply sent away. If the company is a school official, the district is the likely lead for FERPA, but that doesn't replace the company's own obligations. Check separately whether the company processes the data for any purpose of its own, which brings direct duties (COPPA operator duties stay with the operator even under school authorization; state student privacy laws reach vendors directly). Check how the account came to exist: an account the company provisions for a customer or district differs from one a person or parent created directly, and a direct account usually makes the company the controller (and, for children under 13, the COPPA operator who answers the parent).
-- **Applicable laws:** by territorial scope, residency, thresholds, and exemptions, each marked Provisional where facts are missing (`conventions.md`, §7). Employee, applicant, and B2B data need each state's exemption checked, not assumed.
-- **Requester:** the person, a parent or guardian, or an authorized agent.
+### 3. Record it
 
-### 3. Calculate the deadlines
+Run `gov new dsr --slug <request-types> --title "<request types>, <requester kind>" --date <received date>`; the date is when the request arrived, not today. Never put the person's name in the title or slug. Fill in the record from your answer: the request quoted, `regimes` with every regime that could apply until residency and role are settled (gov computes the deadlines and works to the earliest), the laws as Provisional calls, the verification method, where the data is (with RoPA IDs, or `none` for a gap), the processors that must act, and one position per request. An exception, refusal, partial refusal, or fee is a Provisional position with an open question for the privacy lead.
 
-Run `gov deadlines <received date> <regimes…>` with every regime that may apply. Record each date in the case file's deadline table, and put the earliest substantive deadline at the top of the case file and the reply. Check public holidays by hand.
+### 4. Draft the messages
 
-Where residency or role is unknown, include the regimes it could be, and work to the earliest date until the question is settled. Label each date as statutory or an internal target. Forwarding to a controller or district is immediate once the right contact is known, not scheduled for days later. Deadlines are actions in the case file, never calendar events (`connectors.md`).
+Add only the messages this request needs now to `messages`, usually the acknowledgment and a verification request, or the referral for a processor case, each from `assets/response-letters.md`, in plain language without internal notes or system names. State the deadline, and for any refusal the reasons and how to appeal or complain. An extension notice gives the reasons and the new date and goes out before the first deadline. Offer to save the drafts as email drafts if an email tool is connected; never send them.
 
-### 4. Set proportionate verification
+### 5. Validate, render, and reply
 
-Using `dsr-matrix.md`, §4, propose the verification method. Start with what the company already holds (an account login, the email on file) before asking for anything new. Don't ask for ID documents by default, and don't ask for verification of opt-out requests beyond what's needed to apply them. For an agent, ask for the person's signed permission.
+Run `gov validate`, fix errors, and resolve findings by changing the record; a finding that names a real gap stays open with an action. Don't add a `finding_responses` entry yourself. Run `gov render`, which writes the case, the drafts under `compliance/dsr/drafts/`, and the index. If Jira or ServiceNow is connected and the company tracks requests there, offer to update the ticket.
 
-The verification request is a draft message. A person checks the evidence and records that verification succeeded or failed.
-
-**Until the requester is verified, don't confirm or deny that the company holds their data,** or that an account exists. The acknowledgment says the request was received and what happens next, and nothing more about the person.
-
-### 5. Find the data
-
-List where this person's data may be, starting from the RoPA (`<output root>/registers/ropa/`): each activity and system that holds data about this kind of person, and each processor that must act (deletion and correction reach processors). Turn the list into search tasks with owners. Systems the RoPA doesn't cover are a gap; note them for `ropa`.
-
-The skill doesn't search systems itself unless a connected tool gives it read access and the user asks. Even then, record what was searched, and when.
-
-### 6. Apply exceptions and decide what to disclose
-
-Using `dsr-matrix.md`, §5–6, draft the position for each request type:
-
-- What will be provided, deleted, corrected, or applied
-- Any exception relied on, with the provision. Exceptions are legal determinations: mark them Provisional, and add a `Decision needed` block for the privacy lead.
-- Redactions for other people's data (GDPR Art. 15(4)), and data that must never be sent in a California response (government ID and account numbers, passwords, biometrics; CCPA Regs. § 7024(d))
-- What processors must do, and the instruction to send them
-
-A refusal, partial refusal, or fee is never decided by the skill.
-
-**Coordinate access and deletion; don't make one rigidly wait for the other.** When a person asks for a copy and deletion, preserve a controlled, secure copy for the access response, and run the deletion review (Art. 17 exceptions, legal holds, retention duties) in parallel, so both are done without undue delay. Pause automatic purge jobs only as far as needed to answer the access request, and record the scope of the pause. When deleting, check for upstream feeds that would recreate the data, such as a roster sync, a CRM import, or a customer integration, and ask the source to stop sending it.
-
-**Treat access and erasure as separate workstreams**, each with its own legal basis, approver, and outcome. Under FERPA, parents can inspect and seek amendment, but FERPA gives no general right to delete accurate records. Deletion may still be required by COPPA, a state student privacy law, the contract, or the company's own retention commitments.
-
-**Preservation holds have a scope and an end.** Hold what's needed to answer the request or a dispute, record why, and resolve the deletion question promptly. "Delete nothing until told otherwise" is not a hold policy.
-
-### 7. Draft the messages
-
-Use `assets/response-letters.md`. Draft only the messages this request needs now, usually the acknowledgment and a verification request, then the response once the data is gathered. Each draft:
-
-- Opens with "DRAFT: not sent"
-- Uses plain language the requester will understand, with no internal notes, risk ratings, or system names they don't need
-- States the deadline that applies and, for any refusal, the reasons and how to appeal or complain
-- For an extension, gives the reasons and the new date, and goes out before the original deadline
-
-Offer to save the drafts as email drafts if an email tool is connected. Never send them.
-
-### 8. Write the case file and hand back
-
-Fill in `assets/dsr-case-template.md`. Save it to `<output root>/dsr/YYYY/YYYY-MM-DD-<request-id>.md`, where the date is the **received** date, ID `DSR-YYYY-NNN`. Save the message drafts beside it as `YYYY-MM-DD-<request-id>-drafts.md`, and link them from the case file's messages table. Set status to Draft (or "Forwarded" when the company is a processor). If Jira or ServiceNow is connected and the company tracks requests there, offer to create or update the ticket after the user confirms.
-
-Reply in about 150 words: the case path, the request types, the laws (with statuses), the **earliest deadline**, the next message to send (a draft, awaiting approval), and any decision needed.
+Reply in about 150 words: the earliest deadline first, then the request types, who answers, the laws (with statuses), the next message to send (a draft awaiting approval), and any decision needed. Close with one line naming the case and its path.
 
 ## Keeping the record
 
-When the response goes out, set `responded` to that date and status to Responded; when the case closes, set `closed`. If an extension notice went out in time, set `extended_deadline`. If the company uses an internal target, set `internal_target`. Leadership reports time DSRs from `received` to `responded`, so a missing date leaves the case untimed.
-
-Keep the case file for at least 24 months after closing (CCPA Regs. § 7101), and keep only what's needed to show compliance. Delete identity documents collected only for verification once the request closes. When the request reveals a gap, such as a system missing from the RoPA, a processor that can't delete, or a notice that doesn't describe a use, record it as a follow-on for the relevant skill.
+When a person sends a message, they record `approved_by`, `sent`, and `sent_by`. Set `extended_deadline` only once an extension notice went out in time, `responded` when the response goes out, and `closed` when the case closes; leadership reports time requests from `received` to `responded`. The rendered case shows the retention date (24 months after closing, CCPA Regs. § 7101); delete identity documents collected only for verification at closing. Record gaps the request reveals in `follow_ons`: a system missing from the RoPA, a processor that can't delete, a notice that doesn't describe a use.
