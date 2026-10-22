@@ -261,12 +261,7 @@ def dpia(data: dict) -> list:
     current = risk.overall(risks, "current")
     if len(risks) < 4:
         out.append(("risks", f"{len(risks)} {'risk' if len(risks) == 1 else 'risks'} recorded; a typical activity has 5 to 12, and fewer than 4 usually means one was missed (risk-method.md)"))
-    for n, k in enumerate(risks):
-        statuses = {m["status"] for m in k["measures"]}
-        if risk.lower(risk.rate(k["current"]), risk.rate(k["inherent"])) and "verified" not in statuses:
-            out.append((f"risks/{n}/current", f"{k['id']}: the current rating is below the inherent one, but no measure is verified; only verified measures lower the current rating"))
-        if risk.lower(risk.rate(k["target"]), risk.rate(k["current"])) and not statuses & {"planned", "unverified", "verified"}:
-            out.append((f"risks/{n}/target", f"{k['id']}: the target rating is below the current one, but no measure is planned"))
+    out += _risk_levels(risks)
     if current == "High" and data["kind"] == "controller" and data["consultation"]["prior_consultation"]["value"] is not True:
         out.append(("consultation/prior_consultation", "the current residual rating is High; decide Art. 36 on its test (whether the DPIA shows a high risk the controller's measures don't mitigate) and record the call with its reasons"))
     if current == "High" and decision in ("proceed", "proceed-with-conditions"):
@@ -298,10 +293,60 @@ def _ropa_action(data: dict) -> bool:
     return _open_action(data, r"\bRoPA\b|record of processing")
 
 
+def _risk_levels(risks: list) -> list:
+    from gov import risk
+    out = []
+    for n, k in enumerate(risks):
+        statuses = {m["status"] for m in k["measures"]}
+        if risk.lower(risk.rate(k["current"]), risk.rate(k["inherent"])) and "verified" not in statuses:
+            out.append((f"risks/{n}/current", f"{k['id']}: the current rating is below the inherent one, but no measure is verified; only verified measures lower the current rating"))
+        if risk.lower(risk.rate(k["target"]), risk.rate(k["current"])) and not statuses & {"planned", "unverified", "verified"}:
+            out.append((f"risks/{n}/target", f"{k['id']}: the target rating is below the current one, but no measure is planned"))
+    return out
+
+
+TIA_TOOLS = {"sccs", "uk-idta", "uk-addendum", "bcrs"}
+SCREEN_ROUTES = {"adequacy", "eu-us-dpf", "uk-extension", "swiss-us-dpf"}
+GAPS = {"partial", "missing", "conflicts", "not-provided"}
+
+
+def vr(data: dict) -> list:
+    out = []
+    decision = data["decision"]["value"]
+    rows = data["clauses"] + (data["ai"]["items"] if data["ai"]["applicable"] else [])
+    asked = {r["item"] for r in data["requests"]}
+    gaps = [r["item"] for r in rows if r["rating"] in GAPS]
+    if decision == "approve" and gaps:
+        out.append(("decision", f"the recommendation is approve without conditions, but these items are gaps or weren't provided: {', '.join(gaps)}"))
+    core = [r["item"] for r in data["clauses"] if r["item"].startswith("2.") and r["rating"] in ("missing", "conflicts")]
+    if core and decision in ("approve", "approve-with-conditions"):
+        out.append(("clauses", f"Art. 28(3) terms are missing or overridden ({', '.join(core)}); a signed fix is a condition before personal data flows"))
+    unasked = [i for i in gaps if i not in asked]
+    if unasked:
+        out.append(("requests", f"no request covers these gaps: {', '.join(unasked)}; add a request, or record the compensating control in the item's fix"))
+    if data["ai"]["applicable"]:
+        training = next((r for r in data["ai"]["items"] if r["item"] == "6.1"), None)
+        if training and training["rating"] != "present" and decision in ("approve", "approve-with-conditions") and "6.1" not in asked:
+            out.append(("ai/items", "training and improvement terms (6.1) aren't settled; ask for them before customer data reaches the AI feature"))
+    for n, t in enumerate(data["transfers"]):
+        if t["mechanism"] in TIA_TOOLS and not str(t["link"]).startswith("TIA-") and not _open_action(data, r"\bTIA\b|transfer impact"):
+            out.append((f"transfers/{n}/link", f"{t['flow']} relies on {t['mechanism']}; link the TIA, or add an action to run tia"))
+        elif t["mechanism"] in SCREEN_ROUTES and not str(t["link"]).startswith(("TSR-", "TIA-")) and not _open_action(data, r"\bTSR\b|transfer screen"):
+            out.append((f"transfers/{n}/link", f"{t['flow']} relies on {t['mechanism']}; link the transfer screen (TSR), or add an action to run tia"))
+        elif t["mechanism"] == "TBC":
+            out.append((f"transfers/{n}/mechanism", f"{t['flow']}: the transfer mechanism isn't known yet"))
+    if data["depth"]["value"] == "deep" and data["security"]["covers_service"]["value"] is not True and decision in ("approve", "approve-with-conditions"):
+        out.append(("security", "a deep review recommends approval without a security report shown to cover the service"))
+    out += _risk_levels(data["risks"])
+    if any(is_tbc(a) for a in data["activities"]) and not _ropa_action(data):
+        out.append(("activities", "link the RoPA entries that use this vendor, or add an action to update them"))
+    return out
+
+
 def _residual_confirmed(data: dict) -> bool:
     from gov import derive
     return derive.dpia(data)["confirmed"]
 
 
-FINDINGS = {"dpia": _with_issues(dpia), "scr": _with_issues(scr), "ropa": ropa, "lia": _with_issues(lia), "tia": _with_issues(tia), "tsr": _with_issues(tsr),
+FINDINGS = {"vr": _with_issues(vr), "dpia": _with_issues(dpia), "scr": _with_issues(scr), "ropa": ropa, "lia": _with_issues(lia), "tia": _with_issues(tia), "tsr": _with_issues(tsr),
             "aip": _with_issues(aip), "aid": _with_issues(aid)}

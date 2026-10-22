@@ -1,0 +1,142 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+title: Vendor review
+description: "A review of one vendor's data protection terms and practices: roles, a clause-by-clause gap analysis against dpa-checklist.md, the AI module, transfers, security assurance, risks to individuals, and the requests to send the vendor."
+type: object
+additionalProperties: false
+required: [id, type, schema_version, format_version, kind, title, status, version, vendor, activities, business_owner,
+  system_owner, prepared_by, date_prepared, last_reviewed, next_review, summary, decision, analysis, depth, roles,
+  documents, clauses, ai, transfers, security, risks, company_findings, requests, facts, context, issues, actions,
+  open_questions, verify, finding_responses, references, version_history, signoff]
+properties:
+  id: {type: string, pattern: "^VR-\\d{4}-\\d{3}$"}
+  type: {const: vr}
+  schema_version: {const: 1}
+  format_version: {const: 1}
+  kind: {enum: [new, renewal, reassessment, notice], description: "new vendor; renewal; reassessment after a change; or a subprocessor or terms notice"}
+  title: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 10}
+  status: {$ref: "common.schema.yaml#/$defs/doc_status"}
+  version: {$ref: "common.schema.yaml#/$defs/version"}
+  vendor:
+    type: object
+    additionalProperties: false
+    required: [name, entity, country, services]
+    properties:
+      name: {$ref: "common.schema.yaml#/$defs/short"}
+      entity: {$ref: "common.schema.yaml#/$defs/short", description: "The legal entity that signs, or TBC"}
+      country: {$ref: "common.schema.yaml#/$defs/short"}
+      services: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 30, description: "The products and features in scope, and what the company uses them for"}
+  activities: {type: array, items: {type: string}, description: "The RoPA entries that use this vendor (ROPA-NNNN), or [TBC]"}
+  business_owner: {$ref: "common.schema.yaml#/$defs/short"}
+  system_owner: {$ref: "common.schema.yaml#/$defs/short"}
+  prepared_by: {$ref: "common.schema.yaml#/$defs/short"}
+  date_prepared: {$ref: "common.schema.yaml#/$defs/date"}
+  last_reviewed: {$ref: "common.schema.yaml#/$defs/date_or_null"}
+  next_review: {$ref: "common.schema.yaml#/$defs/date"}
+  summary: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 50}
+  analysis: {$ref: "common.schema.yaml#/$defs/analysis"}
+  decision:
+    description: "The recommendation. Only the approver set by the current residual rating decides."
+    $ref: "common.schema.yaml#/$defs/call"
+    properties:
+      value: {enum: [approve, approve-with-conditions, do-not-approve, open]}
+  depth:
+    type: object
+    additionalProperties: false
+    required: [value, reason]
+    properties:
+      value: {enum: [light, standard, deep]}
+      reason: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 30}
+  roles:
+    description: "Each operation's role for the vendor, Provisional, from the facts rather than the contract"
+    type: array
+    minItems: 1
+    items:
+      type: object
+      additionalProperties: false
+      required: [operation, role, basis]
+      properties:
+        operation: {$ref: "common.schema.yaml#/$defs/short"}
+        role: {enum: [processor, sub-processor, service-provider, contractor, third-party, controller, joint-controller, TBC]}
+        basis: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 25}
+  documents:
+    description: "The documents reviewed or still needed: DPA, MSA, AI terms, subprocessor list, security report"
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [document, version, status]
+      properties:
+        document: {$ref: "common.schema.yaml#/$defs/short"}
+        version: {$ref: "common.schema.yaml#/$defs/short", description: "Version or date, or TBC"}
+        status: {enum: [provided, requested, not-provided]}
+  clauses:
+    description: "One row per dpa-checklist.md item the depth requires (sections 1-4 and 7, 5 for student data)"
+    type: array
+    items: {$ref: "#/$defs/clause"}
+  ai:
+    description: "The AI module (dpa-checklist.md section 6), when the vendor supplies AI that touches personal data"
+    type: object
+    additionalProperties: false
+    required: [applicable, items, aiuc_certified, vendor_role, company_role]
+    properties:
+      applicable: {type: boolean}
+      items: {type: array, items: {$ref: "#/$defs/clause"}}
+      aiuc_certified: {$ref: "common.schema.yaml#/$defs/call_tristate", description: "Holds an AIUC-1 certificate covering this product, from the certificate and report"}
+      vendor_role: {enum: [provider, deployer, distributor, not-applicable, TBC], description: "The vendor's EU AI Act role"}
+      company_role: {enum: [provider, deployer, not-applicable, TBC], description: "The company's EU AI Act role for its use"}
+  transfers:
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [flow, destination, mechanism, link]
+      properties:
+        flow: {$ref: "common.schema.yaml#/$defs/short", description: "What goes where, through which vendor entity"}
+        destination: {$ref: "common.schema.yaml#/$defs/short"}
+        mechanism: {enum: [adequacy, eu-us-dpf, uk-extension, swiss-us-dpf, sccs, uk-idta, uk-addendum, bcrs, none-needed, TBC]}
+        link: {type: string, description: "The TSR or TIA record for the flow, or none"}
+  security:
+    type: object
+    additionalProperties: false
+    required: [report, period, covers_service, exceptions]
+    properties:
+      report: {$ref: "common.schema.yaml#/$defs/short", description: "SOC 2 Type II, ISO 27001, or none"}
+      period: {$ref: "common.schema.yaml#/$defs/short", description: "The report period or certificate dates, or TBC"}
+      covers_service: {$ref: "common.schema.yaml#/$defs/call_tristate", description: "Does the report's scope cover the service in use?"}
+      exceptions: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 25}
+  risks: {$ref: "common.schema.yaml#/$defs/risks"}
+  company_findings:
+    description: "Contractual and operational risks to the company (liability, lock-in, exit) for Legal and Procurement, kept out of the privacy rating"
+    type: array
+    items: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 30}
+  requests:
+    description: "What to ask the vendor for. gov renders these as the draft request list; a person sends it after approval."
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [kind, request, item]
+      properties:
+        kind: {enum: [document, contract-change, configuration, question, objection]}
+        request: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 60, description: "The request as it would read to the vendor, with suggested wording for a contract change"}
+        item: {type: string, description: "The checklist item it answers, such as 2.7, or none"}
+  facts: {$ref: "common.schema.yaml#/$defs/facts"}
+  context: {$ref: "common.schema.yaml#/$defs/context"}
+  issues: {$ref: "common.schema.yaml#/$defs/issues"}
+  actions: {$ref: "common.schema.yaml#/$defs/actions"}
+  open_questions: {$ref: "common.schema.yaml#/$defs/open_questions"}
+  verify: {$ref: "common.schema.yaml#/$defs/verify"}
+  finding_responses: {$ref: "common.schema.yaml#/$defs/finding_responses"}
+  references: {$ref: "common.schema.yaml#/$defs/references"}
+  version_history: {$ref: "common.schema.yaml#/$defs/version_history"}
+  signoff: {$ref: "common.schema.yaml#/$defs/signoff"}
+$defs:
+  clause:
+    type: object
+    additionalProperties: false
+    required: [item, rating, evidence, fix]
+    properties:
+      item: {type: string, pattern: "^[1-7]\\.\\d+a?$", description: "The dpa-checklist.md item, such as 2.3 or 6.3a"}
+      rating: {enum: [present, partial, missing, conflicts, not-provided, not-applicable, TBC]}
+      evidence: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 30, description: "What the document says, briefly quoted, with the document and clause; or why the item doesn't apply"}
+      fix: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 25, description: "The contract change, configuration, or compensating control, or none"}

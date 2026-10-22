@@ -73,6 +73,37 @@ $defs:
         status: {enum: [open, done]}
       if: {properties: {launch_blocking: {const: true}}}
       then: {required: [block_reason]}
+  risk_level:
+    type: object
+    additionalProperties: false
+    required: [likelihood, severity]
+    properties:
+      likelihood: {enum: [remote, possible, probable, TBC]}
+      severity: {enum: [minimal, significant, severe, TBC]}
+  risks:
+    description: "Risks to individuals, each with inherent, current (verified measures only), and target (planned measures) levels; gov computes the ratings"
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [id, risk, inherent, current, target, measures, owner]
+      properties:
+        id: {type: string, pattern: "^R\\d+$"}
+        risk: {$ref: "#/$defs/text", x-max-words: 40, description: "Who is harmed and how"}
+        inherent: {$ref: "#/$defs/risk_level"}
+        current: {$ref: "#/$defs/risk_level"}
+        target: {$ref: "#/$defs/risk_level"}
+        measures:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            required: [measure, status, evidence]
+            properties:
+              measure: {$ref: "#/$defs/text", x-max-words: 25}
+              status: {enum: [verified, unverified, planned, absent]}
+              evidence: {$ref: "#/$defs/text", x-max-words: 25, description: "What shows it, or the evidence that would verify it, or the action ID"}
+        owner: {$ref: "#/$defs/short"}
   facts:
     description: "The fact register: each fact the assessment relies on, with its status and source"
     type: array

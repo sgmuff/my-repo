@@ -206,7 +206,7 @@ Don't present a future obligation as one already in force. Readiness blockers ca
 
 Deliverables are files in the repository, under the output root from the company profile (default `compliance/`). Keep this layout so other skills, and any publishing target the company profile names, can find things by path.
 
-**Records managed by `gov`** are YAML files, and `gov render` writes their Markdown. Never write or edit those `.md` files by hand; edit the YAML and re-render. CI fails on a hand edit. `gov` manages the RoPA, DPIA screenings (`scr`), DPIAs (`dpia`), LIAs, TIAs, transfer screens (`tsr`), and AI Act provider and deployer files (`aip`, `aid`); `gov/rules/ids.yaml` lists each type's folder. Other deliverables move to `gov` one type at a time; until then they stay Markdown written from their templates, in a folder `gov` doesn't manage.
+**Records managed by `gov`** are YAML files, and `gov render` writes their Markdown. Never write or edit those `.md` files by hand; edit the YAML and re-render. CI fails on a hand edit. `gov` manages the RoPA, DPIA screenings (`scr`), DPIAs (`dpia`), LIAs, TIAs, transfer screens (`tsr`), and AI Act provider and deployer files (`aip`, `aid`), and vendor reviews (`vr`); `gov/rules/ids.yaml` lists each type's folder. Other deliverables move to `gov` one type at a time; until then they stay Markdown written from their templates, in a folder `gov` doesn't manage.
 
 ```
 compliance/
@@ -217,7 +217,8 @@ compliance/
       assistance-packs/ PA-YYYY-NNN-<slug>.md   (processor assistance packs, Markdown)
     ai-impact/         YYYY-MM-DD-<slug>.md
     program/           YYYY-MM-DD-<framework>-assessment.md
-  vendors/<vendor-slug>/YYYY-MM-DD-review.md
+  vendors/           VR-YYYY-NNN-<slug>.yaml and .md, plus index.md (generated)
+    requests/        VR-YYYY-NNN-<slug>-requests.md (generated draft request lists)
   registers/
     ropa/              ROPA-NNNN-<slug>.yaml (record) and .md (generated), plus index.md (generated)
     ai-inventory/      <system-slug>.md, plus index.md

@@ -206,6 +206,20 @@ AI_ACT_REQUIRED = {
 
 
 def _structure(where: str, data: dict) -> list:
+    if data.get("type") == "vr":
+        from gov.vendor_items import SECTIONS, required_clauses
+        have = [c["item"] for c in data["clauses"]]
+        problems = [Problem(where, "error", f"clauses: list item {i} once") for i in sorted(set(have)) if have.count(i) > 1]
+        missing = [i for i in required_clauses(data) if i not in have]
+        if missing:
+            problems.append(Problem(where, "error", f"clauses: a {data['depth']['value']} review covers dpa-checklist.md items {', '.join(missing)}"))
+        ai_have = [c["item"] for c in data["ai"]["items"]]
+        if data["ai"]["applicable"] and sorted(ai_have) != sorted(SECTIONS["6"]):
+            gap = [i for i in SECTIONS["6"] if i not in ai_have]
+            problems.append(Problem(where, "error", f"ai/items: list each section 6 item once{' (missing ' + ', '.join(gap) + ')' if gap else ''}"))
+        if not data["ai"]["applicable"] and ai_have:
+            problems.append(Problem(where, "error", "ai/items: set applicable: true, or remove the items"))
+        return problems
     if data.get("type") == "scr":
         numbers = sorted(c["criterion"] for c in data["criteria"])
         return [] if numbers == list(range(1, 10)) else [Problem(where, "error", "criteria: list each EDPB criterion 1 to 9 exactly once")]

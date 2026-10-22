@@ -13,6 +13,33 @@ from gov.records import load, record_files
 from gov.validate import Problem, _rel, validate_tree
 
 LABELS = {
+    "provider": "Provider",
+    "distributor": "Distributor",
+    "service-provider": "Service provider",
+    "contractor": "Contractor",
+    "joint-controller": "Joint controller",
+    "missing": "Missing",
+    "conflicts": "Conflicts",
+    "not-provided": "Not provided",
+    "provided": "Provided",
+    "requested": "Requested",
+    "partial": "Partial",
+    "light": "Light",
+    "standard": "Standard",
+    "deep": "Deep",
+    "approve": "Approve",
+    "approve-with-conditions": "Approve with conditions",
+    "do-not-approve": "Do not approve as proposed",
+    "new": "New vendor",
+    "renewal": "Renewal",
+    "reassessment": "Reassessment",
+    "notice": "Change notice",
+    "document": "Document",
+    "contract-change": "Contract change",
+    "configuration": "Configuration",
+    "question": "Question",
+    "objection": "Objection",
+    "none-needed": "None needed",
     "controller": "Controller",
     "processor": "Processor",
     "both": "Controller and processor",
@@ -302,6 +329,9 @@ def render_record(rec, root=None) -> str:
     from gov import references
     extra = {"findings": finding_rows(rec, root), "method": method, "ref_notes": references.notes(root, rec.data),
              "issue_rows": issues.rows(rec.data) if rec.type != "ropa" else []}
+    if rec.type == "vr":
+        from gov.vendor_items import item_text
+        extra["item_text"] = item_text(root)
     if rec.type == "ropa":
         extra.update(vendors=derive.vendor_slugs(rec.data), required=required_rows(root, rec.data))
     text = template.render(r=rec.data, d=derive.DERIVE[rec.type](rec.data), source_file=rec.path.name, **extra)
@@ -340,6 +370,9 @@ def render_tree(root: Path, check: bool = False) -> RenderResult:
     for path in record_files(root):
         rec = load(path)
         outputs[rec.markdown_path] = render_record(rec, root)
+        if rec.type == "vr" and rec.data.get("requests"):
+            outputs[rec.path.parent / "requests" / f"{rec.path.stem}-requests.md"] = _tidy(
+                _env().get_template("vr-requests.md.j2").render(r=rec.data, source_file=rec.path.name))
         by_type.setdefault(rec.type, []).append(rec)
     for record_type, spec in ids.managed_types().items():
         folder = output_root(root) / spec["folder"]

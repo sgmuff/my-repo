@@ -1,137 +1,77 @@
 ---
 name: vendor-review
-description: Review a vendor, subprocessor, or AI provider's data protection terms and practices, with a clause-by-clause DPA gap analysis against GDPR Article 28, US state service provider terms, FERPA and student privacy terms, and transfer rules, plus an AI module for models, agents, and AI features (training on customer data, retention, outputs, model changes, agent permissions, EU AI Act roles, AIUC-1 certification). Produces a draft review with findings, risks, a recommendation, and a draft request list for the vendor. Use it whenever someone wants to onboard, renew, or reassess a vendor, review a DPA, subprocessor notice, or security questionnaire for privacy, or check an AI vendor or an AI feature turned on in an existing tool, even without saying "vendor review." Not for the company's own processing (dpia), RoPA entries (ropa), internal AI use-case intake (ai-intake), or a transfer impact assessment or transfer screen (tia).
+description: Review a vendor, subprocessor, or AI provider's data protection terms and practices, with a clause-by-clause DPA gap analysis against GDPR Article 28, US state service provider terms, FERPA and student privacy terms, and transfer rules, plus an AI module for models, agents, and AI features (training on customer data, retention, outputs, model changes, agent permissions, EU AI Act roles, AIUC-1 certification). Records the review as a vendor review record with findings, risks, a recommendation, and a draft request list for the vendor. Use it whenever someone wants to onboard, renew, or reassess a vendor, review a DPA, subprocessor notice, or security questionnaire for privacy, or check an AI vendor or an AI feature turned on in an existing tool, even without saying "vendor review." Not for the company's own processing (dpia), RoPA entries (ropa), internal AI use-case intake (ai-intake), or a transfer impact assessment or transfer screen (tia).
+compatibility: Requires the gov command from this repository (skills/install.sh installs it), with Python 3.10+, PyYAML, jsonschema, and Jinja2.
 ---
 
 # Vendor review
 
-This skill reviews a third party that will process personal data for the company, or supply AI that touches it. One run produces one Markdown review per vendor, plus a draft request list the privacy lead can send to the vendor after approval.
+This skill reviews a third party that will process personal data for the company, or supply AI that touches it, and records the review as one YAML record (`vr`). `gov render` writes the review and, from the record's `requests`, the draft request list for the vendor. Never write or edit either `.md` file.
 
-The review supports a decision a person makes: whether to sign, renew, or keep using the vendor, and on what conditions. The skill reads the documents, compares them to the checklist, rates the findings, and drafts. It takes a position on each point, cites the clause and the law behind it, labels how settled the position is, and leaves the approval decision and anything sent to the vendor to the approvers in `approvals.md`. **Rate what the documents say, not what the vendor's sales team says.**
+**Rate what the documents say, not what the vendor's sales team says.** A trust center page, a questionnaire answer, or a sales email is evidence of a claim, not a contract term. The review proposes; the approvers in `approvals.md` decide, and nothing goes to the vendor until the privacy lead approves it.
 
 ## Files
 
 | File | Read it when |
 |---|---|
-| [`../_shared/conventions.md`](../_shared/conventions.md) | At the start of every run: style, citations, verify flags, intake rounds, fact register, determination status, output layout |
-| [`../_shared/company-profile.md`](../_shared/company-profile.md) | At the start of every run, for the standard DPA, transfer mechanisms, and security baseline |
-| [`../_shared/approvals.md`](../_shared/approvals.md) | Step 9, to route the decision |
-| [`references/intake.md`](references/intake.md) | Step 3: what to collect, tagged by round |
-| [`../_shared/references/dpa-checklist.md`](../_shared/references/dpa-checklist.md) | Steps 4–6: the clause-by-clause checklist and red flags |
-| [`../_shared/references/gdpr.md`](../_shared/references/gdpr.md) | Roles (§2), processor terms (§8), transfers (§11) |
-| [`../_shared/references/us-state-privacy.md`](../_shared/references/us-state-privacy.md) | State processor and service provider terms (§4) |
-| [`../_shared/references/ferpa.md`](../_shared/references/ferpa.md) | When the vendor will touch student data |
-| [`../_shared/references/aiuc-1.md`](../_shared/references/aiuc-1.md) | Step 5, the AI module, in vendor benchmark mode |
-| [`../_shared/references/eu-ai-act.md`](../_shared/references/eu-ai-act.md) | Step 5, for AI Act roles and deployer duties |
-| [`../_shared/references/risk-method.md`](../_shared/references/risk-method.md) | Step 7: three ratings, control statuses |
-| [`assets/vendor-review-template.md`](assets/vendor-review-template.md) | Step 8: the review |
-| [`assets/vendor-request-template.md`](assets/vendor-request-template.md) | Step 8: the draft request list for the vendor |
+| [`../_shared/references/dpa-checklist.md`](../_shared/references/dpa-checklist.md) | Steps 3-4: the items each depth covers, and the red flags |
+| [`references/intake.md`](references/intake.md) | Step 2: what to collect, by round |
+| [`../_shared/references/gdpr.md`](../_shared/references/gdpr.md), [`us-state-privacy.md`](../_shared/references/us-state-privacy.md), [`ferpa.md`](../_shared/references/ferpa.md) | Roles, processor terms, transfers, state service provider terms, student data |
+| [`../_shared/references/aiuc-1.md`](../_shared/references/aiuc-1.md), [`eu-ai-act.md`](../_shared/references/eu-ai-act.md) | The AI module, in vendor benchmark mode |
+| [`../_shared/references/risk-method.md`](../_shared/references/risk-method.md) and [`../_shared/approvals.md`](../_shared/approvals.md) | Steps 4 and 6 |
 
 ## Workflow
 
-### 1. Load context and check for an existing review
+### 1. Check the tool and what already exists
 
-Read `conventions.md` and `company-profile.md`. Look under `<output root>/vendors/<vendor-slug>/` for earlier reviews. If one exists, this is a renewal or reassessment: read it, carry forward what still holds, and focus on what changed (new services, new AI features, new subprocessors, a new DPA version, an expired report). Also check `<output root>/registers/ropa/` and `<output root>/assessments/` for activities that use this vendor, so the review covers the actual uses.
+Run `gov --version`; if it fails, stop and tell the user to run `skills/install.sh`. Look under `compliance/vendors/` for an earlier review of this vendor: if one exists, this is a renewal, reassessment, or notice (below), not a new review. Check `compliance/registers/ropa/` for the activities that use the vendor, so the review covers the actual uses.
 
-Start the fact register (`conventions.md`, §6). For a vendor review, it records which documents were provided, their versions and dates, and what the requester has said without evidence.
+### 2. Scope it and get the documents
 
-### 2. Scope the review and set its depth
+Pin down which services and features are in scope and for what; a CRM with an AI assistant switched on is two things. Set the depth from the facts, and say why:
 
-Pin down which services, products, and features the company uses or plans to use, and for what. One vendor can need several reviews' worth of analysis: a CRM with an AI assistant switched on is two things.
+- **Light:** no personal data beyond business contacts, nothing sensitive, no AI on personal data, no restricted transfers. Checklist sections 1-2 and item 7.1.
+- **Standard:** ordinary personal data of customers, users, or employees. Sections 1-4 and 7.
+- **Deep:** special category, children's, student, or US-sensitive data; large scale; AI on personal data or agents that act; an unsettled transfer; or a vendor critical to the product. Standard, plus the AI module and evidence for every control the rating depends on.
 
-Set the review depth from the facts, and say why:
+A Light review that finds a red flag becomes Standard. Student data adds section 5; AI that touches personal data adds section 6.
 
-| Depth | When | What it covers |
-|---|---|---|
-| **Light** | No personal data, or only business contact data, with no special category, children's, student, or sensitive data, no AI on personal data, and no restricted transfers | Checklist §1–2 and §7.1, and the red flags |
-| **Standard** | Personal data of customers, users, or employees at ordinary sensitivity | The full checklist, except §5–6 where they don't apply |
-| **Deep** | Special category, children's, student, or US-sensitive data; large scale; AI on personal data or agents that act; restricted transfers without a settled mechanism; or the vendor is critical to the product | The full checklist, the AI module, and the transfer analysis, with evidence requested for each control the rating depends on |
+Ask in Round 1 for the documents themselves (DPA, MSA or terms, AI terms, subprocessor list, security report) and the facts that decide depth and roles, including whether processing or an AI feature has already started. If it has, containment comes first: what the vendor already holds, scored, or trained on.
 
-Depth decides the work, not the standard. A Light review that finds a red flag becomes Standard.
+### 3. Answer the review
 
-Then **propose roles per operation**, marked Provisional (`gdpr.md`, §2): processor, sub-processor, service provider, contractor, third party, or controller for any own-purpose use. For AI, propose the vendor's and the company's EU AI Act roles (`eu-ai-act.md`, §3), and set AIUC-1 to **vendor benchmark** mode.
+Answer it fully, then check each item against `dpa-checklist.md` and add what you missed. Points answers often miss:
 
-### 3. Gather documents and facts in two rounds
+- **Order of precedence first** (item 1.3). A strong DPA that the MSA or online AI terms override is a `conflicts` finding.
+- **Roles per operation, from the facts.** Any own-purpose use by the vendor, such as training, makes it a controller for that use.
+- **Training is three questions** (item 6.1): foundation models, the vendor's product, and the company's own instance.
+- **An AIUC-1 certificate covers one product and release.** Record the product, release, report date, and expiry.
+- **Each transfer needs its mechanism for the right entity.** Link the TIA for SCCs, BCRs, the IDTA, or the UK Addendum, and the transfer screen for the DPF or adequacy.
+- **A security report's scope must cover the service in use.** Don't rate controls you haven't seen evidence for.
+- **Unsigned terms aren't controls.** "The vendor will sign our DPA" leaves the current rating where it is.
 
-Use `references/intake.md`.
+### 4. Record it
 
-- **Round 1 (blockers):** the documents themselves (DPA, MSA or terms, AI terms, subprocessor list, security report) and the facts that decide depth and roles: what data, whose, for what, which features, and whether processing has already started. If it has, ask what the vendor already holds, and whether any feature, especially an AI feature, was turned on before review.
-- **Round 2 (completion):** send it with the draft. Business owner and contract details, renewal dates, internal integration details, and the remaining checklist items the documents didn't answer.
+Run `gov new vr --slug <vendor-slug> --title "<vendor and service>" --date <today>`. Fill in the record from your answer:
 
-Ask for documents, not summaries. A trust center page, a questionnaire answer, or a sales email is evidence of a claim, not a contract term. Record it as "Stated by vendor" in the fact register.
+- One `clauses` row per required item, rated `present`, `partial`, `missing`, `conflicts`, `not-provided` (the document wasn't supplied; ask, don't guess), or `not-applicable` with the reason as evidence. Quote briefly, with the document and clause.
+- The AI module in `ai`, or `applicable: false`.
+- Risks to individuals with likelihood and severity at three points (inherent, current with verified measures only, target); `gov` computes the ratings. Contract and commercial risks to the company go in `company_findings`, kept out of the privacy rating.
+- One `requests` entry for each gap you want closed: documents, contract changes with suggested wording, configuration to confirm, and questions.
+- The fact register in `facts`, with what the requester or vendor said but didn't evidence marked `stated-by-requester`.
 
-### 4. Run the DPA gap analysis
+Each call stays Provisional. A point that doesn't fit a field goes in `analysis` (400 words at most); the record never changes your conclusion.
 
-Work through `dpa-checklist.md` §1–4 and §7 (and §5 for student data). For each item, record:
+### 5. Validate and render
 
-- What the contract says, quoted briefly, with the document and clause reference
-- The rating: **Present**, **Partial**, **Missing**, **Conflicts**, or **Not provided** (the document wasn't supplied; ask for it, and don't guess)
-- The legal basis for the requirement (the checklist's citation)
-- What fixes it: a contract change, a configuration, or a compensating control
+Run `gov validate`, fix errors, and resolve findings by changing the record. A finding that names a real gap stays open with an action. Don't add a `finding_responses` entry yourself. Run `gov render`, then add the review to each RoPA entry's `related` vendor reviews, and rerun both. Recommend, but don't run, the follow-ons the findings call for: `dpia`, `ropa`, `tia`, and `ai-impact-assessment` for a possibly high-risk AI use.
 
-Read the order of precedence between documents before rating anything (checklist 1.3). A strong DPA that an MSA or online AI terms override is a Conflicts finding.
+### 6. Reply
 
-Compare to the company's standard DPA where the profile gives one, and note each departure.
+Lead with the recommendation and what has to happen before signing or switching on the service, in plain English, grouped as legal requirements, risks, and internal policy. Say who approves, from `approvals.md`, and that the request list waits for the privacy lead. Ask the Round 1 questions still open, five at most. Close with one line naming the review and request list and their paths.
 
-### 5. Run the AI module, if the vendor supplies AI
+## Renewals, reassessments, and notices
 
-Use `dpa-checklist.md` §6, benchmarked to AIUC-1 (Oct 15, 2026 release; check `aiuc-1.md` for a newer one). Cover AI features embedded in products the company already buys, not only AI vendors.
+For new terms or a subprocessor notice, set `kind` to `renewal`, `reassessment`, or `notice`, and update only the affected items and risks, with a version history row. A notice's objection deadline is an action that comes first, with a decision date well ahead of it; put the draft objection, conditional and withdrawable once evidence arrives, in `requests` as `objection`. If the company is itself a processor for customers whose data reaches the vendor, its own customer DPAs may require earlier notice of the new sub-processor; add that as an action.
 
-- **Training, retention, outputs, isolation, agent actions, model changes, incidents, logging, and transparency:** rate each against the contract and configuration evidence, with the AIUC-1 requirement it corresponds to.
-- **AIUC-1 certification:** if the vendor claims it, ask for the certificate and audit report. Record the product in scope, the release audited, the report date, the expiry, whether quarterly evaluations are current, and the exclusions. A certificate for a different product doesn't cover this one. If the vendor isn't certified, ask about the applicable mandatory requirements (checklist 6.12).
-- **EU AI Act:** propose the roles, classify the company's intended use by function (`eu-ai-act.md`, §4–5), and list what the vendor must supply for the company's deployer duties. If the use could be high-risk or prohibited, say so and recommend an `ai-impact-assessment`. If that skill isn't installed yet, add an action to produce one.
-
-### 6. Check transfers and security assurance
-
-**Transfers** (checklist §3): for each restricted transfer, confirm the mechanism for the right vendor entity and destination. For the DPF, check the active listing and its scope (EU, UK Extension, Swiss) on dataprivacyframework.gov when you can browse, and record the date. Otherwise make it a verify flag. Confirm SCCs as a fallback. Where a transfer relies on SCCs, BCRs, the IDTA, or the UK Addendum, recommend the `tia` skill for that flow and link its ID once it exists. When the vendor supplies its own transfer assessment, review it here, against `tia/references/steps.md`; don't start a new TIA just to restate it.
-
-**Security assurance** (checklist §7.1): record the report type, date, scope, and noted exceptions, and whether the scope covers the service in use. A deep security review belongs to the security team. Note what they should look at, and don't rate controls you haven't seen evidence for.
-
-### 7. Rate risks
-
-Use `risk-method.md` and `../_shared/templates/risk-register.md`, with three ratings (inherent, current residual, target residual) and control statuses. Rate **risks to individuals** in the register. Record contractual and operational risks to the company (unfavorable liability terms, lock-in, weak exit rights) in a separate findings column for Legal and Procurement, without mixing them into the privacy rating.
-
-Unconfirmed contract terms are not controls. If the fix is "the vendor will sign our DPA," the current rating stays where it is until a signed version exists.
-
-### 8. Write the review and the request list
-
-Fill in `assets/vendor-review-template.md` and save it to `<output root>/vendors/<vendor-slug>/YYYY-MM-DD-review.md`, ID `VR-YYYY-NNN`. Set status to Draft.
-
-The executive summary opens with the status block:
-
-> **Review status:** Draft, not approved. Depth: <Light | Standard | Deep>.
-> **Recommendation:** <Approve | Approve with conditions | Do not approve as proposed> (Provisional; depends on F…).
-> **Residual risk:** <not yet confirmed | confirmed>. Current: <rating>. Target: <rating>, subject to A….
-> **Onboarding decision:** Not authorized by this draft. Don't sign, renew, or turn on the service for personal data until the approver named in the sign-off section has recorded a decision, and the conditions marked as blockers are verified.
-> **Follow-on assessments:** <DPIA screening, AI impact assessment, RoPA update, as needed>.
-
-Then fill in `assets/vendor-request-template.md` with the documents still needed, the contract changes requested (with suggested wording where useful), and the configuration changes to confirm. Save it beside the review as `YYYY-MM-DD-vendor-requests.md`. It is an external communication: metadata first, then "DRAFT: not sent" as the first body line. The privacy lead approves it before anyone sends it.
-
-Give each finding a status: Confirmed finding (documented), Unverified concern, or Recommended control (`conventions.md`, §6). List the approval conditions as verifiable release gates, each with the evidence that closes it. If the service is already in use, put containment first, including what was already recorded, scored, or used for training.
-
-Cross-reference facts `F`, findings `G`, risks `R`, and actions `A` both ways. Every action has an owner, due date, dependency, and acceptance criterion; every verify flag is in the verification register and has an action (`conventions.md`, §4).
-
-### 9. Route the decision and recommend follow-ons
-
-Route sign-off by the current residual rating (`approvals.md`), with the requesting business area and the system owner. Recommend, but don't run, the follow-ons the findings call for:
-
-- `dpia`, if the use the vendor supports shows high-risk indicators
-- `ropa`, to add the vendor as a recipient or processor in each affected record
-- `ai-impact-assessment`, if an AI use could be high-risk
-
-If Jira or ServiceNow is connected, offer to create tickets for the actions after the user confirms the list. Otherwise put the CSV import block in the review's appendix. Never create calendar events. Renewal and reassessment dates are actions.
-
-### 10. Hand back
-
-Follow `conventions.md`, §11. Reply in about 150 words: the review path and the request list path, the status block in two lines, the decisions needed, the Round 1 requests still outstanding, and the count of verify flags.
-
-## Reassessments and subprocessor notices
-
-When a vendor sends a subprocessor change notice or new terms, don't redo the whole review. Read the notice, update the affected checklist items and risks, add a version history row, and say whether the change needs an objection within the notice period (checklist 3.1). Treat the objection deadline as an action with a due date, and put it first, with a decision date far enough ahead of it to send the objection.
-
-- **Draft objection text** goes in the vendor request list's objection section (`assets/vendor-request-template.md`), marked as a draft. Write it as a conditional objection that the company can withdraw once the evidence arrives. That way, the company keeps its position if the deadline comes first.
-- **Onward notice.** If the company is itself a processor for customers whose data reaches the vendor, check the company's own customer DPAs. The company may owe its customers notice of the new sub-processor, often with an earlier deadline than its own objection window. Add that as an action too.
-
-When the facts touch a law the reference files don't cover, such as call recording, biometrics, consumer health data, or background checks, raise it from `dpa-checklist.md` §9 as a verify flag for Legal.
-
-Reassess each vendor at least every 12 months, sooner for Deep reviews, AI vendors after a material model change, or AIUC-1-certified vendors whose certificate is about to expire.
+Reassess each vendor at least every 12 months, sooner for Deep reviews, after a material AI model change, or before an AIUC-1 certificate expires. When the facts touch a law the reference files don't cover, such as call recording, biometrics, or background checks, raise it from `dpa-checklist.md` section 9 as a verify flag for counsel.
