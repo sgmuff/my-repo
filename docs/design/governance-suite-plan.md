@@ -421,7 +421,7 @@ from counsel and can run while counsel reviews.
 
 Estimate: eight to nine working sessions, with elapsed time set mostly by counsel's reviews.
 
-Gaps found in development runs, for a reference update: employment AI laws (NYC Local Law 144 bias audits, Illinois HB 3773, California's FEHA automated-decision rules, Colorado) and the federal anti-discrimination baseline have no reference file; `gov required` assigns LL144 audit preparation to `ai-impact-assessment` without guidance behind it.
+Gaps found in development runs, for a reference update: whether public school districts notify under the private-sector breach statutes or their own (NY State Technology Law § 208, Cal. Civ. Code § 1798.29), 8 NYCRR 121.10 district deadlines, and whether IEP or disability status is medical information, in `us-breach-notification.md` and `ferpa.md`; employment AI laws (NYC Local Law 144 bias audits, Illinois HB 3773, California's FEHA automated-decision rules, Colorado) and the federal anti-discrimination baseline have no reference file; `gov required` assigns LL144 audit preparation to `ai-impact-assessment` without guidance behind it.
 
 Open with counsel now: the router key review (`docs/evals/router-answer-keys.yaml`), the DPIA keys' `verify` points
 (`docs/evals/dpia-answer-keys.yaml`), the `ai-public-transition` rule, and the rest of `us-breach-notification.md`.

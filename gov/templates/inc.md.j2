@@ -24,14 +24,13 @@ generated_from: {{ source_file }}
 
 **Position:** {{ r.decision | call }} · **Incident commander:** {{ r.commander | cell }} · **Ongoing:** {{ r.ongoing | call }}
 
-**Method:** {{ method }}
+**Method:** {{ (d.regime_names + (["the US state breach laws in us-breach-notification.md"] if r.states else [])) | join("; ") or "no regime listed yet" }}; contracts as listed in the matrix. Clocks from `gov clock`, without public holidays.
 
 This record supports decisions by counsel and the privacy lead. It sends nothing; a person sends every notice.
 
 {{ r.summary }}
 
-**Open items:** {{ d.open_rows }} {{ "recipient is" if d.open_rows == 1 else "recipients are" }} not yet notified or decided · {{ d.launch_questions }} {{ "question blocks" if d.launch_questions == 1 else "questions block" }} a notice
-{% include "_launch.md.j2" %}
+**Open items:** {{ d.open_rows }} {{ "recipient is" if d.open_rows == 1 else "recipients are" }} not yet notified or decided · {{ d.notice_questions }} {{ "question blocks" if d.notice_questions == 1 else "questions block" }} a notice
 
 ## 1. Clocks (`gov clock`)
 
@@ -42,7 +41,7 @@ This record supports decisions by counsel and the privacy lead. It sends nothing
 | {{ c.due }} | {{ c.regime }} | {{ c.duty | cell }} |
 {% endfor %}
 
-Statutory outer limits from the awareness time. Notify as soon as facts and approvals allow; contractual deadlines are in the matrix.
+Statutory rows are outer limits from the awareness time, and apply only where the regime or state's statute covers the data; the matrix says whether each does. Matrix rows with a `due` date are included. Notify as soon as facts and approvals allow.
 {% else %}
 Not computed: record the awareness time, the regimes, and the states.
 {% endif %}
@@ -58,7 +57,7 @@ Not computed: record the awareness time, the regimes, and the states.
 | Data set | Elements | People | Residence | Company role | Acquired | Encrypted |
 |---|---|---|---|---|---|---|
 {% for s in r.datasets %}
-| {{ s.dataset | cell }} | {{ s.elements | cell }} | {{ s.people | cell }} | {{ s.residence | cell }} | {{ s.role | label }} | {{ s.acquired | call }} | {{ s.encrypted | call }} |
+| {{ s.dataset | cell }} | {{ s.elements | cell }} | {{ s.people | cell }} | {{ s.residence | cell }} | {{ s.roles | map("label") | join(", ") }} | {{ s.acquired | call }} | {{ s.encrypted | call }} |
 {% endfor %}
 
 ## 4. Notification matrix

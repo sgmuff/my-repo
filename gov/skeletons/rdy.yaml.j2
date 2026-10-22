@@ -1,0 +1,64 @@
+# AIUC-1 readiness report for one agent or AI system. Build the Statement of Applicability from aiuc-1.md for the
+# release, never from memory: gov validate lists any mandatory requirement the capabilities trigger that the SoA
+# leaves out. Run `gov validate` then `gov render`. Text with a comma inside {...} goes in quotes.
+id: {{ id }}
+type: rdy
+schema_version: 1
+format_version: 1
+kind: readiness
+title: {{ title | tojson }}
+status: Draft
+version: "0.1"
+system: TBC  # the AI inventory entry, AIS-NNNN
+release: TBC  # the AIUC-1 release audited against
+capabilities: []  # External-facing | Automation | Code-generation | Text-generation | Voice-generation | Image-generation; Universal always applies
+out_of_scope: TBC
+business_owner: TBC
+system_owner: TBC
+prepared_by: {{ prepared_by | tojson }}
+date_prepared: "{{ date }}"
+last_reviewed: null
+next_review: "{{ next_review }}"
+summary: TBC  # 50 words at most
+decision: {value: open, status: Provisional, reason: Statement of Applicability not yet built}  # ready | gaps | not-ready | open
+analysis: TBC  # 400 words at most; use |- for paragraphs
+
+soa: []  # {requirement: A001, applicability: in-scope | excluded | opted-in, rationale, responsible: company | model-provider | shared | TBC, controls: [CTL-NNNN], evidence: [EV-NNNN], gap: none | partial | missing | TBC}
+
+testing:  # at least every 3 months for the third-party testing requirements in scope
+  - {duty: "Third-party testing, data and privacy", requirement: A009, frequency: At least every 3 months, last_done: TBC, next_due: TBC, control: TBC}
+  - {duty: "Third-party testing, security", requirement: B001, frequency: At least every 3 months, last_done: TBC, next_due: TBC, control: TBC}
+  - {duty: "Third-party testing, safety", requirement: C010, frequency: At least every 3 months, last_done: TBC, next_due: TBC, control: TBC}
+  - {duty: "Third-party testing, reliability", requirement: D004, frequency: At least every 3 months, last_done: TBC, next_due: TBC, control: TBC}
+  - {duty: "Third-party testing, accountability", requirement: E018, frequency: At least every 3 months, last_done: TBC, next_due: TBC, control: TBC}
+  - {duty: Internal process review, requirement: E008, frequency: Regular, last_done: TBC, next_due: TBC, control: TBC}
+  - {duty: Re-certification, requirement: none, frequency: Annual, last_done: TBC, next_due: TBC, control: TBC}
+
+milestones:  # gates, not commitments
+  - {gate: Auditor and AIUC technical evaluations arranged, target: TBC, entry_condition: Scope and release agreed, status: not-started}
+  - {gate: Critical agent safety gaps fixed, target: TBC, entry_condition: "Authorization, action limits, and disclosure in place", status: not-started}
+  - {gate: Baseline third-party evaluations done, target: TBC, entry_condition: Evaluations arranged, status: not-started}
+  - {gate: Evidence pack complete, target: TBC, entry_condition: Every in-scope requirement has evidence, status: not-started}
+  - {gate: Audit start, target: TBC, entry_condition: No critical gaps open, status: not-started}
+
+facts: []
+context: []
+issues: []
+actions: []
+open_questions: []
+verify: []
+finding_responses: []
+references: []
+
+version_history:
+  - version: "0.1"
+    date: "{{ date }}"
+    author: {{ prepared_by | tojson }}
+    change: First draft
+
+signoff:
+  - decision: Ready to start the AIUC-1 audit
+    approver_role: Privacy lead and system owner
+    name: null
+    date: null
+    outcome: null

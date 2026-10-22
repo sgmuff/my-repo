@@ -43,7 +43,7 @@ def test_a_time_that_doesnt_exist_is_an_error(root):
 def test_a_processor_notifies_the_controller_first(root):
     def processor(d):
         aware(d)
-        d["datasets"][0]["role"] = "processor"
+        d["datasets"][0]["roles"] = ["processor"]
     incident(root, processor)
     assert any("notifying each controller or owner comes first" in m for m in found(root, "finding"))
 
@@ -51,7 +51,7 @@ def test_a_processor_notifies_the_controller_first(root):
 def test_a_gdpr_controller_needs_authority_and_individual_rows(root):
     def controller(d):
         aware(d, regimes=("gdpr",))
-        d["datasets"][0]["role"] = "controller"
+        d["datasets"][0]["roles"] = ["controller"]
     incident(root, controller)
     findings = found(root, "finding")
     assert any("supervisory authority as its own row" in m for m in findings)
@@ -87,3 +87,18 @@ def test_the_record_warns_while_the_breach_reference_is_only_partly_reviewed(roo
     path = incident(root, lambda d: aware(d))
     render_tree(root)
     assert "counsel has reviewed only part of us-breach-notification.md" in path.with_suffix(".md").read_text()
+
+
+def test_a_contractual_due_date_can_be_the_earliest_deadline(root):
+    row = {"recipient": "Each district", "regime": "District DPA", "required": call(True), "basis": "DPA clause 9: 48 hours",
+           "deadline": "48 hours from discovery", "deadline_kind": "contractual", "due": "2026-10-24T18:00", "owner": "Privacy lead", "status": "drafting"}
+    def contract(d):
+        aware(d, regimes=("ny2d",), states=("NY",))
+        d["datasets"][0]["roles"] = ["school-official", "maintainer"]
+        d["matrix"] = [row]
+    path = incident(root, contract)
+    assert found(root, "error") == []
+    render_tree(root)
+    text = path.with_suffix(".md").read_text()
+    assert "**Earliest deadline:** 2026-10-24 18:00 BST, Contractual: Each district" in text
+    assert "School official, Maintainer" in text and "NY Education Law 2-d" in text

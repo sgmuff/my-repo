@@ -24,14 +24,14 @@ summary: TBC  # 50 words at most
 decision: {value: undetermined, status: Provisional, reason: Facts still being gathered}  # notify | notify-some | no-notice-required | undetermined
 analysis: TBC  # 400 words at most; use |- for paragraphs
 
-datasets:  # role: controller | processor | maintainer | school-official | TBC
-  - {dataset: TBC, elements: TBC, people: TBC, residence: TBC, role: TBC, acquired: {value: TBC, status: Provisional, reason: Not yet known}, encrypted: {value: TBC, status: Provisional, reason: Not yet known}}
+datasets:  # roles: any of controller | processor | maintainer | school-official | TBC
+  - {dataset: TBC, elements: TBC, people: TBC, residence: TBC, roles: [TBC], acquired: {value: TBC, status: Provisional, reason: Not yet known}, encrypted: {value: TBC, status: Provisional, reason: Not yet known}}
 breach: {value: TBC, status: Provisional, reason: Not yet assessed}
 
-matrix: []  # one row per recipient: {recipient, regime, required: {value, status, reason}, basis, deadline, deadline_kind: statutory | contractual | none, owner, status: not-started | drafting | awaiting-approval | sent | delivered | not-required, sent}
+matrix: []  # one row per recipient: {recipient, regime, required: {value, status, reason}, basis, deadline, deadline_kind: statutory | contractual | none, due: YYYY-MM-DD[THH:MM] | immediately, owner, status: not-started | drafting | awaiting-approval | sent | delivered | not-required, sent}
 notices: []  # {recipient, text}: drafts, rendered with DRAFT: not sent
 decisions: []  # the decision log, made by people: {time, decision, by, evidence, rationale}
-containment: []  # owned by security: {measure, status: done-verified | done-unverified | in-progress | not-started, evidence}
+containment: []  # owned by security: {measure, status: done-verified | done-unverified | in-progress | not-started | unknown, evidence}
 closure: {closed: TBC, root_cause: TBC, follow_ons: TBC}
 
 facts: []  # with the time each fact was learned in its source

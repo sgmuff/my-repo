@@ -24,11 +24,11 @@ This skill works the notification side of an incident: who must be told, by when
 
 ### 1. Start the clock, now
 
-Run `gov --version`; if it fails, stop and tell the user to run `skills/install.sh`, and meanwhile give the 72-hour and state deadlines by hand. Run `gov new inc --slug <slug> --title "<what happened>" --date <today>` and record at once: when the company became aware, with the zone and the reasoning ("security confirmed exfiltration at 14:20 ET"); when it started, if known; whether it's ongoing; and every regime and state that could apply. Where facts are missing, include the plausible ones and work to the earliest deadline. `gov clock --aware <time> --tz <zone> --regimes ... --states ...` shows the same clocks before the record exists.
+Run `gov --version`; if it fails, stop and tell the user to run `skills/install.sh`, and meanwhile give the 72-hour and state deadlines by hand. Run `gov new inc --slug <slug> --title "<what happened>" --date <today>` and record at once: when the company became aware, with the zone and the reasoning ("security confirmed exfiltration at 14:20 ET"); when it started, if known; whether it's ongoing; and every regime and state that could apply. Where facts are missing, include the plausible ones and work to the earliest deadline; if nobody knows when the error was noticed, use the earliest possible time and say so in the reasoning. `gov clock --aware <time> --tz <zone> --regimes ... --states ...` shows the same clocks before the record exists.
 
 Every date is a working deadline until the incident commander confirms the awareness time. Each recipient is its own decision with its own deadline, and a statutory deadline is an outer limit, not a target.
 
-The first reply goes within minutes, short: the earliest deadline and what it's for; bring in counsel now (privilege may need communications to run through counsel); check the cyber insurance notice conditions, since late notice can void cover; preserve evidence; don't speculate in writing or send any unreviewed notice, but don't let that delay a required one; name one incident commander; containment runs in parallel, owned by security; and no one contacts an attacker except through counsel and the responders.
+In a live incident, the first reply goes within minutes, before the record is complete; when there's only one reply, lead with it. It's short: the earliest deadline and what it's for; bring in counsel now (privilege may need communications to run through counsel); check the cyber insurance notice conditions, since late notice can void cover; preserve evidence; don't speculate in writing or send any unreviewed notice, but don't let that delay a required one; name one incident commander; containment runs in parallel, owned by security; and no one contacts an attacker except through counsel and the responders.
 
 ### 2. Get the facts
 
@@ -46,7 +46,7 @@ Answer it fully, then check against `references/risk-factors.md` and `us-breach-
 
 ### 4. Record it
 
-Fill in the record from your answer: the data sets, with role, acquisition, and encryption; the breach call; one `matrix` row per recipient (authorities, attorneys general, individuals, controllers, institutions, credit bureaus, insurers, card brands, law enforcement), each with its basis, its deadline from the clock or the contract, and its status; and security's containment measures. Each call stays Provisional; a point that doesn't fit a field goes in `analysis` (400 words at most).
+Fill in the record from your answer: the data sets, with every role the company holds for each (a school official is often a maintainer too), acquisition, and encryption; the breach call; one `matrix` row per recipient (authorities, attorneys general, individuals, controllers, institutions, credit bureaus, insurers, card brands, law enforcement), each with its basis, its deadline from the clock or the contract, and its status. Give every contractual or same-day deadline a `due` (a date, a date and time, or `immediately`) so it counts toward the earliest deadline; and security's containment measures. Each call stays Provisional; a point that doesn't fit a field goes in `analysis` (400 words at most).
 
 ### 5. Draft the notices
 

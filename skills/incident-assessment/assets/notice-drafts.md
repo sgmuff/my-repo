@@ -4,7 +4,8 @@ Draft only the notices the notification matrix requires. Each one starts with "D
 
 **Mark every factual statement's status** in the working draft, and check it again on the day of sending:
 
-- **[Verified]** confirmed by evidence
+- **[Verified]** confirmed by evidence (a `confirmed` fact in the record)
+- **[Reported]** reported by someone with first-hand knowledge but not yet evidenced (a `stated-by-requester` or `stated-by-vendor` fact)
 - **[Estimated]** a reasonable estimate, with its basis recorded
 - **[Pending]** still under investigation
 - **[Planned]** a proposed action, not yet done

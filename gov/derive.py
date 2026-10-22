@@ -269,6 +269,10 @@ def aiia(data: dict) -> dict:
     }
 
 
+REGIME_NAMES = {"gdpr": "GDPR Arts. 33-34", "uk": "UK GDPR Arts. 33-34", "fadp": "FADP Art. 24", "nydfs": "23 NYCRR 500.17",
+                "ny2d": "NY Education Law 2-d", "sec": "SEC Form 8-K Item 1.05", "ftc-glba": "FTC Safeguards Rule (16 CFR 314.4(j))"}
+
+
 def clock_rows(data: dict):
     """(rows, note, error): the statutory clocks from the record's awareness time, as gov clock computes them."""
     import datetime as dt
@@ -281,7 +285,20 @@ def clock_rows(data: dict):
     except ValueError as exc:
         return [], None, str(exc)
     notice = None if is_tbc(data["individual_notice"]) else dt.date.fromisoformat(str(data["individual_notice"]))
-    rows = [{"due": due, "regime": regime, "duty": duty} for _, due, regime, duty in clock.compute(aware, data["regimes"], data["states"], notice)]
+    rows = [{"due": due, "regime": regime, "duty": duty, "key": key} for key, due, regime, duty in clock.compute(aware, data["regimes"], data["states"], notice)]
+    for m in data["matrix"]:
+        due = m.get("due")
+        if not due:
+            continue
+        if due == "immediately":
+            key, text = aware, "Immediately"
+        elif "T" in due:
+            key = dt.datetime.fromisoformat(due).replace(tzinfo=aware.tzinfo); text = key.strftime("%Y-%m-%d %H:%M %Z")
+        else:
+            key = dt.datetime.combine(dt.date.fromisoformat(due), dt.time(23, 59), tzinfo=aware.tzinfo); text = due
+        rows.append({"due": text, "regime": m["deadline_kind"].capitalize() if m["deadline_kind"] != "none" else "Matrix",
+                     "duty": f"{m['recipient']}: {m['basis']}", "key": key})
+    rows.sort(key=lambda r: r["key"])
     return rows, note, None
 
 
@@ -292,6 +309,8 @@ def inc(data: dict) -> dict:
         "clock": rows,
         "clock_note": note,
         "earliest": next((r for r in rows if r["due"] != "no fixed date"), None),
+        "regime_names": [REGIME_NAMES[r] for r in data["regimes"]],
+        "notice_questions": sum(1 for q in data["open_questions"] if q["blocks"] == "notice"),
         "open_rows": sum(1 for m in data["matrix"] if m["status"] not in ("sent", "delivered", "not-required")),
         "launch_blockers": _blockers(data),
         "launch_groups": _blocker_groups(data),

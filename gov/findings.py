@@ -389,7 +389,7 @@ def inc(data: dict) -> list:
         out.append(("awareness/confirmed", "every deadline is a working deadline until the incident commander confirms the awareness time"))
     if is_tbc(data["commander"]):
         out.append(("commander", "name one incident commander who owns the timeline"))
-    roles = {d["role"] for d in data["datasets"]}
+    roles = {r for d in data["datasets"] for r in d["roles"]}
     recipients = " ".join(m["recipient"].lower() for m in data["matrix"])
     if roles & {"processor", "maintainer"} and not re.search(r"controller|customer|owner", recipients):
         out.append(("matrix", "the company is a processor or maintainer for some data; notifying each controller or owner comes first"))

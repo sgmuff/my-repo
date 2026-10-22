@@ -28,6 +28,7 @@ LABELS = {
     "done-verified": "Done and verified",
     "done-unverified": "Done, not verified",
     "in-progress": "In progress",
+    "unknown": "Unknown",
     "provider-and-deployer": "Provider and deployer",
     "not-yet-due": "Not yet due",
     "aiia": "AI impact assessment",

@@ -126,7 +126,7 @@ $defs:
         id: {type: string, pattern: "^Q\\d+$"}
         question: {$ref: "#/$defs/text", x-max-words: 30}
         field: {$ref: "#/$defs/short"}
-        blocks: {enum: [launch, approval, record, none]}
+        blocks: {enum: [launch, approval, record, notice, none]}
         owner: {$ref: "#/$defs/short"}
         needed_by: {$ref: "#/$defs/date_or_tbc"}
   verify:
