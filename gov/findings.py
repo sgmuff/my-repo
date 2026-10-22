@@ -478,10 +478,38 @@ def ais(data: dict) -> list:
     return out
 
 
+INTERVALS = {"daily": 1, "weekly": 1, "monthly": 1, "quarterly": 3, "annual": 12}
+
+
+def ctl(data: dict) -> list:
+    from gov.skeleton import add_months
+    out = []
+    for n, e in enumerate(data["evidence"]):
+        if e["type"] == "policy" and e["shows"] == "operation":
+            out.append((f"evidence/{n}/shows", f"{e['id']}: a policy shows design; a record or a test shows operation"))
+    if data["operating"] == "evidenced" and not any(e["shows"] == "operation" for e in data["evidence"]):
+        out.append(("operating", "the control is marked evidenced, but no evidence item shows it operating"))
+    if data["lifecycle"] == "retired":
+        return out
+    if data["testing"]:
+        latest = max(data["testing"], key=lambda t: t["date"])
+        if str(data["last_tested"]) != str(latest["date"]):
+            out.append(("last_tested", f"the latest test in the testing log is {latest['date']}; last_tested should match it"))
+        if latest["result"] != "pass" and not any(a["status"] == "open" for a in data["actions"]):
+            out.append(("testing", f"the {latest['date']} test found {latest['result']}; add an open action to fix it and retest"))
+    if data["operating"] in ("evidenced", "unverified") and is_tbc(data["next_test"]):
+        out.append(("next_test", "an implemented control needs a next test date; it's an action, not a calendar event"))
+    months = INTERVALS.get(data["frequency"])
+    if months and re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(data["last_tested"])) and not is_tbc(data["next_test"]):
+        if str(data["next_test"]) > add_months(str(data["last_tested"]), months):
+            out.append(("next_test", f"a {data['frequency']} control tested on {data['last_tested']} is due again by {add_months(str(data['last_tested']), months)}"))
+    return out
+
+
 def _residual_confirmed(data: dict) -> bool:
     from gov import derive
     return derive.dpia(data)["confirmed"]
 
 
-FINDINGS = {"ais": _with_issues(ais), "rdy": _with_issues(rdy), "inc": _with_issues(inc), "aiia": _with_issues(aiia), "vr": _with_issues(vr), "dpia": _with_issues(dpia), "scr": _with_issues(scr), "ropa": ropa, "lia": _with_issues(lia), "tia": _with_issues(tia), "tsr": _with_issues(tsr),
+FINDINGS = {"ctl": ctl, "ais": _with_issues(ais), "rdy": _with_issues(rdy), "inc": _with_issues(inc), "aiia": _with_issues(aiia), "vr": _with_issues(vr), "dpia": _with_issues(dpia), "scr": _with_issues(scr), "ropa": ropa, "lia": _with_issues(lia), "tia": _with_issues(tia), "tsr": _with_issues(tsr),
             "aip": _with_issues(aip), "aid": _with_issues(aid)}

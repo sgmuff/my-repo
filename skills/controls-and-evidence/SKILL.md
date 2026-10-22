@@ -1,6 +1,7 @@
 ---
 name: controls-and-evidence
 description: Maintain the company's control library and evidence index, mapped through a common crosswalk to the NIST Privacy Framework, AIUC-1, NIST AI RMF, ISO/IEC 42001, GDPR, the EU AI Act, state laws, and FERPA, so one control tested once satisfies several frameworks. Runs AIUC-1 certification readiness (Statement of Applicability, control and evidence mapping, quarterly third-party testing), prepares audit evidence packs, and builds the schedule of recurring tests and reviews. Use it whenever someone wants to map a control to frameworks, build a control library or crosswalk, find evidence for an audit or customer questionnaire, prepare for AIUC-1 or ISO/IEC 42001 certification, ask which controls cover a requirement, or track recurring testing. Not for program-wide maturity scoring (program-assessment), one processing activity (dpia), or vendors (vendor-review).
+compatibility: Requires the gov command from this repository (skills/install.sh installs it), with Python 3.10+, PyYAML, jsonschema, and Jinja2.
 ---
 
 # Controls and evidence
@@ -20,11 +21,8 @@ It drafts mappings, Statements of Applicability, evidence packs, and gap lists. 
 | [`../_shared/references/aiuc-1.md`](../_shared/references/aiuc-1.md) | AIUC-1 readiness: requirements, capability tags, certification, testing cadence |
 | [`../_shared/references/iso-42001.md`](../_shared/references/iso-42001.md) | ISO/IEC 42001 readiness |
 | [`../_shared/references/risk-method.md`](../_shared/references/risk-method.md) | Control statuses and evidence standards (§1, §3) |
-| [`assets/control-entry-template.md`](assets/control-entry-template.md) | Adding or updating a control |
 | [`assets/readiness-report-template.md`](assets/readiness-report-template.md) | ISO/IEC 42001 readiness or an audit evidence pack (AIUC-1 readiness is a `gov` record) |
 | [`../_shared/scripts/make_checklist.py`](../_shared/scripts/make_checklist.py) | Generating a blank Statement of Applicability |
-| [`../_shared/scripts/new_control.py`](../_shared/scripts/new_control.py) | Creating a control entry with the next free ID |
-| [`../_shared/scripts/build_register_index.py`](../_shared/scripts/build_register_index.py) | After changing controls (`control` type) |
 | `gov schedule` | After changing any test or review date |
 
 ## What the skill does
@@ -44,21 +42,20 @@ Pick the mode from the request:
 
 ### 1. Load context and the library
 
-Read `conventions.md`, the company profile, and `<output root>/registers/controls/index.md` if it exists. Read the crosswalk. Check `aiuc-1.md` for the current release, since a new quarterly release changes requirements.
+Run `gov --version`; if it fails, stop and tell the user to run `skills/install.sh`. Read `conventions.md`, the company profile, and `compliance/registers/controls/index.md` if it exists. Read the crosswalk. Check `aiuc-1.md` for the current release, since a new quarterly release changes requirements.
 
 ### 2. Record controls as what the company does
 
 A control entry describes a specific practice, with an owner, a frequency, and the systems in scope: "The IT lead reviews Okta admin roles quarterly and removes access no longer needed." "We take security seriously" isn't a control.
 
-For each control, record:
+Record each control as a `ctl` record: `gov new ctl --slug <slug> --title "<control>" --date <today>`. Fill in:
 
-- The **objectives** it supports (CCO IDs), with a line on how. Its framework coverage then follows from the crosswalk. List any framework requirement it satisfies only partly.
-- **Design status:** designed, implemented, or not yet in place
-- **Operating status:** implemented and evidenced, implemented but unverified, planned, or absent (`risk-method.md`, §1)
-- **Evidence:** each item with an ID (`EV-NNNN`), type (policy, configuration, record, test result, report, attestation), location (a link, not a copy of confidential material), date, owner, the period it covers, and when it goes stale
-- **Testing:** how the control is tested, how often, when it was last tested, by whom, the result, and the next test date
+- The **objectives** it supports (CCO IDs from the crosswalk), with a line on how and any framework requirement it satisfies only partly. Its framework coverage then renders from `crosswalk.md`.
+- **Design and operating status** (`risk-method.md`, §1): `evidenced` only when an evidence item shows the control operating.
+- **Evidence:** each item with an ID from `gov next-id EV`, listed in one control and cited by ID elsewhere; its type, whether it shows design or operation, a link (never a copy of confidential material), the period it covers, and when it goes stale.
+- **Testing:** each test with its method, scope, tester, result, and exceptions; `last_tested` (or `never`) and the `next_test` date its frequency requires.
 
-Create each entry with `python3 ../_shared/scripts/new_control.py <output root>/registers/controls --title "…" --objectives CCO-nn [CCO-nn…] --owner "…"`, which assigns the next ID and fills the template, then complete it. Rebuild the index with `python3 ../_shared/scripts/build_register_index.py <output root>/registers/controls control`.
+Run `gov validate` and `gov render`, which rebuilds the library index.
 
 When building from documents (a SOC 2 report, policies, an ISO Statement of Applicability), propose the control list first and get it confirmed, then draft. If nobody can confirm it now, draft the entries as Draft and ask for confirmation in the reply. Record each control's source. A SOC 2 control description is evidence of design. Its test results are evidence of operation for the report period only.
 

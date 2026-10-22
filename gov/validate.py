@@ -77,6 +77,7 @@ def validate_tree(root: Path, as_of: str | None = None) -> list:
         records.append(rec)
         problems.extend(validate_record(root, rec, as_of))
     problems.extend(_tree_checks(root, records))
+    problems.extend(_evidence_ids(root, records))
     problems.extend(_profile_checks(root, records))
     problems.extend(Problem(str(references.INDEX), "error", m) for m in references.index_problems(root))
     return sorted(set(problems))
@@ -106,6 +107,8 @@ def validate_record(root: Path, rec: Record, as_of: str | None = None) -> list:
     problems.extend(_structure(where, rec.data))
     if rec.data.get("type") == "rdy":
         problems.extend(_readiness(root, where, rec.data))
+    if rec.data.get("type") == "ctl":
+        problems.extend(_objectives(root, where, rec.data))
     problems.extend(_gates(where, rec.data))
     problems.extend(_law_citations(where, rec.data))
     problems.extend(_issue_ids(where, rec.data))
@@ -205,6 +208,43 @@ AI_ACT_REQUIRED = {
     },
     "aid": {"deployer": ["art4", "art26-1", "art26-2", "art26-4", "art26-5", "art26-6", "art26-7", "art26-9", "art26-11", "art50", "art86"]},
 }
+
+
+def _objectives(root: Path, where: str, data: dict) -> list:
+    """Each objective must be one of the common control objectives in crosswalk.md."""
+    from gov import crosswalk
+    known = crosswalk.objectives(root)
+    if not known:
+        return [Problem(where, "error", f"objectives: can't read the control objectives from {crosswalk.REFERENCE}")]
+    return [Problem(where, "error", f"objectives/{n}: {o['cco']} isn't an objective in {crosswalk.REFERENCE.name}")
+            for n, o in enumerate(data["objectives"]) if o["cco"] not in known]
+
+
+def _evidence_ids(root: Path, records: list) -> list:
+    """Evidence IDs live in control records: each issued by gov next-id, listed once, and every reference to one resolves."""
+    problems, defined = [], {}
+    counters = ids.read_counters(root)
+    for rec in records:
+        if rec.type != "ctl" or not isinstance(rec.data.get("evidence"), list):
+            continue
+        where = _rel(root, rec.path)
+        for e in rec.data["evidence"]:
+            ev = e.get("id", "")
+            if ev in defined:
+                problems.append(Problem(where, "error", f"evidence {ev} is also listed in {defined[ev]}; list each item once and cite it elsewhere"))
+                continue
+            defined[ev] = where
+            parsed = ids.parse_id(ev)
+            if parsed and parsed[2] > counters.get(ids.counter_key("EV", None), 0):
+                problems.append(Problem(where, "error", f"{ev} is above the counter; allocate evidence IDs with `gov next-id EV`"))
+    if not any(rec.type == "ctl" for rec in records):
+        return problems
+    for rec in records:
+        refs = set(re.findall(r"\bEV-\d{4}\b", _all_text(rec.data)))
+        own = {e.get("id") for e in rec.data.get("evidence", [])} if rec.type == "ctl" else set()
+        problems += [Problem(_rel(root, rec.path), "error", f"refers to {ev}, which no control record lists")
+                     for ev in sorted(refs - own - set(defined))]
+    return problems
 
 
 def _readiness(root: Path, where: str, data: dict) -> list:

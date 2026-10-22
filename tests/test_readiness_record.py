@@ -42,6 +42,8 @@ def test_a_complete_soa_renders_with_titles(root):
         d["soa"] = complete_soa(root, d["capabilities"])
         for t in d["testing"]:
             t.update(next_due="2027-01-15", control="CTL-0002")
+    for slug in ("access-review", "third-party-tests"):
+        new_record(root, "ctl", slug, slug.replace("-", " ").capitalize(), "2026-10-22", "Claude")
     path = report(root, complete)
     assert found(root, "error") == []
     assert not any("need a row" in m or "third-party testing" in m for m in found(root, "finding"))

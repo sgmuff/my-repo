@@ -206,7 +206,7 @@ Don't present a future obligation as one already in force. Readiness blockers ca
 
 Deliverables are files in the repository, under the output root from the company profile (default `compliance/`). Keep this layout so other skills, and any publishing target the company profile names, can find things by path.
 
-**Records managed by `gov`** are YAML files, and `gov render` writes their Markdown. Never write or edit those `.md` files by hand; edit the YAML and re-render. CI fails on a hand edit. `gov` manages the RoPA, DPIA screenings (`scr`), DPIAs (`dpia`), LIAs, TIAs, transfer screens (`tsr`), and AI Act provider and deployer files (`aip`, `aid`), vendor reviews (`vr`), AI impact assessments and FRIAs (`aiia`), incidents (`inc`), AIUC-1 readiness reports (`rdy`), and the AI inventory (`ais`); `gov/rules/ids.yaml` lists each type's folder. Other deliverables move to `gov` one type at a time; until then they stay Markdown written from their templates, in a folder `gov` doesn't manage.
+**Records managed by `gov`** are YAML files, and `gov render` writes their Markdown. Never write or edit those `.md` files by hand; edit the YAML and re-render. CI fails on a hand edit. `gov` manages the RoPA, DPIA screenings (`scr`), DPIAs (`dpia`), LIAs, TIAs, transfer screens (`tsr`), and AI Act provider and deployer files (`aip`, `aid`), vendor reviews (`vr`), AI impact assessments and FRIAs (`aiia`), incidents (`inc`), AIUC-1 readiness reports (`rdy`), the AI inventory (`ais`), and the control library (`ctl`, with evidence items inside each control); `gov/rules/ids.yaml` lists each type's folder. Other deliverables move to `gov` one type at a time; until then they stay Markdown written from their templates, in a folder `gov` doesn't manage.
 
 ```
 compliance/
@@ -224,7 +224,7 @@ compliance/
     ropa/              ROPA-NNNN-<slug>.yaml (record) and .md (generated), plus index.md (generated)
     ai-inventory/      AIS-NNNN-<slug>.yaml and .md, plus index.md (generated)
     risk-register.md
-    controls/          CTL-NNNN-<slug>.md, plus index.md (control library and evidence)
+    controls/          CTL-NNNN-<slug>.yaml and .md, plus index.md (generated): the control library, with evidence
   dsr/YYYY/            YYYY-MM-DD-<request-id>.md
   incidents/          INC-YYYY-NNN-<slug>.yaml and .md, plus index.md (generated)
     notices/          INC-YYYY-NNN-<slug>-notices.md (generated notice drafts)

@@ -13,6 +13,33 @@ from gov.records import load, record_files
 from gov.validate import Problem, _rel, validate_tree
 
 LABELS = {
+    "in-use": "In use",
+    "designed": "Designed",
+    "implemented": "Implemented",
+    "not-in-place": "Not yet in place",
+    "evidenced": "Implemented and evidenced",
+    "unverified": "Implemented but unverified",
+    "absent": "Absent",
+    "continuous": "Continuous",
+    "daily": "Daily",
+    "weekly": "Weekly",
+    "monthly": "Monthly",
+    "quarterly": "Quarterly",
+    "annual": "Annual",
+    "per-event": "Per event",
+    "full": "Full",
+    "test-result": "Test result",
+    "report": "Report",
+    "attestation": "Attestation",
+    "design": "Design",
+    "operation": "Operation",
+    "inspection": "Inspection",
+    "sample": "Sample",
+    "re-performance": "Re-performance",
+    "third-party-evaluation": "Third-party evaluation",
+    "pass": "Pass",
+    "exceptions": "Exceptions",
+    "fail": "Fail",
     "system": "AI system",
     "vendor-model": "Built on a vendor model",
     "vendor-product": "Vendor product",
@@ -415,6 +442,9 @@ def render_record(rec, root=None) -> str:
     from gov import references
     extra = {"findings": finding_rows(rec, root), "method": method, "ref_notes": references.notes(root, rec.data),
              "issue_rows": issues.rows(rec.data) if rec.type != "ropa" else []}
+    if rec.type == "ctl":
+        from gov import crosswalk
+        extra["crosswalk"] = crosswalk.objectives(root)
     if rec.type == "rdy":
         from gov import aiuc
         extra["aiuc"] = aiuc.requirements(root)

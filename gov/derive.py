@@ -380,4 +380,12 @@ def ais(data: dict) -> dict:
     }
 
 
-DERIVE = {"ais": ais, "rdy": rdy, "inc": inc, "aiia": aiia, "vr": vr, "dpia": dpia, "ropa": ropa, "lia": lia, "tia": tia, "tsr": tsr, "aip": ai_act, "aid": ai_act, "scr": scr}
+def ctl(data: dict) -> dict:
+    return {
+        "objectives": [o["cco"] for o in data["objectives"]],
+        "operation_evidence": sum(1 for e in data["evidence"] if e["shows"] == "operation"),
+        "approval_questions": sum(1 for q in data["open_questions"] if q["blocks"] == "approval"),
+    }
+
+
+DERIVE = {"ctl": ctl, "ais": ais, "rdy": rdy, "inc": inc, "aiia": aiia, "vr": vr, "dpia": dpia, "ropa": ropa, "lia": lia, "tia": tia, "tsr": tsr, "aip": ai_act, "aid": ai_act, "scr": scr}
