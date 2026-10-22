@@ -270,7 +270,8 @@ def render_record(rec, root=None) -> str:
     method = _methods().get(rec.type, {}).get(rec.data.get("kind"))
     if isinstance(method, dict):
         method = method.get((rec.data.get("regimes") or ["eu-gdpr"])[0])
-    extra = {"findings": finding_rows(rec, root), "method": method,
+    from gov import references
+    extra = {"findings": finding_rows(rec, root), "method": method, "ref_notes": references.notes(root, rec.data),
              "issue_rows": issues.rows(rec.data) if rec.type != "ropa" else []}
     if rec.type == "ropa":
         extra.update(vendors=derive.vendor_slugs(rec.data), required=required_rows(root, rec.data))

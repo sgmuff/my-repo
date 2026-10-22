@@ -239,7 +239,7 @@ None.
 ### References and tags
 
 {% for ref in r.references %}
-- `{{ ref.file }}`: {{ ref.version }}, verified {{ ref.verified }}
+- `{{ ref.file }}`: {{ ref.version }}, verified {{ ref.verified }}{{ " (" ~ ref_notes[ref.file] ~ ")" if ref.file in ref_notes else "" }}
 {% else %}
 - No references cited.
 {% endfor %}

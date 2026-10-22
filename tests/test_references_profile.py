@@ -24,8 +24,35 @@ def edit(root, change):
 
 
 def test_the_index_gives_each_files_dates(root):
-    gdpr = references.index(root)["gdpr.md"]
-    assert gdpr == {"verified": "2026-10-16", "review_by": "2027-01-16"}
+    known = references.index(root)
+    assert known["gdpr.md"] == {"verified": "2026-10-16", "review_by": "2027-01-16", "secondary": False, "unreviewed": False}
+    assert known["hipaa.md"]["secondary"] and not known["hipaa.md"]["unreviewed"]
+    assert known["us-breach-notification.md"]["unreviewed"]
+
+
+def test_the_index_accounts_for_every_shared_file(root):
+    files = {p.name for p in (root / references.FOLDER).glob("*.md") if p.name != "README.md"}
+    assert set(references.index(root)) == files and len(files) >= 18
+    assert references.index_problems(root) == []
+
+
+def test_a_broken_index_fails_closed(assess_root):
+    index = assess_root / references.INDEX
+    index.write_text(index.read_text().replace("| `gdpr.md` |", "| gdpr.md |"))
+    assert any("gdpr.md isn't in the reference index" in m for m in found(assess_root, "error"))
+    index.write_text("# Reference files\n\nThe table moved.\n")
+    assert len([m for m in found(assess_root, "error") if "isn't in the reference index" in m]) >= 18
+
+
+def test_an_unreviewed_reference_is_a_finding_and_its_caveat_renders(assess_root):
+    path = edit(assess_root, lambda d: d.update(references=[
+        {"file": "us-breach-notification.md", "version": "As of 2026-10-16", "verified": "2026-10-16"},
+        {"file": "hipaa.md", "version": "Rules through 2013", "verified": "2026-10-18"}]))
+    assert any("us-breach-notification.md hasn't been reviewed by counsel" in m for m in found(assess_root, "finding"))
+    assert render_tree(assess_root).problems == []
+    text = path.with_suffix(".md").read_text()
+    assert "verified 2026-10-16 (not yet reviewed by counsel)" in text
+    assert "verified 2026-10-18 (checked against secondary sources only)" in text
 
 
 def test_a_current_reference_raises_nothing(assess_root):

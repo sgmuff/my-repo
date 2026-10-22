@@ -78,6 +78,7 @@ def validate_tree(root: Path, as_of: str | None = None) -> list:
         problems.extend(validate_record(root, rec, as_of))
     problems.extend(_tree_checks(root, records))
     problems.extend(_profile_checks(root, records))
+    problems.extend(Problem(str(references.INDEX), "error", m) for m in references.index_problems(root))
     return sorted(set(problems))
 
 
