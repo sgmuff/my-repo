@@ -27,7 +27,7 @@ Say this plainly at the top of the pack. The company's own risk assessment doesn
 - **Round 1 includes performance evidence.** Customers will rely on the pack's performance claims, so ask for accuracy, false positive, and subgroup test results in Round 1, not Round 2.
 - **Where it goes:** reserve an ID with `gov next-id PA --year <YYYY>` and save the pack as `compliance/assessments/dpia/assistance-packs/PA-YYYY-NNN-<slug>.md`, from `assets/dpia-template.md` with `type: dpia-assistance-pack`. It's Markdown, and `gov` doesn't manage that folder; don't put it beside the `dpia` records, where `gov validate` rejects Markdown with no record.
 - **A live service:** if customers already use it, raise what applies now as immediate actions in the pack, ahead of the release gate: any possible Art. 5 prohibition, and any use of customer data for the company's own purposes, such as model training (which makes the company a controller for that use).
-- **The company's own risk:** the vendor residual rating is the company's, and `approvals.md` routes it like any residual risk. The release gate below is a separate approval.
+- **The company's own risk:** the vendor residual rating is the company's, and `approvals.md` routes it like any residual risk. The release gate below is a separate approval (counsel, 2026-10-22).
 - **Release gate:** the customer-facing version needs the privacy lead's approval and a defined minimum evidence set: the facts in the pack confirmed, any possible prohibition resolved, and the key performance claims tested. Release is an external communication (`approvals.md`).
 
 ## Related controller processing

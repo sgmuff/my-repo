@@ -1,7 +1,7 @@
 # Phase 4: the DPIA in the record format
 
 Status: in progress, 2026-10-21. Slices 1 (`gov screen`), 2 (the `scr` screening record), and 3 (the `dpia` record) are built and tested, and the skill is rewritten answer-first (slice 4);
-the screening findings and indicator rules are drafts until counsel decides the items marked **Counsel**.
+counsel decided the open design questions on 2026-10-22 (below).
 
 ## Why
 
@@ -36,15 +36,17 @@ the company's own decision.
 
 ## Decisions
 
-| # | Question | Proposal | Owner |
-|---|---|---|---|
-| 1 | Which RoPA facts suggest which EDPB criteria in `gov screen` | See the draft table below | **Counsel** |
-| 2 | Whether `gov screen` should count criteria ("2 or more") | Report the count, never a conclusion from it; WP248 says two or more "in most cases" | **Counsel** |
-| 3 | National Art. 35(4) lists | A list per authority in a reference file, starting with the lead authority in the company profile; until a list is verified, the row is Unclear with a verify flag | **Counsel** |
-| 4 | DPIA word budget | Warn at 1,500 words, as the plan assumes | Privacy lead |
-| 5 | Existing Markdown DPIAs | Leave them; new and updated DPIAs use the record. No migration script | Privacy lead |
+| # | Question | Decision (counsel, 2026-10-22) |
+|---|---|---|
+| 1 | Which RoPA facts suggest which EDPB criteria in `gov screen` | The table below, as drafted |
+| 2 | Whether `gov screen` should count criteria | Count, never conclude; quote WP248's "two or more in most cases, not always" |
+| 3 | National Art. 35(4) lists | A reference file per authority, starting with the lead authority in the company profile; until a list is checked, the row is Unclear with a verify flag |
+| 4 | A fourth outcome for "not legally required, but high risk" | No: keep warranted, recommended, and not indicated, and explain in `analysis` |
+| 5 | Issue rules for `scr` and `dpia` | Claude drafts them, marked DRAFT, for counsel's approval |
+| 6 | A processor assistance pack's own residual risk | Approved like any residual risk under `approvals.md`, separately from the release gate |
+| — | DPIA word budget; existing Markdown DPIAs | Warn at 1,500 words; leave old files as they are (privacy lead, as proposed) |
 
-### Draft indicator rules for `gov screen` (decision 1)
+### Indicator rules for `gov screen` (decision 1, approved)
 
 | EDPB criterion (WP248) | Raised by, in the RoPA record |
 |---|---|

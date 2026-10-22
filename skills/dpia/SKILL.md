@@ -51,7 +51,8 @@ Answer it fully before you open a template, then check your answer against `refe
 
 - Where the data subjects live doesn't settle whether the GDPR applies; check establishment and targeting first (`gdpr.md`, §1a).
 - The EDPB criteria are indicators, not triggers: two or more need a DPIA in most cases, not always, and one severe criterion can be enough. Say which facts behind each are confirmed.
-- Check the lead authority's Art. 35(4) list, not only the criteria.
+- Check the lead authority's Art. 35(4) list, not only the criteria. Until that list has been checked against its source, record the national-list row as `unclear` with a verify flag.
+- Use the three outcomes as they are. Where no Art. 35 duty applies but the risk is high (a US-only activity, say), choose warranted or recommended and say why in `analysis`.
 - A US state assessment can be owed when the GDPR outcome is "not indicated."
 - For an AI system, screen Art. 5 prohibitions now, since they already apply, and name any separate AI impact assessment or FRIA (`ai-impact-assessment`).
 
