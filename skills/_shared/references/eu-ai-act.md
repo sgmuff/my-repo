@@ -180,7 +180,7 @@ Points 3 and 4 are the usual hits for an education or SaaS company. An AI featur
 
 ## 7. Deployer obligations and the FRIA
 
-These apply to Annex III systems from December 2, 2027.
+These apply to Annex III systems from December 2, 2027. For a public authority's system already in service before that date, see the Art. 111(2) transition in §2.
 
 **Deployer duties (Art. 26):**
 
@@ -190,6 +190,7 @@ These apply to Annex III systems from December 2, 2027.
 - (5) Monitor operation; on risk, inform the provider and the market surveillance authority and suspend use; report serious incidents
 - (6) Keep the logs under its control for at least 6 months
 - (7) **Before using a high-risk system in the workplace, inform workers' representatives and the affected workers**
+- (8) **Public authorities** (and EU institutions) that deploy an Annex III system register their use in the EU database before first use (Art. 49(3)), and must not use a system that isn't registered there
 - (9) Use the provider's Art. 13 information to carry out a DPIA under GDPR Art. 35 where one is required
 - (11) Inform natural persons that they are subject to a high-risk Annex III system that makes or assists decisions about them
 

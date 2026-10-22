@@ -85,6 +85,8 @@ Label each launch blocker Legal (applies on the launch date) or Readiness (an in
 
 Use the AI risk catalog (`risk-method.md`, §2a) and the three ratings (inherent, current residual, target residual), adding reach, reversibility, and autonomy to severity. Rate harms to groups and society as well as to individuals. The conclusion states the launch gate (`conventions.md`, §7).
 
+**AIUC-1 for systems that aren't agents.** Cite an AIUC-1 requirement only where its capability tags fit the system (`aiuc-1.md`, §3). For a classic scoring or classification model, many Safety and Society requirements are tagged for generation or automation; mark them not applicable rather than citing them, and lean on NIST AI RMF and ISO/IEC 42001 for those domains.
+
 ## FRIA (AI Act Art. 27)
 
 Record the FRIA determination with its reasoning: whether the deployer falls within Art. 27's categories, and why. Record separately whether a GDPR DPIA is required and who owns it, and any worker consultation duties. "No FRIA" never means "no impact assessment needed."

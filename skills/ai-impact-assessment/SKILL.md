@@ -24,7 +24,7 @@ This skill assesses what an AI system does to the people it touches and whether 
 
 ### 1. Check the tool, the intake, and the scope
 
-Run `gov --version`; if it fails, stop and tell the user to run `skills/install.sh`. Find the system's inventory entry under `compliance/registers/ai-inventory/`, and any DPIA, vendor review, or earlier assessment. Without an inventory entry, run `ai-intake` first, or record the tier as TBC with an action. If the system is live, ask what it has already done; containment comes first.
+Run `gov --version`; if it fails, stop and tell the user to run `skills/install.sh`. Find the system's inventory entry under `compliance/registers/ai-inventory/`, and any DPIA, vendor review, or earlier assessment. Without an inventory entry, run `ai-intake` first if the user can answer its questions; otherwise record the tier as TBC with an action to run it. If the system is live, ask what it has already done; containment comes first.
 
 Set the scope: the system, the uses assessed, and the deployment context. Re-check any Art. 5 prohibition against the documented function now, since prohibitions already apply. Decide whether a FRIA is in play: the company as a deployer that owes one under Art. 27(1), or as a provider whose customers may owe one (an input pack).
 
@@ -43,7 +43,7 @@ Answer it fully, then check each domain against `references/assessment-guide.md`
 
 ### 4. Record it
 
-Run `gov new aiia --slug <slug> --title "<system and use>" --date <today>`, set `kind`, and fill in the record from your answer: each domain's position, evidence, and citations (AIUC-1 ID with release, AI Act article, NIST AI RMF subcategory, ISO/IEC 42001 control); risks with likelihood and severity at three points, which `gov` rates; and the fact register. For a FRIA or input pack, start a second record, set `domains: []`, fill in `fria`, and link the assessment in `related.aiia`. Each call stays Provisional; a point that doesn't fit a field goes in `analysis` (400 words at most).
+Run `gov new aiia --slug <slug> --title "<system and use>" --date <today>`, set `kind`, and fill in the record from your answer: each domain's position, evidence, and citations (AIUC-1 ID with release, AI Act article, NIST AI RMF subcategory, ISO/IEC 42001 control); risks with likelihood and severity at three points, which `gov` rates; and the fact register. For a FRIA or input pack, start a second record, set `domains: []`, fill in `fria`, cite the assessment's risks as `AIIA-YYYY-NNN/R3` rather than copying them, and link the two records both ways (`related.aiia` in the FRIA, `related.fria` in the assessment). Each call stays Provisional; a point that doesn't fit a field goes in `analysis` (400 words at most).
 
 ### 5. Validate, render, and reply
 

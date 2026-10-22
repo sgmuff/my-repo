@@ -81,3 +81,34 @@ def test_an_input_pack_renders_as_a_draft_for_customers(root):
     render_tree(root)
     text = path.with_suffix(".md").read_text()
     assert "DRAFT: not sent." in text and "the deployer's determination" in text
+
+
+def test_section_sign_citations_count_as_law(root):
+    from gov.validate import PROVISION
+    for scope in ("NYC Admin. Code § 20-871", "42 U.S.C. § 12112(b)", "Cal. Civ. Code §§ 1798.100", "GDPR Art. 35(1)"):
+        assert PROVISION.search(scope), scope
+    assert not PROVISION.search("our internal policy")
+
+
+def test_an_action_naming_the_inventory_entry_answers_the_system_finding(root):
+    action = {"id": "A1", "action": "Create AIS-0001 for TalentRank", "owner": "Privacy lead", "due": "TBC",
+              "closure_evidence": "Entry exists", "launch_blocking": False, "status": "open"}
+    assessment(root, lambda d: d.update(actions=[action]))
+    assert not any("link the AI inventory entry" in m for m in found(root, "finding"))
+
+
+def test_a_fria_can_cite_the_assessments_risk_rows(root):
+    def pair(d):
+        d.update(kind="fria", domains=[], fria=dict(FRIA, rights_risks=[dict(FRIA["rights_risks"][0], risk_id="AIIA-2026-001/R1")]))
+    assessment(root, pair)
+    assert not any("doesn't exist in this record" in m for m in found(root, "finding"))
+
+
+def test_the_company_role_is_a_call_and_renders_without_a_gdpr_label(root):
+    def role(d):
+        d["ai_act"]["company_role"] = {"value": "provider-and-deployer", "status": "Provisional", "reason": "Rebranded under Art. 25(1)(a)"}
+    path = assessment(root, role)
+    assert found(root, "error") == []
+    render_tree(root)
+    text = path.with_suffix(".md").read_text()
+    assert "company role Provider and deployer" in text and "Controller and processor" not in text

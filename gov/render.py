@@ -13,6 +13,8 @@ from gov.records import load, record_files
 from gov.validate import Problem, _rel, validate_tree
 
 LABELS = {
+    "provider-and-deployer": "Provider and deployer",
+    "not-yet-due": "Not yet due",
     "aiia": "AI impact assessment",
     "fria": "Fundamental rights impact assessment",
     "fria-input-pack": "FRIA input pack",

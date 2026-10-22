@@ -198,12 +198,12 @@ issues:
     label: Public-authority transition
     ask: "How Art. 111(2) applies: whether the system was placed on the market or put into service before 2 December 2027 (then caught only by a significant design change), and the 2 August 2030 longstop for systems intended for public authorities; not a blanket deferral"
     cite: "AI Act Arts. 111(2), 113, as amended by Regulation (EU) 2026/1744"
-    when: {types: [aip, aid], context: [public-body]}
+    when: {types: [aip, aid, aiia], context: [public-body]}
   ai-fria-public:
     label: FRIA for public bodies
     ask: "A public-law body or public service provider owes a FRIA before first use, except for Annex III point 2 systems"
     cite: "AI Act Art. 27(1)"
-    when: {types: [aid], context: [public-body]}
+    when: {types: [aid, aiia], context: [public-body]}
 
   # Transfer screens
   certification-scope:

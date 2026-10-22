@@ -336,7 +336,7 @@ def vr(data: dict) -> list:
             out.append((f"transfers/{n}/link", f"{t['flow']} relies on {t['mechanism']}; link the TIA, or add an action to run tia"))
         elif t["mechanism"] in SCREEN_ROUTES and not str(t["link"]).startswith(("TSR-", "TIA-")) and not _open_action(data, r"\bTSR\b|transfer screen"):
             out.append((f"transfers/{n}/link", f"{t['flow']} relies on {t['mechanism']}; link the transfer screen (TSR), or add an action to run tia"))
-        elif t["mechanism"] == "TBC" and not _open_action(data, r"transfer|\\bTIA\\b|\\bTSR\\b|mechanism"):
+        elif t["mechanism"] == "TBC" and not _open_action(data, r"transfer|\bTIA\b|\bTSR\b|mechanism"):
             out.append((f"transfers/{n}/mechanism", f"{t['flow']}: the transfer mechanism isn't known yet; add an action to establish it"))
     if data["depth"]["value"] == "deep" and data["security"]["covers_service"]["value"] is not True and decision in ("approve", "approve-with-conditions"):
         out.append(("security", "a deep review recommends approval without a security report shown to cover the service"))
@@ -366,7 +366,7 @@ def aiia(data: dict) -> list:
         if not fr["rights_risks"]:
             out.append(("fria/rights_risks", "Art. 27(1)(d) needs the specific risks of harm to the people and groups affected"))
         for n, k in enumerate(fr["rights_risks"]):
-            if k["risk_id"] not in ids and k["risk_id"] != "none":
+            if k["risk_id"] not in ids and k["risk_id"] != "none" and not re.fullmatch(r"AIIA-\d{4}-\d{3}/R\d+", k["risk_id"]):
                 out.append((f"fria/rights_risks/{n}/risk_id", f"{k['right']}: risk row {k['risk_id']} doesn't exist in this record"))
         if data["kind"] == "fria" and fr["notification"] in ("TBC", "not-required") and decision in ("proceed", "proceed-with-conditions"):
             out.append(("fria/notification", "a deployer notifies the market surveillance authority of the FRIA's results (Art. 27(3)) unless an exemption applies; record which"))
@@ -375,7 +375,7 @@ def aiia(data: dict) -> list:
     if risk.overall(data["risks"], "current") == "High" and decision == "proceed":
         out.append(("decision", "the current residual rating is High, but the decision is to proceed without conditions"))
     out += _risk_levels(data["risks"])
-    if is_tbc(data["system"]) and not _open_action(data, r"inventory|ai-intake|\\bAIS\\b"):
+    if is_tbc(data["system"]) and not _open_action(data, r"inventory|ai-intake|\bAIS\b"):
         out.append(("system", "link the AI inventory entry, or add an action to run ai-intake"))
     return out
 

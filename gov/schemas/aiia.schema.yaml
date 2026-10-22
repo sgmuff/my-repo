@@ -20,11 +20,12 @@ properties:
   related:
     type: object
     additionalProperties: false
-    required: [dpia, vendor_review, aiia]
+    required: [dpia, vendor_review, aiia, fria]
     properties:
       dpia: {type: string, description: "DPIA-YYYY-NNN, or none"}
       vendor_review: {type: string, description: "VR-YYYY-NNN, or none"}
-      aiia: {type: string, description: "For a FRIA, the AI impact assessment it draws on, or none"}
+      aiia: {type: string, description: "For a FRIA or input pack, the AI impact assessment it draws on, or none"}
+      fria: {type: string, description: "For an assessment, its FRIA or input pack record, or none"}
   business_owner: {$ref: "common.schema.yaml#/$defs/short"}
   system_owner: {$ref: "common.schema.yaml#/$defs/short"}
   prepared_by: {$ref: "common.schema.yaml#/$defs/short"}
@@ -44,7 +45,11 @@ properties:
     additionalProperties: false
     required: [company_role, classification, prohibited]
     properties:
-      company_role: {enum: [provider, deployer, both, not-applicable, TBC]}
+      company_role:
+        description: "The company's EU AI Act role for this use, Provisional until confirmed"
+        $ref: "common.schema.yaml#/$defs/call"
+        properties:
+          value: {enum: [provider, deployer, provider-and-deployer, not-applicable, TBC]}
       classification: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 25, description: "Prohibited, high-risk (with the Annex point), transparency only, or minimal, by documented function"}
       prohibited: {$ref: "common.schema.yaml#/$defs/call_tristate", description: "Could the documented function be an Art. 5 prohibited practice?"}
   domains:
@@ -58,7 +63,7 @@ properties:
         domain: {enum: [fairness, transparency, human-oversight, data-provenance, reliability, safety, security, accountability, society]}
         position: {enum: [adequate, gap, not-met, not-applicable, TBC]}
         evidence: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 40, description: "What the evidence shows, or why the domain doesn't apply"}
-        citations: {$ref: "common.schema.yaml#/$defs/short", description: "AIUC-1 IDs with the release, AI Act articles, NIST AI RMF subcategories, ISO/IEC 42001 controls"}
+        citations: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 30, description: "AIUC-1 IDs with the release, AI Act articles, NIST AI RMF subcategories, ISO/IEC 42001 controls"}
   risks: {$ref: "common.schema.yaml#/$defs/risks"}
   fria:
     description: "For kinds fria and fria-input-pack: AI Act Art. 27(1)(a)-(f). For kind aiia, applicable: false."
@@ -82,11 +87,11 @@ properties:
             right: {$ref: "common.schema.yaml#/$defs/short", description: "Such as non-discrimination, privacy, good administration, effective remedy"}
             risk: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 30}
             who: {$ref: "common.schema.yaml#/$defs/short"}
-            risk_id: {type: string, description: "The risk row it draws on, R1, or none"}
+            risk_id: {type: string, description: "The risk row it draws on: R1 in this record, AIIA-YYYY-NNN/R1 in the assessment, or none"}
       oversight: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 40, description: "(e) Human oversight measures, following the provider's instructions for use"}
       remedies: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 40, description: "(f) Measures if the risks materialize: governance, complaints, remedies"}
       dpia_overlap: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 30, description: "What the DPIA already covers (Art. 27(4))"}
-      notification: {enum: [drafted, sent, not-required, TBC], description: "Notice of the results to the market surveillance authority (Art. 27(3))"}
+      notification: {enum: [not-yet-due, drafted, sent, not-required, TBC], description: "Notice of the results to the market surveillance authority (Art. 27(3))"}
   facts: {$ref: "common.schema.yaml#/$defs/facts"}
   context: {$ref: "common.schema.yaml#/$defs/context"}
   issues: {$ref: "common.schema.yaml#/$defs/issues"}

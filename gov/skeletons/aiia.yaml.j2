@@ -9,7 +9,7 @@ title: {{ title | tojson }}
 status: Draft
 version: "0.1"
 system: TBC  # the AI inventory entry, AIS-NNNN
-related: {dpia: none, vendor_review: none, aiia: none}
+related: {dpia: none, vendor_review: none, aiia: none, fria: none}  # aiia: the assessment a FRIA draws on; fria: an assessment's FRIA
 business_owner: TBC
 system_owner: TBC
 prepared_by: {{ prepared_by | tojson }}
@@ -21,7 +21,7 @@ decision: {value: open, status: Provisional, reason: Evidence not yet reviewed} 
 analysis: TBC  # 400 words at most
 tier: TBC  # 1 | 2 | TBC, from ai-intake
 ai_act:
-  company_role: TBC  # provider | deployer | both | not-applicable | TBC
+  company_role: {value: TBC, status: Provisional, reason: Not yet assessed}  # provider | deployer | provider-and-deployer | not-applicable | TBC
   classification: TBC  # by documented function, with the Annex point
   prohibited: {value: TBC, status: Provisional, reason: Documented function not yet checked against Art. 5}
 
