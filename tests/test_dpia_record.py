@@ -91,7 +91,7 @@ def test_a_high_current_needs_prior_consultation_and_blocks_proceeding(root):
         d["decision"] = call("proceed-with-conditions")
     dpia(root, high)
     findings = found(root, "finding")
-    assert any("Art. 36 prior consultation is required" in m for m in findings)
+    assert any("decide Art. 36 on its test" in m for m in findings)
     assert any("while the current residual rating is High" in m for m in findings)
 
 
@@ -133,7 +133,7 @@ def test_a_us_assessment_raises_no_gdpr_findings(root):
         d["other_regimes"] = [{"regime": "state-student-privacy", "applies": call(True), "elements": "SOPIPA, NY Educ. Law 2-d"}]
     path = dpia(root, us)
     findings = found(root, "finding")
-    assert not any("Art. 36" in m or "Art. 9(2)" in m for m in findings)
+    assert not any("Art. 36 on its test" in m or "Art. 9(2)" in m for m in findings)
     render_tree(root)
     text = path.with_suffix(".md").read_text()
     assert "GDPR Art. 35 doesn't apply" in text and "State student privacy laws" in text

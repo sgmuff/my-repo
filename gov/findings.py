@@ -268,9 +268,9 @@ def dpia(data: dict) -> list:
         if risk.lower(risk.rate(k["target"]), risk.rate(k["current"])) and not statuses & {"planned", "unverified", "verified"}:
             out.append((f"risks/{n}/target", f"{k['id']}: the target rating is below the current one, but no measure is planned"))
     if current == "High" and data["kind"] == "controller" and data["consultation"]["prior_consultation"]["value"] is not True:
-        out.append(("consultation/prior_consultation", "the current residual rating is High, so Art. 36 prior consultation is required unless verified measures bring it down"))
+        out.append(("consultation/prior_consultation", "the current residual rating is High; decide Art. 36 on its test (whether the DPIA shows a high risk the controller's measures don't mitigate) and record the call with its reasons"))
     if current == "High" and decision in ("proceed", "proceed-with-conditions"):
-        out.append(("decision", "the decision lets processing go ahead while the current residual rating is High; processing waits for prior consultation or verified measures"))
+        out.append(("decision", "the decision lets processing go ahead while the current residual rating is High; record why Art. 36 consultation isn't required, or wait for it or for verified measures"))
     if risks and data["decision"]["status"] == "Confirmed" and not _residual_confirmed(data):
         out.append(("decision", "the decision is confirmed while residual risk isn't: some measures are unverified or the target differs from the current rating"))
     for n, row in enumerate(data["necessity"]):

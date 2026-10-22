@@ -41,7 +41,7 @@ Write it this way in the register and in the summary:
 
 > **Residual risk: not yet confirmed.** Current residual: High (no controls verified). Target residual: Medium, subject to verification of A1–A4. Reassess each risk after those actions close.
 
-**Prior consultation and other escalations follow the current rating, plus the target only once it is verified.** An unverified target of Medium is not a basis for ruling out GDPR Art. 36 consultation. Say that consultation is not required *if* the target is achieved and verified, and keep the question open until then.
+**Escalations follow the current rating, plus the target only once it is verified.** For GDPR Art. 36, the rating prompts the decision; the decision itself applies Art. 36(1)'s test, whether the DPIA shows a high risk the controller's measures don't mitigate, and records why. An unverified target of Medium is not a basis for ruling out GDPR Art. 36 consultation. Say that consultation is not required *if* the target is achieved and verified, and keep the question open until then.
 
 ### Splitting residual risk by who controls the safeguard
 
@@ -171,6 +171,6 @@ The defaults below match `approvals.md`. Change them there, not here. The approv
 |---|---|---|
 | Low | Privacy lead | None |
 | Medium | Privacy lead and the business owner | Conditions tracked in the action plan |
-| High | Executive risk approver | GDPR prior consultation (`gdpr.md`, §10). Processing doesn't start until the consultation ends or the risk drops to Medium. |
+| High | Executive risk approver | The GDPR Art. 36 decision (`gdpr.md`, §10). Where consultation is required, processing doesn't start until it ends or verified measures bring the risk down. |
 
 Accepting a risk doesn't make unlawful processing lawful. Where a risk stays High because a legal requirement isn't met, the answer is to change the processing, not to accept the risk.

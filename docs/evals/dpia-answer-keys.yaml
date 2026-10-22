@@ -1,46 +1,57 @@
 # Answer keys for the DPIA holdout (dpia-scenarios.yaml), in the format of ai-act-answer-keys.yaml.
-# Status: DRAFT by Claude 2026-10-21, written from the law before any holdout run, for counsel to edit. Not binding
-#   until counsel approves; every point is a proposal.
-# key_version: 0 (draft). legal_text_date: none yet; points marked check: true weren't verified against primary text.
-# Scoring, error rules, and the no-double-penalty rule: as in the header of ai-act-answer-keys.yaml (key_version 6).
+# Status: revision 1, 2026-10-22, after counsel's review of the drafts. Not frozen: freezing waits on the points marked
+#   check: true, each with a `verify` note saying what to confirm against a primary source.
+# key_version: 1. legal_text_date: 2026-10-21 for AI Act dates (consolidated text as at 27 July 2026, as amended by
+#   Regulation (EU) 2026/1744; checked in docs/evals/ai-act-verification.md). Other points: not yet checked.
+# Scoring, error rules, and the no-double-penalty rule: as in the header of ai-act-answer-keys.yaml (key_version 6), plus:
+#   - A must point requires the answer to address a legally material issue, not to reach one exact conclusion.
+#   - Missing facts: award credit when the answer identifies a material unknown, explains why it matters, and gives a
+#     conditional conclusion. Don't require the answer to assume facts that match the outcome below.
+#   - Penalize invented legal requirements and unsupported certainty, not only wrong final labels.
+#   - Art. 36: score inherent risk, mitigation, residual risk, and the Art. 36(1) trigger separately. An internal High
+#     rating isn't the legal test; accept a reasoned conclusion either way, and penalize treating consultation as automatic.
+#   - AI Act dates: credit an answer that states the date with its legal basis and separates obligations that apply at
+#     rollout from later ones; don't credit a date repeated without that.
 # Score the screening call and the assessment's substance, not the record format, which tests already pin.
 
 dpia-01-gym-wearables-insurer:
-  outcome: "A DPIA is warranted: health data (heart rate, activity) evaluated into a score and shared with an insurer for pricing hits several criteria and Art. 35(3)(b) is arguable at scale. The crux is the Art. 9 condition: explicit consent under Art. 9(2)(a) is doubtful where a discount depends on it, so the design must make consent genuinely free (no detriment for refusing, equivalent alternatives) and share the minimum. Current residual risk is likely High until that's designed and verified."
+  outcome: "A DPIA is warranted on health data evaluated into a score and shared with an insurer for pricing. The crux is the Art. 9 condition: whether explicit consent under Art. 9(2)(a) can be freely given when a discount depends on it turns on the actual choice and the consequences of refusing. The gym's Art. 6 basis and Art. 9 condition are distinct, and the insurer needs its own. The residual risk and the Art. 36 question depend on the consent design and minimization."
   points:
     - id: K1
       weight: must
-      point: "Screens as warranted, naming the criteria: special category health data (4), evaluation or scoring (1), and arguably combining datasets (6) and large scale (5), with the facts behind each."
+      point: "Screens on the criteria the facts support: special category health data (4) and evaluation or scoring (1); treats combining datasets (6) as present only if it explains what is linked, and large scale (5) only with reasons, since a two-country gym chain doesn't establish it."
       source: "GDPR Art. 4(15), 9(1), 35(1); WP248 rev.01"
     - id: K2
       weight: must
-      point: "Identifies the Art. 9 condition as the crux and tests whether explicit consent is freely given when a premium discount depends on it, rather than assuming it."
-      source: "GDPR Art. 7(4), 9(2)(a); Recital 43; EDPB Guidelines 05/2020 on consent, paras 13-14, 46-49"
+      point: "Identifies the Art. 9 condition as the crux and tests whether explicit consent is freely given, given the actual choice and the consequences of refusal, rather than assuming it is or treating a conditional discount as automatically fatal."
+      source: "GDPR Art. 7(4), 9(2)(a); Recital 43; EDPB Guidelines 05/2020 on consent"
       check: true
+      verify: "EDPB Guidelines 05/2020 paragraphs on conditionality and detriment"
     - id: K3
       weight: must
-      point: "Treats the gym and the insurer as separate controllers for their own purposes, so the sharing is a disclosure needing its own basis and Art. 9 condition, and the insurer's use is the insurer's to assess."
+      point: "Assesses each party's role from its actual purposes and decisions; where the gym and insurer are separate controllers, the sharing needs its own Art. 6 basis and Art. 9 condition, and the insurer's own processing needs its own basis."
       source: "GDPR Art. 4(7), 26; Art. 6(1), 9(2)"
     - id: K4
       weight: must
-      point: "Minimization: shares a coarse score rather than raw heart-rate or step data, and states what the insurer receives and keeps."
-      source: "GDPR Art. 5(1)(c), 25"
+      point: "Minimization: explains what the shared score reveals, whether it identifies the member, how long the insurer keeps it, and what it uses it for; a coarse score isn't automatically anonymous or appropriate."
+      source: "GDPR Art. 4(1), 5(1)(c), 25"
     - id: K5
       weight: should
-      point: "Checks the Irish and Dutch Art. 35(4) lists, both of which cover large-scale health or monitoring data, rather than relying on the EDPB criteria alone."
+      point: "Checks the Irish and Dutch Art. 35(4) lists against the proposed processing; no credit for naming the authorities alone."
       source: "GDPR Art. 35(4); DPC and Autoriteit Persoonsgegevens DPIA lists"
       check: true
+      verify: "the current text of both lists and whether an item covers health data from wearables shared with an insurer"
     - id: K6
       weight: should
-      point: "Rates current residual risk High while consent design and minimization are unverified, and treats prior consultation as open until verified measures bring it down."
+      point: "Gives a defensible risk assessment (inherent, measures, residual) and decides Art. 36 on its test: whether the DPIA shows a high risk the controller's measures don't mitigate. No credit for a High rating or consultation asserted without that analysis."
       source: "GDPR Art. 36(1); risk-method.md"
 
 dpia-02-newsletter-ab-test:
-  outcome: "No DPIA is indicated. Testing two subject lines on an existing newsletter to existing customers meets no EDPB criterion in substance: no evaluation of individuals beyond aggregate open rates, no sensitive data, no vulnerable group, modest scale for the processing's nature. Record the screening and the reasoning. The real points are e-marketing rules for the newsletter itself and any open-tracking pixel."
+  outcome: "No DPIA is indicated for testing two subject lines, if the tool measures results in aggregate. Record the screening and its reasoning. If it tracks individual opens or clicks, say so and reassess; an answer that asks is right. The separate points are the e-marketing rules for the newsletter and the rules on tracking pixels."
   points:
     - id: K1
       weight: must
-      point: "Concludes a DPIA isn't indicated, with reasons tied to the criteria, and records the screening rather than writing a full DPIA."
+      point: "Concludes a DPIA isn't indicated on the processing as described, with reasons tied to the criteria, and records the screening; or asks whether the tool profiles individual engagement and conditions the answer on it."
       source: "GDPR Art. 35(1); WP248 rev.01"
     - id: K2
       weight: must
@@ -48,113 +59,117 @@ dpia-02-newsletter-ab-test:
       source: "GDPR Art. 35(1); WP248 rev.01"
     - id: K3
       weight: should
-      point: "Notes that open and click tracking by pixel needs ePrivacy consent in France and Germany unless strictly necessary, separate from the DPIA question."
-      source: "ePrivacy Directive Art. 5(3); TTDSG (now TDDDG) § 25; CNIL guidance on email tracking pixels"
+      point: "Separates access to or storage on the recipient's device by a tracking pixel (ePrivacy rules, as implemented nationally) from the later processing of personal data (GDPR), and checks the national guidance for the tracking method used."
+      source: "ePrivacy Directive Art. 5(3); TDDDG § 25; CNIL guidance on email tracking pixels"
       check: true
+      verify: "CNIL's current position on email tracking pixels and the TDDDG § 25 exceptions"
     - id: K4
       weight: should
-      point: "Confirms the newsletter itself rests on consent or the existing-customer exception (soft opt-in) for similar products, with an opt-out in each message."
-      source: "ePrivacy Directive Art. 13(1)-(2); Code des postes et des communications électroniques L34-5; UWG § 7(3)"
+      point: "Tests the existing-customer exception against its conditions in each country (contact details obtained in a sale, similar products, opt-out offered at collection and in each message), rather than treating it as general permission."
+      source: "ePrivacy Directive Art. 13(1)-(2); CPCE L34-5; UWG § 7(3)"
       check: true
+      verify: "the national texts of L34-5 and UWG § 7(3)"
 
 dpia-03-delivery-driver-telematics:
-  outcome: "A DPIA is warranted, and on current facts prior consultation is likely: continuous driver-facing cameras with AI that flags behavior and scores employees weekly is systematic monitoring of a vulnerable group with innovative technology and evaluation. National employment law is decisive in both countries. The AI Act likely makes the scoring high-risk under Annex III point 4(b) from 2 December 2027, with the March 2027 rollout before that date."
+  outcome: "A DPIA is warranted: driver-facing cameras with AI that flags behavior and scores drivers weekly is systematic monitoring of employees with innovative technology and evaluation. National workplace monitoring law decides much of it. Whether prior consultation is needed depends on the residual risk after measures, on the Art. 36 test. AI Act obligations for Annex III point 4(b) systems apply from 2 December 2027, after the March 2027 rollout, so the answer separates what applies at rollout from what affects procurement and design now."
   points:
     - id: K1
       weight: must
-      point: "Screens as warranted on systematic monitoring (3), vulnerable employees (7), innovative technology (8), and evaluation or scoring (1), and checks the Spanish and Italian Art. 35(4) lists."
+      point: "Screens as warranted on systematic monitoring (3), vulnerable employees (7), innovative technology (8), and evaluation or scoring (1), and checks whether the Spanish and Italian Art. 35(4) lists independently require a DPIA."
       source: "GDPR Art. 35(1), 35(4); WP248 rev.01; AEPD and Garante DPIA lists"
       check: true
+      verify: "the current AEPD and Garante lists"
     - id: K2
       weight: must
-      point: "Applies national workplace monitoring law: in Spain, LOPDGDD Art. 89 (prior, clear information to workers and representatives on video monitoring); in Italy, Workers' Statute Art. 4, which requires a union agreement or labour inspectorate authorization before installing equipment that allows remote monitoring."
+      point: "Applies national workplace monitoring rules to the equipment's actual purpose and functions: in Spain, LOPDGDD Art. 89 information to workers and representatives on video monitoring; in Italy, Workers' Statute Art. 4, including whether a union agreement or labour inspectorate authorization is needed and its exceptions."
       source: "LOPDGDD Arts. 87-89; Statuto dei lavoratori (Law 300/1970) Art. 4"
       check: true
+      verify: "the current text of Art. 4, including the exception for tools used to perform work, and LOPDGDD Art. 89"
     - id: K3
       weight: must
-      point: "Tests proportionality of driver-facing continuous recording against less intrusive options (road-facing only, event-triggered capture, on-device processing), and doesn't accept the safety purpose as settling it."
+      point: "Tests proportionality of driver-facing continuous recording against less intrusive options (road-facing only, event-triggered capture, on-device processing, short retention), and doesn't accept the safety purpose as settling it."
       source: "GDPR Art. 5(1)(c), 35(7)(b); EDPB Guidelines 3/2019 on video devices"
     - id: K4
       weight: must
-      point: "Addresses Art. 22 and national law if weekly scores drive discipline, dismissal, or pay with little real human review."
+      point: "Asks whether decisions based on the weekly scores are solely automated with legal or similarly significant effects (discipline, dismissal, pay), and treats a human who only rubber-stamps the score as not meaningful involvement; weekly scoring alone doesn't establish Art. 22."
       source: "GDPR Art. 22, 88; CJEU C-634/21"
     - id: K5
       weight: should
-      point: "Addresses the AI Act: monitoring and evaluating workers' performance and behavior is Annex III point 4(b), applying from 2 December 2027; fatigue detection is a physical state outside Art. 5(1)(f), but any inference of emotions would be prohibited at work."
-      source: "AI Act Annex III point 4(b); Art. 5(1)(f); Recital 18; Art. 113 as amended"
+      point: "Addresses the AI Act: monitoring and evaluating workers is Annex III point 4(b), with obligations from 2 December 2027 under the consolidated text; fatigue detection is a physical state outside Art. 5(1)(f) on Recital 18, but the actual function and any inference of emotions must be assessed."
+      source: "AI Act Annex III point 4(b); Art. 5(1)(f); Recital 18; Art. 113(c)(i) as amended by Regulation (EU) 2026/1744"
     - id: K6
       weight: should
-      point: "Rates current residual risk High on these facts and flags Art. 36 prior consultation unless verified measures bring it down."
+      point: "Gives a serious risk assessment and decides Art. 36 on its test, without treating consultation as a foregone conclusion."
       source: "GDPR Art. 36(1)"
 
 dpia-04-library-ebook-recommendations:
-  outcome: "A DPIA is warranted, or at least recommended with reasons: profiling reading history can reveal special category data by inference (religion, health, political opinions, sexual orientation), it covers children under 14, and a public library is a public body, so legitimate interests isn't available for its tasks. The lawful basis is the crux: a public-task basis needs a legal basis in Austrian law covering recommendations, otherwise consent, which must be valid for children."
+  outcome: "A DPIA is warranted or recommended, with reasons. Reading history can reveal special category data indirectly, but doesn't necessarily do so: the answer establishes what the recommendations infer and whether Art. 9 is met, and treats reading privacy as serious either way. A public body can't rely on legitimate interests for its tasks, so the basis depends on the operator's status and the statutory basis available. Separate the need for a DPIA from whether the recommendations are lawful at all."
   points:
     - id: K1
       weight: must
-      point: "Recognizes that reading history can reveal special category data by inference, raising Art. 9 and the sensitivity criterion, and that CJEU case law treats indirect revelation as special category data."
+      point: "Analyzes whether the processing actually reveals or infers special category data (what is inferred, from which titles, and how sensitive), recognizing that indirect revelation can qualify; a reasoned conclusion that Art. 9 isn't necessarily engaged earns full credit."
       source: "GDPR Art. 9(1); CJEU C-184/20 OT v Vyriausioji tarnybinės etikos komisija"
     - id: K2
       weight: must
-      point: "Notes that a public authority can't rely on legitimate interests for its tasks, so the basis is a public task with a legal basis in Austrian law, or consent."
-      source: "GDPR Art. 6(1), second subparagraph; Art. 6(1)(e), 6(3)"
+      point: "Establishes the operator's status and purpose before the basis: if a public authority performing its tasks, legitimate interests is unavailable and a public-task basis needs a legal basis in national law; notes that consent doesn't solve Art. 9 if it applies and no Art. 9(2) condition is available."
+      source: "GDPR Art. 6(1), second subparagraph; Art. 6(1)(e), 6(3); Art. 9(2)"
     - id: K3
       weight: must
-      point: "Addresses children under 14: Austria sets the age of consent for information society services at 14, so consent for younger patrons needs a parent, and children's data weighs more in the risk."
+      point: "Addresses children: whether the app is an information society service offered directly to a child under Art. 8 and Austria's threshold, and that children's data weighs more in the risk; the age threshold alone doesn't decide it."
       source: "GDPR Art. 8; Austrian DSG § 4(4); Recital 38"
       check: true
+      verify: "DSG § 4(4) and whether a public library's app is an information society service"
     - id: K4
       weight: should
       point: "Proposes a less intrusive design: opt-in, recommendations computed on the device or from recent loans only, no retention of full history, easy reset."
       source: "GDPR Art. 25"
     - id: K5
       weight: should
-      point: "Checks the Austrian DSB's DPIA list (DSFA-V) rather than relying on the EDPB criteria alone."
+      point: "Checks the Austrian DSFA-V list against the processing; no credit for a generic instruction to check it."
       source: "Austrian DSFA-V (BGBl. II Nr. 278/2018)"
       check: true
+      verify: "the current DSFA-V categories and exceptions"
 
 dpia-05-b2b-crm-enrichment:
-  outcome: "Either a reasoned 'recommended' or a reasoned 'not indicated' is defensible. Matching datasets and evaluation for prioritizing outreach are arguably present, but the data is professional, the scale is modest, and the effects on individuals are limited. The real issues are the broker's sourcing and the Art. 14 notice, which apply whatever the screening outcome."
+  outcome: "Either a reasoned 'recommended' or a reasoned 'not indicated' is defensible, once the answer confirms the records identify individuals (named contacts, not company-level data). Matching datasets and evaluation are arguably present; the data is professional, the scale modest, and the effects limited. Whatever the outcome, the real issues are the company's own lawful basis, the broker's sourcing, and Art. 14 notice."
   points:
     - id: K1
       weight: must
-      point: "Weighs the criteria in substance (what is combined, how individuals are affected, scale and nature) rather than counting them mechanically, and reaches a reasoned outcome either way."
-      source: "GDPR Art. 35(1); WP248 rev.01"
+      point: "Weighs the criteria in substance (what is combined, how individuals are affected, scale, nature) rather than counting them, confirms the records identify natural persons, and reaches a reasoned outcome either way."
+      source: "GDPR Art. 4(1), 35(1); WP248 rev.01"
     - id: K2
       weight: must
-      point: "Requires an Art. 14 notice to the contacts within a month of obtaining the data, or at first contact, naming the source; the disproportionate-effort exception is narrow."
-      source: "GDPR Art. 14(1)-(3), 14(5)(b); CJEU C-496/17 Deutsche Post (on Art. 14 effort, for context)"
-      check: true
+      point: "Applies Art. 14 to broker-sourced data: timing (a reasonable period, at the latest one month, or earlier at first communication or disclosure), content including the source, and whether an exception is genuinely available."
+      source: "GDPR Art. 14(1)-(3), 14(5)"
     - id: K3
       weight: must
-      point: "Checks the broker's lawful sourcing and the terms of use, since the company becomes responsible for data it obtains unlawfully."
-      source: "GDPR Art. 5(1)(a), 5(2), 24"
+      point: "Addresses the company's own accountability: its lawful basis, and the checks on the broker's sourcing and terms it should make and record."
+      source: "GDPR Art. 5(1)(a), 5(2), 6, 24"
     - id: K4
       weight: should
-      point: "Notes that a legitimate-interests basis for the enrichment needs an LIA, and that outreach by email to contacts in many member states is subject to national rules on B2B email."
+      point: "Notes that a legitimate-interests basis needs a defensible balancing test (an LIA), and that B2B email marketing rules differ by member state."
       source: "GDPR Art. 6(1)(f); ePrivacy Directive Art. 13"
 
 dpia-06-hospital-ai-triage-update:
-  outcome: "An update under Art. 35(11), not a fresh DPIA: rescreen the change and update the affected parts. The switch to a US-hosted foundation model adds a transfer of health data, a new sub-processor needing the hospital's prior authorization, and model changes that invalidate earlier verification. The AI Act makes emergency triage high-risk (Annex III point 5(d)), with deployer duties and a FRIA for a public-service body from 2 December 2027."
+  outcome: "Review the DPIA under Art. 35(11), because the change affects risk; updating the existing assessment is a sensible start if it still covers the changed processing. Map the data flows first: a US-hosted model doesn't by itself establish a transfer, and the answer distinguishes the possible scenarios before naming a Chapter V tool. Sub-processor authorization under Art. 28 is separate. Emergency triage may be high-risk under Annex III point 5(d), depending on the intended purpose; deployer duties and any FRIA are assessed separately, including whether the hospital group is a public body or provides a public service."
   points:
     - id: K1
       weight: must
-      point: "Treats it as a review under Art. 35(11) triggered by a change in risk, updating the existing DPIA rather than starting from nothing, and re-rates risks whose measures are no longer verified for the new model."
+      point: "Reviews the DPIA under Art. 35(11) because the risk changes, decides whether the existing assessment still covers the changed processing, and re-rates risks whose measures are no longer verified for the new model."
       source: "GDPR Art. 35(11); risk-method.md"
     - id: K2
       weight: must
-      point: "Addresses the transfer of health data to the US: the hosting provider's DPF certification and its scope, or SCCs with a TIA, and whether the vendor's sub-processor change needs the hospital's prior authorization."
-      source: "GDPR Arts. 28(2), 28(4), 44-46; Implementing Decision (EU) 2023/1795"
+      point: "Establishes the actual data flows (who receives or accesses what, from where, through which entity) before concluding a transfer occurs, then assesses the Chapter V mechanism and any certification's scope; treats the sub-processor authorization under Art. 28 as a separate question."
+      source: "GDPR Arts. 28(2), 28(4), 44-46; EDPB Guidelines 05/2021; Implementing Decision (EU) 2023/1795"
     - id: K3
       weight: must
-      point: "Classifies emergency triage as high-risk under Annex III point 5(d) and sets out the hospital's deployer duties and the FRIA for a public-service body, with the 2 December 2027 date."
-      source: "AI Act Annex III point 5(d); Arts. 26, 27, 113 as amended"
-      check: true
+      point: "Assesses whether the system's intended purpose falls within Annex III point 5(d), then the hospital's deployer duties, and whether a FRIA is owed on Art. 27's test (public law body or private entity providing public services), without assuming either; states the application date with its basis, including Art. 111(2) for a system already in service."
+      source: "AI Act Annex III point 5(d); Arts. 26, 27, 111(2), 113 as amended"
     - id: K4
       weight: should
-      point: "Checks whether the vendor's switch is a substantial modification that changes who is the provider, and asks for the provider's updated technical documentation and instructions for use."
+      point: "Establishes who makes the model switch, whether it is a substantial modification, and whether the provider role changes, and asks for the provider's updated technical documentation and instructions for use."
       source: "AI Act Arts. 3(23), 13, 25"
     - id: K5
       weight: should
-      point: "Keeps Art. 9(2)(h) and the health-sector confidentiality rules in view for the new processing chain, including any use of hospital data by the foundation-model provider for its own purposes."
+      point: "Checks whether the foundation-model provider processes hospital data for its own purposes, and whether the Art. 9(2)(h) condition, health-sector confidentiality rules, and the processor terms still cover the new chain."
       source: "GDPR Art. 9(2)(h), 9(3), 28(10)"
