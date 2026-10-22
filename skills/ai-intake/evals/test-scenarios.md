@@ -26,5 +26,5 @@
 - Classifies under the AI Act by function, checks every Art. 5 practice now, marks roles Provisional.
 - Proposes a tier from the highest factor, with the fact behind each factor; Tier 0 is a stop said first.
 - Sets the AIUC-1 mode and capability tags; lists follow-ons with skills, without running them.
-- Saves under `registers/ai-inventory/` and rebuilds the index with the shared script.
+- Records it with `gov new ais`, validates, and renders, so the index is rebuilt.
 - Replies in about 150 words.

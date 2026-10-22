@@ -47,7 +47,7 @@ Run `gov new aiia --slug <slug> --title "<system and use>" --date <today>`, set 
 
 ### 5. Validate, render, and reply
 
-Run `gov validate`, fix errors, and resolve findings by changing the record; a finding that names a real gap stays open with an action. Don't add a `finding_responses` entry yourself. Run `gov render`, then add the record to the inventory entry's `related` field. A FRIA notification to the market surveillance authority and an input pack for customers are external communications: drafts the privacy lead approves.
+Run `gov validate`, fix errors, and resolve findings by changing the record; a finding that names a real gap stays open with an action. Don't add a `finding_responses` entry yourself. Run `gov render`, then set the `ai-impact-assessment` follow-on's `record` in the inventory entry. A FRIA notification to the market surveillance authority and an input pack for customers are external communications: drafts the privacy lead approves.
 
 Reply in plain English: the outcome and any prohibition concern first, then what has to happen before launch, grouped as legal requirements, risks, and internal policy, who approves, and the Round 1 evidence still outstanding, five questions at most. Close with one line naming the records and their paths. The AIUC-1 quarterly testing duties are recurring actions, never calendar events.
 
