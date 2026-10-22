@@ -404,3 +404,17 @@ From an outside review of the repository (Lumo, via Proton), checked against the
 7. ~~**Contributor path for reference files.**~~ Done 2026-10-21: "Contributing a reference update" in
    `skills/_shared/references/README.md`. Original note: Document the header format, the review-date procedure, and the test to run,
    so updating a reference file doesn't need knowledge of `assessments.yaml`.
+
+## Where to pick up (stopped 2026-10-21)
+
+Work done this session is on main, with CI's three checks passing locally (`pytest`, `gov validate`,
+`gov render --check`). Next, in order:
+
+1. **Phase 7:** YAML front matter on reference files, replacing the index table that `gov/references.py` parses.
+2. **Phase 5:** vendor reviews, the AI inventory, incidents, and controls as `gov` records.
+3. **After counsel's input:** run the DPIA holdout (`docs/evals/dpia-*`) and the router holdout (`docs/evals/router-*`)
+   blind; extend `issues.yaml` to `scr` and `dpia`; rerun trigger evals once the old claude.ai copies are removed.
+
+Waiting on counsel: the DPIA and router answer keys; the three screening decisions in `phase-4-dpia.md`; the
+`ai-public-transition` rule; the seven unreached states and California's SB 446 text in
+`docs/legal-review/us-breach-verification.md`; and the AIUC-1 permission request or history decision.
