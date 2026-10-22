@@ -1,0 +1,76 @@
+id: DSR-2026-002
+type: dsr
+schema_version: 1
+format_version: 1
+kind: request
+title: Access, customer
+status: Closed
+version: '0.1'
+received:
+  date: '2026-07-20'
+  time: 10:00 ET
+  channel: Privacy inbox
+requester_type: data-subject
+requester_words: Please send me a copy of my data.
+earlier_requests: []
+request_types:
+- access
+company_role:
+  value: controller
+  status: Confirmed
+  reason: Recorded for the eval fixture
+regimes:
+- gdpr
+- ccpa
+laws:
+- law: GDPR
+  applies:
+    value: true
+    status: Provisional
+    reason: Recorded for the eval fixture
+- law: CCPA
+  applies:
+    value: true
+    status: Provisional
+    reason: Recorded for the eval fixture
+internal_target: null
+extended_deadline: null
+responded: '2026-09-02'
+closed: '2026-09-02'
+prepared_by: Claude (privacy-governance suite)
+date_prepared: '2026-07-20'
+summary: Access request from a customer.
+analysis: Fixture case for the leadership report eval.
+verification:
+  method: Email on file
+  why: Matches the account
+  status: verified
+  by: Support lead
+  date: '2026-09-02'
+locations: []
+processors: []
+positions: []
+messages:
+- message: response
+  text: Your data is attached.
+  approved_by: Privacy lead
+  sent: '2026-09-02'
+  sent_by: Support lead
+follow_ons: []
+facts: []
+actions: []
+open_questions: []
+verify: []
+finding_responses: []
+references: []
+version_history:
+- version: '0.1'
+  date: '2026-07-20'
+  author: Claude (privacy-governance suite)
+  change: First draft
+signoff:
+- decision: Positions and messages approved
+  approver_role: Privacy lead
+  name: null
+  date: null
+  outcome: null

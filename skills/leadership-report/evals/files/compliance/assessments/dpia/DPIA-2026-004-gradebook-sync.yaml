@@ -1,0 +1,146 @@
+id: DPIA-2026-004
+type: dpia
+schema_version: 1
+format_version: 1
+kind: controller
+title: Gradebook sync with district SIS
+status: In review
+version: '0.1'
+activity: TBC
+screening: TBC
+business_owner: TBC
+system_owner: TBC
+prepared_by: Claude (privacy-governance suite)
+date_prepared: '2026-08-12'
+last_reviewed: null
+next_review: '2027-08-12'
+summary: Fixture DPIA for the leadership report eval.
+decision:
+  value: proceed-with-conditions
+  status: Provisional
+  reason: Recorded for the eval fixture
+analysis: Fixture analysis.
+processing:
+  nature: TBC
+  scope: TBC
+  context: TBC
+  purposes: TBC
+  special_category:
+    value: TBC
+    status: Provisional
+    reason: Not yet assessed
+  children:
+    value: TBC
+    status: Provisional
+    reason: Not yet assessed
+necessity:
+- principle: lawful-basis
+  position: TBC
+  basis: TBC
+  gap: TBC
+  link: none
+- principle: minimization
+  position: TBC
+  basis: TBC
+  gap: TBC
+  link: none
+- principle: purpose-limitation
+  position: TBC
+  basis: TBC
+  gap: TBC
+  link: none
+- principle: transparency
+  position: TBC
+  basis: TBC
+  gap: TBC
+  link: none
+- principle: rights
+  position: TBC
+  basis: TBC
+  gap: TBC
+  link: none
+- principle: retention
+  position: TBC
+  basis: TBC
+  gap: TBC
+  link: none
+risks:
+- id: R1
+  risk: Students' deleted records are recreated by the nightly roster sync, so deletion requests fail
+  inherent:
+    likelihood: probable
+    severity: significant
+  current:
+    likelihood: probable
+    severity: significant
+  target:
+    likelihood: remote
+    severity: significant
+  measures:
+  - measure: Honor deletion tombstones
+    status: planned
+    evidence: A1
+  owner: Integrations
+- id: R2
+  risk: Teachers' grade comments exposed to other districts through a shared tenant
+  inherent:
+    likelihood: possible
+    severity: severe
+  current:
+    likelihood: possible
+    severity: significant
+  target:
+    likelihood: remote
+    severity: severe
+  measures:
+  - measure: Tenant isolation (SOC 2)
+    status: verified
+    evidence: SOC 2 report
+  - measure: Pen test
+    status: planned
+    evidence: A2
+  owner: Security
+consultation:
+  dpo: TBC
+  data_subjects: TBC
+  prior_consultation:
+    value: TBC
+    status: Provisional
+    reason: Depends on the current residual rating
+other_regimes: []
+facts: []
+context: []
+issues: []
+actions:
+- id: A1
+  action: Honor deletion tombstones in roster sync
+  owner: Integrations
+  due: '2026-09-30'
+  closure_evidence: Evidence on file
+  launch_blocking: true
+  status: open
+  block_reason: law
+  scope: GDPR Art. 17
+- id: A2
+  action: Tenant isolation pen test
+  owner: Security
+  due: '2026-11-30'
+  closure_evidence: Evidence on file
+  launch_blocking: true
+  status: open
+  block_reason: risk
+open_questions: []
+verify: []
+finding_responses: []
+references: []
+version_history:
+- version: '0.1'
+  date: '2026-08-12'
+  author: Claude (privacy-governance suite)
+  change: First draft
+signoff:
+- decision: Residual risk accepted and processing approved
+  approver_role: Set by the current residual rating (approvals.md)
+  name: null
+  date: null
+  outcome: null

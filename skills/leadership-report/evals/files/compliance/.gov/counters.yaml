@@ -1,0 +1,11 @@
+# Last ID issued per prefix. Written by `gov next-id`; don't edit by hand.
+counters:
+  AIIA-2026: 1
+  AIS: 5
+  CTL: 3
+  DPIA-2026: 4
+  DSR-2026: 5
+  EV: 1
+  INC-2026: 4
+  ROPA: 2
+  VR-2026: 9

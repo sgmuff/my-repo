@@ -1,0 +1,117 @@
+id: AIS-0003
+type: ais
+schema_version: 1
+format_version: 1
+kind: system
+title: TalentRank
+status: Draft
+version: '0.1'
+source: vendor-product
+lifecycle: pilot
+launch_date: TBC
+business_owner: TBC
+system_owner: TBC
+prepared_by: Claude (privacy-governance suite)
+date_prepared: '2026-09-01'
+last_reviewed: null
+next_review: '2027-03-01'
+summary: TalentRank resume screening.
+decision:
+  value: proceed-to-follow-ons
+  status: Confirmed
+  reason: Recorded for the eval fixture
+analysis: Fixture entry for the leadership report eval.
+tier:
+  value: '1'
+  status: Confirmed
+  reason: Recorded for the eval fixture
+ai_act:
+  ai_system:
+    value: TBC
+    status: Provisional
+    reason: Function not yet documented
+  company_role:
+    value: TBC
+    status: Provisional
+    reason: Facts not yet gathered
+  category:
+    value: TBC
+    status: Provisional
+    reason: Function not yet documented
+  annex_point: TBC
+  prohibited:
+    value: TBC
+    status: Provisional
+    reason: Each Art. 5 practice not yet checked
+  art50:
+    value: TBC
+    status: Provisional
+    reason: Art. 50 paragraphs not yet checked
+autonomy: TBC
+decisions_about_people: TBC
+personal_data: TBC
+aiuc:
+  mode: not-applicable
+  certification: TBC
+  capabilities: []
+use:
+  inputs: TBC
+  outputs: TBC
+  output_use: TBC
+  users: TBC
+  subjects: TBC
+  tools: TBC
+  model: TBC
+data: []
+tiering:
+- factor: ai-act-use
+  level: TBC
+  fact: TBC
+- factor: decisions-about-people
+  level: TBC
+  fact: TBC
+- factor: people-affected
+  level: TBC
+  fact: TBC
+- factor: data
+  level: TBC
+  fact: TBC
+- factor: autonomy
+  level: TBC
+  fact: TBC
+- factor: reach-and-reversibility
+  level: TBC
+  fact: TBC
+- factor: source
+  level: TBC
+  fact: TBC
+top_risks: []
+follow_ons: []
+containment: []
+related:
+  ropa: none
+  vendor_review: none
+facts: []
+context: []
+issues: []
+actions: []
+open_questions: []
+verify: []
+finding_responses: []
+references: []
+version_history:
+- version: '0.1'
+  date: '2026-09-01'
+  author: Claude (privacy-governance suite)
+  change: First draft
+signoff:
+- decision: Facts confirmed
+  approver_role: Business owner
+  name: null
+  date: null
+  outcome: null
+- decision: Tier and classification confirmed
+  approver_role: Privacy lead
+  name: null
+  date: null
+  outcome: null

@@ -1,0 +1,80 @@
+id: INC-2026-003
+type: inc
+schema_version: 1
+format_version: 1
+kind: incident
+title: Report card emailed to wrong parent
+status: Draft
+version: '0.1'
+awareness:
+  time: 2026-08-14T09:10
+  tz: America/New_York
+  reasoning: Fixture
+  confirmed: true
+started: TBC
+ongoing:
+  value: TBC
+  status: Provisional
+  reason: Not yet confirmed
+regimes: []
+states:
+- NY
+individual_notice: TBC
+commander: Security lead
+privilege: null
+prepared_by: Claude (privacy-governance suite)
+date_prepared: '2026-08-14'
+last_reviewed: null
+next_review: '2027-08-14'
+summary: Fixture incident.
+decision:
+  value: undetermined
+  status: Provisional
+  reason: Facts still being gathered
+analysis: Fixture analysis.
+datasets:
+- dataset: TBC
+  elements: TBC
+  people: TBC
+  residence: TBC
+  roles:
+  - TBC
+  acquired:
+    value: TBC
+    status: Provisional
+    reason: Not yet known
+  encrypted:
+    value: TBC
+    status: Provisional
+    reason: Not yet known
+breach:
+  value: true
+  status: Provisional
+  reason: A student's report card reached the wrong parent
+matrix: []
+notices: []
+decisions: []
+containment: []
+closure:
+  closed: '2026-08-20'
+  root_cause: Autocomplete picked the wrong parent's address
+  follow_ons: Recipient check before sending
+facts: []
+context: []
+issues: []
+actions: []
+open_questions: []
+verify: []
+finding_responses: []
+references: []
+version_history:
+- version: '0.1'
+  date: '2026-08-14'
+  author: Claude (privacy-governance suite)
+  change: First draft
+signoff:
+- decision: Notification decisions recorded
+  approver_role: Counsel and the privacy lead (approvals.md)
+  name: null
+  date: null
+  outcome: null

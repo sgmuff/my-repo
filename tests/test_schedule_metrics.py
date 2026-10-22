@@ -46,5 +46,43 @@ def test_metrics_count_incident_and_vendor_records(ropa_root):
     out = ropa_root / "compliance"
     assert main(["--root", str(ropa_root), "metrics", str(out), "--as-of", "2026-12-31"]) == 0
     report = (out / "reports" / "metrics-2026-12-31.md").read_text()
-    assert "INC-2026-001-lost-laptop.md" in report
-    assert "VR-2026-001-aws" in report or "aws" in report
+    assert "INC-2026-001-lost-laptop.yaml" in report
+    assert "VR-2026-001-aws.yaml" in report and "Recommendations: open 1." in report
+
+
+def test_metrics_read_dsr_ai_and_control_records(ropa_root):
+    from gov import yamlio
+    from gov.skeleton import new_record
+    def put(path, change):
+        data = yamlio.load(path)
+        change(data)
+        path.write_text(yamlio.dumps(data), encoding="utf-8")
+    call = lambda v: {"value": v, "status": "Provisional", "reason": "Test"}
+    put(new_record(ropa_root, "dsr", "late", "Access, customer", "2026-10-01", "Claude"),
+        lambda d: d.update(request_types=["access"], company_role=call("controller"), regimes=["gdpr"], status="Responded", responded="2026-11-10"))
+    put(new_record(ropa_root, "dsr", "open", "Deletion, customer", "2026-10-05", "Claude"),
+        lambda d: d.update(request_types=["deletion"], company_role=call("controller"), regimes=["ccpa"]))
+    put(new_record(ropa_root, "ais", "screener", "Resume screener", "2026-10-01", "Claude"),
+        lambda d: d.update(lifecycle="live", tier=call("1")))
+    put(new_record(ropa_root, "ctl", "mfa", "Okta MFA", "2026-10-01", "Claude"), lambda d: d.update(operating="unverified"))
+    out = ropa_root / "compliance"
+    assert main(["--root", str(ropa_root), "metrics", str(out), "--as-of", "2026-12-31"]) == 0
+    report = (out / "reports" / "metrics-2026-12-31.md").read_text()
+    assert "Cases: 2. Responded on time: 0. Responded late: 1. Open past deadline: 1. Average days to respond: 40 days." in report
+    assert "By tier: Tier 1 (High) 1." in report
+    assert "Live Tier 0 or Tier 1 systems without an AI impact assessment: 1" in report
+    assert "In use, by operating status: unverified 1." in report
+
+
+def test_the_leadership_report_fixtures_are_valid_current_records(root):
+    import shutil
+    from conftest import REPO
+    from gov.validate import validate_tree
+    shutil.copytree(REPO / "skills/leadership-report/evals/files/compliance", root / "compliance")
+    assert [p for p in validate_tree(root) if p.level == "error"] == []
+    assert render_tree(root, check=True).stale == []
+    out = root / "compliance"
+    assert main(["--root", str(root), "metrics", str(out), "--as-of", "2026-10-17", "--since", "2026-07-01", "--out", str(root / "m.md")]) == 0
+    report = (root / "m.md").read_text()
+    assert "Responded on time: 2. Responded late: 1. Open past deadline: 1." in report
+    assert "without a vendor review: 3 (cloudhost, greenhouse, talentrank)" in report

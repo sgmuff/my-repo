@@ -1,0 +1,81 @@
+id: INC-2026-004
+type: inc
+schema_version: 1
+format_version: 1
+kind: incident
+title: Misconfigured storage bucket
+status: In review
+version: '0.1'
+awareness:
+  time: 2026-09-28T16:00
+  tz: America/New_York
+  reasoning: Fixture
+  confirmed: true
+started: TBC
+ongoing:
+  value: TBC
+  status: Provisional
+  reason: Not yet confirmed
+regimes: []
+states:
+- CA
+- NY
+individual_notice: TBC
+commander: Security lead
+privilege: Privileged and confidential, prepared at the direction of counsel (J. Ortiz)
+prepared_by: Claude (privacy-governance suite)
+date_prepared: '2026-09-28'
+last_reviewed: null
+next_review: '2027-09-28'
+summary: Fixture incident.
+decision:
+  value: undetermined
+  status: Provisional
+  reason: Facts still being gathered
+analysis: Fixture analysis.
+datasets:
+- dataset: TBC
+  elements: TBC
+  people: TBC
+  residence: TBC
+  roles:
+  - TBC
+  acquired:
+    value: TBC
+    status: Provisional
+    reason: Not yet known
+  encrypted:
+    value: TBC
+    status: Provisional
+    reason: Not yet known
+breach:
+  value: TBC
+  status: Provisional
+  reason: Access logs not yet reviewed
+matrix: []
+notices: []
+decisions: []
+containment: []
+closure:
+  closed: TBC
+  root_cause: TBC
+  follow_ons: TBC
+facts: []
+context: []
+issues: []
+actions: []
+open_questions: []
+verify: []
+finding_responses: []
+references: []
+version_history:
+- version: '0.1'
+  date: '2026-09-28'
+  author: Claude (privacy-governance suite)
+  change: First draft
+signoff:
+- decision: Notification decisions recorded
+  approver_role: Counsel and the privacy lead (approvals.md)
+  name: null
+  date: null
+  outcome: null

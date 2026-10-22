@@ -36,6 +36,7 @@ properties:
   states: {type: array, uniqueItems: true, items: {type: string, pattern: "^[A-Z]{2}$"}, description: "US states and territories where affected people live"}
   individual_notice: {$ref: "common.schema.yaml#/$defs/date_or_tbc", description: "When individual notices went or will go, for regulator deadlines that run from it"}
   commander: {$ref: "common.schema.yaml#/$defs/short", description: "The one incident commander who owns the timeline"}
+  privilege: {type: [string, "null"], description: "The privilege marking counsel directs, such as Privileged and confidential, prepared at the direction of counsel; reports give counts and status only"}
   prepared_by: {$ref: "common.schema.yaml#/$defs/short"}
   date_prepared: {$ref: "common.schema.yaml#/$defs/date"}
   last_reviewed: {$ref: "common.schema.yaml#/$defs/date_or_null"}
