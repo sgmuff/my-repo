@@ -40,10 +40,22 @@ def mark_partial(root, name="us-breach-notification.md"):
     path.write_text(text[:start] + "counsel_review:\n  status: partial\n  date: '2026-10-22'\n  scope: Fixed deadlines only" + text[end:], encoding="utf-8")
 
 
+def clear_counsel_review(root, name="gdpr.md"):
+    """Reset a copied reference file's counsel review to not-recorded, so fixture findings don't depend on how far
+    counsel has reviewed the real file; test_references_profile covers the review statuses."""
+    path = root / "skills" / "_shared" / "references" / name
+    text = path.read_text(encoding="utf-8")
+    start = text.index("counsel_review:")
+    end = text.index("\ncovers:", start)
+    path.write_text(text[:start] + "counsel_review:\n  status: not-recorded" + text[end:], encoding="utf-8")
+
+
 @pytest.fixture
 def ropa_root(root):
-    """A suite holding the Gradebook Sync fixture, with its ID issued."""
+    """A suite holding the Gradebook Sync fixture, with its ID issued, citing a gdpr.md with no counsel review recorded."""
     from gov import ids
+
+    clear_counsel_review(root)
 
     folder = root / "compliance" / "registers" / "ropa"
     folder.mkdir(parents=True)

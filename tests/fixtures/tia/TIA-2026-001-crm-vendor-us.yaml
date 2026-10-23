@@ -76,7 +76,7 @@ verify:
 finding_responses: []
 
 references:
-  - {file: gdpr.md, version: "EU GDPR as of 2026-10-16", verified: "2026-10-16"}
+  - {file: gdpr.md, version: "EU GDPR as of 2026-10-16", verified: "2026-10-22"}
 
 version_history:
   - {version: "0.1", date: "2026-10-18", author: Claude (privacy-governance suite), change: First draft}

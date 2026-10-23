@@ -12,7 +12,7 @@ Framework details live here, so they can be updated as laws and standards change
 | `eu-ai-act-gpai.md` | AI Act duties for general-purpose AI model providers | Chapter V as amended by Reg. (EU) 2026/1744 | 2026-10-18 | 2027-01-19 | Quarterly | Secondary | Approved 2026-10-19 |
 | `eu-ai-act.md` | EU AI Act as amended by Reg. (EU) 2026/1744 | In force from 2026-07-27 | 2026-10-16 | 2027-01-16 | Quarterly | Primary | Not recorded |
 | `ferpa.md` | FERPA, COPPA, and state student privacy laws | eCFR current to 2026-07-10; COPPA as amended 2025 | 2026-10-16 | 2027-04-16 | Six months | Primary | Not recorded |
-| `gdpr.md` | EU GDPR, UK GDPR and DUAA, Swiss FADP | EU GDPR unamended (Omnibus pending); DUAA commenced in stages | 2026-10-16 | 2027-01-16 | Quarterly | Primary | Not recorded |
+| `gdpr.md` | EU GDPR, UK GDPR and DUAA, Swiss FADP | EU GDPR unamended (Omnibus pending); DUAA commenced in stages | 2026-10-22 | 2027-01-16 | Quarterly | Primary | Partial, 2026-10-23 |
 | `glba.md` | GLBA Safeguards Rule, including higher education and service providers | 16 CFR Part 314 as amended 2021 and 2023 | 2026-10-18 | 2027-04-19 | Six months | Secondary | Approved 2026-10-19 |
 | `hipaa.md` | HIPAA Privacy, Security, and Breach Notification Rules for covered entities and business associates | Rules through the 2013 Omnibus Rule; 2025 Security Rule proposal noted | 2026-10-18 | 2027-04-19 | Six months | Secondary | Approved 2026-10-19 |
 | `iso-42001.md` | ISO/IEC 42001 checklist (public paraphrase) | ISO/IEC 42001:2023 | 2026-10-16 | 2027-10-16 | Annual | Secondary | Not recorded |

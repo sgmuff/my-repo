@@ -2,17 +2,19 @@
 title: GDPR, UK GDPR, and Swiss FADP
 summary: EU GDPR, UK GDPR and DUAA, Swiss FADP
 version_summary: EU GDPR unamended (Omnibus pending); DUAA commenced in stages
-last_verified: '2026-10-16'
+last_verified: '2026-10-22'
 review_by: '2027-01-16'
 review_interval: Quarterly while the EU Digital Omnibus is pending and DUAA commencement continues; otherwise every six months
 index_interval: Quarterly
 source_quality: primary
 counsel_review:
-  status: not-recorded
+  status: partial
+  date: '2026-10-23'
+  scope: "§10 national Art. 35(4) lists, the CNIL pixel rule, and the prior consultation test only"
 covers: EU GDPR (Regulation (EU) 2016/679); UK GDPR and DPA 2018 as amended by the Data (Use and Access) Act 2025; Swiss Federal Act on Data Protection (revised FADP, in force September 1, 2023)
 version: EU GDPR as in force on 2026-10-16, with no amendments adopted. UK GDPR with DUAA amendments commenced in stages from June 19, 2025. FADP and its Ordinance (DPO) as in force since September 1, 2023.
 sources: EUR-Lex (eur-lex.europa.eu/eli/reg/2016/679/oj); legislation.gov.uk (DUAA 2025 and commencement regulations SI 2025/904, SI 2025/996, SI 2026/82); fedlex.admin.ch (FADP SR 235.1); EDPB guidelines
-verification_scope: Status items (Omnibus procedure, DUAA commencement) checked against sources on 2026-10-16. Article content reflects the stable text of the three laws and was not re-read line by line. Quote from EUR-Lex, legislation.gov.uk, or fedlex rather than from this summary.
+verification_scope: Status items (Omnibus procedure, DUAA commencement) checked against sources on 2026-10-16; §10's national lists and the CNIL pixel rule checked against the authorities' texts on 2026-10-22. Article content reflects the stable text of the three laws and was not re-read line by line. Quote from EUR-Lex, legislation.gov.uk, or fedlex rather than from this summary.
 volatile_points: §1 (pending EU Digital Omnibus; DUAA commencement); §9 (breach deadlines if the Omnibus passes); §11 (EU-US DPF litigation)
 ---
 
@@ -260,7 +262,7 @@ The `vendor-review` skill (Wave 1) will turn this section into a DPA checklist.
 
 **DPIA (Art. 35):** required where processing is likely to result in a high risk, and always in the three Art. 35(3) cases. Content (Art. 35(7)): (a) a systematic description of the processing and purposes, including legitimate interests; (b) necessity and proportionality; (c) the risks to rights and freedoms; (d) the measures to address them. Seek the DPO's advice (Art. 35(2)) and, where appropriate, the views of data subjects (Art. 35(9)). Review when the risk changes (Art. 35(11)). The screening criteria are in `dpia/references/screening.md`.
 
-**Prior consultation.** Flag it whenever **any** residual risk is still High after mitigation. Judge this on the current residual rating, the one based on verified controls (`risk-method.md`, §1). An unverified target rating of Medium doesn't rule out consultation. Write instead: "Prior consultation is not required if the target residual rating is achieved and verified. Revisit when A<n> closes."
+**Prior consultation.** Decide it on Art. 36(1)'s test: whether the DPIA shows that processing would result in a high risk in the absence of measures the controller takes to mitigate it. A current residual rating of High (verified controls only, `risk-method.md`, §1) prompts the decision; it isn't the test, and "High today, so consultation is required" is the wrong reasoning. If the measures the DPIA sets out bring every risk below High, the reasoned answer is no consultation, on condition that those measures are in place and verified before processing starts. Write: "Prior consultation is not required if the target residual rating is achieved and verified before processing starts. Revisit when A<n> closes." If a High risk remains even with the planned measures, consultation is required before processing.
 
 In a processor assistance pack, the company doesn't decide whether the customer must consult. Say that the pack doesn't make that determination, and that each controller assesses its own residual risk, including its own safeguards, and decides on Art. 36 itself.
 
@@ -274,6 +276,20 @@ When you flag consultation in a document:
 2. List the additional mitigations that could reduce them, with your view on whether each is feasible. Consultation is slow, so the business usually prefers to reduce the risk first.
 3. State that processing must not start until consultation is complete or the risk is brought down to Medium or lower.
 4. Add an action to prepare the consultation package, owned by the DPO or privacy lead.
+
+**National Art. 35(4) lists.** Check the list of each relevant authority item by item; naming the authority isn't enough. Items checked against the authorities' texts on 2026-10-22 (`docs/evals/dpia-verification.md`):
+
+| Authority | List | Items to check most often |
+|---|---|---|
+| Ireland, DPC | List of types of processing requiring a DPIA (November 2018, after EDPB Opinion 11/2018) | Applies only where a documented screening indicates likely high risk. 3: profiling, algorithms, or special category data used to decide access to services or with legal or similar effects; 4: systematic monitoring or tracking of location or behavior; 5: large-scale profiling; 8: indirect sourcing without transparency; 9: combining datasets for profiling or behavioral analysis |
+| Netherlands, AP | Besluit lijst verwerkingen DPIA verplicht, Stcrt. 2019, 64418 (27 November 2019) | 17 categories, including 7 health data at scale (insurers named), 11 employee monitoring, 12 location data, 14 internet of things, 15 profiling, 16 observing or influencing behavior, 17 biometric identification. A 2026 draft exemption list for small businesses' HR and payroll was consulted on until 10 August 2026 |
+| Spain, AEPD | Listas de tipos de tratamientos que requieren EIPD (art. 35.4) | A DPIA "en la mayoría de los casos" where two or more criteria apply, unless on the Art. 35(5) list. 1 profiling or evaluation, including work performance; 3 systematic monitoring or geolocation; 4 special category or financial data; 8 combining datasets; 9 vulnerable subjects (children under 14, people with disabilities, social services users, victims of gender violence; employees aren't named); 10 new technologies; 11 data from another controller under an Art. 14(5) exception |
+| Austria, DSB | DSFA-V, BGBl. II Nr. 278/2018 (9 November 2018), with exemptions in DSFA-AV, BGBl. II Nr. 108/2018 | § 2(2), one criterion suffices: Z 1 evaluation or profiling based solely on automated processing with negative legal, physical, or financial effects; Z 3 monitoring, especially by image and sound; Z 4 new technologies, including AI and biometrics; Z 5 combining datasets where algorithms can decide; Z 6 processing in the most personal sphere ("höchstpersönlicher Bereich"), even with consent. § 2(3), two or more: Z 1 large-scale Art. 9 data; Z 4 vulnerable people, such as children under 14, employees, patients |
+| Italy, Garante | Provvedimento n. 467 of 11 October 2018, Allegato 1 (12 types) | Includes processing in the employment relationship through systems that allow remote monitoring of employees. *Verify* the item's wording; the Garante's text wasn't retrieved |
+
+For other authorities, read the list itself; the EDPB's opinions on each list (2018-2019) show what each covers.
+
+**Email tracking pixels (an ePrivacy point screenings often meet).** In France, the CNIL's recommendation on tracking pixels in emails (adopted 12 March 2026, published 14 April 2026) treats each pixel as access to the recipient's device under Art. 82 of the Loi Informatique et Libertés. Measuring open rates to compare or optimize campaign performance needs consent, even if results are reported only in aggregate. Exempt: authentication security, and individual open measurement strictly for deliverability (adjusting frequency or stopping sends to inactive recipients), only for emails the recipient requested. In Germany, TDDDG § 25(1)-(2) applies the same structure. This doesn't make a DPIA necessary; it is a separate consent question the screening should name.
 
 **FADP Art. 22:** a DPIA is required when processing may lead to a high risk to personality or fundamental rights, notably for extensive processing of sensitive data or systematic monitoring of extensive public areas.
 

@@ -139,7 +139,7 @@ No. Provisional: Professional profile fields only An LIA never supplies an Art. 
 
 ### References
 
-- `gdpr.md`: EU GDPR as of 2026-10-16, verified 2026-10-16
+- `gdpr.md`: EU GDPR as of 2026-10-16, verified 2026-10-22
 
 ### Version history
 

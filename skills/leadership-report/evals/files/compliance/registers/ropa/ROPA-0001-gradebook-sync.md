@@ -167,10 +167,11 @@ None.
 | recipients | Cloudhost: no reviewed contract on file, and nothing open blocks launch on it; Art. 28 requires the contract before processing starts. Add a launch-blocking action, or record why not | Open | — |
 | retention | Cloudhost holds a copy, but no retention row covers that store | Open | — |
 | retention/1 | Sync logs is kept indefinitely with no action to set a limit | Open | — |
+| references/gdpr.md/review | counsel has reviewed only part of gdpr.md (§10 national Art. 35(4) lists, the CNIL pixel rule, and the prior consultation test only); confirm the conclusions that rely on the rest before approval | Open | — |
 
 ### References and tags
 
-- `gdpr.md`: EU GDPR as of 2026-10-16, verified 2026-10-16
+- `gdpr.md`: EU GDPR as of 2026-10-16, verified 2026-10-22 (partly reviewed by counsel)
 - `ferpa.md`: FERPA and COPPA as of 2026-10-16, verified 2026-10-16
 - NIST Privacy Framework: ID.IM-P1, ID.IM-P3, ID.IM-P4
 

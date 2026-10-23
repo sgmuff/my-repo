@@ -307,7 +307,7 @@ nist_pf:
 references:
 - file: gdpr.md
   version: EU GDPR as of 2026-10-16
-  verified: '2026-10-16'
+  verified: '2026-10-22'
 - file: ferpa.md
   version: FERPA and COPPA as of 2026-10-16
   verified: '2026-10-16'

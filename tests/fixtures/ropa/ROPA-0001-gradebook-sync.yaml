@@ -245,7 +245,7 @@ finding_responses: []
 nist_pf: [ID.IM-P1, ID.IM-P3, ID.IM-P4]
 
 references:
-  - {file: gdpr.md, version: "EU GDPR as of 2026-10-16", verified: "2026-10-16"}
+  - {file: gdpr.md, version: "EU GDPR as of 2026-10-16", verified: "2026-10-22"}
   - {file: ferpa.md, version: "FERPA and COPPA as of 2026-10-16", verified: "2026-10-16"}
 
 version_history:

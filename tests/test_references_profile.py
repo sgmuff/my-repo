@@ -25,8 +25,8 @@ def edit(root, change):
 
 def test_the_index_reads_front_matter(root):
     known = references.index(root)
-    assert (known["gdpr.md"]["verified"], known["gdpr.md"]["review_by"]) == ("2026-10-16", "2027-01-16")
-    assert not known["gdpr.md"]["secondary"] and not known["gdpr.md"]["unreviewed"]
+    assert (known["gdpr.md"]["verified"], known["gdpr.md"]["review_by"]) == ("2026-10-22", "2027-01-16")
+    assert not known["gdpr.md"]["secondary"] and known["gdpr.md"]["partial"]
     assert known["hipaa.md"]["secondary"] and not known["hipaa.md"]["partial"]
     assert not known["us-breach-notification.md"]["partial"] and not known["us-breach-notification.md"]["unreviewed"]
     from conftest import mark_partial

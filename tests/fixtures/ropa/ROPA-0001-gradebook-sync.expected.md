@@ -169,7 +169,7 @@ None.
 
 ### References and tags
 
-- `gdpr.md`: EU GDPR as of 2026-10-16, verified 2026-10-16
+- `gdpr.md`: EU GDPR as of 2026-10-16, verified 2026-10-22
 - `ferpa.md`: FERPA and COPPA as of 2026-10-16, verified 2026-10-16
 - NIST Privacy Framework: ID.IM-P1, ID.IM-P3, ID.IM-P4
 

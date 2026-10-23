@@ -18,7 +18,7 @@ This skill answers whether a processing activity needs a DPIA, and if it does, a
 |---|---|
 | [`references/screening.md`](references/screening.md) | Step 3: territorial scope, Art. 35(3), the EDPB criteria, national lists, UK, Swiss, US state, FERPA, and AI Act screening |
 | [`references/intake.md`](references/intake.md) | Step 2: the questions, tagged Round 1 (blockers) and Round 2 (completion) |
-| [`../_shared/references/gdpr.md`](../_shared/references/gdpr.md) | Steps 3 and 4: scope, roles, lawful bases, Art. 9, Art. 22, transfers, prior consultation (§10) |
+| [`../_shared/references/gdpr.md`](../_shared/references/gdpr.md) | Steps 3 and 4: scope, roles, lawful bases, Art. 9, Art. 22, transfers, prior consultation and the national Art. 35(4) lists item by item (§10) |
 | [`../_shared/references/risk-method.md`](../_shared/references/risk-method.md) | Step 4: the matrix, the three ratings, the catalog, and mitigations |
 | [`../_shared/references/us-state-privacy.md`](../_shared/references/us-state-privacy.md), [`ferpa.md`](../_shared/references/ferpa.md), [`eu-ai-act.md`](../_shared/references/eu-ai-act.md) | Step 4, for the other regimes the activity touches |
 | [`references/assistance-pack.md`](references/assistance-pack.md) and [`assets/dpia-template.md`](assets/dpia-template.md) | Only when the company is the processor |
