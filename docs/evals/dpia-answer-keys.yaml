@@ -1,6 +1,6 @@
 # Answer keys for the DPIA holdout (dpia-scenarios.yaml), in the format of ai-act-answer-keys.yaml.
 # Status: revision 2, 2026-10-22. Counsel signed off on the primary-source checks and proposed edits in
-#   docs/evals/dpia-verification.md, applied here. Frozen except dpia-04 K3, whose scoring question is with counsel.
+#   docs/evals/dpia-verification.md, applied here. Frozen 2026-10-22; counsel decided the dpia-04 K3 scoring question the same day.
 # key_version: 2. legal_text_date: 2026-10-22 (sources and dates in dpia-verification.md); AI Act dates from the
 #   consolidated text as at 27 July 2026, as amended by Regulation (EU) 2026/1744 (ai-act-verification.md).
 #   Still unverified against primary text: CPCE art. L34-5 (dpia-02 K4) and the Garante's employment item (dpia-03 K1).
@@ -108,10 +108,8 @@ dpia-04-library-ebook-recommendations:
       source: "GDPR Art. 6(1), second subparagraph; Art. 6(1)(e), 6(3); Art. 9(2)"
     - id: K3
       weight: must
-      point: "Addresses children: whether the app is an information society service offered directly to a child under Art. 8 and Austria's threshold, and that children's data weighs more in the risk; the age threshold alone doesn't decide it."
+      point: "Addresses children: tests whether the app is an information society service (normally provided for remuneration) before applying Art. 8 and Austria's threshold of 14, and treats children's data as weighing more in the risk either way. Applying Art. 8 without that test is imprecise and doesn't earn full credit (counsel, 2026-10-22)."
       source: "GDPR Art. 8, 4(25); Directive (EU) 2015/1535 Art. 1(1)(b); Austrian DSG § 4(4) (in force since 1 January 2020); Recital 38"
-      check: true
-      verify: "Scoring question with counsel: whether an answer must test that a free public library app is an information society service before applying Art. 8"
     - id: K4
       weight: should
       point: "Proposes a less intrusive design: opt-in, recommendations computed on the device or from recent loans only, no retention of full history, easy reset."
