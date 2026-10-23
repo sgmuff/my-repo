@@ -22,3 +22,23 @@ jobs:
         run: gov validate
       - name: Rendered files match their records
         run: gov render --check
+
+  install:
+    # A non-editable install must carry every schema, rule, and template: create, validate, and render each record type.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install build && python -m build --wheel
+      - run: python -m venv /tmp/v && /tmp/v/bin/pip install dist/*.whl
+      - name: Every record type works from the wheel
+        run: |
+          mkdir /tmp/suite && cp -R skills /tmp/suite/ && cd /tmp/suite
+          for t in ropa scr dpia lia tia tsr aip aid vr aiia inc rdy ais ctl dsr sra; do
+            /tmp/v/bin/gov new $t --slug check-$t --title "Check $t" --date 2026-10-22
+          done
+          /tmp/v/bin/gov validate && /tmp/v/bin/gov render
+      - name: Plugin manifest is well formed
+        run: python -c "import json; m = json.load(open('.claude-plugin/plugin.json')); assert m['name'] and m['version']"

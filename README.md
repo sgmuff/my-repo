@@ -15,6 +15,7 @@ reference files are still waiting for counsel's review (see [Status](#status)).
 | Records | `ropa` (records of processing), `ai-intake` (AI inventory and tiering) |
 | Assessments | `dpia`, `lia` (legitimate interests), `tia` (transfers), `ai-act-provider`, `ai-act-deployer`, `ai-impact-assessment` |
 | Operations | `vendor-review`, `dsr-response`, `incident-assessment`, `notice-and-policy` |
+| Security | `controls-and-evidence` also writes the security assessments the law requires: GDPR Art. 32, CCPA audit preparation, COPPA, HIPAA, GLBA, NIS2 |
 | Program | `controls-and-evidence`, `program-assessment`, `regulatory-change`, `leadership-report` |
 
 The laws and standards behind them are in [`skills/_shared/references/`](skills/_shared/references/): the GDPR, UK GDPR
@@ -64,10 +65,13 @@ right.
 
 ## Status
 
-Built and tested: all 17 skills and `gov`. Still open:
+Built and tested: all 17 governance skills and `gov`, with every assessment and register kept as a `gov` record (see
+[CHANGELOG.md](CHANGELOG.md)). Still open before 1.0:
 
-- `us-breach-notification.md` needs counsel's review before `incident-assessment` is used live.
-- The DPIA is in the record format; its holdout evals wait on counsel's keys.
+- Counsel's review of the rest of `us-breach-notification.md`, needed before `incident-assessment` is used live.
+- Counsel's sign-off on the DPIA and router answer keys and the proposed `scr` and `dpia` issue rules; the holdouts run
+  once the keys are frozen.
+- Trigger evals for every skill, which need the old claude.ai copies of the skills removed first.
 - The plan, with progress and the backlog, is in [`docs/design/governance-suite-plan.md`](docs/design/governance-suite-plan.md).
 
 ## Contributing
