@@ -86,6 +86,10 @@ def test_required_notices_need_drafts_and_render_as_drafts(root):
 def test_the_record_warns_while_the_breach_reference_is_only_partly_reviewed(root):
     path = incident(root, lambda d: aware(d))
     render_tree(root)
+    assert "Reference status" not in path.with_suffix(".md").read_text()
+    from conftest import mark_partial
+    mark_partial(root)
+    render_tree(root)
     assert "counsel has reviewed only part of us-breach-notification.md" in path.with_suffix(".md").read_text()
 
 

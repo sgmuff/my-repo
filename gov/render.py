@@ -514,6 +514,7 @@ def render_record(rec, root=None) -> str:
         from gov import aiuc
         extra["aiuc"] = aiuc.requirements(root)
     if rec.type == "inc":
+        extra["breach_review"] = None
         entry = references.index(root).get("us-breach-notification.md") if root else None
         counsel = (entry or {}).get("front", {}).get("counsel_review", {})
         if counsel.get("status") != "approved":

@@ -21,7 +21,7 @@ Framework details live here, so they can be updated as laws and standards change
 | `nist-privacy-framework.md` | NIST Privacy Framework | 1.0 (2020); 1.1 still a draft | 2026-10-16 | 2027-01-16 | Quarterly until 1.1 is final | Primary | Not recorded |
 | `quebec-law-25.md` | Quebec private-sector privacy act as amended by Law 25 | All phases in force | 2026-10-18 | 2027-04-19 | Six months | Secondary | Approved 2026-10-19 |
 | `risk-method.md` | Shared scoring method, catalog, and mitigations | Suite method | 2026-10-16 | 2027-10-16 | Annual | Internal | Not recorded |
-| `us-breach-notification.md` | US state, territory, and federal breach notification laws | As of 2026-10-21; deadlines and thresholds counsel-approved, the rest pending | 2026-10-21 | 2027-01-21 | Quarterly | Mixed | Partial, 2026-10-22 |
+| `us-breach-notification.md` | US state, territory, and federal breach notification laws | As of 2026-10-21; counsel-approved 2026-10-22 | 2026-10-21 | 2027-01-21 | Quarterly | Mixed | Approved 2026-10-22 |
 | `us-state-privacy.md` | 24 comprehensive state privacy laws, CCPA regulations, state AI laws | Status as of 2026-10-16 | 2026-10-16 | 2027-01-16 | Quarterly | Primary | Not recorded |
 <!-- gov:reference-index:end -->
 

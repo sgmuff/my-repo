@@ -17,8 +17,6 @@ Privileged and confidential, prepared at the direction of counsel (J. Ortiz)
 
 # INC-2026-004: Misconfigured storage bucket
 
-> **Reference status:** counsel has reviewed only part of us-breach-notification.md (Fixed deadlines and thresholds only; other rows and sections 3 to 5 not yet reviewed); confirm the state rules relied on here
-
 **Earliest deadline:** 2026-10-28, CA: Notify residents (outer limit 30 days; most expedient time possible applies first)
 **Became aware:** 2026-09-28T16:00 (America/New_York), confirmed. Fixture
 

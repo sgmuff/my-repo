@@ -28,7 +28,10 @@ def test_the_index_reads_front_matter(root):
     assert (known["gdpr.md"]["verified"], known["gdpr.md"]["review_by"]) == ("2026-10-16", "2027-01-16")
     assert not known["gdpr.md"]["secondary"] and not known["gdpr.md"]["unreviewed"]
     assert known["hipaa.md"]["secondary"] and not known["hipaa.md"]["partial"]
-    assert known["us-breach-notification.md"]["partial"]
+    assert not known["us-breach-notification.md"]["partial"] and not known["us-breach-notification.md"]["unreviewed"]
+    from conftest import mark_partial
+    mark_partial(root)
+    assert references.index(root)["us-breach-notification.md"]["partial"]
 
 
 def test_every_shared_file_has_complete_front_matter(root):
@@ -47,6 +50,8 @@ def test_broken_front_matter_fails_closed(assess_root):
 
 
 def test_partial_counsel_review_is_a_finding_and_caveats_render(assess_root):
+    from conftest import mark_partial
+    mark_partial(assess_root)
     path = edit(assess_root, lambda d: d.update(references=[
         {"file": "us-breach-notification.md", "version": "As of 2026-10-21", "verified": "2026-10-21"},
         {"file": "hipaa.md", "version": "Rules through 2013", "verified": "2026-10-18"}]))

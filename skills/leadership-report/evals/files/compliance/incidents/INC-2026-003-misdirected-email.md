@@ -14,8 +14,6 @@ generated_from: INC-2026-003-misdirected-email.yaml
 
 # INC-2026-003: Report card emailed to wrong parent
 
-> **Reference status:** counsel has reviewed only part of us-breach-notification.md (Fixed deadlines and thresholds only; other rows and sections 3 to 5 not yet reviewed); confirm the state rules relied on here
-
 **Earliest deadline:** 2026-09-13, NY: Notify residents (outer limit 30 days; most expedient time possible applies first)
 **Became aware:** 2026-08-14T09:10 (America/New_York), confirmed. Fixture
 

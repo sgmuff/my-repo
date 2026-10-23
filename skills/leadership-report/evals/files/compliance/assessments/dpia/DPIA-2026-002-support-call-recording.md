@@ -74,7 +74,9 @@ Not applicable: no other regime is triggered.
 
 ## 6. Issues checked
 
-No issue rules cover this record type yet, so nothing was checked here.
+| Issue | Status | Note | Source |
+|---|---|---|---|
+| Art. 9 condition | Not addressed | For each purpose using special category data, including by inference, the Art. 9(2) condition and its national-law basis where one is needed; for consent, whether it is explicit and freely given given the actual choice and the consequences of refusing | GDPR Art. 9(2), 9(4), 7(4); EDPB Guidelines 05/2020, paras 26-37, 46-50 |
 
 ## 7. Actions
 
@@ -108,6 +110,7 @@ None.
 | necessity | special category data is or may be processed; add an art9-condition row with the Art. 9(2) condition relied on | Open | — |
 | screening | link the screening record that found this DPIA warranted or recommended | Open | — |
 | activity | link the RoPA entry this DPIA covers, or add an action to create it | Open | — |
+| issues/dpia-art9-condition | address art. 9 condition (dpia-art9-condition): For each purpose using special category data, including by inference, the Art. 9(2) condition and its national-law basis where one is needed; for consent, whether it is explicit and freely given given the actual choice and the consequences of refusing (GDPR Art. 9(2), 9(4), 7(4); EDPB Guidelines 05/2020, paras 26-37, 46-50) | Open | — |
 
 ### References
 

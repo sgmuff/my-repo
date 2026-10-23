@@ -6,3 +6,5 @@ __pycache__/
 compliance/.gov/*.lock
 compliance/.gov/*.tmp
 *-workspace/
+build/
+dist/

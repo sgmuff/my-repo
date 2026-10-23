@@ -31,6 +31,15 @@ def root(tmp_path, monkeypatch):
     return tmp_path
 
 
+def mark_partial(root, name="us-breach-notification.md"):
+    """Set a copied reference file's counsel review to partial, to test the caveats."""
+    path = root / "skills" / "_shared" / "references" / name
+    text = path.read_text(encoding="utf-8")
+    start = text.index("counsel_review:")
+    end = text.index("\n", text.index("scope:", start))
+    path.write_text(text[:start] + "counsel_review:\n  status: partial\n  date: '2026-10-22'\n  scope: Fixed deadlines only" + text[end:], encoding="utf-8")
+
+
 @pytest.fixture
 def ropa_root(root):
     """A suite holding the Gradebook Sync fixture, with its ID issued."""

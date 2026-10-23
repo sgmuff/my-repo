@@ -2,7 +2,8 @@
 
 Prepared 2026-10-22 for counsel's sign-off on the `check: true` items in `dpia-answer-keys.yaml`. Claude gathered the
 text; counsel verifies. Quotes are verbatim fragments from the primary source named in each row; translations are
-Claude's. Nothing in the keys has been changed: each proposed edit below waits for counsel.
+Claude's. **Counsel signed off on 2026-10-22; the proposed edits are applied in key_version 2.** Still open: CPCE
+L34-5, the Garante's list item, and the dpia-04 K3 scoring question.
 
 Status per item: **supported** (source text matches the key), **qualify** (the key holds but needs an edit or a
 narrower pinpoint), **open** (no primary text retrieved).

@@ -1,16 +1,16 @@
 ---
 title: US breach notification laws
 summary: US state, territory, and federal breach notification laws
-version_summary: As of 2026-10-21; deadlines and thresholds counsel-approved, the rest pending
+version_summary: As of 2026-10-21; counsel-approved 2026-10-22
 last_verified: '2026-10-21'
 review_by: '2027-01-21'
 review_interval: Quarterly. States amend these laws every session.
 index_interval: Quarterly
 source_quality: mixed
 counsel_review:
-  status: partial
+  status: approved
   date: '2026-10-22'
-  scope: Fixed deadlines and thresholds only; other rows and sections 3 to 5 not yet reviewed
+  scope: The whole file, including rows without fixed deadlines and sections 3 to 5
 covers: The breach notification statutes of the 50 states, the District of Columbia, Puerto Rico, Guam, and the US Virgin Islands; federal and sector laws to flag
 version: As of 2026-10-16
 sources: 'Fixed deadlines and thresholds for 19 jurisdictions checked against statute text or official AG pages on 2026-10-21 (`docs/legal-review/us-breach-verification.md`). 2025–2026 changes checked against: Ashurst Perkins Coie, *2025 breach notification law update* (October 15, 2025); Covington Inside Privacy on Oklahoma SB 626 (August 2025) and on New York''s GBL § 899-aa amendment (January 2025); Troutman Pepper and Hunton on California SB 446 (October–November 2025). Other rows are compiled from the statutes'' known text and secondary matrices, and were **not** re-read against each statute.'
