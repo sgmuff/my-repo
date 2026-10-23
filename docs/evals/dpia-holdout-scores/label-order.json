@@ -1,0 +1,26 @@
+{
+ "dpia-01-gym-wearables-insurer": [
+  "without",
+  "with"
+ ],
+ "dpia-02-newsletter-ab-test": [
+  "without",
+  "with"
+ ],
+ "dpia-03-delivery-driver-telematics": [
+  "with",
+  "without"
+ ],
+ "dpia-04-library-ebook-recommendations": [
+  "with",
+  "without"
+ ],
+ "dpia-05-b2b-crm-enrichment": [
+  "with",
+  "without"
+ ],
+ "dpia-06-hospital-ai-triage-update": [
+  "with",
+  "without"
+ ]
+}

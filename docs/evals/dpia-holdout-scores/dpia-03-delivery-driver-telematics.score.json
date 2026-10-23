@@ -1,0 +1,35 @@
+{
+  "scenario": "dpia-03-delivery-driver-telematics",
+  "A": {
+    "points": {
+      "K1": {"score": 0.5, "evidence": "WP248 criteria 1, 3, 5, 7, 8 found present and DPIA warranted, but the Art. 35(4) lists are only 'probably cover... I haven't checked the current text of either list'. No AEPD criteria or Garante item is identified."},
+      "K2": {"score": 0.5, "evidence": "Covers the Italian Art. 4(1) RSU/RSA agreement or INL authorization, plus Spanish LOPDGDD 89(1) and ET 64.4(d)/64.5(f). Doesn't address the LOPDGDD 89(3) audio rule (audio is only dropped as a design control) or the Art. 4 exceptions, so it isn't tied to the equipment's actual functions."},
+      "K3": {"score": 1, "evidence": "'balancing fails for continuous face recording' when in-cab alerts and event-only clips meet the same aim. Adds short retention and off-duty shutoff, and doesn't let the safety purpose settle it."},
+      "K4": {"score": 1, "evidence": "Art. 22 applies only 'if the score or a flag triggers discipline, pay... without a reviewer who looks at the clip and can disagree'. Profiling and Art. 22 are analyzed separately, citing C-634/21."},
+      "K5": {"score": 1, "evidence": "Annex III 4(b) deployer duties from 2 December 2027 under Reg. 2026/1744, separated from Art. 5, which applies now. Fatigue is treated as a physical state, but the item stays Open until the vendor documents every output, including any emotion or intent inference."},
+      "K6": {"score": 0.5, "evidence": "Gives a full risk register with inherent, current, and target ratings, but finds 'Art. 36(1) met today' because the internal current rating counts only verified measures. That treats the internal High rating as the legal trigger rather than residual risk after the measures to be taken. It is conditional, but mechanical."}
+    },
+    "key_score": 75,
+    "errors": [],
+    "adjusted": 75,
+    "usability_requester": 4,
+    "usability_regulator": 4
+  },
+  "B": {
+    "points": {
+      "K1": {"score": 1, "evidence": "Criteria 1, 3, 5, 7, 8 are met. It checks both Art. 35(4) lists on substance: AEPD for systematic monitoring and profiling of employees, and Garante decision no. 467 of 11 October 2018 for remote employee monitoring and innovative technology. It also notes the D.Lgs. 152/1997 Art. 1-bis impact assessment. Neither list was verified against source."},
+      "K2": {"score": 1, "evidence": "Spain: LOPDGDD 89 prior express notice to workers and representatives, with audio only for significant safety risks, plus Art. 90 GPS and ET 64.4(d)/64.5(f). Italy: Art. 4(1) agreement, or the national unions for multi-site units, or INL. Art. 4(2) tools exemption held not to cover a driver camera, Art. 4(3) use conditions, and criminal sanction."},
+      "K3": {"score": 1, "evidence": "The alternatives table covers road-only plus telematics ('Ops must explain why that isn't enough'), alerts-only with nothing kept, event-triggered capture, on-device buffer, team score, and short retention. A continuous driver camera is held not proportionate."},
+      "K4": {"score": 1, "evidence": "The score must not lead to solely automated decisions 'unless there is real human involvement'. Asks how the score is used. The score is never the sole basis, and any discipline needs a separate human investigation with the clip and the driver's explanation."},
+      "K5": {"score": 0.5, "evidence": "Annex III 4(b) and the Art. 5(1)(f) fatigue-vs-emotion distinction are handled well, with feature-by-feature checks. On timing it cites the original 2 August 2026 date and an Omnibus proposal it 'can't confirm', and suggests planning to 2 August 2026. It never gives the 2 December 2027 date with its legal basis, so it doesn't separate what applies at rollout."},
+      "K6": {"score": 1, "evidence": "Gives a 13-risk register with inherent and residual ratings. Applies the Art. 36 test conditionally: medium with the measures, so no consultation, versus high if continuous recording, face ID, emotion features, or an unreviewed score remain, so consultation is needed."}
+    },
+    "key_score": 95,
+    "errors": [],
+    "adjusted": 95,
+    "usability_requester": 5,
+    "usability_regulator": 4
+  },
+  "winner": "B",
+  "notes": "B's national labour-law analysis was much deeper: the LOPDGDD 89 audio rule, the Art. 4(2) exemption, Art. 4(3) use conditions, and the multi-site/INL route. It tested proportionality against an explicit set of alternatives and applied Art. 36 on its own test. A was stronger only on AI Act timing, stating 2 December 2027 with its basis, but it hedged on the national lists, omitted the audio and exception points, and treated an internal 'current High' rating as triggering Art. 36. Neither had an independent material error; B's AI Act timing weakness is captured in K5."
+}

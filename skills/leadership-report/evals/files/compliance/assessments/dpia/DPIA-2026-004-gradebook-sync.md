@@ -111,7 +111,7 @@ None.
 | About | Finding | Response | By |
 |---|---|---|---|
 | risks | 2 risks recorded; a typical activity has 5 to 12, and fewer than 4 usually means one was missed (risk-method.md) | Open | — |
-| consultation/prior_consultation | the current residual rating is High; decide Art. 36 on its test (whether the DPIA shows a high risk the controller's measures don't mitigate) and record the call with its reasons | Open | — |
+| consultation/prior_consultation | the current residual rating is High; decide Art. 36 on its test (whether the DPIA shows a high risk the measures it sets out don't mitigate) and record the call with its reasons; the rating prompts the decision but isn't the test | Open | — |
 | decision | the decision lets processing go ahead while the current residual rating is High; record why Art. 36 consultation isn't required, or wait for it or for verified measures | Open | — |
 | necessity | special category data is or may be processed; add an art9-condition row with the Art. 9(2) condition relied on | Open | — |
 | screening | link the screening record that found this DPIA warranted or recommended | Open | — |

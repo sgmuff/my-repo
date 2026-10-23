@@ -276,8 +276,8 @@ def dpia(data: dict) -> list:
     if len(risks) < 4:
         out.append(("risks", f"{len(risks)} {'risk' if len(risks) == 1 else 'risks'} recorded; a typical activity has 5 to 12, and fewer than 4 usually means one was missed (risk-method.md)"))
     out += _risk_levels(risks)
-    if current == "High" and data["kind"] == "controller" and data["consultation"]["prior_consultation"]["value"] is not True:
-        out.append(("consultation/prior_consultation", "the current residual rating is High; decide Art. 36 on its test (whether the DPIA shows a high risk the controller's measures don't mitigate) and record the call with its reasons"))
+    if current == "High" and data["kind"] == "controller" and is_tbc(data["consultation"]["prior_consultation"]["value"]):
+        out.append(("consultation/prior_consultation", "the current residual rating is High; decide Art. 36 on its test (whether the DPIA shows a high risk the measures it sets out don't mitigate) and record the call with its reasons; the rating prompts the decision but isn't the test"))
     if current == "High" and decision in ("proceed", "proceed-with-conditions"):
         out.append(("decision", "the decision lets processing go ahead while the current residual rating is High; record why Art. 36 consultation isn't required, or wait for it or for verified measures"))
     if risks and data["decision"]["status"] == "Confirmed" and not _residual_confirmed(data):

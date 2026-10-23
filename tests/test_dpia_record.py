@@ -87,11 +87,18 @@ def test_a_target_with_no_planned_measure_is_a_finding(root):
 def test_a_high_current_needs_prior_consultation_and_blocks_proceeding(root):
     def high(d):
         d["risks"] = four_low_risks() + [a_risk(5, HIGH, HIGH, MEDIUM, "planned")]
-        d["consultation"]["prior_consultation"] = call(False)
+        d["consultation"]["prior_consultation"] = call("TBC")
         d["decision"] = call("proceed-with-conditions")
-    dpia(root, high)
+    path = dpia(root, high)
     findings = found(root, "finding")
     assert any("decide Art. 36 on its test" in m for m in findings)
+    assert any("while the current residual rating is High" in m for m in findings)
+    # A reasoned no settles the Art. 36 question; the proceed decision still needs its reasons.
+    data = yamlio.load(path)
+    data["consultation"]["prior_consultation"] = call(False)
+    path.write_text(yamlio.dumps(data), encoding="utf-8")
+    findings = found(root, "finding")
+    assert not any("decide Art. 36 on its test" in m for m in findings)
     assert any("while the current residual rating is High" in m for m in findings)
 
 

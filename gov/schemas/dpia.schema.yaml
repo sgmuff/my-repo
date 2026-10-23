@@ -66,7 +66,7 @@ properties:
     properties:
       dpo: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 30, description: "The DPO's advice and whether it was followed, or not-applicable"}
       data_subjects: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 30, description: "Views sought from data subjects or their representatives, or why not"}
-      prior_consultation: {$ref: "common.schema.yaml#/$defs/call_tristate", description: "Is Art. 36 prior consultation required, on the current rating?"}
+      prior_consultation: {$ref: "common.schema.yaml#/$defs/call_tristate", description: "Is Art. 36 prior consultation required, on Art. 36(1)'s test? A reasoned no can rest on the measures the DPIA sets out, if they are in place before processing starts; TBC until decided"}
   other_regimes:
     description: "Catalog regimes this activity triggers, with only their extra elements"
     type: array

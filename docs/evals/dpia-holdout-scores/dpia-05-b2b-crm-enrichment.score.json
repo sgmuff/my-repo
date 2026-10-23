@@ -1,0 +1,31 @@
+{
+  "scenario": "dpia-05-b2b-crm-enrichment",
+  "A": {
+    "points": {
+      "K1": {"score": 1, "evidence": "Weighs criteria in substance: criterion 6 present, criterion 1 unclear (score vs manual filter), low sensitivity, no significant effect, 8,000 people with two fields not large scale; treats records as named individuals throughout ('8,000 people', 'ranking of individuals', 'named staff'); reasoned 'recommended' with listed conditions that make it required."},
+      "K2": {"score": 1, "evidence": "'Give it at first contact, and within one month at the latest. It must name the broker as the source (Art. 14(2)(f)) and state the right to object. Art. 14(5)(b) ... isn't available, because we're contacting each person anyway.'"},
+      "K3": {"score": 1, "evidence": "Art. 6(1)(f) with written LIA; Art. 5(2) accountability for inherited sourcing; broker due diligence on sources, collection, Art. 14 practice, field list with closure evidence recorded; contract (Art. 28 DPA or no-reuse/sourcing warranties)."},
+      "K4": {"score": 1, "evidence": "LIA required before launch; 'B2B email and phone rules vary by member state, and some require prior consent for B2B email. Counsel should confirm them country by country.'"}
+    },
+    "key_score": 100,
+    "errors": [],
+    "adjusted": 100,
+    "usability_requester": 4,
+    "usability_regulator": 5
+  },
+  "B": {
+    "points": {
+      "K1": {"score": 0.5, "evidence": "Weighs intensity and scale and assumes 'named individuals at EU companies', reaching a reasoned borderline 'do a short DPIA'. But it relabels WP248 criterion 9 (processing that prevents exercise of a right, service or contract) as 'invisible processing', which is an ICO-list concept, and counts it as an arguable criterion, inflating the tally ('one clear, one arguable, one weak')."},
+      "K2": {"score": 1, "evidence": "'Notify each person within one month, or at first communication if that's sooner'; must name the broker or source categories and the right to object; 14(5)(b) 'weak when you hold the contact's email and plan to write to them anyway'."},
+      "K3": {"score": 1, "evidence": "Written LIA under 6(1)(f); 'You inherit the broker's sourcing problems'; written answers on sources, lawful basis, Art. 14 notice, suppression, transfers; controller-to-controller agreement with warranties; 'don't proceed' if sourcing can't be shown."},
+      "K4": {"score": 1, "evidence": "LIA balancing set out; 'B2B email rules vary by member state', with Germany (UWG s.7) and France contrasted and segmentation by country."}
+    },
+    "key_score": 85.7,
+    "errors": [],
+    "adjusted": 85.7,
+    "usability_requester": 5,
+    "usability_regulator": 3
+  },
+  "winner": "A",
+  "notes": "Both covered Art. 14 timing, content and exception, the company's own lawful basis and broker diligence, and member-state ePrivacy variation. A applied the WP248 criteria accurately, while B relabelled criterion 9 as invisible processing and counted it toward the threshold, which cost it half of K1. B is the more readable answer for the requester, but A's attached screening and DPIA records give a regulator a fuller trail of the company's reasoning."
+}

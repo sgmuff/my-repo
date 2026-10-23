@@ -1,0 +1,31 @@
+{
+  "scenario": "dpia-02-newsletter-ab-test",
+  "A": {
+    "points": {
+      "K1": {"score": 1, "evidence": "No Art. 35(3) case, at most one WP248 criterion met trivially, no CNIL/DSK list item; gives a screening note; conditions on aggregate-only use and asks whether per-recipient engagement will be kept for targeting."},
+      "K2": {"score": 1, "evidence": "\"'It's new' isn't the test\"; \"the company does assess anything new, but assessing it doesn't mean doing a full DPIA. A recorded screening is the proportionate step.\""},
+      "K3": {"score": 0.5, "evidence": "Separates pixel tracking (ePrivacy Art. 5(3), TDDDG s. 25, LIL Art. 82) from Art. 35 and tells the reader to check current CNIL pixel guidance, offering click-based or consent-gated alternatives. It does not recognize that the CNIL's 12 March 2026 recommendation requires consent for open-rate measurement even when results are aggregated ('has been working on recommendations')."},
+      "K4": {"score": 0.5, "evidence": "Names the soft opt-in (CPCE L.34-5, UWG s. 7(3)), says to make sure it is 'actually in place for everyone on the list, with an easy unsubscribe in every send'. It does not test the sale, similar-products, or opt-out-at-collection conditions."}
+    },
+    "key_score": 83.3,
+    "errors": [],
+    "adjusted": 83.3,
+    "usability_requester": 5,
+    "usability_regulator": 4
+  },
+  "B": {
+    "points": {
+      "K1": {"score": 1, "evidence": "Goes criterion by criterion through WP248, treating scale as present in the worst case but not high risk; records screening SCR-2026-001; marked provisional on F10, which asks whether the tool scores individual recipients (Q2 blocks approval)."},
+      "K2": {"score": 1, "evidence": "\"Product's rule, 'anything new needs a DPIA,' isn't the legal test... the right response to a new activity is a short documented screening, which I've done.\""},
+      "K3": {"score": 0.5, "evidence": "Separates the device-access consent question (Art. 5(3), Art. 82, TDDDG s. 25) from the DPIA. Verify flag V1 asks about any exemption for aggregate open-rate measurement in France. It does not recognize that the CNIL's 12 March 2026 recommendation requires consent for aggregate open-rate measurement, and it marks the counsel consent action as not blocking launch."},
+      "K4": {"score": 0.5, "evidence": "Names the existing-customer exemption (CPCE L34-5, UWG s. 7(3)) and asks which basis applies (Q3), with the unsubscribe link in F4. It calls the basis 'unchanged by the test' and does not test the exemption's conditions."}
+    },
+    "key_score": 83.3,
+    "errors": [],
+    "adjusted": 83.3,
+    "usability_requester": 4,
+    "usability_regulator": 5
+  },
+  "winner": "tie",
+  "notes": "Both reached the correct conditional no-DPIA call, rejected 'new' as a trigger, and recorded a screening. Both scored partial on the CNIL 2026 pixel recommendation (neither knew it requires consent even for aggregate open rates) and on testing the soft opt-in's conditions. A is more actionable for Marketing (concrete alternatives such as picking the winner by clicks). B's fact register, verify flags, and criterion table make it the stronger documented record for a regulator, so the usability means are equal."
+}

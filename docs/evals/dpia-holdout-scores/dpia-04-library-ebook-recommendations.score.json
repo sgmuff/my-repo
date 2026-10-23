@@ -1,0 +1,33 @@
+{
+  "scenario": "dpia-04-library-ebook-recommendations",
+  "A": {
+    "points": {
+      "K1": {"score": 0.5, "evidence": "Names the sensitive topics and the indirect-revelation route (OT, Meta), but states flatly that reading history 'counts as Art. 9 data whether or not the engine labels it'. It never works out what the recommendations actually infer, so the certainty is unsupported. The attached screening calls the same point only 'arguable', and its 35(3)(b) row says 'No'."},
+      "K2": {"score": 1, "evidence": "Asks for the operator's status (Q1/F5). Says legitimate interests is unavailable to a public authority for its tasks and that public task 'would need an Austrian legal basis'. On Art. 9, explicit consent under 9(2)(a) is the only condition, and it must be freely given under Art. 7(4)."},
+      "K3": {"score": 1, "evidence": "Makes the Art. 8 point conditional: 'If the app counts as an information society service, children under 14 need a parent's consent'. Flags ISS status as an open item (V2: 'whether the app is such a service', which 'decides whether under-14s need parental consent'), cites DSG s. 4(4) at 14, and weights children in the risk (R2, criterion 7). It doesn't spell out the remuneration test, but it identifies the unknown and gives a conditional conclusion."},
+      "K4": {"score": 1, "evidence": "Off by default and opt-in, no backfill of past history, a rolling retention window, per-title exclusion, no stored sensitive labels, and in-app view, clear, and switch-off controls."},
+      "K5": {"score": 0, "evidence": "'I haven't checked the DSB's list...' Only a generic instruction to verify the DSFA-V and DSFA-AV, with no check of any entry."}
+    },
+    "key_score": 75.0,
+    "errors": [],
+    "adjusted": 75.0,
+    "usability_requester": 5,
+    "usability_regulator": 4
+  },
+  "B": {
+    "points": {
+      "K1": {"score": 1, "evidence": "Lists the inferable traits by title type (chronic illness, religion, politics, sexuality or gender identity, addiction, domestic violence). Hedges the law correctly: the CJEU reasoning 'suggests' inferable data 'may itself be treated as Art. 9 data', and explicit consent is needed 'if you accept the Art. 9 inference risk'. Proposes keeping sensitive classifications out of the model's inputs or outputs."},
+      "K2": {"score": 1, "evidence": "Q1: public authority or Verein 'decides whether Art. 6(1)(f) is even available'. Says 6(1)(f) is unavailable for a public body's tasks and that recommendations are hard to call necessary for the 6(1)(e) task. Opt-in consent would need to be explicit under 9(2)(a) if Art. 9 applies."},
+      "K3": {"score": 0.5, "evidence": "Applies Art. 8 and the DSG s. 4(4) age of 14 directly ('If you rely on consent for patrons under 14, you need consent from a holder of parental responsibility') without testing ISS status. Counsel's rule makes this imprecise. It does weight children in the risk and recommends excluding under-14s, with extra care for ages 14 to 17."},
+      "K4": {"score": 1, "evidence": "Opt-in and off by default, a rolling 12-24 month window, deletion of history and profile, a private-reading or 'don't use this loan' switch, and computing recommendations on the device."},
+      "K5": {"score": 0.5, "evidence": "Recalls DSFA-V entries on profiling of preferences and interests and on vulnerable data subjects, including children, and applies them to the feature, with a caveat to check the wording. It cites no paragraph or Z numbers and works from memory, but goes beyond a generic instruction."}
+    },
+    "key_score": 81.25,
+    "errors": [],
+    "adjusted": 81.25,
+    "usability_requester": 4,
+    "usability_regulator": 3
+  },
+  "winner": "B",
+  "notes": "B hedged the Art. 9 point correctly and engaged with the DSFA-V content, while A asserted Art. 9 status as settled and only flagged the national list for checking. A handled the ISS precondition for Art. 8 better and gave a far more usable documented record with actions, owners, and a separate Art. 36 analysis, but that did not offset the two key-point gaps. Neither answer had an independent material error."
+}

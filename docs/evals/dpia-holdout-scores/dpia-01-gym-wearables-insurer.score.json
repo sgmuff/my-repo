@@ -1,0 +1,35 @@
+{
+  "scenario": "dpia-01-gym-wearables-insurer",
+  "A": {
+    "points": {
+      "K1": {"score": 1, "evidence": "Scoring and health data relied on; combining explained ('Wearable data, gym membership, and the insurer's policyholder records'); large scale left to enrolment numbers: 'you do not need to rely on that limb'."},
+      "K2": {"score": 1, "evidence": "'A real benefit such as a discount does not by itself make consent invalid. It becomes a problem if' non-participants pay more, discount coercive, gym services conditional, employer-sponsored; DPIA to record discount size and baseline."},
+      "K3": {"score": 1, "evidence": "Separate controllers likely, joint for scoring if insurer sets inputs/weights (Art 26); Art 6(1)(a) plus Art 9(2)(a) for the gym's disclosure; insurer has its own routes (UAVG Art 30 'a basis for the insurer's own processing, not for the gym's disclosure')."},
+      "K4": {"score": 1, "evidence": "Score treated as health data; drop heart rate; coarse band plus pseudonymous token; contract purpose limits, no onward use, deletion schedule at the insurer; identifiability through the linking key addressed."},
+      "K5": {"score": 0.5, "evidence": "States both lists cover health data, scoring and combining, with 'Check the current wording... cite the exact entries'; general match only, no item-level check, no note that the Irish list applies where screening shows likely high risk; headline asserts coverage more firmly than the analysis supports."},
+      "K6": {"score": 1, "evidence": "Before/after risk register with measures; Art 36 'is not automatic. If the mitigations in §6 leave a high residual risk... you must consult'."}
+    },
+    "key_score": 95,
+    "errors": [],
+    "adjusted": 95,
+    "usability_requester": 4,
+    "usability_regulator": 3
+  },
+  "B": {
+    "points": {
+      "K1": {"score": 1, "evidence": "Scoring, health data, matching ('Gym member records matched to insurer policyholder records'), monitoring and innovative use; large scale marked Unclear because member count is unknown."},
+      "K2": {"score": 1, "evidence": "Consent valid only if 'free of any cost on the gym side if a member refuses or withdraws (Art. 7(4))'; 'A modest discount is an incentive. A scheme where low scorers or non-participants pay more is much harder to defend'; tied to F6."},
+      "K3": {"score": 1, "evidence": "Gym is controller for sync, score and disclosure; insurer is an independent controller for pricing; joint if insurer designs the method; Art 6(1)(a) plus 9(2)(a) for the disclosure; 'The insurer also needs its own Art. 6 and Art. 9 basis'."},
+      "K4": {"score": 1, "evidence": "Weekly band or goal-met flag only; heart rate dropped unless needed; R5 covers what granular data reveals; retention at both parties TBC (F10); member-confirmed policy reference; insurer purpose limits."},
+      "K5": {"score": 0.5, "evidence": "Lists not checked against current text and a verify flag raised; record says both lists 'cover health data, profiling, and combining datasets in some form, to be confirmed'. Honest but no item-level check and no note on the Irish list's condition."},
+      "K6": {"score": 1, "evidence": "Inherent, current and target ratings for each risk with measures; Art 36 'not required if verified measures bring all to Medium', otherwise consult; the Art 36(1) test is stated in the validation findings."}
+    },
+    "key_score": 95,
+    "errors": [],
+    "adjusted": 95,
+    "usability_requester": 4,
+    "usability_regulator": 4
+  },
+  "winner": "B",
+  "notes": "Both answers hit every must point, with sound reasoning on freely given consent, separate bases for each party, and minimization. Both scored only half on the national lists, so the adjusted scores tie at 95. A covers more ground around the scheme (equality law, Data Act, platform terms, the gym's possible AI Act provider role, a hedged AI Act date). B wins the tie-break because its records give a regulator traceable reasoning: inherent, current and target risk ratings, an Art 36 decision tied to verifying the measures, and a fact register. One flaw: an 'Art. 9 condition: Not addressed' status row contradicts B's own analysis."
+}

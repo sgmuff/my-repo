@@ -1,0 +1,33 @@
+{
+  "scenario": "dpia-06-hospital-ai-triage-update",
+  "A": {
+    "points": {
+      "K1": {"score": 1, "evidence": "Art. 35(11) review; 'Your existing approval doesn't cover this change'; scopes the update to the change and reconciles with the approved DPIA (A16); 'Nothing for the new setup has been verified yet, so each risk stays at its inherent rating'."},
+      "K2": {"score": 0.5, "evidence": "Treats Art. 28(2)/(4) sub-processor authorization as its own step and covers DPF vs SCCs Module 3 + TIA, and asks which entity hosts the data and whether an EU-region endpoint exists. But the DPIA states flatly that 'Health data going to a US host is a Chapter V transfer (Art. 44)' without first mapping the data flows or the possible scenarios."},
+      "K3": {"score": 1, "evidence": "Annex III 5(d) (provisional in the record); vendor is provider, hospital is deployer; Art. 26 and a FRIA conditional on public-law/public-service status 'from December 2, 2027 under the Omnibus amendment' (verify); Art. 111(2) significant-change question flagged; Art. 4 applies now. The answer text asserts high-risk without testing the intended purpose, which is a minor weakness."},
+      "K4": {"score": 0.5, "evidence": "Vendor named as provider; asks the vendor for its Art. 111(2)/MDR significant-change position and the Art. 53 information. Doesn't analyse an Art. 25 provider-role shift or ask for updated technical documentation and instructions for use."},
+      "K5": {"score": 1, "evidence": "'If it uses the data for its own purposes it becomes a controller for that use (Art. 28(10))'; Art. 9(2)(h) carries over only with Art. 9(3) secrecy and national disclosure/hosting rules; flow-down terms."}
+    },
+    "key_score": 81.25,
+    "errors": [],
+    "adjusted": 81.25,
+    "usability_requester": 5,
+    "usability_regulator": 4
+  },
+  "B": {
+    "points": {
+      "K1": {"score": 0.5, "evidence": "Reopens the DPIA under Art. 35(11) and says the approved DPIA no longer covers the live processing, with a list of what the update must cover. No re-rating of risks, and no treatment of which existing measures are now unverified."},
+      "K2": {"score": 0.5, "evidence": "Asks which fields leave the environment, the hosting region, where support staff access data from, and whether the DPF certification 'covers the relevant data'. Art. 28 sub-processor authorization has its own section. But the short answer assumes 'a new transfer of health data outside the EU' before the flows are known."},
+      "K3": {"score": 0, "evidence": "Misses Annex III point 5(d) entirely and uses only the Art. 6(1)/Annex I MDR route, with an outdated date ('apply from 2 August 2027', Omnibus called a 'proposal'). It then concludes a FRIA 'is not triggered for Annex I systems' without testing Art. 27 against 5(d) or public-body status, and doesn't address Art. 111(2). Only the Art. 26 deployer duties are mentioned."},
+      "K4": {"score": 0.5, "evidence": "'Replacing the model is likely to count as a substantial modification... make sure the contract clearly states that the vendor remains the provider'; asks for the Art. 53(1)(b) information and the MDR change assessment. No request for updated instructions for use or technical documentation."},
+      "K5": {"score": 0.5, "evidence": "Covers no-training and retention at the FM provider, flow-down terms, and national secrecy rules (§203 StGB, HDS). Doesn't address whether the Art. 9(2)(h)/9(3) condition still covers the new chain, or the controller consequence under Art. 28(10)."}
+    },
+    "key_score": 37.5,
+    "errors": [],
+    "adjusted": 37.5,
+    "usability_requester": 4,
+    "usability_regulator": 3
+  },
+  "winner": "A",
+  "notes": "The AI Act analysis separated them. A identified Annex III 5(d), the conditional FRIA test, a dated application with its amending basis, and the Art. 111(2) question. B missed 5(d), gave an outdated Annex I date, and on that basis ruled out a FRIA (scored once under K3, with no extra deduction). A also re-rated risks against unverified measures and tied the Art. 9(2)(h) condition and Art. 28(10) to the new chain. Both treated the US hosting as a transfer before mapping the data flows."
+}
