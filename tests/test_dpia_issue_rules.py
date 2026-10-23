@@ -22,3 +22,10 @@ def test_screening_rules_trigger(root):
     data = yamlio.load(path)
     data["context"] = ["children", "monitoring"]
     assert {"scr-vulnerable-people", "scr-monitoring"} <= {i for i, _ in issues.triggered(data)}
+
+
+def test_every_issue_id_can_be_recorded(root):
+    import re
+    from gov.records import schema
+    pattern = schema("common")["$defs"]["issues"]["items"]["properties"]["issue"]["pattern"]
+    assert all(re.fullmatch(pattern, i) for i in issues.rules()["issues"])

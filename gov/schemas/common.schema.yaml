@@ -16,7 +16,7 @@ $defs:
       additionalProperties: false
       required: [issue, status, note]
       properties:
-        issue: {type: string, pattern: "^[a-z][a-z-]*$"}
+        issue: {type: string, pattern: "^[a-z][a-z0-9-]*$"}
         status: {enum: [addressed, not-applicable, open]}
         note: {$ref: "#/$defs/text", x-max-words: 40, description: "Where it's addressed and the conclusion, why it doesn't apply, or what's needed"}
   reasoning: {$ref: "#/$defs/text", x-max-words: 100, description: "The analysis behind the call, with citations"}
