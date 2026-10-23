@@ -31,6 +31,9 @@ record.
 
 ### Reference files
 
+- Counsel approved all of `us-breach-notification.md` and §10 of `gdpr.md`, which now lists the Irish, Dutch, Spanish,
+  and Austrian Art. 35(4) lists item by item and the CNIL's 2026 rule on email tracking pixels.
+
 Each file carries front matter with its last verification, review date, source quality, and counsel review status.
 `gov` generates the index, fails closed on missing front matter, and raises findings for overdue files or files counsel
 hasn't fully reviewed.
@@ -39,8 +42,8 @@ hasn't fully reviewed.
 
 - AI Act skills: blind holdouts against counsel's keys (version 6), 90.0 with the skills against 82.4 without
   (`docs/evals/ai-act-results.md`).
-- DPIA and router holdouts: keys drafted and revised; the DPIA keys' primary-source checks are in
-  `docs/evals/dpia-verification.md`, awaiting counsel's sign-off.
+- DPIA skill: blind holdouts against counsel's keys (version 2), 84.9 with the skill against 79.6 without
+  (`docs/evals/dpia-results.md`). Router keys frozen at version 1 after source checks (`router-verification.md`).
 - Development runs for every record type, each with a friction log that drove fixes.
 
 ### Removed

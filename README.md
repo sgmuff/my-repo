@@ -58,7 +58,7 @@ Two kinds of promise, checked in different ways:
 - **By hand, at a point in time:** the quality of the legal analysis. Holdout scenarios the skills weren't built on are
   scored blind against answer keys written by counsel. Results carry the key version and the date of the legal texts
   used, and they age as the law changes. Latest: [AI Act skills](docs/evals/ai-act-results.md), October 21, 2026,
-  90.0 with the skills against 82.4 without.
+  90.0 with the skills against 82.4 without; [DPIA](docs/evals/dpia-results.md), October 23, 2026, 84.9 against 79.6.
 
 A passing build says the records are well formed and consistent. It says nothing about whether the law in them is
 right.
@@ -68,10 +68,9 @@ right.
 Built and tested: all 17 governance skills and `gov`, with every assessment and register kept as a `gov` record (see
 [CHANGELOG.md](CHANGELOG.md)). Still open before 1.0:
 
-- Counsel's review of the rest of `us-breach-notification.md`, needed before `incident-assessment` is used live.
-- Counsel's sign-off on the DPIA and router answer keys and the proposed `scr` and `dpia` issue rules; the holdouts run
-  once the keys are frozen.
-- Trigger evals for every skill, which need the old claude.ai copies of the skills removed first.
+- The router holdout, against counsel's frozen keys.
+- Trigger evals for every skill, and description tuning where a skill misfires.
+- Counsel's review of the rest of `gdpr.md` (only §10 is reviewed) and of the `ai-public-transition` issue rule.
 - The plan, with progress and the backlog, is in [`docs/design/governance-suite-plan.md`](docs/design/governance-suite-plan.md).
 
 ## Contributing
