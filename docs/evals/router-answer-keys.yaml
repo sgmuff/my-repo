@@ -1,52 +1,54 @@
 # Answer keys for the router holdout (router-scenarios.yaml), in the format of ai-act-answer-keys.yaml.
 # Score only the router's added issues and its handoff, not the routed plan, which golden tests already pin.
-# Status: DRAFT by Claude 2026-10-22, written from the law before any run, for counsel to approve. Not binding until then.
-# key_version: 0 (draft). Points marked check: true weren't verified against primary text.
+# Status: revision 1, frozen 2026-10-23. Counsel signed off on the source checks and proposed edits in
+#   docs/evals/router-verification.md, applied here.
+# key_version: 1. legal_text_date: 2026-10-22. Points still marked check: true weren't retrieved from primary text
+#   (rtr-02 K3 ELVIS Act, rtr-02 K4 Cal. Bus. & Prof. Code § 17941); score them as written.
 
 rtr-01-telehealth-pixel:
   outcome: "Hold the pixels on authenticated booking pages. Beyond the vendor review and notice steps, the router should flag that third-party tracking on health pages can disclose health information: HIPAA if the company is a covered entity or business associate, the FTC Health Breach Notification Rule and FTC Act if not, Washington's My Health My Data Act and similar state consumer health laws, and wiretap or VPPA-style class actions."
   points:
-    - {id: K1, weight: must, point: "Flags that pixels on appointment pages can disclose health information, and that the answer depends on whether the company is a HIPAA covered entity or business associate.", source: "45 CFR 164.502; HHS OCR guidance on tracking technologies (as narrowed by AHA v. Becerra, N.D. Tex. 2024)", check: true}
-    - {id: K2, weight: must, point: "If HIPAA doesn't apply, flags the FTC Health Breach Notification Rule and FTC Act Section 5 enforcement on sharing health data with ad platforms.", source: "16 CFR Part 318 (as amended 2024); FTC v. GoodRx (2023)", check: true}
-    - {id: K3, weight: should, point: "Flags state consumer health data laws, such as Washington's My Health My Data Act, which need consent to collect and share consumer health data.", source: "RCW 19.373", check: true}
-    - {id: K4, weight: should, point: "Flags litigation risk under state wiretap laws and similar claims over pixels, as an issue for counsel rather than a settled rule.", source: "Cal. Penal Code § 631 (CIPA) litigation trend", check: true}
+    - {id: K1, weight: must, point: "Flags that pixels on appointment pages can disclose health information, and that the answer depends on whether the company is a HIPAA covered entity or business associate.", source: "45 CFR 164.502; HHS OCR bulletin on online tracking technologies (revised March 2024), vacated only for unauthenticated pages in AHA v. Becerra (N.D. Tex. June 20, 2024)"}
+    - {id: K2, weight: must, point: "If HIPAA doesn't apply, flags the FTC Health Breach Notification Rule and FTC Act Section 5 enforcement on sharing health data with ad platforms.", source: "16 CFR §§ 318.1(a), 318.2 (as amended 2024); FTC v. GoodRx (2023)"}
+    - {id: K3, weight: should, point: "Flags state consumer health data laws, such as Washington's My Health My Data Act, which need consent to collect and share consumer health data.", source: "RCW 19.373.030(1)"}
+    - {id: K4, weight: should, point: "Flags litigation risk under state wiretap laws and similar claims over pixels, as an issue for counsel rather than a settled rule.", source: "Cal. Penal Code § 631 (CIPA) litigation trend; SB 690 (2026), operative January 1, 2027, which ends private § 638.51 claims for web tracking but not § 631 claims"}
 
 rtr-02-voice-cloning-support:
   outcome: "The router should add issues the plan won't name: whether employee consent is valid at work, biometric laws if a voiceprint is created (Illinois BIPA), state voice and likeness laws, what happens to the voice model when an agent leaves, and disclosure to callers under AI Act Art. 50 and state bot laws."
   points:
     - {id: K1, weight: must, point: "Flags that consent from employees is doubtful as freely given under the GDPR, so the basis and a real right to refuse need deciding.", source: "GDPR Art. 7(4), 88; EDPB Guidelines 05/2020, para 21"}
-    - {id: K2, weight: must, point: "Flags biometric privacy law if the cloning creates a voiceprint, especially Illinois BIPA's written release and retention schedule.", source: "740 ILCS 14/15", check: true}
+    - {id: K2, weight: must, point: "Flags biometric privacy law if the cloning creates a voiceprint, especially Illinois BIPA's written release and retention schedule.", source: "740 ILCS 14/10, 14/15(a)-(b), 14/20"}
     - {id: K3, weight: should, point: "Flags state voice and likeness rights, such as Tennessee's ELVIS Act, and the voice model's fate when an agent leaves.", source: "Tenn. Code § 47-25-1101 et seq. (as amended 2024)", check: true}
-    - {id: K4, weight: should, point: "Flags telling callers they're talking to AI: AI Act Art. 50 for EU callers, and state bot disclosure laws such as California's for US ones.", source: "AI Act Art. 50(1); Cal. Bus. & Prof. Code § 17941", check: true}
+    - {id: K4, weight: should, point: "Flags telling callers they're talking to AI: AI Act Art. 50 for EU callers, and state bot disclosure laws, such as California's, whose scope (online communication meant to drive a sale or influence a vote) the answer should test rather than assume.", source: "AI Act Art. 50(1); Cal. Bus. & Prof. Code § 17941", check: true}
 
 rtr-03-school-ai-proctoring:
-  outcome: "Not next month on these facts. The router should flag that webcam proctoring which infers behaviour may hit the AI Act's education rules (Annex III point 3(d), and the Art. 5(1)(f) ban if it infers emotions), that face geometry triggers Illinois BIPA, that FERPA limits the company to the university's purposes, and that German universities face data protection authority and works council positions on remote proctoring."
+  outcome: "Not next month on these facts. The router should flag that webcam proctoring which infers behaviour may hit the AI Act's education rules (Annex III point 3(d), and the Art. 5(1)(f) ban if it infers emotions), that face geometry triggers Illinois BIPA, that FERPA limits the company to the university's purposes, and that German courts and data protection authorities have taken positions on remote proctoring."
   points:
     - {id: K1, weight: must, point: "Flags AI Act Annex III point 3(d) (monitoring prohibited behaviour in tests) as high-risk, and Art. 5(1)(f) if the system infers emotions or intentions from biometric data.", source: "AI Act Annex III point 3(d); Art. 5(1)(f)"}
-    - {id: K2, weight: must, point: "Flags Illinois BIPA for face geometry, with written consent and a retention policy before collection.", source: "740 ILCS 14/15(a)-(b)", check: true}
+    - {id: K2, weight: must, point: "Flags Illinois BIPA for face geometry, with written consent and a retention policy before collection, and asks whether the university is public, since BIPA excludes government agencies and their contractors when working for them.", source: "740 ILCS 14/10, 14/15(a)-(b), 14/25(e)"}
     - {id: K3, weight: should, point: "Flags FERPA's school official limits on the company's own use of the data.", source: "34 CFR 99.31(a)(1)(i)(B), 99.33(a)"}
-    - {id: K4, weight: should, point: "Flags German authorities' and courts' positions on remote proctoring and whether a less intrusive option exists.", source: "OVG Nordrhein-Westfalen, 2021 (remote proctoring); state DPA guidance", check: true}
+    - {id: K4, weight: should, point: "Flags German courts' interim acceptance of video-supervised exams with safeguards, that automated behavior flagging goes further, and whether a less intrusive option exists.", source: "OVG NRW, 4 March 2021, 14 B 278/21.NE; OVG Schleswig-Holstein, 4 March 2021, 3 MR 7/21; state DPA guidance"}
 
 rtr-04-children-game-chat:
   outcome: "Not for the holidays without design work. The router should flag the UK Age Appropriate Design Code and Online Safety Act duties, California's companion chatbot law and the status of its Age-Appropriate Design Code, COPPA if under-13s are likely despite the age gate, and AI Act Art. 50 disclosure."
   points:
-    - {id: K1, weight: must, point: "Flags the UK Age Appropriate Design Code (high-privacy defaults, no nudging, a DPIA) and the Online Safety Act duties for user-to-user services with child users.", source: "ICO Children's Code; Online Safety Act 2023", check: true}
-    - {id: K2, weight: must, point: "Flags COPPA's actual-knowledge and directed-to-children tests, since an age gate at 13 doesn't settle whether under-13s are present.", source: "16 CFR Part 312 (as amended 2025)", check: true}
-    - {id: K3, weight: should, point: "Flags California's companion chatbot law (SB 243) and the litigation status of the California Age-Appropriate Design Code Act.", source: "Cal. Bus. & Prof. Code § 22601 et seq.; NetChoice v. Bonta", check: true}
+    - {id: K1, weight: must, point: "Flags the UK Age Appropriate Design Code (high-privacy defaults, no nudging, a DPIA) and the Online Safety Act duties where the chat lets players share content or is part of a user-to-user service with child users.", source: "ICO Children's Code; Online Safety Act 2023; Ofcom open letter on generative AI and chatbots (8 November 2024)"}
+    - {id: K2, weight: must, point: "Flags COPPA's actual-knowledge and directed-to-children tests, since an age gate at 13 doesn't settle whether under-13s are present.", source: "16 CFR § 312.2 (directed to children; mixed audience), as amended 2025"}
+    - {id: K3, weight: should, point: "Flags California's companion chatbot law (SB 243), including whether its video-game exclusion applies to a free-ranging companion, and the California Age-Appropriate Design Code Act's status after NetChoice v. Bonta (9th Cir. March 12, 2026), with age estimation no longer enjoined.", source: "Cal. Bus. & Prof. Code § 22601 et seq. (SB 243, 2025); NetChoice v. Bonta, No. 25-2366 (9th Cir. 2026)"}
     - {id: K4, weight: should, point: "Flags AI Act Art. 50 disclosure for EU players and the risk of manipulative design toward minors.", source: "AI Act Arts. 5(1)(b), 50(1)"}
 
 rtr-05-hr-sentiment-slack:
   outcome: "The router should flag that burnout detection from employees' messages may be prohibited emotion recognition at work only if it uses biometric data; text-only sentiment analysis falls outside Art. 5(1)(f) but is still intrusive monitoring. Team-level dashboards reduce, but don't remove, the issue. Works council consent (Netherlands) and CSE consultation (France) come before deployment, and US employee monitoring rules apply in Texas."
   points:
     - {id: K1, weight: must, point: "Distinguishes text-only sentiment analysis (outside Art. 5(1)(f), which needs biometric data) from emotion recognition based on biometric data, rather than assuming either.", source: "AI Act Art. 3(39), 5(1)(f); Commission Guidelines C(2025) 5052"}
-    - {id: K2, weight: must, point: "Flags works council consent in the Netherlands and CSE information and consultation in France before introducing employee monitoring.", source: "WOR art. 27(1)(l); Code du travail L2312-38", check: true}
+    - {id: K2, weight: must, point: "Flags works council consent in the Netherlands and CSE information and consultation in France before introducing employee monitoring.", source: "WOR art. 27(1)(k)-(l); Code du travail L2312-38, third paragraph"}
     - {id: K3, weight: should, point: "Flags that aggregation to team level may still allow individuals to be singled out in small teams, and that GDPR employee monitoring rules still apply.", source: "GDPR Art. 4(1), 5(1)(c), 88"}
-    - {id: K4, weight: should, point: "Flags US employee communications monitoring rules (ECPA, employer policy and consent) for the Texas office.", source: "18 U.S.C. 2511(2)(c)-(d)", check: true}
+    - {id: K4, weight: should, point: "Flags ECPA and SCA rules on employer access to stored workplace messages, the employer's policy and consent, for the Texas office.", source: "18 U.S.C. §§ 2511(2)(d), 2701(c); Tex. Penal Code § 16.02"}
 
 rtr-06-acquired-dataset:
   outcome: "Not next week as proposed. The router should flag that marketing consent and the soft opt-in don't transfer to a new sender for different products, that the target's privacy notice promises bind the use (FTC deception risk in the US), that the acquired data's lawful basis needs checking, and that people need telling about the new controller."
   points:
     - {id: K1, weight: must, point: "Flags that e-marketing consent or the existing-customer exception was given to the target for its own similar products, so it doesn't let the acquirer email about its products.", source: "ePrivacy Directive Art. 13(1)-(2); UK PECR reg. 22"}
-    - {id: K2, weight: must, point: "Flags that the target's privacy notice promises bind the acquired data, and that using it inconsistently risks FTC deception claims.", source: "FTC Act § 5; FTC guidance on mergers and privacy promises", check: true}
+    - {id: K2, weight: must, point: "Flags that the target's privacy notice promises bind the acquired data, and that using it inconsistently risks FTC deception claims.", source: "FTC Act § 5; FTC staff letter to Facebook and WhatsApp (April 10, 2014)"}
     - {id: K3, weight: should, point: "Flags the transparency duty to tell people about the change of controller and any new purpose.", source: "GDPR Art. 13(3), 14"}
     - {id: K4, weight: should, point: "Flags CAN-SPAM requirements for US recipients, separate from the consent question.", source: "15 U.S.C. 7704"}

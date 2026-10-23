@@ -1,6 +1,6 @@
 # Verification sheet for the router answer keys (key_version 0)
 
-Prepared 2026-10-22 for counsel's sign-off on the `check: true` items in `router-answer-keys.yaml`. Claude gathered the
+Prepared 2026-10-22 for counsel's sign-off on the `check: true` items in `router-answer-keys.yaml`. **Counsel signed off on 2026-10-23; the edits are applied in key_version 1.** Claude gathered the
 text; counsel verifies. Quotes are verbatim fragments from the source named; translations are Claude's. The keys are
 unchanged until counsel signs off on the proposed edits below.
 
