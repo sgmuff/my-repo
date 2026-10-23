@@ -101,10 +101,11 @@ Some gaps are production risks now. When an agent can read customer data or take
 
 ### 4b. Security assessments the law requires
 
-When `gov required` or the request names one, record it as an `sra` record: `gov new sra --slug <scope> --title "<law>: <scope>" --date <today>`, with `kind` set to `gdpr-art32`, `ccpa-audit-prep`, `coppa-security`, `hipaa`, `glba`, or `nis2`. `gov/rules/security.yaml` lists each kind's elements with their citations, and `gov validate` names any the record leaves out. For each element, record whether it applies, how the company meets it, the library controls and evidence behind it, and its status; rate the risks with the shared matrix. Read the regime's reference file first (`hipaa.md`, `glba.md`, `nis2.md`, `us-state-privacy.md` §6, `ferpa.md` for COPPA), including its scope test: a company outside the regime doesn't owe the assessment.
+When `gov required` or the request names one, record it as an `sra` record: `gov new sra --kind <kind> --slug <scope> --title "<law>: <scope>" --date <today>`, where the kind is `gdpr-art32`, `ccpa-audit-prep`, `coppa-security`, `hipaa`, `glba`, or `nis2`. `gov/rules/security.yaml` lists each kind's elements with their citations, and `gov validate` names any the record leaves out. For each element, record whether it applies, how the company meets it, the library controls and evidence behind it, and its status; rate the risks with the shared matrix. Read the regime's reference file first (`hipaa.md`, `glba.md`, `nis2.md`, `us-state-privacy.md` §6, `ferpa.md` for COPPA), including its scope test: a company outside the regime doesn't owe the assessment.
 
 - **CCPA:** the record prepares for the annual audit; the audit itself needs a qualified, objective, independent auditor, who decides which components apply (11 CCR §§ 7122-7123). First reports are due April 1, 2028, 2029, or 2030 by revenue.
-- **COPPA and GLBA:** the risk assessment repeats at least annually (COPPA) or periodically (GLBA); set `next_review` to match.
+- **COPPA and GLBA:** COPPA requires the risk assessment and the program's evaluation at least annually, GLBA a periodic reassessment; set `next_review` to match. A program already overdue goes in the reply first, with the compliance date that passed.
+- **An element is met or partial only through controls that operate:** a planned control, or evidence gone stale, doesn't carry it, and `gov validate` says so.
 - **NIS2:** national transposition decides the details; management bodies approve the measures (Art. 20).
 
 ### 5. Audit and questionnaire packs

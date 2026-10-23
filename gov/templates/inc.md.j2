@@ -1,7 +1,7 @@
 ---
 id: {{ r.id }}
 type: inc
-title: {{ r.title }}
+title: {{ r.title | fm }}
 status: {{ r.status }}
 version: {{ r.version }}
 date_prepared: {{ r.date_prepared }}
@@ -9,7 +9,7 @@ earliest_deadline: {{ d.earliest.due if d.earliest else "TBC" }}
 personal_data_breach: {{ {True: "Yes", False: "No"}.get(r.breach.value, "TBC") }}
 next_review: {{ r.next_review }}
 {% if r.privilege %}
-privilege: {{ r.privilege }}
+privilege: {{ r.privilege | fm }}
 {% endif %}
 generated_from: {{ source_file }}
 ---

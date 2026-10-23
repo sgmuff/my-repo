@@ -80,7 +80,7 @@ def test_owed_assessment_blocks_review(ropa_root):
 
 def test_open_facts_block_review(ropa_root):
     edit(ropa_root, lambda d: d.update(status="In review"))
-    assert any("may owe COPPA security program risk assessment" in m for m in messages(ropa_root))
+    assert any("may owe COPPA written information security program" in m for m in messages(ropa_root))
 
 
 def test_not_applicable_needs_who_decided(ropa_root):

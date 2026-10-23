@@ -1,7 +1,7 @@
 ---
 id: VR-2026-007
 type: vr
-title: Lumen Analytics: product analytics
+title: "Lumen Analytics: product analytics"
 status: Draft
 version: 0.1
 date_prepared: 2026-07-15

@@ -167,7 +167,10 @@ def tia(data: dict) -> list:
 
 
 def _analysis(data: dict) -> list:
-    return [("analysis", "write the analysis: the full legal reasoning, the provisional view, and what would change it")] if is_tbc(data.get("analysis", "TBC")) else []
+    out = [("analysis", "write the analysis: the full legal reasoning, the provisional view, and what would change it")] if is_tbc(data.get("analysis", "TBC")) else []
+    if is_tbc(data.get("summary", "x")):
+        out.append(("summary", "write the summary: the outcome in 50 words or fewer"))
+    return out
 
 
 def _with_issues(check):

@@ -1,7 +1,7 @@
 ---
 id: {{ r.id }}
 type: dsr
-title: {{ r.title }}
+title: {{ r.title | fm }}
 status: {{ r.status }}
 received: {{ r.received.date }}
 {% if d.open and d.due %}

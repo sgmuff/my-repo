@@ -1,7 +1,7 @@
 ---
 id: VR-2026-009
 type: vr
-title: ScribeAI: meeting transcription
+title: "ScribeAI: meeting transcription"
 status: Draft
 version: 0.1
 date_prepared: 2026-10-02

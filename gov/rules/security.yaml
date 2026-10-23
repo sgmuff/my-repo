@@ -40,12 +40,14 @@ kinds:
     method: "16 CFR § 312.8(b)-(c), as amended effective June 23, 2025 (compliance by April 22, 2026): a written program appropriate to the sensitivity of children's data and the operator's size and activities"
     annual: true
     elements:
+      - {id: a, label: "Reasonable procedures to protect the confidentiality, security, and integrity of children's personal information", cite: "16 CFR § 312.8(a)"}
+      - {id: b, label: "A written information security program, with safeguards appropriate to the data's sensitivity and the operator's size, complexity, and activities", cite: "16 CFR § 312.8(b)"}
       - {id: b1, label: "Employees designated to coordinate the program", cite: "16 CFR § 312.8(b)(1)"}
       - {id: b2, label: "Risk assessment at least annually, including the sufficiency of safeguards", cite: "16 CFR § 312.8(b)(2)"}
-      - {id: b3, label: "Safeguards designed to the volume and sensitivity of the data and the likelihood of compromise", cite: "16 CFR § 312.8(b)(3)"}
+      - {id: b3, label: "Safeguards that control the identified risks, each based on the volume and sensitivity of the data at risk and the likelihood of compromise", cite: "16 CFR § 312.8(b)(3)"}
       - {id: b4, label: "Regular testing and monitoring of the safeguards", cite: "16 CFR § 312.8(b)(4)"}
       - {id: b5, label: "Evaluation and modification of the program at least annually", cite: "16 CFR § 312.8(b)(5)"}
-      - {id: c, label: "Written assurances from service providers and third parties before they collect or receive children's data", cite: "16 CFR § 312.8(c)"}
+      - {id: c, label: "Before other operators, service providers, or third parties collect, maintain, or receive children's data: reasonable steps to confirm they can protect it, and their written assurances", cite: "16 CFR § 312.8(c)"}
   hipaa:
     name: HIPAA security risk analysis
     method: "45 CFR § 164.308(a)(1)(ii)(A)-(B): an accurate and thorough analysis of risks to all ePHI, following HHS guidance, then risk management to a reasonable and appropriate level; keep documentation six years (§ 164.316(b)(2))"

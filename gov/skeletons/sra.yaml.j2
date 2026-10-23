@@ -6,7 +6,7 @@ id: {{ id }}
 type: sra
 schema_version: 1
 format_version: 1
-kind: gdpr-art32
+kind: gdpr-art32  # set with gov new --kind
 title: {{ title | tojson }}
 status: Draft
 version: "0.1"
@@ -44,7 +44,7 @@ version_history:
 
 signoff:
   - decision: Assessment approved
-    approver_role: Privacy lead and security owner
+    approver_role: Approver for the current residual rating (approvals.md), with the security owner
     name: null
     date: null
     outcome: null

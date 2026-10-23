@@ -358,6 +358,19 @@ LABELS = {
 SOURCE_KINDS = {"document": "Document", "stated": "Stated by", "inferred": "Inferred", "tbc": "TBC"}
 
 
+def fm(value) -> str:
+    """A front matter scalar: plain when YAML reads it back unchanged, otherwise quoted."""
+    import json
+    import yaml
+    text = str(value)
+    try:
+        if yaml.safe_load(f"k: {text}") == {"k": text}:
+            return text
+    except yaml.YAMLError:
+        pass
+    return json.dumps(text, ensure_ascii=False)
+
+
 def cell(value) -> str:
     if value is None:
         return "—"
@@ -412,7 +425,7 @@ def _env() -> Environment:
         keep_trailing_newline=True,
         autoescape=False,
     )
-    env.filters.update(tier_name=lambda t: derive.TIER_NAMES.get(t, t), cell=cell, yn=yn, label=label, src=src, join_or_tbc=join_or_tbc, flags=flags, call=call)
+    env.filters.update(fm=fm, tier_name=lambda t: derive.TIER_NAMES.get(t, t), cell=cell, yn=yn, label=label, src=src, join_or_tbc=join_or_tbc, flags=flags, call=call)
     return env
 
 

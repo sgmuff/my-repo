@@ -1,10 +1,10 @@
 ---
 id: {{ r.id }}
 type: ctl
-title: {{ r.title }}
+title: {{ r.title | fm }}
 status: {{ r.status }}
 version: {{ r.version }}
-owner: {{ r.owner }}
+owner: {{ r.owner | fm }}
 date_prepared: {{ r.date_prepared }}
 next_test: {{ r.next_test }}
 generated_from: {{ source_file }}

@@ -129,7 +129,7 @@ TBC.
 
 **May be owed, depending on open facts:** CPPA risk assessment (cppa_business); Transfer impact assessment (eu_people, cross_border_access, transfer_mechanism); UK transfer risk assessment (uk_people, cross_border_access, transfer_mechanism); Swiss transfer assessment (ch_people, cross_border_access, transfer_mechanism); Student data security and privacy plan (ny_school_contract); AI impact assessment (ai_profiles_people, ai_influences_decisions); Bias audit preparation (the audit itself needs an independent auditor) (nyc_hiring_tool); HIPAA security risk analysis (phi); GLBA Safeguards Rule written risk assessment (glba_customer_info); NIS2 cybersecurity risk management (nis2_service); Quebec privacy impact assessment (quebec_people); General-purpose AI model duties (gpai_model).
 
-**Applies later:** CCPA cybersecurity audit preparation (from 2028-04-01); COPPA security program risk assessment (from 2026-04-22); Provider role check (from 2026-08-02); Non-high-risk documentation (from 2026-08-02); Risk management system, data governance, conformity readiness, and post-market monitoring (from 2027-12-02); Deployer duties check (from 2027-12-02); Fundamental rights impact assessment (from 2027-12-02).
+**Applies later:** CCPA cybersecurity audit preparation (from 2028-04-01); COPPA written information security program (from 2026-04-22); Provider role check (from 2026-08-02); Non-high-risk documentation (from 2026-08-02); Risk management system, data governance, conformity readiness, and post-market monitoring (from 2027-12-02); Deployer duties check (from 2027-12-02); Fundamental rights impact assessment (from 2027-12-02).
 
 ## 13. Actions
 

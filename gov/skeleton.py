@@ -26,7 +26,7 @@ def add_months(date_text: str, months: int) -> str:
     return datetime.date(year, month, day).isoformat()
 
 
-def new_record(root: Path, record_type: str, slug: str, title: str, date: str, prepared_by: str) -> Path:
+def new_record(root: Path, record_type: str, slug: str, title: str, date: str, prepared_by: str, kind: str | None = None) -> Path:
     types = ids.managed_types()
     if record_type not in types:
         raise SkeletonError(f"Unknown record type {record_type}. Known: {', '.join(sorted(types))}")
@@ -48,6 +48,12 @@ def new_record(root: Path, record_type: str, slug: str, title: str, date: str, p
     text = env.get_template(f"{record_type}.yaml.j2").render(
         id=record_id, title=title, date=date, next_review=add_months(date, 12), prepared_by=prepared_by
     )
+    if kind:
+        from gov.records import schema
+        allowed = schema(record_type)["properties"]["kind"].get("enum", [])
+        if kind not in allowed:
+            raise SkeletonError(f"Unknown kind {kind} for {record_type}. Known: {', '.join(allowed)}")
+        text = re.sub(r"^kind: \S+", f"kind: {kind}", text, count=1, flags=re.M)
     folder.mkdir(parents=True, exist_ok=True)
     path = folder / f"{record_id}-{slug}.yaml"
     path.write_text(text, encoding="utf-8")

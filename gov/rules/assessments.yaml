@@ -158,8 +158,8 @@ entries:
     produced_by: controls-and-evidence
     reference: us-state-privacy.md
   - id: coppa-security-program
-    name: COPPA security program risk assessment
-    citation: "16 CFR Part 312, as amended in 2025"
+    name: COPPA written information security program
+    citation: "16 CFR § 312.8, as amended in 2025"
     owed_by: operator
     gate: law
     when: {children_under_13: true}

@@ -78,6 +78,7 @@ def validate_tree(root: Path, as_of: str | None = None) -> list:
         problems.extend(validate_record(root, rec, as_of))
     problems.extend(_tree_checks(root, records))
     problems.extend(_evidence_ids(root, records))
+    problems.extend(_security_support(root, records, as_of))
     problems.extend(_profile_checks(root, records))
     problems.extend(Problem(str(references.INDEX), "error", m) for m in references.index_problems(root))
     return sorted(set(problems))
@@ -240,6 +241,27 @@ def _security_elements(where: str, data: dict) -> list:
     missing = [e for e in known if e not in listed]
     if missing:
         problems.append(Problem(where, "finding", f"elements: {data['kind']} requires these, which the record doesn't list: {', '.join(missing)}"))
+    return problems
+
+
+def _security_support(root: Path, records: list, as_of: str | None) -> list:
+    """An sra element marked met or partial must rest on a control that operates and evidence that is current."""
+    controls = {r.id: r.data for r in records if r.type == "ctl" and isinstance(r.data, dict)}
+    evidence = {e["id"]: e for c in controls.values() for e in c.get("evidence", []) if isinstance(e, dict) and "id" in e}
+    problems = []
+    for rec in records:
+        if rec.type != "sra" or not isinstance(rec.data.get("elements"), list):
+            continue
+        where, on = _rel(root, rec.path), as_of or str(rec.data.get("date_prepared"))
+        for n, e in enumerate(rec.data["elements"]):
+            if e.get("status") not in ("met", "partial"):
+                continue
+            cited = [controls[c] for c in e.get("controls", []) if c in controls]
+            if cited and all(c.get("lifecycle") == "planned" or c.get("operating") in ("planned", "absent") for c in cited):
+                problems.append(Problem(where, "finding", f"elements/{n}: {e['element']} is marked {e['status']}, but every control cited is planned or absent"))
+            stale = [x for x in e.get("evidence", []) if x in evidence and str(evidence[x].get("stale_after")) != "TBC" and str(evidence[x]["stale_after"]) < on]
+            if stale:
+                problems.append(Problem(where, "finding", f"elements/{n}: {e['element']} cites evidence that went stale by {on}: {', '.join(stale)}"))
     return problems
 
 

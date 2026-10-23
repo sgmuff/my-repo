@@ -34,7 +34,7 @@ properties:
   summary: {$ref: "common.schema.yaml#/$defs/text", x-max-words: 50}
   analysis: {$ref: "common.schema.yaml#/$defs/analysis"}
   decision:
-    description: "Whether the program meets the law's elements. The privacy lead and the security owner confirm it."
+    description: "Whether the program meets the law's elements. The approver for the current residual rating confirms it, with the security owner."
     $ref: "common.schema.yaml#/$defs/call"
     properties:
       value: {enum: [adequate, gaps, not-adequate, open]}

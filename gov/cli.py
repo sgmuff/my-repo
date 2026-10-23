@@ -29,6 +29,7 @@ def main(argv=None) -> int:
     p.add_argument("--title", required=True)
     p.add_argument("--date", required=True, help="date prepared, YYYY-MM-DD")
     p.add_argument("--prepared-by", default="Claude (privacy-governance suite)")
+    p.add_argument("--kind", help="the record's kind, where the type has several, such as coppa-security for sra")
 
     p = sub.add_parser("validate", help="check every record")
     p.add_argument("--as-of", help="YYYY-MM-DD for the reference review check; defaults to each record's own date")
@@ -84,7 +85,7 @@ def _next_id(root, args) -> int:
 
 
 def _new(root, args) -> int:
-    path = new_record(root, args.type, args.slug, args.title, args.date, args.prepared_by)
+    path = new_record(root, args.type, args.slug, args.title, args.date, args.prepared_by, kind=args.kind)
     print(path.relative_to(root))
     return 0
 

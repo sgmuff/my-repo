@@ -438,6 +438,7 @@ def sra(data: dict) -> dict:
     return {
         "decision": data["decision"]["value"],
         "kind_name": security.kinds()[data["kind"]]["name"],
+        "gate": "Approval",
         "met": sum(1 for e in applies if e["status"] == "met"),
         "gaps": sum(1 for e in applies if e["status"] in ("partial", "gap", "TBC")),
         "applies": len(applies),

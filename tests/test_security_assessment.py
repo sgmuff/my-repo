@@ -52,3 +52,23 @@ def test_coppa_is_annual_and_renders_with_citations(root):
     text = path.with_suffix(".md").read_text()
     assert "| 16 CFR § 312.8(b)(1) | Employees designated to coordinate the program | Applies | Gap |" in text
     assert "SRA-2026-001" in (path.parent / "index.md").read_text()
+
+
+def test_kind_flag_and_unsupported_elements(root):
+    from gov import ids
+    ids.next_id(root, "EV")
+    ctl = new_record(root, "ctl", "red-team", "Red team", "2026-10-22", "Claude")
+    data = yamlio.load(ctl)
+    data.update(lifecycle="planned", operating="planned")
+    data["evidence"] = [{"id": "EV-0001", "status": "on-file", "type": "report", "shows": "operation", "what": "Old test",
+                         "location": "https://x.example/r", "date": "2026-01-01", "period": "Q1", "owner": "Security", "stale_after": "2026-06-30"}]
+    ctl.write_text(yamlio.dumps(data), encoding="utf-8")
+    path = new_record(root, "sra", "kids", "COPPA: kids app", "2026-10-22", "Claude", kind="coppa-security")
+    data = yamlio.load(path)
+    assert data["kind"] == "coppa-security"
+    data["elements"] = [row("b4", "partial", controls=["CTL-0001"], evidence=["EV-0001"])]
+    path.write_text(yamlio.dumps(data), encoding="utf-8")
+    findings = found(root, "finding")
+    assert any("b4 is marked partial, but every control cited is planned or absent" in m for m in findings)
+    assert any("b4 cites evidence that went stale by 2026-10-22: EV-0001" in m for m in findings)
+    assert any("requires these, which the record doesn't list: a, b, b1" in m for m in findings)
