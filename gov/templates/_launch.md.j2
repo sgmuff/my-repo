@@ -1,5 +1,0 @@
-{% if d.launch_blockers %}
-**{{ d.gate | default("Launch") }}:** blocked by {% for label, ids in d.launch_groups %}{{ ids | join(", ") }} ({{ label }}){{ "; " if not loop.last }}{% endfor %}.
-{% else %}
-**{{ d.gate | default("Launch") }}:** no blockers recorded. The privacy lead decides whether anything open should block {{ (d.gate | default("Launch")) | lower }}.
-{% endif %}
