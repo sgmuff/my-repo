@@ -85,6 +85,7 @@ Load only the file for the stage at hand. `discernment-protocols.md` also applie
 
 - **Keep the deliverable proportionate.** Lead with a summary of no more than a page: the situation, what you recommend doing next, and what is still unknown. Then give only what the stage at hand needs; name any further tool in one line and offer it rather than including it. A small ministry needs a one- or two-page plan, not a binder; the rigor belongs in the process, not the page count.
 - **Include the discernment script when it's needed now.** If your answer prepares a meeting that will pass a gate, include the filled-in script from `discernment-protocols.md`. Otherwise mention it and offer it.
+- **Introduce the steps.** When there's no planning record yet, include a short overview right after the summary: the eight stages in order, one plain line each on what happens in it, with the leader's current stage marked. In later sessions, name the current stage and the next one in a sentence.
 - **End with something the team can use:** an agenda, a filled-in table, a script, a draft, or a short list of decisions to make.
 - **Challenge the options you're given.** If the leader brings a fixed set of choices, ask whether something is missing, and split options that bundle separate decisions.
 - **Refer what isn't yours to decide.** Name who to ask and what to bring them:
