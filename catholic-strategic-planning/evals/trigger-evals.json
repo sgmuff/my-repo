@@ -1,0 +1,23 @@
+[
+  {"query": "our catholic school board wants to do a catholic identity audit before we renew our strategic plan next year. we're K-8, about 300 kids, run by the parish. what questions should we be asking and who should we involve?", "should_trigger": true},
+  {"query": "I'm the new executive director at a diocesan Catholic Charities. The last strategic plan expired in 2024 and nobody updated it. Board wants a draft by spring. Can you walk me through how to approach this?", "should_trigger": true},
+  {"query": "Can you help me design a one-day board retreat for our Catholic hospice? We need to decide whether to expand into a second county or deepen services where we are.", "should_trigger": true},
+  {"query": "here's our SWOT from last month's meeting (pasted below). we're a franciscan-sponsored food bank. can you turn it into actual options we can vote on? Strengths: loyal volunteers, warehouse paid off... Weaknesses: one grant is 55% of budget...", "should_trigger": true},
+  {"query": "Our parish's evangelization committee wants to set three-year goals. Father asked me to facilitate. I have no idea how to run that kind of discernment with a group of 12 parishioners.", "should_trigger": true},
+  {"query": "We're a lay Catholic institute that runs formation programs for adult catechists. A secular university wants to partner on a certificate, but they also host programs that conflict with Church teaching. How do we think about whether to do it?", "should_trigger": true},
+  {"query": "year-end review time for our Catholic Worker house. we had goals for the year, some worked some didn't. what's a good way to run the review that isn't just a spreadsheet?", "should_trigger": true},
+  {"query": "Our religious community is down to 22 sisters and we sponsor 3 ministries. We need to figure out which ones to hand to lay leadership first. How should we decide?", "should_trigger": true},
+  {"query": "Our Catholic high school's enrollment has dropped 18% over five years. The president wants a plan to present to the bishop. Where do we start?", "should_trigger": true},
+  {"query": "Help me write a mission statement for the Catholic young adults group I lead. We do service, prayer, and social events.", "should_trigger": true},
+  {"query": "I run a secular homeless shelter nonprofit and our board wants a 3-year strategic plan. Can you walk me through the steps?", "should_trigger": false},
+  {"query": "I'm a Catholic and I own a small landscaping company. Can you help me write a business plan to get an SBA loan?", "should_trigger": false},
+  {"query": "What does subsidiarity mean in Catholic Social Teaching, and how is it different from solidarity?", "should_trigger": false},
+  {"query": "I've been feeling dry in prayer for months and I'm trying to discern whether to enter religious life. Can you help me think through it?", "should_trigger": false},
+  {"query": "Write a homily for the Feast of Christ the King that connects the readings to how parishes care for the poor.", "should_trigger": false},
+  {"query": "Our parish finance council needs a template for the annual budget spreadsheet. Columns for income categories, expense lines, and variance from last year.", "should_trigger": false},
+  {"query": "Can you explain what canon 1281 says about extraordinary administration? I'm studying for a canon law exam.", "should_trigger": false},
+  {"query": "I'm writing a research paper on how Catholic hospitals in the US have consolidated since 2000. Can you summarize the main trends?", "should_trigger": false},
+  {"query": "Do a SWOT analysis for Starbucks entering the Indian coffee market.", "should_trigger": false},
+  {"query": "Our Methodist church's council wants to do a visioning process for the next five years. How would you structure it?", "should_trigger": false},
+  {"query": "I'm on the parish council of a Greek Orthodox church. Our priest wants a five-year plan for the parish and our Sunday school. Can you help us set it up?", "should_trigger": false}
+]

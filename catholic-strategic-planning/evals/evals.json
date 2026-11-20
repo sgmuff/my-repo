@@ -1,0 +1,103 @@
+{
+  "skill_name": "catholic-strategic-planning",
+  "evals": [
+    {
+      "id": 1,
+      "eval_name": "lay-initiative-gather",
+      "prompt": "I started a small Catholic young adult ministry in our city about two years ago. We do a monthly talk-and-drinks night, a monthly service day at a soup kitchen, and a spring retreat. About 40 regulars, no paid staff, roughly $18k a year from donations plus a small grant from the diocese's young adult office. We're not officially part of any parish, I just asked our pastor's blessing at the start. People keep telling me we need a 'strategic plan' but I've never done one. Where do I even start?",
+      "expected_output": "Triage that recognizes a lay initiative without canonical status, raises the use of the name 'Catholic' and the diocesan grant relationship, picks the Essential tier with a reason, and gives a concrete Gather package: a planning charter draft, a suggested team, a discernment covenant script, and a short timeline. Does not run the whole eight-stage process or lecture on planning theory.",
+      "files": [],
+      "assertions": [
+        "Identifies the ministry as having no confirmed canonical status, labels that as unconfirmed, and explains what it means in plain terms",
+        "Raises consent of competent Church authority for the name 'Catholic' without treating the diocesan grant or the pastor's blessing as consent",
+        "Does not state who holds authority over the ministry as settled fact (for example, that no bishop or parish has any say)",
+        "Recommends a light, small-scale process sized to a volunteer ministry, with a reason",
+        "Provides a draft planning charter or equivalent covering scope, team, timeline, and who decides, marked as a proposal",
+        "Includes a runnable first-meeting or discernment script that leaves prayer for the leader to choose rather than writing prayer text",
+        "Asks what it would take for a parish, diocese, or Catholic organization to support the ministry, without naming a specific host",
+        "Focuses on how to start rather than walking through every planning stage in depth",
+        "Does not invent figures or turn descriptions into numbers; any estimate is labeled as an assumption",
+        "Does not mention the skill, internal tier names, or its own setup to the user"
+      ]
+    },
+    {
+      "id": 2,
+      "eval_name": "diocesan-agency-see",
+      "prompt": "I'm the executive director of Catholic Family Services for the Diocese of Marston. I've attached our three-year financial summary and our program list. Our board retreat is in three weeks and I need the assessment synthesis: a SWOT and whatever else you think the board needs to see. Be straight with me.",
+      "expected_output": "Computes financial indicators from the given figures with arithmetic shown (three straight deficits, roughly 3.3 months of cash before restrictions, government contracts near 59% of revenue), flags missing data rather than inventing it (restricted cash breakdown, roof and HVAC estimate, program cost allocation, client feedback), builds a portfolio map, a sourced SWOT and TOWS, an identity gap statement, and names the truth gate and what is needed to pass it, including listening to those served.",
+      "files": [
+        "evals/files/cfs-financial-summary.md",
+        "evals/files/cfs-program-list.md"
+      ],
+      "assertions": [
+        "States the operating deficits for all three years (65,000; 210,000; 478,000)",
+        "Computes months of cash at about 3.3, shows the arithmetic, and notes the restricted portion is unknown so this is an upper bound",
+        "Flags dependence on government contracts (about 59% of revenue) without presenting it as a single funding source",
+        "Flags missing data: restricted cash breakdown, roof and HVAC estimate, program-by-program cost allocation, and client feedback",
+        "Does not present invented figures (such as a roof cost or restricted amount) as fact, and labels any projection as illustrative rather than a forecast",
+        "Places each of the six programs in a portfolio category or equivalent judgment",
+        "Ties SWOT items to evidence from the files or marks them as assumptions",
+        "Includes a Catholic identity assessment or an identity gap statement, marked provisional",
+        "States what must be true before the board makes strategic decisions, including listening to clients",
+        "Separates immediate actions (such as cash monitoring or safeguarding checks) from strategic decisions that wait"
+      ]
+    },
+    {
+      "id": 3,
+      "eval_name": "sponsored-ministry-judge",
+      "prompt": "I chair the board of St. Brigid Health Partners, four community clinics sponsored by a public juridic person the Sisters of St. Brigid set up in 2009. We finished our assessment and named our biggest question: how do we stay solvent as Medicaid reimbursement keeps falling. Three options are on the table. (A) Affiliate with Valley Regional Health, a secular system whose own sites offer sterilizations and abortion referrals; they'd take over our back office, billing, and IT, and we'd keep our name and clinical operations. (B) Close our two smallest clinics and consolidate patients into the other two. (C) Run a capital campaign and expand our sliding-scale dental program, which has a 400-person waitlist. The board meets in two weeks. Help us decide.",
+      "expected_output": "Uses a weighted criteria matrix and a separate CST screen on each option, runs a cooperation and scandal analysis on option A distinguishing formal from material cooperation and immediate from mediate, applies the ERDs, refers the final determination to the diocesan bishop and the sponsor's members (reserved powers), includes a stop-doing element and care for patients affected by closures, and gives a group discernment check script. Does not present scores as the decision.",
+      "files": [],
+      "assertions": [
+        "Compares the options with a structured matrix or criteria, labels the scores as provisional, and says they are not the decision",
+        "Evaluates each option against Catholic Social Teaching principles separately from financial criteria",
+        "Distinguishes formal from material cooperation in analyzing option A",
+        "Raises the risk of scandal in option A",
+        "Labels its cooperation reading as a preliminary assessment rather than a moral or canonical determination",
+        "Refers the final moral or canonical determination to the diocesan bishop and/or the sponsor's members",
+        "Treats the sponsor's reserved powers as something to confirm from the governing documents rather than assuming them",
+        "Challenges the completeness of the supplied options or splits an option that bundles separate decisions",
+        "Includes a transition plan for patients affected by clinic closures in option B, naming at least records transfer, continuity for patients with ongoing care needs, and a timeline or owner",
+        "Includes a runnable discernment script for the meeting that will decide, or offers it for that meeting when the next meeting won't decide"
+      ]
+    },
+    {
+      "id": 4,
+      "eval_name": "parish-examine",
+      "prompt": "I chair the pastoral council at St. Joseph's. We're one year into our three-year parish plan and the annual review is next month. Problem: Fr. Mike, who led the whole planning process, was reassigned in July and our new pastor, Fr. Tran, just arrived. The plan's goals were a youth ministry relaunch, a capital campaign for the church roof, and starting a Spanish Mass. Youth ministry is going OK, the campaign has raised 60% of goal, and the Spanish Mass hasn't started. How should we run the annual review?",
+      "expected_output": "Recognizes the pastor change as an off-cycle trigger and that the new pastor now holds decision authority, so the review should involve him rather than present him with a finished plan; designs the review with a communal examen script and a scorecard review; asks which goals were decisive questions versus tactics; and notes canonical points such as the finance council's role in the roof campaign.",
+      "files": [],
+      "assertions": [
+        "Treats the new pastor's arrival as a significant change that warrants re-examining the plan, not just a status update",
+        "Recommends meeting with or involving Fr. Tran before the review and acknowledges his authority as pastor",
+        "Notes that the pastoral council is consultative",
+        "Includes a prayer-based review such as an examen with concrete steps, leaving prayer text for the leader to choose",
+        "Reviews each of the three goals against status or measures, and asks whether each goal still answers the right question",
+        "Asks why the Spanish Mass hasn't started rather than assuming the cause",
+        "Does not assume what '60% of goal' means (pledged versus received) or judge whether it is on schedule without the campaign timeline",
+        "Mentions the parish finance council's role in the roof campaign as consultative",
+        "Does not state canonical requirements (such as the bishop's permission for the roof or an added Mass) as settled for this parish",
+        "Provides a usable agenda for the review meeting whose item timings sum exactly to its stated length"
+      ]
+    },
+    {
+      "id": 5,
+      "eval_name": "religious-institute-name",
+      "prompt": "I'm on the leadership team of the U.S. province of the Sisters of the Holy Visitation, a pontifical-right congregation. We just finished our assessment and came out with twelve concerns. Which ones should we take forward into the plan? 1) Median age of sisters is 79. 2) The motherhouse is far too large for us. 3) Two high schools we sponsor need a new sponsorship model as sisters leave their boards. 4) Our retirement fund is $14M short of actuarial need. 5) Our parish ministry in a rural town is down to one sister. 6) The website is outdated. 7) No new vocations in eight years. 8) Our associates program has doubled to 300 lay members. 9) Our HR policies are out of date. 10) We need a new van for the motherhouse. 11) Some sisters want to explore merging with another province. 12) Our charism of hospitality isn't well understood by the lay staff in our schools.",
+      "expected_output": "Applies the four-part test to each concern, keeps three to seven decisive questions phrased as actionable questions, sorts them into the five categories, routes failures explicitly (website, HR policies, van to an action list; median age and no vocations as facts that feed questions rather than questions themselves), and flags canonical points such as alienation of the motherhouse requiring the superior with council and possibly the Holy See (c. 638), and merger requiring higher authority.",
+      "files": [],
+      "assertions": [
+        "Addresses all twelve concerns explicitly",
+        "Forwards between three and seven questions into the plan",
+        "Phrases the forwarded items as actionable questions",
+        "Frames the retirement shortfall as how to fulfill the duty of care, not whether to",
+        "Routes the website, HR policies, and van to an operational or action list",
+        "Does not forward median age or lack of vocations as questions in themselves; any vocation question is framed as a choice about how to respond",
+        "Groups the forwarded questions into categories and notes any category with no question without inventing one",
+        "Flags that selling or transferring the motherhouse may need the superior with council and possibly the Holy See, depending on value and proper law",
+        "Distinguishes a merger within the congregation (general government, read with the constitutions) from a union with another institute (Holy See)",
+        "Says the questions should be tested with the sisters and others affected before the Name gate passes"
+      ]
+    }
+  ]
+}
