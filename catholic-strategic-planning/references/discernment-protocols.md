@@ -72,10 +72,10 @@ Use this before recommending strategies to the decision-maker. Its question is n
 5. **Name what the group notices** (10 minutes). The facilitator reflects back the overall movement.
 6. **Decide what to do next:**
    - Clear consolation: the group may bring its recommendation, with the evidence behind it, to whoever decides.
-   - Mixed: name what is unsettled, gather what is missing, and check again.
+   - Mixed: name what is unsettled, gather what is missing, and check again. Check again no more than twice. If the result is still mixed, bring the recommendation and the unsettled points to whoever decides.
    - Desolation: don't decide now. The traditional advice is never to make a major change in a time of desolation. Set a date to return, after prayer and rest.
 
-**When stuck:** if the group splits sharply, ask each side to state the strongest reason for the other side's view. Then repeat steps 3 and 4. If the split remains, carry both views honestly to the person or body who decides.
+**When stuck:** if the group splits sharply, ask each side to state the strongest reason for the other side's view. Then repeat steps 3 and 4 once. If the split remains, carry both views honestly to the person or body who decides.
 
 ## Communal examen (Examine)
 
