@@ -41,6 +41,7 @@ The people most affected should be heard before the team decides what is true ab
 - **Whom to hear:** people served (the poor and vulnerable first), staff, volunteers, donors, clergy and religious connected to the work, partners, and, at Comprehensive tier, people the organization doesn't yet reach and people who left.
 - **How:** one listening session (Essential), several groups (Standard), or structured sessions plus a short survey (Comprehensive). Use the conversation in the Spirit format from `discernment-protocols.md`, or three questions: What is going well? What worries you? What should we be doing that we aren't?
 - **Output:** themes with counts, contradictions between groups, and anything only one group said that matters. Hold separate sessions, in their own language, for groups a decision most affects.
+- **Protect speakers:** tell participants beforehand how their words will be used. Report themes by group, never by person. Leave out any quote, detail, or group small enough to identify who said it, especially criticism of a leader or employer.
 
 ## 4. Needs and landscape
 

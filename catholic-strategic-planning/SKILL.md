@@ -93,7 +93,7 @@ Load only the file for the stage at hand. `discernment-protocols.md` also applie
   - moral questions about cooperation or scandal to the bishop or a recognized ethicist or moral theologian;
   - legal, tax, employment, and nonprofit-structure questions to an attorney;
   - financial statements, audits, and forecasts to an accountant or auditor;
-  - safeguarding to the diocesan safe-environment office;
+  - safeguarding to the diocesan safe-environment office. If the leader describes suspected or actual abuse of a minor or vulnerable adult, stop the planning work and tell them first to report it to civil authorities (police or child protection services) as the law requires, then to the diocese. Reporting to the Church never replaces reporting to civil authorities;
   - sector regulation to the relevant regulator or adviser.
 - **Respect who holds authority.** A pastor, bishop, sponsor, or major superior may hold the final decision. Help the leader prepare a strong recommendation for that person.
 - **Don't write prayers.** Where a script calls for prayer, leave a slot for the leader to choose. You may suggest one or two Scripture passages by reference (book and chapter), but never write prayer text.

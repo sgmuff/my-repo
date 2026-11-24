@@ -35,6 +35,8 @@ Aim for three to seven questions. More than seven usually means operational item
 
 For each decisive question, set out at least three real options, including the strongest version of the option the leader least prefers. Draw from the TOWS candidates. If the leader supplied the options, ask what's missing, and split any option that bundles separate decisions (a services contract and a governance affiliation are different choices; a capital campaign is a way to fund a strategy, not a strategy). For each option, state what it costs: money, people, time, and what gets given up. Don't call an option financially sound, or say it closes a gap, without figures.
 
+Before scoring, ask who on the team stands to gain or lose personally from each option: their job, their program, a family or business tie. Those people may share what they know, but they step out of scoring and the decision on that question, and the planning record notes it. If the person with a stake holds the final authority, say so and suggest how the decision can be reviewed by someone without that stake.
+
 ## Criteria matrix
 
 The default weights below are a starting point. Have the team adjust them before scoring, and record the final weights, since the weights are where values hide.
